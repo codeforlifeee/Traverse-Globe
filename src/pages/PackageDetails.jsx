@@ -300,8 +300,8 @@ export default function PackageDetails() {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <a href="tel:+919997085457" className="flex-1 custom-btn text-center"><i className="fas fa-phone mr-2"/>Call</a>
-                <button onClick={()=>openWhatsApp(detail)} className="flex-1 custom-btn text-center" style={{background:'#25D366'}}><i className="fab fa-whatsapp mr-2"/>WhatsApp</button>
+                <a href="tel:+919997085457" className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap"><i className="fas fa-phone mr-1 sm:mr-2"/>Call</a>
+                <button onClick={()=>openWhatsApp(detail)} className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}><i className="fab fa-whatsapp mr-1 sm:mr-2"/>WhatsApp</button>
               </div>
 
               <button className="mt-3 w-full custom-btn" onClick={()=>setShowModal(true)}>Book Now</button>
