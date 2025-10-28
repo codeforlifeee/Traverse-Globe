@@ -11,7 +11,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="transition-transform hover:scale-105">
             <img 
-              src="/logo.webp" 
+              src="/logo.png" 
               alt="Traverse Globe" 
               className="h-14 md:h-16 object-contain"
             />
