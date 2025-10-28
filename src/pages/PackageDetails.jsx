@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { packageDetails, uaePackages, baliPackages, thailandPackages, singaporePackages } from '../data/siteData';
+import PackageCard from '../components/PackageCard';
 
 export default function PackageDetails() {
   const { id } = useParams();
@@ -15,6 +16,25 @@ export default function PackageDetails() {
     ];
     return all.find(p => p.id === pkgId);
   }, [pkgId]);
+
+  // Get similar packages based on category
+  const similarPackages = useMemo(() => {
+    if (!listMeta) return [];
+    
+    let categoryPackages = [];
+    if (listMeta._cat === 'uae') {
+      categoryPackages = uaePackages;
+    } else if (listMeta._cat === 'bali') {
+      categoryPackages = baliPackages;
+    } else if (listMeta._cat === 'thailand') {
+      categoryPackages = thailandPackages;
+    } else if (listMeta._cat === 'singapore') {
+      categoryPackages = singaporePackages;
+    }
+    
+    // Filter out current package and limit to 3 packages
+    return categoryPackages.filter(p => p.id !== pkgId).slice(0, 3);
+  }, [listMeta, pkgId]);
 
   const images = detail?.images || [];
   const [active, setActive] = useState(images[0] || '');
@@ -376,6 +396,37 @@ export default function PackageDetails() {
                 <button type="submit" className="w-full custom-btn">Submit Booking</button>
               </form>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Similar Packages Section */}
+      {similarPackages.length > 0 && (
+        <div className="container mx-auto px-4 mt-12 mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-darkBlue font-poppins mb-2">
+              Similar Packages You May Like
+            </h2>
+            <p className="text-gray-600 font-canva-sans">
+              Explore more amazing {listMeta?._cat?.toUpperCase() || 'destinations'} packages
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {similarPackages.map((pkg) => (
+              <PackageCard key={pkg.id} pkg={pkg} />
+            ))}
+          </div>
+          
+          {/* View All Link */}
+          <div className="text-center mt-8">
+            <Link 
+              to={`/${listMeta?._cat}-packages`}
+              className="inline-flex items-center gap-2 bg-orange text-white px-8 py-3 rounded-full font-poppins font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal"
+            >
+              View All {listMeta?._cat?.toUpperCase() || 'Tour'} Packages
+              <i className="fas fa-arrow-right"></i>
+            </Link>
           </div>
         </div>
       )}
