@@ -18,8 +18,9 @@ export default function PackageDetails() {
 
   const images = detail?.images || [];
   const [active, setActive] = useState(images[0] || '');
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeSection, setActiveSection] = useState('overview');
   const [showModal, setShowModal] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [adult, setAdult] = useState(2);
   const [child, setChild] = useState(0);
   const [infant, setInfant] = useState(0);
@@ -28,6 +29,40 @@ export default function PackageDetails() {
   useEffect(() => {
     setActive(images[0] || '');
   }, [pkgId]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['overview', 'itinerary', 'inclusions', 'hotels'];
+      const scrollPosition = window.scrollY + 200;
+
+      // Show back to top button
+      setShowBackToTop(window.scrollY > 300);
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
 
   const onImgError = (e) => {
     e.currentTarget.src = 'https://via.placeholder.com/800x450/DAA520/FFFFFF?text=Package+Image';
@@ -104,78 +139,128 @@ export default function PackageDetails() {
               </div>
             </div>
 
-            {/* Info tabs */}
-            <div className="bg-white rounded-2xl shadow">
-              <div className="flex gap-2 border-b px-2 md:px-4 bg-gray-50">
-                {['overview','itinerary','inclusions','hotels'].map(tab => (
-                  <button key={tab} onClick={()=>setActiveTab(tab)} className={`relative px-4 py-3 text-sm font-semibold capitalize ${activeTab===tab? 'text-green-600' : 'text-gray-600'}`}>
-                    {tab}
-                    {activeTab===tab && <span className="absolute left-0 right-0 -bottom-[1px] h-0.5 bg-green-600"/>}
+            {/* Sticky Navigation */}
+            <div className="bg-white rounded-2xl shadow mb-4 sticky top-20 z-10">
+              <div className="flex gap-2 px-2 md:px-4 py-2 overflow-x-auto">
+                {[
+                  { id: 'overview', label: 'Overview', icon: 'fa-info-circle' },
+                  { id: 'itinerary', label: 'Itinerary', icon: 'fa-calendar-alt' },
+                  { id: 'inclusions', label: 'Inclusions', icon: 'fa-check-circle' },
+                  { id: 'hotels', label: 'Hotels', icon: 'fa-hotel' }
+                ].map(({ id, label, icon }) => (
+                  <button 
+                    key={id} 
+                    onClick={() => scrollToSection(id)} 
+                    className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                      activeSection === id 
+                        ? 'bg-green-600 text-white shadow-md' 
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    <i className={`fas ${icon} mr-2`}></i>
+                    {label}
                   </button>
                 ))}
               </div>
+            </div>
 
-              {activeTab==='overview' && (
-                <div className="p-4 text-gray-700 space-y-3">
+            {/* All Sections - Scrollable Content */}
+            <div className="space-y-4">
+              {/* Overview Section */}
+              <div id="overview" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i className="fas fa-info-circle text-green-600"></i>
+                  Overview
+                </h3>
+                <div className="text-gray-700 space-y-3">
                   <p>Discover the allure of {destination.split(',')[0]} with our exclusive tour package! Explore iconic landmarks, enjoy thrilling adventures and world-class shopping. With comfortable stays, guided tours, and seamless transfers, experience the perfect blend of adventure, luxury, and culture.</p>
-                  <div className="bg-amber-50 border-l-4 border-amber-500 rounded p-3">
-                    <h6 className="text-primary font-bold mb-2 flex items-center gap-2"><i className="fas fa-star"/> {detail.name}</h6>
-                    <ul className="list-disc pl-5 space-y-1">
+                  <div className="bg-amber-50 border-l-4 border-amber-500 rounded p-4">
+                    <h6 className="text-primary font-bold mb-3 flex items-center gap-2"><i className="fas fa-star"/> {detail.name}</h6>
+                    <ul className="list-disc pl-5 space-y-2">
                       {overviewList.map((li,i)=>(<li key={i}>{li}</li>))}
                     </ul>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {activeTab==='itinerary' && (
-                <div className="p-4 text-gray-700">
-                  <h4 className="text-lg font-semibold mb-3">Day-wise Itinerary</h4>
-                  <div className="space-y-4">
-                    {itinerary.map((day, idx)=> (
-                      <div key={idx} className="bg-amber-50 p-4 rounded-xl border-l-4 border-amber-500">
-                        <h5 className="text-primary font-semibold"><i className="fas fa-calendar-day mr-2"/> {day.title}</h5>
-                        <div className="text-gray-700 mt-2 space-y-2">
-                          {day.paragraphs.map((p, i)=>(<p key={i}>{p}</p>))}
-                        </div>
+              {/* Itinerary Section */}
+              <div id="itinerary" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i className="fas fa-calendar-alt text-green-600"></i>
+                  Day-wise Itinerary
+                </h3>
+                <div className="space-y-4">
+                  {itinerary.map((day, idx)=> (
+                    <div key={idx} className="bg-amber-50 p-4 rounded-xl border-l-4 border-amber-500">
+                      <h5 className="text-primary font-semibold text-lg"><i className="fas fa-calendar-day mr-2"/> {day.title}</h5>
+                      <div className="text-gray-700 mt-2 space-y-2">
+                        {day.paragraphs.map((p, i)=>(<p key={i}>{p}</p>))}
                       </div>
-                    ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Inclusions Section */}
+              <div id="inclusions" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i className="fas fa-check-circle text-green-600"></i>
+                  Inclusions & Exclusions
+                </h3>
+                <div className="text-gray-700">
+                  <div className="bg-green-50 rounded-xl p-4 mb-4">
+                    <h5 className="text-green-600 font-semibold mb-3 text-lg"><i className="fas fa-check-circle mr-2"/>What's Included</h5>
+                    <ul className="space-y-2">
+                      {getInclusions(pkgId).map((item,i)=>(
+                        <li key={i} className="flex items-start gap-2">
+                          <i className="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"/> 
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bg-red-50 rounded-xl p-4">
+                    <h5 className="text-red-600 font-semibold mb-3 text-lg"><i className="fas fa-times-circle mr-2"/>What's Not Included</h5>
+                    <ul className="space-y-2">
+                      {getExclusions().map((item,i)=>(
+                        <li key={i} className="flex items-start gap-2">
+                          <i className="fas fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {activeTab==='inclusions' && (
-                <div className="p-4 text-gray-700">
-                  <h5 className="text-green-600 font-semibold mb-3"><i className="fas fa-check-circle mr-2"/>Inclusions</h5>
-                  <ul className="divide-y">
-                    {getInclusions(pkgId).map((item,i)=>(
-                      <li key={i} className="py-2 flex items-center gap-2"><i className="fas fa-check-circle text-green-600"/> {item}</li>
+              {/* Hotels Section */}
+              <div id="hotels" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i className="fas fa-hotel text-green-600"></i>
+                  Accommodation Details
+                </h3>
+                <div className="text-gray-700">
+                  <p className="mb-3 font-semibold text-lg">{destination.split(',')[0]} Hotel Options:</p>
+                  <ul className="space-y-2">
+                    {getHotels(pkgId, destination).map((h,i)=>(
+                      <li key={i} className="flex items-start gap-2 bg-blue-50 p-3 rounded-lg">
+                        <i className="fas fa-building text-blue-600 mt-1 flex-shrink-0"/> 
+                        <span>{h}</span>
+                      </li>
                     ))}
                   </ul>
-                  <h5 className="text-red-600 font-semibold mt-6 mb-3"><i className="fas fa-times-circle mr-2"/>Exclusions</h5>
-                  <ul className="divide-y">
-                    {getExclusions().map((item,i)=>(
-                      <li key={i} className="py-2 flex items-center gap-2"><i className="fas fa-times-circle text-red-600"/> {item}</li>
-                    ))}
-                  </ul>
+                  <p className="text-sm text-gray-500 mt-4 bg-yellow-50 p-3 rounded-lg border-l-4 border-yellow-400">
+                    <i className="fas fa-info-circle mr-2"></i>
+                    *Hotel subject to availability at the time of booking. Similar category hotel will be provided.
+                  </p>
                 </div>
-              )}
-
-              {activeTab==='hotels' && (
-                <div className="p-4 text-gray-700">
-                  <h5 className="font-semibold mb-2">Accommodation Details</h5>
-                  <p className="mb-2"><strong>{destination.split(',')[0]} Hotel Options:</strong></p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {getHotels(pkgId, destination).map((h,i)=>(<li key={i}>{h}</li>))}
-                  </ul>
-                  <p className="text-xs text-gray-500 mt-4">*Hotel subject to availability at the time of booking. Similar category hotel will be provided.</p>
-                </div>
-              )}
+              </div>
             </div>
           </div>
 
           {/* Right: sidebar */}
           <aside className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow p-5 sticky top-24">
+            <div className="bg-white rounded-2xl shadow p-5 lg:sticky lg:top-24">
               <div className="text-center bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-200">
                 <div className="text-xs text-gray-500">Starting from</div>
                 {listMeta ? (
@@ -293,6 +378,17 @@ export default function PackageDetails() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 z-50 bg-green-600 hover:bg-green-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Back to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
       )}
     </div>
   );
