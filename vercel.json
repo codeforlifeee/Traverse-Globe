@@ -1,17 +1,15 @@
 {
   "builds": [
     {
-      "src": "traverseglobe/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "traverseglobe/dist"
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }

@@ -58,7 +58,6 @@ npm install
 ```
 
 ### Run Development Server
-
 ```bash
 npm run dev
 ```
@@ -66,8 +65,6 @@ npm run dev
 The application will be available at `http://localhost:5173/`
 
 ### Build for Production
-
-```bash
 npm run build
 ```
 
