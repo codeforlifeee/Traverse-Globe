@@ -6,11 +6,12 @@ const TopDestinations = () => {
   const destinations = domesticDestinations;
 
   return (
-    <section className="py-12 md:py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8">
+    <section className="section-padding bg-white">
+      <div className="container-custom">
+        <h2 className="text-3xl md:text-4xl font-bold mb-3 text-darkBlue font-poppins">
           Trending Destinations | Domestic
         </h2>
+        <p className="text-darkBlue/60 mb-8 font-canva-sans">Explore the hottest travel spots around the country</p>
         
         <Swiper
           slidesPerView={1}
@@ -32,22 +33,25 @@ const TopDestinations = () => {
             },
             1024: {
               slidesPerView: 4,
-              spaceBetween: 30,
+              spaceBetween: 24,
             },
           }}
           className="topDestinationSwiper"
         >
           {destinations.map((destination, index) => (
             <SwiperSlide key={index}>
-              <div className="destination-box group cursor-pointer">
-                <img
-                  src={destination.image}
-                  alt={destination.title}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-120 group-hover:rotate-3"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 transition-all duration-300 group-hover:from-primary/90">
-                  <div className="text-white">
-                    <strong className="text-2xl drop-shadow-lg">{destination.title}</strong>
+              <div className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div className="relative overflow-hidden h-72">
+                  <img
+                    src={destination.image}
+                    alt={destination.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="text-white">
+                      <strong className="text-2xl font-season drop-shadow-lg">{destination.title}</strong>
+                    </div>
                   </div>
                 </div>
               </div>

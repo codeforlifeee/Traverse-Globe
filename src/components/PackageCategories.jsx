@@ -9,21 +9,24 @@ const categories = [
 
 export default function PackageCategories(){
   return (
-    <section className="py-12 md:py-16">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl md:text-4xl font-bold">Explore by Category</h2>
+    <section className="section-padding bg-lightGray">
+      <div className="container-custom">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-darkBlue font-poppins">Explore by Category</h2>
         </div>
+        <p className="text-darkBlue/60 mb-8 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((c, idx) => (
-            <div key={idx} className="relative overflow-hidden rounded-2xl shadow-xl group">
-              <img src={c.image} alt={c.title} className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-xl font-extrabold drop-shadow">{c.title}</h3>
-                <p className="text-sm text-white/90">{c.blurb}</p>
-                <div className="pt-3 flex justify-end">
-                  <Link to={c.link} className="bg-accent text-white py-2 px-4 rounded-full font-semibold hover:-translate-y-1 hover:shadow-xl transition">View Packages</Link>
+            <div key={idx} className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white">
+              <div className="relative overflow-hidden h-64">
+                <img src={c.image} alt={c.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
+              </div>
+              <div className="p-5 bg-white">
+                <h3 className="text-2xl font-bold text-darkBlue mb-2 font-season">{c.title}</h3>
+                <p className="text-sm text-darkBlue/70 mb-4 font-canva-sans">{c.blurb}</p>
+                <div className="flex justify-end">
+                  <Link to={c.link} className="bg-orange text-white py-2 px-6 rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg text-sm">View Packages</Link>
                 </div>
               </div>
             </div>

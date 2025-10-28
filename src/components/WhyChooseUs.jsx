@@ -4,12 +4,12 @@ import { services } from '../data/siteData';
 
 const ServiceCard = ({ icon, title, description }) => {
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl hover:shadow-primary/20 text-center">
-      <div className="text-5xl text-primary mb-6 transition-all duration-300 hover:scale-110 hover:rotate-6 inline-block">
+    <div className="bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl text-center border border-lightGray">
+      <div className="text-5xl text-orange mb-6 transition-all duration-300 hover:scale-110 inline-block">
         <i className={icon}></i>
       </div>
-      <h4 className="text-xl font-bold mb-4 text-gray-800">{title}</h4>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <h4 className="text-xl font-bold mb-4 text-darkBlue font-poppins">{title}</h4>
+      <p className="text-darkBlue/70 leading-relaxed font-canva-sans">{description}</p>
     </div>
   );
 };
@@ -18,20 +18,22 @@ const WhyChooseUs = () => {
   // services imported from siteData
 
   return (
-    <section className="py-12 md:py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <section className="section-padding bg-white">
+      <div className="container-custom">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Title and Description */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-darkBlue mb-6 font-poppins">
               Why Choose Traverse Globe?
             </h2>
-            <p className="text-gray-700 leading-relaxed text-lg">
+            <p className="text-darkBlue/80 leading-relaxed text-lg font-canva-sans mb-6">
               At Traverse Globe, we specialize exclusively in Dubai, offering you a journey through
               its most unique and unexplored destinations. Our deep focus on this vibrant city allows
-              us to craft unparalleled experiences that go beyond the ordinary. Discover hidden gems,
-              enjoy exclusive access, and immerse yourself in Dubai like never before. Choose Traverse
-              Globe for a travel adventure that's as unique as the city itself!
+              us to craft unparalleled experiences that go beyond the ordinary.
+            </p>
+            <p className="text-darkBlue/80 leading-relaxed text-lg font-canva-sans">
+              Discover hidden gems, enjoy exclusive access, and immerse yourself in Dubai like never before. 
+              Choose Traverse Globe for a travel adventure that's as unique as the city itself!
             </p>
           </div>
 

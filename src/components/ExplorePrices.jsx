@@ -7,30 +7,30 @@ import BookingModal from './BookingModal';
 
 const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick }) => {
   return (
-    <div className="custom-card">
+    <div className="custom-card bg-white">
       <div className="overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="w-full h-52 object-cover transition-transform duration-500 hover:scale-110 hover:rotate-2"
+          className="w-full h-52 object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
       <div className="p-6">
-        <div className="gradient-text text-3xl font-extrabold mb-2">
+        <div className="text-orange text-3xl font-bold mb-2 font-poppins">
           ₹ {price.toLocaleString()}
         </div>
-        <div className="text-gray-800 font-bold text-lg mb-4 text-center">
+        <div className="text-darkBlue font-semibold text-lg mb-4 text-center font-poppins">
           {title}
         </div>
         <div className="flex justify-center mb-4">
           {[...Array(5)].map((_, i) => (
-            <i key={i} className="fas fa-star text-yellow-400 mx-0.5 transition-transform hover:scale-125 hover:rotate-360"></i>
+            <i key={i} className="fas fa-star text-orange mx-0.5 transition-transform hover:scale-125"></i>
           ))}
         </div>
         <div className="flex justify-center">
           <button
             onClick={onClick}
-            className="custom-btn hover:bg-accent/90"
+            className="custom-btn px-8 py-2"
           >
             {buttonLabel}
           </button>
@@ -57,13 +57,13 @@ const ExplorePrices = () => {
   };
 
   return (
-    <section className="py-12 md:py-16 bg-transparent">
-      <div className="container mx-auto px-4">
+    <section className="section-padding bg-lightGray">
+      <div className="container-custom">
         <div className="mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-darkBlue mb-3 font-poppins">
             Explore Prices
           </h2>
-          <p className="text-gray-600">Explore the hottest travel spots around the globe.</p>
+          <p className="text-darkBlue/60 font-canva-sans">Explore the hottest travel spots around the globe</p>
         </div>
 
         <Swiper

@@ -1,29 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'The Season';
+  src: url('https://fonts.cdnfonts.com/css/the-season') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Canva Sans';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply font-open-sans bg-white m-0 overflow-x-hidden;
+    @apply font-canva-sans bg-lightGray m-0 overflow-x-hidden text-darkBlue;
   }
   
   h1 {
-    @apply font-open-sans text-4xl;
+    @apply font-season text-4xl md:text-5xl lg:text-6xl text-darkBlue;
   }
   
   h2 {
-    @apply font-calibri text-black;
+    @apply font-poppins text-2xl md:text-3xl lg:text-4xl font-bold text-darkBlue;
+  }
+
+  h3 {
+    @apply font-poppins text-xl md:text-2xl font-semibold text-darkBlue;
+  }
+
+  p {
+    @apply font-canva-sans text-base leading-relaxed;
   }
 }
 
 @layer utilities {
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold;
+    color: #FF5B04;
+    font-weight: 800;
   }
   
   .custom-btn {
-    @apply bg-accent text-white border-none py-2.5 px-8 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+    @apply bg-orange text-white border-none py-3 px-10 rounded-full font-poppins font-semibold text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal;
   }
   
   .destination-box {
@@ -31,11 +56,11 @@
   }
   
   .destination-box:hover {
-    @apply -translate-y-4 scale-105 shadow-2xl;
+    @apply -translate-y-2 shadow-2xl;
   }
   
   .floating-btn {
-    @apply w-11 h-11 rounded-full flex items-center justify-center text-white text-xl shadow-lg cursor-pointer transition-all duration-300 animate-bounce-slow;
+    @apply w-14 h-14 rounded-full flex items-center justify-center text-white text-xl shadow-lg cursor-pointer transition-all duration-300 animate-bounce-slow;
   }
   
   .floating-btn:hover {
@@ -43,11 +68,19 @@
   }
   
   .custom-card {
-    @apply rounded-3xl overflow-hidden shadow-lg transition-all duration-400 border border-primary/10 bg-white h-full relative z-10;
+    @apply rounded-2xl overflow-hidden shadow-lg transition-all duration-400 border border-lightGray bg-white h-full relative;
   }
   
   .custom-card:hover {
-    @apply -translate-y-4 scale-105 shadow-2xl border-primary/30;
+    @apply -translate-y-2 shadow-2xl border-teal/30;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 md:px-6 lg:px-8;
   }
 }
 
@@ -60,7 +93,28 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-  @apply text-primary;
+  color: #FF5B04 !important;
+  background-color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+  background: #FF5B04 !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #FF5B04 !important;
 }
 
 /* Animations */

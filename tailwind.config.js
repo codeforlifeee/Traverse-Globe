@@ -7,13 +7,17 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'open-sans': ['"Open Sans"', 'sans-serif'],
-        'calibri': ['Calibri', 'sans-serif'],
+        'season': ['"The Season"', 'serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'canva-sans': ['"Canva Sans"', 'sans-serif'],
       },
       colors: {
-        primary: '#667eea',
-        secondary: '#764ba2',
-        accent: '#ff5b04',
+        primary: '#16232A',
+        darkBlue: '#16232A',
+        orange: '#FF5B04',
+        teal: '#075056',
+        lightGray: '#E4EEF0',
+        accent: '#FF5B04',
       },
       transitionDuration: {
         400: '400ms',

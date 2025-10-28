@@ -6,7 +6,7 @@ const FloatingButtons = () => {
         href="https://wa.me/919997085457"
         target="_blank"
         rel="noopener noreferrer"
-        className="floating-btn bg-gradient-to-br from-[#25D366] to-[#128C7E]"
+        className="floating-btn bg-[#25D366] hover:bg-[#128C7E]"
         aria-label="WhatsApp"
       >
         <i className="fab fa-whatsapp"></i>
@@ -15,7 +15,7 @@ const FloatingButtons = () => {
       {/* Call Button */}
       <a
         href="tel:+919997085457"
-        className="floating-btn bg-gradient-to-br from-[#ff6b35] to-[#f7931e]"
+        className="floating-btn bg-orange hover:bg-teal"
         aria-label="Call Us"
       >
         <i className="fas fa-phone"></i>
