@@ -1,6 +1,5 @@
 import HeroSection from '../components/HeroSection';
 import TrendingDestinations from '../components/TrendingDestinations';
-import ToursPackagesBanner from '../components/ToursPackagesBanner';
 import TopDestinations from '../components/TopDestinations';
 import FeedbackSection from '../components/FeedbackSection';
 import ExplorePrices from '../components/ExplorePrices';
@@ -13,7 +12,6 @@ const Home = () => {
       <HeroSection />
       <TrendingDestinations />
   <PackageCategories />
-      <ToursPackagesBanner />
       <TopDestinations />
       <FeedbackSection />
       <ExplorePrices />

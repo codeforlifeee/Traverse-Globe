@@ -1,13 +1,14 @@
 // Centralized site data to mirror https://traverseglobe-demo.vercel.app/
 
 export const banners = [
-  'https://traverseglobe.com/assets/image/bannerFirstImage.png',
-  'https://traverseglobe.com/assets/image/banner/banner.webp',
-  'https://traverseglobe.com/assets/image/banner/banner1.webp',
-  'https://traverseglobe.com/assets/image/banner/banner2.webp',
-  'https://traverseglobe.com/assets/image/banner/banner3.webp',
-  'https://traverseglobe.com/assets/image/banner/banner4.webp',
-  'https://traverseglobe.com/assets/image/banner/banner5.webp',
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=80', // Dubai skyline with Burj Khalifa
+  'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=80', // Dubai Marina at sunset
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80', // Thailand tropical beach with boats
+  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&q=80', // Bali tropical resort and pool
+  'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1920&q=80', // Singapore Marina Bay cityscape
+  'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1920&q=80', // Japan Mount Fuji with cherry blossoms
+  'https://images.unsplash.com/photo-1539650116574-75c0c6d73c6e?w=1920&q=80', // Egypt Pyramids of Giza
+  'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1920&q=80', // Hot air balloons over Cappadocia Turkey
 ];
 
 export const internationalDestinations = [
