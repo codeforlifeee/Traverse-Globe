@@ -6,7 +6,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">About TraverseGlobe</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">About Traverse--Globe</h1>
               <p className="text-lg text-gray-700 mb-4">
                 Founded with a passion for travel and a mission to simplify exploring the world, Traverse Globe offers
                 customized tour packages across the globe — crafted to suit every traveler's dream and budget.
