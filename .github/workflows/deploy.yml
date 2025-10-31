@@ -22,6 +22,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Write deployment version info
+        run: |
+          echo "commit=${{ github.sha }}" > dist/version.txt
+          echo "branch=${{ github.ref_name }}" >> dist/version.txt
+          echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> dist/version.txt
+
       - name: Add .htaccess for SPA
         run: |
           cat > dist/.htaccess << 'EOF'
