@@ -95,17 +95,35 @@ npm run preview
 - Hover effects with smooth transitions
 
 ### Feedback Section
-- Interactive country cards
-- Modal popup with testimonials
-- Smooth animations
+ Rating summary with stars and counts
+ Country filter chips
+ Horizontal scroll-snap carousel with avatars and quotes
+ External CTAs to read and write reviews
 
-### Explore Prices
+```bash
+npm run build
+```
 - Package cards with pricing
-- Swiper carousel
+ ✅ Customer Feedback with carousel & filters
 - Star ratings and CTA buttons
 
 ### Why Choose Us
 - Service cards with icons
+
+## Reviews integration (optional)
+
+You can link out to your live review profiles and “Write a review” page using environment variables. Create a `.env` file at the project root and set any that apply:
+
+```
+VITE_GOOGLE_REVIEWS_URL=https://g.page/r/your-shortname/review
+VITE_GOOGLE_WRITE_REVIEW_URL=https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID
+VITE_TRIPADVISOR_REVIEWS_URL=https://www.tripadvisor.in/Attraction_Review-...
+VITE_FACEBOOK_REVIEWS_URL=https://www.facebook.com/yourpage/reviews
+```
+
+Notes:
+- To find your Google Place ID, use Google’s Place ID Finder and copy the value from the result page. The “Write a review” URL pattern is provided by Google.
+- This project also injects minimal JSON-LD aggregateRating data for SEO using your on-page reviews.
 - Auto-rotating carousel
 - Hover effects
 
