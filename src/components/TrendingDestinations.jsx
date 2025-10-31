@@ -6,6 +6,16 @@ import { internationalDestinations } from '../data/siteData';
 import { useNavigate } from 'react-router-dom';
 
 const DestinationCard = ({ image, title, onClick }) => {
+  // Build responsive sets for Unsplash 800px base URLs
+  const buildUrl = (w) => {
+    let u = image;
+    u = u.replace(/w=\d+/, `w=${w}`);
+    u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=70') : `${u}&q=70`;
+    if (!/auto=/.test(u)) u += `${u.includes('?') ? '&' : '?'}auto=format`;
+    if (!/fit=/.test(u)) u += `&fit=crop`;
+    return u;
+  };
+  const srcSet = `${buildUrl(480)} 480w, ${buildUrl(800)} 800w, ${buildUrl(1200)} 1200w`;
   return (
     <div 
       className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
@@ -14,8 +24,12 @@ const DestinationCard = ({ image, title, onClick }) => {
     >
       <div className="relative overflow-hidden h-72">
         <img
-          src={image}
+          src={buildUrl(800)}
+          srcSet={srcSet}
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>

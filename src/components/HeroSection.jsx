@@ -25,24 +25,37 @@ const HeroSection = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-[350px] md:h-[500px] lg:h-[650px]"
       >
-        {banners.map((banner, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative w-full h-full">
-              <img
-                src={banner}
-                alt={`Banner ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading={index === 0 ? 'eager' : 'lazy'}
-                fetchpriority={index === 0 ? 'high' : 'auto'}
-                decoding="async"
-                sizes="100vw"
-                width="1920"
-                height="650"
-              />
-              <div className="absolute inset-0 bg-darkBlue/30"></div>
-            </div>
-          </SwiperSlide>
-        ))}
+        {banners.map((banner, index) => {
+          // Build responsive srcset by varying width and quality params in Unsplash URLs
+          const buildUrl = (w) => {
+            let u = banner;
+            u = u.replace(/w=\d+/, `w=${w}`);
+            u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=70') : `${u}&q=70`;
+            if (!/auto=/.test(u)) u += `${u.includes('?') ? '&' : '?'}auto=format`;
+            if (!/fit=/.test(u)) u += `&fit=crop`;
+            return u;
+          };
+          const srcSet = `${buildUrl(640)} 640w, ${buildUrl(1280)} 1280w, ${buildUrl(1920)} 1920w`;
+          return (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-full">
+                <img
+                  src={buildUrl(1280)}
+                  srcSet={srcSet}
+                  alt={`Banner ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={index === 0 ? 'high' : 'auto'}
+                  decoding="async"
+                  sizes="100vw"
+                  width="1920"
+                  height="650"
+                />
+                <div className="absolute inset-0 bg-darkBlue/30"></div>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       {/* Search Overlay */}

@@ -6,12 +6,19 @@ import { packages as sitePackages } from '../data/siteData';
 import BookingModal from './BookingModal';
 
 const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick }) => {
+  const src480 = image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70');
+  const src800 = image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70');
+  const src1200 = image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=70');
   return (
     <div className="custom-card bg-white">
       <div className="overflow-hidden">
         <img
-          src={image}
+          src={src800}
+          srcSet={`${src480} 480w, ${src800} 800w, ${src1200} 1200w`}
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-52 object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>

@@ -9,18 +9,27 @@ const Header = () => {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to="/" className="transition-transform hover:scale-105">
-            <img 
-              src="/logo.png" 
-              alt="Traverse Globe" 
-              className="h-14 md:h-16 object-contain"
-            />
+          <Link to="/" className="transition-transform hover:scale-105" aria-label="Traverse Globe Home">
+            <picture>
+              <source srcSet="/logo.webp" type="image/webp" />
+              <img
+                src="/logo.png"
+                alt="Traverse Globe"
+                className="h-14 md:h-16 object-contain"
+                width="176"
+                height="70"
+                decoding="async"
+              />
+            </picture>
           </Link>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden text-darkBlue focus:outline-none hover:text-orange transition-colors"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav"
           >
             <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
@@ -99,7 +108,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <ul className="lg:hidden pb-4 space-y-3">
+          <ul id="mobile-nav" className="lg:hidden pb-4 space-y-3" role="menu">
             <li>
               <Link 
                 to="/" 

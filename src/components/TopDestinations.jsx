@@ -43,8 +43,12 @@ const TopDestinations = () => {
               <div className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
                 <div className="relative overflow-hidden h-72">
                   <img
-                    src={destination.image}
+                    src={destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')}
+                    srcSet={`${destination.image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70')} 480w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')} 800w, ${destination.image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=70')} 1200w`}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                     alt={destination.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>

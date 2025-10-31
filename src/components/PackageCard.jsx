@@ -33,7 +33,15 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package' 
   return (
     <div className="custom-card group bg-white h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-2xl">
-        <img src={pkg.image} alt={pkg.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" />
+        <img
+          src={pkg.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')}
+          srcSet={`${pkg.image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70')} 480w, ${pkg.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')} 800w, ${pkg.image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=70')} 1200w`}
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+          alt={pkg.title}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+        />
         {pkg.nights && (
           <div className="absolute left-4 bottom-4 bg-darkBlue text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90">{pkg.nights}</div>
         )}
