@@ -94,8 +94,8 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: #FF5B04 !important;
-  background-color: white;
+  color: black !important;
+  background-color: transparent;
   width: 45px;
   height: 45px;
   border-radius: 50%;
