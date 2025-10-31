@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'season': ['"The Season"', 'serif'],
+        // Map 'season' to Poppins to remove external font dependency
+        'season': ['Poppins', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
         'canva-sans': ['"Canva Sans"', 'sans-serif'],
       },

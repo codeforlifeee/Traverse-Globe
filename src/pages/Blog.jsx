@@ -157,14 +157,14 @@ export default function Blog() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="gradient-text text-2xl md:text-3xl font-extrabold">Latest Articles</h2>
-            <div className="text-darkBlue/60 text-sm">{filtered.length} result(s)</div>
+            <div className="text-darkBlue/80 text-sm">{filtered.length} result(s)</div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {others.map((p) => (
               <article key={p.id} className="bg-white rounded-2xl shadow-sm hover:shadow-md border border-lightGray overflow-hidden transition">
                 <img src={p.image} alt={p.title} className="w-full h-44 object-cover" />
                 <div className="p-5">
-                  <div className="flex items-center gap-2 text-xs text-darkBlue/60">
+                  <div className="flex items-center gap-2 text-xs text-darkBlue/80">
                     <span className="inline-block bg-lightGray text-darkBlue px-2 py-0.5 rounded-full font-semibold">{p.category}</span>
                     <span>•</span>
                     <span>{new Date(p.date).toLocaleDateString()}</span>

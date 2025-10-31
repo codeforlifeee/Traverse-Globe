@@ -63,7 +63,7 @@ const ExplorePrices = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-darkBlue mb-3 font-poppins">
             Explore Prices
           </h2>
-          <p className="text-darkBlue/60 font-canva-sans">Explore the hottest travel spots around the globe</p>
+          <p className="text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
         </div>
 
         <Swiper

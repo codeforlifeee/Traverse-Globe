@@ -36,7 +36,7 @@ export default function PackageCategories(){
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-3xl md:text-4xl font-bold text-darkBlue font-poppins">Explore by Category</h2>
         </div>
-        <p className="text-darkBlue/60 mb-8 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
+  <p className="text-darkBlue/80 mb-8 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
         
         <Swiper
           slidesPerView={1}

@@ -59,16 +59,16 @@ const Footer = () => {
               </li>
             </ul>
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="text-white/70 hover:text-orange transition-colors text-xl">
+              <a href="#" aria-label="Facebook" className="text-white/70 hover:text-orange transition-colors text-xl">
                 <i className="fab fa-facebook"></i>
               </a>
-              <a href="#" className="text-white/70 hover:text-orange transition-colors text-xl">
+              <a href="#" aria-label="Instagram" className="text-white/70 hover:text-orange transition-colors text-xl">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="text-white/70 hover:text-orange transition-colors text-xl">
+              <a href="#" aria-label="Twitter" className="text-white/70 hover:text-orange transition-colors text-xl">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="text-white/70 hover:text-orange transition-colors text-xl">
+              <a href="#" aria-label="LinkedIn" className="text-white/70 hover:text-orange transition-colors text-xl">
                 <i className="fab fa-linkedin"></i>
               </a>
             </div>

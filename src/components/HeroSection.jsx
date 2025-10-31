@@ -32,6 +32,12 @@ const HeroSection = () => {
                 src={banner}
                 alt={`Banner ${index + 1}`}
                 className="w-full h-full object-cover"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchpriority={index === 0 ? 'high' : 'auto'}
+                decoding="async"
+                sizes="100vw"
+                width="1920"
+                height="650"
               />
               <div className="absolute inset-0 bg-darkBlue/30"></div>
             </div>

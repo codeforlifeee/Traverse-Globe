@@ -11,7 +11,7 @@ const TopDestinations = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-darkBlue font-poppins">
           Trending Destinations | Domestic
         </h2>
-        <p className="text-darkBlue/60 mb-8 font-canva-sans">Explore the hottest travel spots around the country</p>
+  <p className="text-darkBlue/80 mb-8 font-canva-sans">Explore the hottest travel spots around the country</p>
         
         <Swiper
           slidesPerView={1}

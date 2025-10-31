@@ -89,7 +89,7 @@ const FeedbackSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-darkBlue mb-3 font-poppins">
             What travelers say about us
           </h2>
-          <p className="text-darkBlue/60 font-canva-sans max-w-2xl mx-auto">
+          <p className="text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
             Real stories from our customers around the world — curated, verified and showcased.
           </p>
 
@@ -105,7 +105,7 @@ const FeedbackSection = () => {
                 <div className="text-sm font-poppins text-darkBlue">
                   {avgRating.toFixed(1)} out of 5
                 </div>
-                <div className="text-xs text-darkBlue/60 font-canva-sans">
+                <div className="text-xs text-darkBlue/80 font-canva-sans">
                   Based on {totalReviews} reviews
                 </div>
               </div>
@@ -123,7 +123,7 @@ const FeedbackSection = () => {
                 >
                   <span className={`inline-block w-2.5 h-2.5 rounded-full ${p.color}`} />
                   <span className="text-sm font-poppins text-darkBlue">{p.name}</span>
-                  <span className="text-xs text-darkBlue/60">{p.rating.toFixed(1)}★</span>
+                  <span className="text-xs text-darkBlue/80">{p.rating.toFixed(1)}★</span>
                 </a>
               ))}
             </div>
@@ -190,7 +190,7 @@ const FeedbackSection = () => {
                     />
                     <div>
                       <div className="text-sm font-semibold text-darkBlue font-poppins">{t.author}</div>
-                      <div className="text-xs text-darkBlue/60">Visited {t.country}</div>
+                      <div className="text-xs text-darkBlue/80">Visited {t.country}</div>
                     </div>
                   </div>
                 </div>

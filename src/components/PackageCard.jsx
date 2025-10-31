@@ -9,7 +9,7 @@ export const PriceTag = ({ strike, price }) => (
     <div className="flex items-baseline justify-between gap-2">
       <p className="text-2xl font-bold text-orange font-poppins">
         ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
-        <span className="block text-xs font-normal text-darkBlue/60 font-canva-sans mt-1">Per Person on twin sharing</span>
+  <span className="block text-xs font-normal text-darkBlue/80 font-canva-sans mt-1">Per Person on twin sharing</span>
       </p>
     </div>
   </div>
