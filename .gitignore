@@ -1,6 +1,7 @@
 # Logs
 README.md
 dist/
+Readme/
 .htaccess
 logs
 *.log
