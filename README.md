@@ -176,7 +176,51 @@ Notes:
 4. Run `npm run dev`
 5. Open `http://localhost:5173/` in your browser
 
+# Traverse Globe – Hostinger Deployment Guide
+
+## What Was Done
+
+1. **Created `.htaccess` for SPA routing**
+	- Ensures React Router works on Hostinger (no 404 on refresh)
+	- Placed in project root and copied into `dist/` for deployment
+
+2. **Built production files**
+	- Ran `npm run build` to generate optimized assets in `dist/`
+
+3. **Packaged for upload**
+	- Copied `.htaccess` into `dist/`
+	- Created `traverse-globe-hostinger.zip` containing all files from `dist/`
+
+## How to Deploy to Hostinger
+
+### 1. Upload via File Manager (Recommended)
+- Login to Hostinger hPanel → Files → File Manager
+- Go to `public_html` (or your subdomain folder)
+- Delete any old files (like default index.html)
+- Upload `traverse-globe-hostinger.zip`
+- Extract the zip
+- Done! Visit your domain
+
+### 2. Upload via FTP
+- Get FTP credentials from hPanel
+- Use FileZilla to connect
+- Navigate to `public_html`
+- Upload all contents of `dist/` (including `.htaccess`)
+- Done! Visit your domain
+
+### 3. Enable SSL (HTTPS)
+- In hPanel: Websites → SSL → Let's Encrypt
+- Wait for SSL to activate, then use https://yourdomain.com
+
+## Notes
+- `.htaccess` is required for React Router to work on refresh
+- If deploying to a subdirectory (e.g., `/travel/`), update `vite.config.js` with `base: '/travel/'` and rebuild
+- SSL redirect and www/non-www rules are included in `.htaccess` (commented out)
+- For API/backend, use a separate server (Hostinger shared hosting does not run Node.js by default)
+
 ---
+
+**Your site is ready for Hostinger! Just upload and go live.**
 
 **Built with ❤️ using React + Vite + Tailwind CSS**
 
