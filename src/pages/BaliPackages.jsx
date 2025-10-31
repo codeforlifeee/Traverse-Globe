@@ -17,11 +17,11 @@ export default function BaliPackages() {
       {/* Hero slider */}
       <HeroSlider
         images={[
-          'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1200',
-          'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1200',
-          'https://images.unsplash.com/photo-1555400082-6e5b3c8b6b0a?w=1200',
-          'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200',
-          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200',
+          'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1555400082-6e5b3c8b6b0a?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1920&q=80',
         ]}
         className="mt-0"
       >

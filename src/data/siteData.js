@@ -1,28 +1,28 @@
 // Centralized site data to mirror https://traverseglobe-demo.vercel.app/
 
 export const banners = [
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=80', // Dubai skyline with Burj Khalifa
-  'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1920&q=80', // Dubai Marina at sunset
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80', // Thailand tropical beach with boats
-  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&q=80', // Bali tropical resort and pool
-  'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1920&q=80', // Singapore Marina Bay cityscape
-  'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1920&q=80', // Japan Mount Fuji with cherry blossoms
-  'https://images.unsplash.com/photo-1539650116574-75c0c6d73c6e?w=1920&q=80', // Egypt Pyramids of Giza
-  'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1920&q=80', // Hot air balloons over Cappadocia Turkey
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80', // Dubai skyline with Burj Khalifa
+  'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1920&q=80', // Dubai Marina at sunset
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80', // Thailand tropical beach with boats
+  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1920&q=80', // Bali tropical resort and pool
+  'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1920&q=80', // Singapore Marina Bay cityscape
+  'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=1920&q=80', // Japan Mount Fuji with cherry blossoms
+  'https://images.unsplash.com/photo-1539650116574-75c0c6d73c6e?auto=format&fit=crop&w=1920&q=80', // Egypt Pyramids of Giza
+  'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1920&q=80', // Hot air balloons over Cappadocia Turkey
 ];
 
 export const internationalDestinations = [
-  { title: 'UAE', image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg', link: '/destinations/uae' },
-  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800', link: '/destinations/bali' },
-  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', link: '/destinations/thailand' },
-  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800', link: '/destinations/singapore' },
+  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', link: '/destinations/uae' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80', link: '/destinations/bali' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80', link: '/destinations/thailand' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80', link: '/destinations/singapore' },
 ];
 
 export const domesticDestinations = [
-  { title: 'Maldives', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800', link: '/destinations/maldives' },
-  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?w=800', link: '/destinations/kashmir' },
-  { title: 'Goa', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800', link: '/destinations/goa' },
-  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800', link: '/destinations/kerala' },
+  { title: 'Maldives', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80', link: '/destinations/maldives' },
+  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=800&q=80', link: '/destinations/kashmir' },
+  { title: 'Goa', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80', link: '/destinations/goa' },
+  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80', link: '/destinations/kerala' },
 ];
 
 // UAE package listing data (mirrors UAEcard.html)
@@ -33,7 +33,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 45999,
     price: 35999,
-    image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 53999,
     price: 43999,
-    image: 'https://cdn.pixabay.com/photo/2017/12/10/17/40/dubai-3010885_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 59999,
     price: 49999,
-    image: 'https://cdn.pixabay.com/photo/2020/02/18/11/03/dubai-4859717_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 49999,
     price: 39999,
-    image: 'https://cdn.pixabay.com/photo/2018/03/04/09/04/desert-3197690_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 61599,
     price: 51599,
-    image: 'https://cdn.pixabay.com/photo/2016/11/29/04/19/dubai-1867581_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 6,
@@ -73,7 +73,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 69999,
     price: 59999,
-    image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 7,
@@ -81,7 +81,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 55999,
     price: 45999,
-    image: 'https://cdn.pixabay.com/photo/2017/12/10/17/40/dubai-3010885_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 8,
@@ -89,7 +89,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 64999,
     price: 54999,
-    image: 'https://cdn.pixabay.com/photo/2020/02/18/11/03/dubai-4859717_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 9,
@@ -97,7 +97,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 76999,
     price: 66999,
-    image: 'https://cdn.pixabay.com/photo/2018/03/04/09/04/desert-3197690_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 10,
@@ -105,7 +105,7 @@ export const uaePackages = [
     nights: '9D/8N',
     strikePrice: 79999,
     price: 59999,
-    image: 'https://cdn.pixabay.com/photo/2016/11/29/04/19/dubai-1867581_1280.jpg',
+    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -117,7 +117,7 @@ export const baliPackages = [
     nights: '5D/4N',
     strikePrice: 39999,
     price: 32999,
-    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 12,
@@ -125,7 +125,7 @@ export const baliPackages = [
     nights: '4D/3N',
     strikePrice: 33999,
     price: 27999,
-    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800',
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 13,
@@ -133,7 +133,7 @@ export const baliPackages = [
     nights: '6D/5N',
     strikePrice: 44999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 14,
@@ -141,7 +141,7 @@ export const baliPackages = [
     nights: '7D/6N',
     strikePrice: 62999,
     price: 52999,
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 15,
@@ -149,7 +149,7 @@ export const baliPackages = [
     nights: '8D/7N',
     strikePrice: 54999,
     price: 45999,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80',
   },
   // Additional Bali packages (from Balicard.html)
   {
@@ -158,7 +158,7 @@ export const baliPackages = [
     nights: '4N/5D',
     strikePrice: 48999,
     price: 42999,
-    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 27,
@@ -166,7 +166,7 @@ export const baliPackages = [
     nights: '5N/6D',
     strikePrice: 41999,
     price: 36999,
-    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800',
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 28,
@@ -174,7 +174,7 @@ export const baliPackages = [
     nights: '3N/4D',
     strikePrice: 28999,
     price: 24999,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 29,
@@ -182,7 +182,7 @@ export const baliPackages = [
     nights: '8N/9D',
     strikePrice: 68999,
     price: 58999,
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 30,
@@ -190,7 +190,7 @@ export const baliPackages = [
     nights: '9N/10D',
     strikePrice: 72999,
     price: 62999,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -202,7 +202,7 @@ export const thailandPackages = [
     nights: '5D/4N',
     strikePrice: 42999,
     price: 35999,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 17,
@@ -210,7 +210,7 @@ export const thailandPackages = [
     nights: '4D/3N',
     strikePrice: 36999,
     price: 30999,
-    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200',
+    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 18,
@@ -218,7 +218,7 @@ export const thailandPackages = [
     nights: '6D/5N',
     strikePrice: 47999,
     price: 41999,
-    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200',
+    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 19,
@@ -226,7 +226,7 @@ export const thailandPackages = [
     nights: '7D/6N',
     strikePrice: 65999,
     price: 55999,
-    image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?w=1200',
+    image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 20,
@@ -234,7 +234,7 @@ export const thailandPackages = [
     nights: '8D/7N',
     strikePrice: 57999,
     price: 48999,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
   },
   // Extended Thailand packages
   {
@@ -243,7 +243,7 @@ export const thailandPackages = [
     nights: '5D/4N',
     strikePrice: 51999,
     price: 45999,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 37,
@@ -251,7 +251,7 @@ export const thailandPackages = [
     nights: '6D/5N',
     strikePrice: 44999,
     price: 39999,
-    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200',
+    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 38,
@@ -259,7 +259,7 @@ export const thailandPackages = [
     nights: '4D/3N',
     strikePrice: 31999,
     price: 27999,
-    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200',
+    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 39,
@@ -267,7 +267,7 @@ export const thailandPackages = [
     nights: '9D/8N',
     strikePrice: 71999,
     price: 61999,
-    image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?w=1200',
+    image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -279,7 +279,7 @@ export const singaporePackages = [
     nights: '3D/2N',
     strikePrice: 30999,
     price: 25999,
-    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 22,
@@ -287,7 +287,7 @@ export const singaporePackages = [
     nights: '4D/3N',
     strikePrice: 38999,
     price: 32999,
-    image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?w=1200',
+    image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 23,
@@ -295,7 +295,7 @@ export const singaporePackages = [
     nights: '5D/4N',
     strikePrice: 44999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?w=1200',
+    image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 24,
@@ -303,7 +303,7 @@ export const singaporePackages = [
     nights: '6D/5N',
     strikePrice: 54999,
     price: 48999,
-    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?w=1200',
+    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 25,
@@ -311,7 +311,7 @@ export const singaporePackages = [
     nights: '7D/6N',
     strikePrice: 49999,
     price: 44999,
-    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
   },
   // Extended Singapore packages (from provided card list)
   {
@@ -320,7 +320,7 @@ export const singaporePackages = [
     nights: '4D/3N',
     strikePrice: 42999,
     price: 36999,
-    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 32,
@@ -328,7 +328,7 @@ export const singaporePackages = [
     nights: '5D/4N',
     strikePrice: 47999,
     price: 41999,
-    image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?w=1200',
+    image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 33,
@@ -336,7 +336,7 @@ export const singaporePackages = [
     nights: '3D/2N',
     strikePrice: 28999,
     price: 23999,
-    image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?w=1200',
+    image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 34,
@@ -344,7 +344,7 @@ export const singaporePackages = [
     nights: '8D/7N',
     strikePrice: 62999,
     price: 52999,
-    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?w=1200',
+    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 35,
@@ -352,17 +352,17 @@ export const singaporePackages = [
     nights: '9D/8N',
     strikePrice: 58999,
     price: 49999,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
 export const packages = [
-  { id: 'australia', title: 'Australia', price: 29199, image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800', buttonLabel: 'Book Now' },
+  { id: 'australia', title: 'Australia', price: 29199, image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800&q=80', buttonLabel: 'Book Now' },
   // When buttonLabel is 'View Package', provide detailId to navigate to Package Details page
-  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg', buttonLabel: 'View Package', detailId: 1 },
-  { id: 'italy', title: 'Italy', price: 29799, image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800', buttonLabel: 'Book Now' },
-  { id: 'japan', title: 'Japan', price: 29899, image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800', buttonLabel: 'Book Now' },
-  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800', buttonLabel: 'Book Now' },
+  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', buttonLabel: 'View Package', detailId: 1 },
+  { id: 'italy', title: 'Italy', price: 29799, image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=800&q=80', buttonLabel: 'Book Now' },
+  { id: 'japan', title: 'Japan', price: 29899, image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80', buttonLabel: 'Book Now' },
+  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=800&q=80', buttonLabel: 'Book Now' },
 ];
 
 // Detailed package content (subset from package-details-new.html)

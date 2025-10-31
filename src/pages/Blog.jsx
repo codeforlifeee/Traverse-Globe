@@ -71,7 +71,7 @@ export default function Blog() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <div>
                   <img
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80"
                     alt="Tropical Paradise"
                     className="w-full rounded-xl shadow"
                   />

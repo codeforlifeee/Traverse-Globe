@@ -16,11 +16,11 @@ export default function SingaporePackages() {
     <div className="min-h-screen pt-24 pb-12">
       <HeroSlider
         images={[
-          'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200',
-          'https://images.unsplash.com/photo-1565967511849-76a60a516170?w=1200',
-          'https://images.unsplash.com/photo-1496939376851-89342e90adcd?w=1200',
-          'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?w=1200',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+          'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
         ]}
       >
         <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow">Singapore Holiday Packages</h1>

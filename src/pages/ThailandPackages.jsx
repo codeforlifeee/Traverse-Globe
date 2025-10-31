@@ -16,11 +16,11 @@ export default function ThailandPackages() {
     <div className="min-h-screen pt-24 pb-12">
       <HeroSlider
         images={[
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
-          'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200',
-          'https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200',
-          'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?w=1200',
-          'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200',
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=1920&q=80',
+          'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1920&q=80',
         ]}
       >
         <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow">Thailand Holiday Packages</h1>
