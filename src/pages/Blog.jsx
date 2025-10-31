@@ -5,18 +5,18 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const bannerImages = [
-  'https://traverseglobe.com/assets/image/bannerFirstImage.png',
-  'https://traverseglobe.com/assets/image/banner/banner.webp',
-  'https://traverseglobe.com/assets/image/banner/banner1.webp',
-  'https://traverseglobe.com/assets/image/banner/banner2.webp',
-  'https://traverseglobe.com/assets/image/banner/banner3.webp',
-  'https://traverseglobe.com/assets/image/banner/banner4.webp',
-  'https://traverseglobe.com/assets/image/banner/banner5.webp',
+  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80',
+  'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&q=80',
+  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80',
+  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1920&q=80',
+  'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80',
+  'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=1920&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80',
 ];
 
 const blogCards = new Array(6).fill(0).map((_, i) => ({
   id: i + 1,
-  image: 'https://traverseglobe.com/assets/image/bannerFirstImage.png',
+  image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
   price: '$20',
   title: 'Why is the Tesla Cybertruck designed the way it is?',
   excerpt:
@@ -71,7 +71,7 @@ export default function Blog() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <div>
                   <img
-                    src="https://traverseglobe.com/assets/image/thailand.png"
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
                     alt="Tropical Paradise"
                     className="w-full rounded-xl shadow"
                   />

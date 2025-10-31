@@ -5,10 +5,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const categories = [
-  { title: 'UAE', image: 'https://traverseglobe.com/assets/image/dubai1.webp', link: '/uae-packages', blurb: 'Desert safari, sky-high views, and culture' },
-  { title: 'Bali', image: 'https://traverseglobe.com/assets/image/dubai7.jpg', link: '/bali-packages', blurb: 'Beaches, temples, and lush rice terraces' },
-  { title: 'Thailand', image: 'https://traverseglobe.com/assets/image/dubai3.jpg', link: '/thailand-packages', blurb: 'Islands, food, and vibrant culture' },
-  { title: 'Singapore', image: 'https://traverseglobe.com/assets/image/dubai5.jpg', link: '/singapore-packages', blurb: 'City lights, attractions, and family fun' },
+  { title: 'UAE', image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg', link: '/uae-packages', blurb: 'Desert safari, sky-high views, and culture' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800', link: '/bali-packages', blurb: 'Beaches, temples, and lush rice terraces' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', link: '/thailand-packages', blurb: 'Islands, food, and vibrant culture' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800', link: '/singapore-packages', blurb: 'City lights, attractions, and family fun' },
 ];
 
 const CategoryCard = ({ category }) => {

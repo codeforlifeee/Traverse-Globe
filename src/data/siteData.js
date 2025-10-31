@@ -12,17 +12,17 @@ export const banners = [
 ];
 
 export const internationalDestinations = [
-  { title: 'UAE', image: 'https://traverseglobe.com/assets/image/dubai1.webp', link: '/destinations/uae' },
-  { title: 'Bali', image: 'https://traverseglobe.com/assets/image/dubai7.jpg', link: '/destinations/bali' },
-  { title: 'Thailand', image: 'https://traverseglobe.com/assets/image/dubai3.jpg', link: '/destinations/thailand' },
-  { title: 'Singapore', image: 'https://traverseglobe.com/assets/image/dubai5.jpg', link: '/destinations/singapore' },
+  { title: 'UAE', image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg', link: '/destinations/uae' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800', link: '/destinations/bali' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', link: '/destinations/thailand' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800', link: '/destinations/singapore' },
 ];
 
 export const domesticDestinations = [
-  { title: 'Maldives', image: 'https://traverseglobe.com/assets/image/dubai1.webp', link: '/destinations/maldives' },
-  { title: 'Kashmir', image: 'https://traverseglobe.com/assets/image/dubai7.jpg', link: '/destinations/kashmir' },
-  { title: 'Goa', image: 'https://traverseglobe.com/assets/image/dubai3.jpg', link: '/destinations/goa' },
-  { title: 'Kerala', image: 'https://traverseglobe.com/assets/image/dubai5.jpg', link: '/destinations/kerala' },
+  { title: 'Maldives', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800', link: '/destinations/maldives' },
+  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?w=800', link: '/destinations/kashmir' },
+  { title: 'Goa', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800', link: '/destinations/goa' },
+  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800', link: '/destinations/kerala' },
 ];
 
 // UAE package listing data (mirrors UAEcard.html)
@@ -33,7 +33,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 45999,
     price: 35999,
-    image: 'https://traverseglobe.com/assets/image/dubai1.webp',
+    image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg',
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 53999,
     price: 43999,
-    image: 'https://traverseglobe.com/assets/image/dubai3.jpg',
+    image: 'https://cdn.pixabay.com/photo/2017/12/10/17/40/dubai-3010885_1280.jpg',
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 59999,
     price: 49999,
-    image: 'https://traverseglobe.com/assets/image/dubai5.jpg',
+    image: 'https://cdn.pixabay.com/photo/2020/02/18/11/03/dubai-4859717_1280.jpg',
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 49999,
     price: 39999,
-    image: 'https://traverseglobe.com/assets/image/dubai7.jpg',
+    image: 'https://cdn.pixabay.com/photo/2018/03/04/09/04/desert-3197690_1280.jpg',
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 61599,
     price: 51599,
-    image: 'https://traverseglobe.com/assets/image/europe-tpt.webp',
+    image: 'https://cdn.pixabay.com/photo/2016/11/29/04/19/dubai-1867581_1280.jpg',
   },
   {
     id: 6,
@@ -73,7 +73,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 69999,
     price: 59999,
-    image: 'https://traverseglobe.com/assets/image/dubai1.webp',
+    image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg',
   },
   {
     id: 7,
@@ -81,7 +81,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 55999,
     price: 45999,
-    image: 'https://traverseglobe.com/assets/image/dubai3.jpg',
+    image: 'https://cdn.pixabay.com/photo/2017/12/10/17/40/dubai-3010885_1280.jpg',
   },
   {
     id: 8,
@@ -89,7 +89,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 64999,
     price: 54999,
-    image: 'https://traverseglobe.com/assets/image/dubai5.jpg',
+    image: 'https://cdn.pixabay.com/photo/2020/02/18/11/03/dubai-4859717_1280.jpg',
   },
   {
     id: 9,
@@ -97,7 +97,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 76999,
     price: 66999,
-    image: 'https://traverseglobe.com/assets/image/dubai7.jpg',
+    image: 'https://cdn.pixabay.com/photo/2018/03/04/09/04/desert-3197690_1280.jpg',
   },
   {
     id: 10,
@@ -105,7 +105,7 @@ export const uaePackages = [
     nights: '9D/8N',
     strikePrice: 79999,
     price: 59999,
-    image: 'https://traverseglobe.com/assets/image/europe-tpt.webp',
+    image: 'https://cdn.pixabay.com/photo/2016/11/29/04/19/dubai-1867581_1280.jpg',
   },
 ];
 
@@ -357,12 +357,12 @@ export const singaporePackages = [
 ];
 
 export const packages = [
-  { id: 'australia', title: 'Australia', price: 29199, image: 'https://traverseglobe.com/assets/image/advntu-holsm.png', buttonLabel: 'Book Now' },
+  { id: 'australia', title: 'Australia', price: 29199, image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800', buttonLabel: 'Book Now' },
   // When buttonLabel is 'View Package', provide detailId to navigate to Package Details page
-  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://traverseglobe.com/assets/image/dubai1.webp', buttonLabel: 'View Package', detailId: 1 },
-  { id: 'italy', title: 'Italy', price: 29799, image: 'https://traverseglobe.com/assets/image/advntu-holsm.png', buttonLabel: 'Book Now' },
-  { id: 'japan', title: 'Japan', price: 29899, image: 'https://traverseglobe.com/assets/image/advntu-holsm.png', buttonLabel: 'Book Now' },
-  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://traverseglobe.com/assets/image/advntu-holsm.png', buttonLabel: 'Book Now' },
+  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://cdn.pixabay.com/photo/2020/02/06/20/01/dubai-4825573_1280.jpg', buttonLabel: 'View Package', detailId: 1 },
+  { id: 'italy', title: 'Italy', price: 29799, image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800', buttonLabel: 'Book Now' },
+  { id: 'japan', title: 'Japan', price: 29899, image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800', buttonLabel: 'Book Now' },
+  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800', buttonLabel: 'Book Now' },
 ];
 
 // Detailed package content (subset from package-details-new.html)
