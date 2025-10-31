@@ -11,7 +11,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="transition-transform hover:scale-105" aria-label="Traverse Globe Home">
             <picture>
-              <source srcSet="/logo.webp" type="image/webp" />
+              <source srcSet="/logo.png" type="image/png" />
               <img
                 src="/logo.png"
                 alt="Traverse Globe"
