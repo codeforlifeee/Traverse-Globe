@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import { slugify } from '../utils/slug';
+import { packageDetails } from '../data/siteData';
 
 export const PriceTag = ({ strike, price }) => (
   <div className="mt-3">
@@ -15,9 +17,26 @@ export const PriceTag = ({ strike, price }) => (
   </div>
 );
 
-export default function PackageCard({ pkg, onView, buttonLabel = 'View Package' }){
+export default function PackageCard({ pkg, onView, buttonLabel = 'View Package', category }){
   const [showExpertMenu, setShowExpertMenu] = useState(false);
   const menuRef = useRef(null);
+
+  // Compute a stable slug for the package details page
+  const computedSlug = useMemo(() => {
+    const detailName = packageDetails?.[pkg.id]?.name;
+    const base = detailName || pkg.title;
+    return slugify(base);
+  }, [pkg.id, pkg.title]);
+
+  const resolvedCategory = useMemo(() => {
+    if (category) return category;
+    const id = Number(pkg.id);
+    if ((id >= 1 && id <= 10)) return 'uae';
+    if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
+    if ((id >= 16 && id <= 20) || (id >= 36 && id <= 39)) return 'thailand';
+    if ((id >= 21 && id <= 25) || (id >= 31 && id <= 35)) return 'singapore';
+    return 'uae';
+  }, [category, pkg.id]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -40,13 +59,13 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package' 
           alt={pkg.title}
           loading="lazy"
           decoding="async"
-          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {pkg.nights && (
           <div className="absolute left-4 bottom-4 bg-darkBlue text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90">{pkg.nights}</div>
         )}
       </div>
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow">
         <h3 className="font-semibold text-darkBlue text-xl font-poppins mb-3 line-clamp-2 min-h-[3.5rem]">{pkg.title}</h3>
         <PriceTag strike={pkg.strikePrice} price={pkg.price} />
         
@@ -62,7 +81,9 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package' 
             </button>
           ) : (
             <Link 
-              to={`/package/${pkg.id}`} 
+              to={`/${resolvedCategory}-packages/${computedSlug}`} 
+              target="_blank"
+              rel="noopener noreferrer"
               className="custom-btn text-xs px-4 py-2 font-medium flex-1 hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center"
             >
               <i className="fas fa-eye mr-1.5 text-xs"></i>

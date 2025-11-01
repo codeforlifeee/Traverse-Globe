@@ -85,15 +85,15 @@ const FeedbackSection = () => {
       />
       <div className="container-custom">
         {/* Heading + Rating Summary */}
-        <div className="mb-8 md:mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-darkBlue mb-3 font-poppins">
+  <div className="mb-6 md:mb-8 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-darkBlue mb-3 font-poppins">
             What travelers say about us
           </h2>
           <p className="text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
             Real stories from our customers around the world — curated, verified and showcased.
           </p>
 
-          <div className="mt-6 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+          <div className="mt-5 flex flex-col md:flex-row items-center justify-center gap-2.5 md:gap-5">
             {/* Aggregate rating */}
             <div className="flex items-center gap-3 rounded-full border border-lightGray bg-white px-4 py-2 shadow-sm">
               <div className="flex items-center text-orange">
@@ -112,7 +112,7 @@ const FeedbackSection = () => {
             </div>
 
             {/* Platform badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
               {platformBadges.map((p) => (
                 <a
                   key={p.name}
@@ -131,7 +131,7 @@ const FeedbackSection = () => {
         </div>
 
         {/* Filter chips */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+  <div className="flex flex-wrap items-center justify-center gap-1.5 mb-5">
           {countries.map((c) => (
             <button
               key={c}
@@ -159,7 +159,7 @@ const FeedbackSection = () => {
 
           <div
             ref={scrollerRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-1 pb-2 scrollbar-thin"
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 scrollbar-thin"
             style={{ scrollBehavior: 'smooth' }}
           >
             {filteredTestimonials.map((t) => (
@@ -167,7 +167,7 @@ const FeedbackSection = () => {
                 key={t.key}
                 className="snap-center shrink-0 w-[300px] md:w-[360px] bg-white border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
               >
-                <div className="p-5">
+                <div className="p-4">
                   {/* Rating */}
                   <div className="flex items-center gap-1 text-orange">
                     {[0, 1, 2, 3, 4].map((i) => (
@@ -213,7 +213,7 @@ const FeedbackSection = () => {
             href={readReviewsUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="custom-btn px-6 py-3 !rounded-full"
+            className="custom-btn px-5 py-2 text-sm !rounded-full"
           >
             Read full reviews
           </a>
@@ -221,7 +221,7 @@ const FeedbackSection = () => {
             href={writeReviewUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="px-6 py-3 rounded-full border border-teal text-teal hover:bg-teal hover:text-white transition font-poppins"
+            className="px-5 py-2 text-sm rounded-full border border-teal text-teal hover:bg-teal hover:text-white transition font-poppins"
           >
             Write a review
           </a>

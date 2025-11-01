@@ -13,7 +13,7 @@ export default function SingaporePackages() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       <HeroSlider
         images={[
           'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1920&q=80',
@@ -23,7 +23,7 @@ export default function SingaporePackages() {
           'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
         ]}
       >
-        <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow">Singapore Holiday Packages</h1>
+  <h1 className="text-3xl md:text-4xl font-extrabold drop-shadow">Singapore Holiday Packages</h1>
         <p className="text-white/90 mt-3">City lights, world-class attractions, and family fun</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form
@@ -55,7 +55,7 @@ export default function SingaporePackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
+                <PackageCard key={pkg.id} pkg={pkg} category="singapore" />
               ))}
             </div>
           ) : (

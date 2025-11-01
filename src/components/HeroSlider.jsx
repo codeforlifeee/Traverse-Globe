@@ -25,7 +25,7 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
   return (
     <div className={`relative w-full select-none ${className}`} onMouseEnter={() => (hoverRef.current = true)} onMouseLeave={() => (hoverRef.current = false)}>
       <div className="relative overflow-hidden rounded-none">
-        <div className="w-full h-[300px] md:h-[500px] relative">
+        <div className="w-full h-[260px] md:h-[480px] relative">
           {/* Slides */}
           <div className="absolute inset-0">
             <div className="h-full w-full flex transition-transform duration-700" style={{ transform: `translateX(-${index * 100}%)` }}>

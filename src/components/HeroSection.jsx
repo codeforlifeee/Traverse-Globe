@@ -21,9 +21,9 @@ const HeroSection = () => {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="w-full h-[350px] md:h-[500px] lg:h-[650px]"
+  navigation={true}
+  modules={[Autoplay, Pagination, Navigation]}
+  className="w-full h-[300px] md:h-[480px] lg:h-[640px]"
       >
         {banners.map((banner, index) => {
           // Build responsive srcset by varying width and quality params in Unsplash URLs
@@ -59,18 +59,18 @@ const HeroSection = () => {
       </Swiper>
 
       {/* Search Overlay */}
-      <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-4xl">
-        <div className="bg-white rounded-2xl p-6 md:p-8 shadow-2xl border border-lightGray">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-season font-bold text-center mb-6 text-darkBlue">
+  <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-4xl">
+        <div className="bg-white rounded-2xl p-5 md:p-6 shadow-2xl border border-lightGray">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-season font-bold text-center mb-5 text-darkBlue">
             Holiday Packages
           </h1>
           <div className="flex flex-col md:flex-row gap-3 md:gap-0">
             <input
               type="text"
               placeholder="Enter Your Dream Destination!"
-              className="flex-1 px-6 py-4 md:rounded-l-full rounded-full md:rounded-r-none border-2 border-lightGray focus:outline-none focus:border-orange text-darkBlue font-canva-sans placeholder:text-darkBlue/50"
+              className="flex-1 px-4 py-3 md:rounded-l-full rounded-full md:rounded-r-none border-2 border-lightGray focus:outline-none focus:border-orange text-darkBlue font-canva-sans placeholder:text-darkBlue/50"
             />
-            <button className="bg-orange hover:bg-teal text-white px-10 py-4 md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
+            <button className="bg-orange hover:bg-teal text-white px-6 py-3 md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
               <i className="fas fa-search mr-2"></i>
               Search
             </button>

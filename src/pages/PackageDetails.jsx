@@ -1,12 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { packageDetails, uaePackages, baliPackages, thailandPackages, singaporePackages } from '../data/siteData';
+import { slugify } from '../utils/slug';
 import PackageCard from '../components/PackageCard';
 
 export default function PackageDetails() {
-  const { id } = useParams();
-  const pkgId = Number(id);
-  const detail = packageDetails[pkgId];
+  const { slug } = useParams();
+
+  // Resolve detail either by numeric id or slug of name
+  let resolvedId = Number.isFinite(Number(slug)) ? Number(slug) : null;
+  let detail = resolvedId ? packageDetails[resolvedId] : null;
+
+  if (!detail && typeof slug === 'string') {
+    // find by slug of detail.name
+    const matchEntry = Object.entries(packageDetails).find(([, d]) => slugify(d?.name) === slug);
+    if (matchEntry) {
+      resolvedId = Number(matchEntry[0]);
+      detail = matchEntry[1];
+    }
+  }
+  const pkgId = resolvedId ?? -1;
   const listMeta = useMemo(() => {
     const all = [
       ...uaePackages.map(p => ({...p, _cat: 'uae'})),
@@ -106,14 +119,14 @@ export default function PackageDetails() {
 
   if (!detail) {
     return (
-      <div className="min-h-screen pt-24 pb-12 container mx-auto px-4">
+      <div className="min-h-screen pt-20 pb-10 container mx-auto px-4">
         <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-2xl">Package not found. <Link to="/uae-packages" className="text-primary underline">Go back to packages</Link></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       <div className="container mx-auto px-4">
         {/* Breadcrumbs */}
         <nav className="text-sm text-gray-600 mb-4">
@@ -160,8 +173,8 @@ export default function PackageDetails() {
             </div>
 
             {/* Sticky Navigation */}
-            <div className="bg-white rounded-2xl shadow mb-4 sticky top-20 z-10">
-              <div className="flex gap-2 px-2 md:px-4 py-2 overflow-x-auto">
+            <div className="bg-white rounded-2xl shadow-lg mb-4 sticky top-20 z-10">
+              <div className="flex gap-2 px-2 md:px-4 py-3 overflow-x-auto">
                 {[
                   { id: 'overview', label: 'Overview', icon: 'fa-info-circle' },
                   { id: 'itinerary', label: 'Itinerary', icon: 'fa-calendar-alt' },
@@ -171,10 +184,10 @@ export default function PackageDetails() {
                   <button 
                     key={id} 
                     onClick={() => scrollToSection(id)} 
-                    className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    className={`flex-shrink-0 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
                       activeSection === id 
-                        ? 'bg-green-600 text-white shadow-md' 
-                        : 'text-gray-600 hover:bg-gray-100'
+                        ? 'bg-gradient-to-r from-[#075056] to-[#0a6b72] text-white shadow-md' 
+                        : 'text-gray-600 hover:bg-[#E4EEF0] hover:text-[#16232A]'
                     }`}
                   >
                     <i className={`fas ${icon} mr-2`}></i>
@@ -188,15 +201,17 @@ export default function PackageDetails() {
             <div className="space-y-4">
               {/* Overview Section */}
               <div id="overview" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="fas fa-info-circle text-green-600"></i>
+                <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
+                  <i className="fas fa-info-circle text-[#FF5B04]"></i>
                   Overview
                 </h3>
                 <div className="text-gray-700 space-y-3">
                   <p>Discover the allure of {destination.split(',')[0]} with our exclusive tour package! Explore iconic landmarks, enjoy thrilling adventures and world-class shopping. With comfortable stays, guided tours, and seamless transfers, experience the perfect blend of adventure, luxury, and culture.</p>
-                  <div className="bg-amber-50 border-l-4 border-amber-500 rounded p-4">
-                    <h6 className="text-primary font-bold mb-3 flex items-center gap-2"><i className="fas fa-star"/> {detail.name}</h6>
-                    <ul className="list-disc pl-5 space-y-2">
+                  <div className="bg-gradient-to-br from-[#d4f1f4] via-[#E4EEF0] to-[#cfe9ec] rounded-lg p-6 shadow-md border-l-4 border-[#075056]">
+                    <h6 className="text-[#16232A] font-bold mb-3 flex items-center gap-2 text-lg">
+                      <i className="fas fa-star text-[#FF5B04]"/> {detail.name}
+                    </h6>
+                    <ul className="list-disc pl-5 space-y-2 text-[#16232A]">
                       {overviewList.map((li,i)=>(<li key={i}>{li}</li>))}
                     </ul>
                   </div>
@@ -205,15 +220,18 @@ export default function PackageDetails() {
 
               {/* Itinerary Section */}
               <div id="itinerary" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="fas fa-calendar-alt text-green-600"></i>
+                <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
+                  <i className="fas fa-calendar-alt text-[#FF5B04]"></i>
                   Day-wise Itinerary
                 </h3>
                 <div className="space-y-4">
                   {itinerary.map((day, idx)=> (
-                    <div key={idx} className="bg-amber-50 p-4 rounded-xl border-l-4 border-amber-500">
-                      <h5 className="text-primary font-semibold text-lg"><i className="fas fa-calendar-day mr-2"/> {day.title}</h5>
-                      <div className="text-gray-700 mt-2 space-y-2">
+                    <div key={idx} className="bg-gradient-to-r from-[#E4EEF0] via-[#f5fafb] to-[#E4EEF0] p-5 rounded-xl border-l-4 border-[#FF5B04] shadow-md hover:shadow-lg transition-all duration-300">
+                      <h5 className="text-[#16232A] font-bold text-lg flex items-center gap-2">
+                        <span className="flex items-center justify-center w-8 h-8 bg-[#FF5B04] text-white rounded-full text-sm font-bold shadow-md">{idx + 1}</span>
+                        {day.title}
+                      </h5>
+                      <div className="text-gray-700 mt-3 space-y-2 ml-10">
                         {day.paragraphs.map((p, i)=>(<p key={i}>{p}</p>))}
                       </div>
                     </div>
@@ -223,27 +241,31 @@ export default function PackageDetails() {
 
               {/* Inclusions Section */}
               <div id="inclusions" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="fas fa-check-circle text-green-600"></i>
+                <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
+                  <i className="fas fa-check-circle text-[#FF5B04]"></i>
                   Inclusions & Exclusions
                 </h3>
                 <div className="text-gray-700">
-                  <div className="bg-green-50 rounded-xl p-4 mb-4">
-                    <h5 className="text-green-600 font-semibold mb-3 text-lg"><i className="fas fa-check-circle mr-2"/>What's Included</h5>
-                    <ul className="space-y-2">
+                  <div className="bg-gradient-to-br from-[#d4f1f4] to-[#E4EEF0] rounded-xl p-5 mb-4 shadow-md border-l-4 border-[#075056]">
+                    <h5 className="text-[#075056] font-bold mb-4 text-lg flex items-center gap-2">
+                      <i className="fas fa-check-circle text-[#075056]"/>What's Included
+                    </h5>
+                    <ul className="space-y-3">
                       {getInclusions(pkgId).map((item,i)=>(
-                        <li key={i} className="flex items-start gap-2">
-                          <i className="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"/> 
+                        <li key={i} className="flex items-start gap-3 text-[#16232A]">
+                          <i className="fas fa-check-circle text-[#075056] mt-1 flex-shrink-0"/> 
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-red-50 rounded-xl p-4">
-                    <h5 className="text-red-600 font-semibold mb-3 text-lg"><i className="fas fa-times-circle mr-2"/>What's Not Included</h5>
-                    <ul className="space-y-2">
+                  <div className="bg-gradient-to-br from-red-100 to-red-50 rounded-xl p-5 shadow-md border-l-4 border-red-400">
+                    <h5 className="text-red-600 font-bold mb-4 text-lg flex items-center gap-2">
+                      <i className="fas fa-times-circle"/>What's Not Included
+                    </h5>
+                    <ul className="space-y-3">
                       {getExclusions().map((item,i)=>(
-                        <li key={i} className="flex items-start gap-2">
+                        <li key={i} className="flex items-start gap-3 text-red-800">
                           <i className="fas fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
                           <span>{item}</span>
                         </li>
@@ -255,24 +277,26 @@ export default function PackageDetails() {
 
               {/* Hotels Section */}
               <div id="hotels" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="fas fa-hotel text-green-600"></i>
+                <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
+                  <i className="fas fa-hotel text-[#FF5B04]"></i>
                   Accommodation Details
                 </h3>
                 <div className="text-gray-700">
-                  <p className="mb-3 font-semibold text-lg">{destination.split(',')[0]} Hotel Options:</p>
-                  <ul className="space-y-2">
+                  <p className="mb-4 font-semibold text-lg text-[#16232A]">{destination.split(',')[0]} Hotel Options:</p>
+                  <ul className="space-y-3">
                     {getHotels(pkgId, destination).map((h,i)=>(
-                      <li key={i} className="flex items-start gap-2 bg-blue-50 p-3 rounded-lg">
-                        <i className="fas fa-building text-blue-600 mt-1 flex-shrink-0"/> 
+                      <li key={i} className="flex items-start gap-3 bg-gradient-to-r from-[#E4EEF0] via-[#f5fafb] to-[#E4EEF0] p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-[#075056]">
+                        <i className="fas fa-building text-[#075056] mt-1 flex-shrink-0 text-xl"/> 
                         <span>{h}</span>
                       </li>
                     ))}
                   </ul>
-                  <p className="text-sm text-gray-500 mt-4 bg-yellow-50 p-3 rounded-lg border-l-4 border-yellow-400">
-                    <i className="fas fa-info-circle mr-2"></i>
-                    *Hotel subject to availability at the time of booking. Similar category hotel will be provided.
-                  </p>
+                  <div className="mt-5 bg-gradient-to-r from-[#fff3e0] to-[#ffe0b2] p-4 rounded-xl shadow-md border-l-4 border-[#FF5B04]">
+                    <p className="text-sm text-[#16232A] font-medium">
+                      <i className="fas fa-info-circle mr-2 text-[#FF5B04]"></i>
+                      *Hotel subject to availability at the time of booking. Similar category hotel will be provided.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,19 +305,19 @@ export default function PackageDetails() {
           {/* Right: sidebar */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow p-5 lg:sticky lg:top-24">
-              <div className="text-center bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-200">
-                <div className="text-xs text-gray-500">Starting from</div>
+              <div className="text-center rounded-xl p-6 bg-gradient-to-br from-[#E4EEF0] via-[#d4f1f4] to-[#bde5e8] shadow-lg border-2 border-[#075056]/10">
+                <div className="text-xs text-[#075056] font-semibold mb-2 uppercase tracking-widest">Starting from</div>
                 {listMeta ? (
                   <div>
                     {typeof listMeta.strikePrice === 'number' && (
-                      <div className="text-sm text-gray-400 line-through">₹{listMeta.strikePrice.toLocaleString('en-IN')}</div>
+                      <div className="text-lg text-red-400 line-through mb-1">₹{listMeta.strikePrice.toLocaleString('en-IN')}</div>
                     )}
-                    <div className="text-3xl font-extrabold text-gray-900">₹{listMeta.price?.toLocaleString ? listMeta.price.toLocaleString('en-IN') : listMeta.price}</div>
+                    <div className="text-5xl font-extrabold text-[#075056] mb-1 drop-shadow-md">₹{listMeta.price?.toLocaleString ? listMeta.price.toLocaleString('en-IN') : listMeta.price}</div>
                   </div>
                 ) : (
-                  <div className="text-3xl font-extrabold text-gray-900" dangerouslySetInnerHTML={{ __html: detail.priceHTML }} />
+                  <div className="text-5xl font-extrabold text-[#075056] mb-1 drop-shadow-md" dangerouslySetInnerHTML={{ __html: detail.priceHTML }} />
                 )}
-                <div className="text-xs text-gray-500">Per Person on twin sharing</div>
+                <div className="text-xs text-[#075056]/80 font-semibold mt-2">Per Person on twin sharing</div>
               </div>
 
               <div className="mt-4">
@@ -402,7 +426,7 @@ export default function PackageDetails() {
 
       {/* Similar Packages Section */}
       {similarPackages.length > 0 && (
-        <div className="container mx-auto px-4 mt-12 mb-12">
+  <div className="container mx-auto px-4 mt-8 mb-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-darkBlue font-poppins mb-2">
               Similar Packages You May Like
@@ -414,7 +438,7 @@ export default function PackageDetails() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {similarPackages.map((pkg) => (
-              <PackageCard key={pkg.id} pkg={pkg} />
+              <PackageCard key={pkg.id} pkg={pkg} category={listMeta?._cat} />
             ))}
           </div>
           

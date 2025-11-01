@@ -13,7 +13,7 @@ export default function BaliPackages() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       {/* Hero slider */}
       <HeroSlider
         images={[
@@ -25,7 +25,7 @@ export default function BaliPackages() {
         ]}
         className="mt-0"
       >
-        <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow">Bali Holiday Packages</h1>
+  <h1 className="text-3xl md:text-4xl font-extrabold drop-shadow">Bali Holiday Packages</h1>
         <p className="text-white/90 mt-3">Curated Bali itineraries with beach, culture, and adventure</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form
@@ -61,7 +61,7 @@ export default function BaliPackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
+                <PackageCard key={pkg.id} pkg={pkg} category="bali" />
               ))}
             </div>
           ) : (

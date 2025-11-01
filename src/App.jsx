@@ -13,6 +13,7 @@ const BaliPackages = lazy(() => import('./pages/BaliPackages'));
 const ThailandPackages = lazy(() => import('./pages/ThailandPackages'));
 const SingaporePackages = lazy(() => import('./pages/SingaporePackages'));
 const PackageDetails = lazy(() => import('./pages/PackageDetails'));
+const PackageRedirect = lazy(() => import('./pages/PackageRedirect'));
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <div className="min-h-screen bg-white overflow-x-hidden">
         <Header />
         <main>
-          <Suspense fallback={<div className="py-20 text-center text-darkBlue/80">Loading…</div>}>
+          <Suspense fallback={<div className="py-12 text-center text-darkBlue/80">Loading…</div>}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -29,10 +30,15 @@ function App() {
               <Route path="/services" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/uae-packages" element={<UAEPackages />} />
+              <Route path="/uae-packages/:slug" element={<PackageDetails />} />
               <Route path="/bali-packages" element={<BaliPackages />} />
+              <Route path="/bali-packages/:slug" element={<PackageDetails />} />
               <Route path="/thailand-packages" element={<ThailandPackages />} />
+              <Route path="/thailand-packages/:slug" element={<PackageDetails />} />
               <Route path="/singapore-packages" element={<SingaporePackages />} />
-              <Route path="/package/:id" element={<PackageDetails />} />
+              <Route path="/singapore-packages/:slug" element={<PackageDetails />} />
+              {/* Backward compatibility: redirect old slug URLs to nested category path */}
+              <Route path="/package/:slug" element={<PackageRedirect />} />
             </Routes>
           </Suspense>
         </main>

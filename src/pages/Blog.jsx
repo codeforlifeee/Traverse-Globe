@@ -56,7 +56,7 @@ export default function Blog() {
     : null;
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       {/* JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }} />
       {featuredJsonLd && (
@@ -144,7 +144,7 @@ export default function Blog() {
                   {featured.excerpt}
                 </p>
                 <div className="mt-4">
-                  <a href={featured.url || '#'} className="custom-btn px-6 py-3 inline-block !rounded-full">Read Article</a>
+                  <a href={featured.url || '#'} className="custom-btn px-5 py-2 text-sm inline-block !rounded-full">Read Article</a>
                 </div>
               </div>
             </div>

@@ -98,7 +98,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/contact" 
-                className="bg-orange text-white px-8 py-2.5 rounded-full font-poppins font-semibold hover:bg-teal transition-all hover:shadow-lg hover:scale-105"
+                className="bg-orange text-white px-5 py-2 rounded-full font-poppins font-semibold hover:bg-teal transition-all hover:shadow-md"
               >
                 Book Now
               </Link>
@@ -174,7 +174,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/contact" 
-                className="block bg-orange text-white px-6 py-2.5 rounded-full font-poppins font-semibold text-center hover:bg-teal transition-all"
+                className="block bg-orange text-white px-4 py-2 rounded-full font-poppins font-semibold text-center hover:bg-teal transition-all"
                 onClick={() => setIsOpen(false)}
               >
                 Book Now

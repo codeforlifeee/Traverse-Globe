@@ -7,10 +7,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Map 'season' to Poppins to remove external font dependency
-        'season': ['Poppins', 'sans-serif'],
-        'poppins': ['Poppins', 'sans-serif'],
-        'canva-sans': ['"Canva Sans"', 'sans-serif'],
+        // Header: prefers 'The Seasons' if provided, then Playfair Display as open alternative
+        'season': ['"The Seasons"', '"Playfair Display"', 'serif'],
+        // Subheading
+        'poppins': ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Body: prefers 'Canva Sans' if available, falls back to Inter/system
+        'canva-sans': ['"Canva Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: '#16232A',

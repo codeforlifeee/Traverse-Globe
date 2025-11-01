@@ -1,12 +1,12 @@
 export default function Contact() {
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       {/* Top banner */}
       <section className="bg-gradient-to-br from-primary/10 to-secondary/10 py-10">
         <div className="container mx-auto px-4">
           <div className="text-center text-gray-800">
             <div className="text-sm uppercase tracking-wider text-primary font-semibold">Contact Us</div>
-            <h1 className="text-3xl md:text-5xl font-extrabold mt-2">What Are You <span className="text-accent">Waiting For</span></h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold mt-2">What Are You <span className="text-accent">Waiting For</span></h1>
             <p className="mt-3 text-gray-600">Reach out to us anytime, from anywhere - we're always here to help and look forward to assisting you.</p>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-darkBlue text-white py-12 mt-12">
+    <footer className="bg-darkBlue text-white py-8 mt-8">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
@@ -74,7 +74,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/70 font-canva-sans">
+  <div className="border-t border-white/20 mt-6 pt-6 text-center text-white/70 font-canva-sans">
           <p>
             &copy; {new Date().getFullYear()} TraverseGlobe. All rights reserved. | Crafted with ❤️ for travelers
           </p>

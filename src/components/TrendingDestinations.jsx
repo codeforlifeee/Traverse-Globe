@@ -22,7 +22,7 @@ const DestinationCard = ({ image, title, onClick }) => {
       onClick={onClick}
       style={{ animationDelay: '0.1s' }}
     >
-      <div className="relative overflow-hidden h-72">
+  <div className="relative overflow-hidden h-60 md:h-72">
         <img
           src={buildUrl(800)}
           srcSet={srcSet}
@@ -33,7 +33,7 @@ const DestinationCard = ({ image, title, onClick }) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6">
+  <div className="absolute bottom-0 left-0 right-0 p-5">
           <div className="text-white">
             <strong className="text-2xl font-season drop-shadow-lg">{title}</strong>
           </div>
@@ -48,22 +48,29 @@ const TrendingDestinations = () => {
   const navigate = useNavigate();
 
   const handleDestinationClick = (link) => {
-    // For now, route UAE to the UAE packages listing; others can be added later
-    if (link.includes('uae')) navigate('/uae-packages');
-    else navigate('/');
+    // Map destination slug from the provided link to the correct packages route
+    const slug = (link || '').split('/').filter(Boolean).pop();
+    const routeMap = {
+      uae: '/uae-packages',
+      bali: '/bali-packages',
+      thailand: '/thailand-packages',
+      singapore: '/singapore-packages',
+    };
+    const target = routeMap[slug] || '/';
+    navigate(target);
   };
 
   return (
     <section className="section-padding bg-lightGray">
       <div className="container-custom">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3 text-darkBlue font-poppins">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-darkBlue font-poppins">
           Trending Destinations | International
         </h2>
   <p className="text-darkBlue/80 mb-8 font-canva-sans">Explore the hottest travel spots around the globe</p>
         
         <Swiper
           slidesPerView={1}
-          spaceBetween={20}
+          spaceBetween={14}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -73,15 +80,15 @@ const TrendingDestinations = () => {
           breakpoints={{
             640: {
               slidesPerView: 2,
-              spaceBetween: 15,
+              spaceBetween: 12,
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 20,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerView: 4,
-              spaceBetween: 24,
+              spaceBetween: 20,
             },
           }}
           className="destinationSwiper"

@@ -12,12 +12,12 @@ export default function UAEPackages() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       {/* Hero banner */}
       <section className="hero_sec">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
-            <h1 className="text-3xl md:text-5xl font-extrabold">UAE Holidays <span className="text-accent">Packages</span></h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold">UAE Holidays <span className="text-accent">Packages</span></h1>
             <p className="text-gray-600 mt-2">Best curated Dubai & UAE packages with great inclusions</p>
           </div>
           {/* Search */}
@@ -52,7 +52,7 @@ export default function UAEPackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
+                <PackageCard key={pkg.id} pkg={pkg} category="uae" />
               ))}
             </div>
           ) : (

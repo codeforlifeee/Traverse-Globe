@@ -13,7 +13,7 @@ export default function ThailandPackages() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-20 pb-10">
       <HeroSlider
         images={[
           'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
@@ -23,7 +23,7 @@ export default function ThailandPackages() {
           'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1920&q=80',
         ]}
       >
-        <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow">Thailand Holiday Packages</h1>
+  <h1 className="text-3xl md:text-4xl font-extrabold drop-shadow">Thailand Holiday Packages</h1>
         <p className="text-white/90 mt-3">Top Thailand getaways: islands, culture, food</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form
@@ -55,7 +55,7 @@ export default function ThailandPackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} />
+                <PackageCard key={pkg.id} pkg={pkg} category="thailand" />
               ))}
             </div>
           ) : (

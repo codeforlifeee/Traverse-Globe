@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import { packages as sitePackages } from '../data/siteData';
+import { packages as sitePackages, packageDetails } from '../data/siteData';
 import BookingModal from './BookingModal';
+import { slugify } from '../utils/slug';
 
 const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick }) => {
   const src480 = image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70');
@@ -19,17 +20,17 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
           alt={title}
           loading="lazy"
           decoding="async"
-          className="w-full h-52 object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full h-48 md:h-52 object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-6">
-        <div className="text-orange text-3xl font-bold mb-2 font-poppins">
+      <div className="p-5">
+        <div className="text-orange text-2xl font-bold mb-2 font-poppins">
           ₹ {price.toLocaleString()}
         </div>
-        <div className="text-darkBlue font-semibold text-lg mb-4 text-center font-poppins">
+        <div className="text-darkBlue font-semibold text-base md:text-lg mb-3 text-center font-poppins">
           {title}
         </div>
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-3">
           {[...Array(5)].map((_, i) => (
             <i key={i} className="fas fa-star text-orange mx-0.5 transition-transform hover:scale-125"></i>
           ))}
@@ -37,7 +38,7 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
         <div className="flex justify-center">
           <button
             onClick={onClick}
-            className="custom-btn px-8 py-2"
+            className="custom-btn px-4 py-2 text-sm"
           >
             {buttonLabel}
           </button>
@@ -51,12 +52,24 @@ const ExplorePrices = () => {
   const packages = sitePackages;
   const [showBooking, setShowBooking] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const resolveCategoryFromDetailId = (id) => {
+    const num = Number(id);
+    if ((num >= 1 && num <= 10)) return 'uae';
+    if ((num >= 11 && num <= 15) || (num >= 26 && num <= 30)) return 'bali';
+    if ((num >= 16 && num <= 20) || (num >= 36 && num <= 39)) return 'thailand';
+    if ((num >= 21 && num <= 25) || (num >= 31 && num <= 35)) return 'singapore';
+    return 'uae';
+  };
 
   const handleCardClick = (pkg) => {
-    // If a detailId is provided, navigate to the package details page; otherwise open booking modal
+    // If a detailId is provided, open the package details page in a new tab with a name-based slug
     if (pkg.detailId) {
-      navigate(`/package/${pkg.detailId}`);
+      const detail = packageDetails?.[pkg.detailId];
+      const slug = slugify(detail?.name || pkg.title);
+      const category = resolveCategoryFromDetailId(pkg.detailId);
+      window.open(`/${category}-packages/${slug}`, '_blank', 'noopener,noreferrer');
       return;
     }
     setSelectedTitle(pkg.title);
@@ -67,7 +80,7 @@ const ExplorePrices = () => {
     <section className="section-padding bg-lightGray">
       <div className="container-custom">
         <div className="mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-darkBlue mb-3 font-poppins">
+          <h2 className="text-2xl md:text-3xl font-bold text-darkBlue mb-3 font-poppins">
             Explore Prices
           </h2>
           <p className="text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
@@ -75,7 +88,7 @@ const ExplorePrices = () => {
 
         <Swiper
           slidesPerView={1}
-          spaceBetween={20}
+          spaceBetween={14}
           loop={true}
           autoplay={{
             delay: 3500,
@@ -86,15 +99,15 @@ const ExplorePrices = () => {
           breakpoints={{
             640: {
               slidesPerView: 2,
-              spaceBetween: 15,
+              spaceBetween: 12,
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 20,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerView: 4,
-              spaceBetween: 30,
+              spaceBetween: 20,
             },
           }}
           className="prizeSwiper py-4"
