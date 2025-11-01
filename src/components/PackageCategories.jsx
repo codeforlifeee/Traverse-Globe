@@ -14,15 +14,15 @@ const categories = [
 const CategoryCard = ({ category }) => {
   return (
     <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full">
-      <div className="relative overflow-hidden h-56 md:h-64">
+      <div className="relative overflow-hidden h-44 md:h-52">
         <img src={category.image} alt={category.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
       </div>
-      <div className="p-4 bg-white">
-        <h3 className="text-xl font-bold text-darkBlue mb-2 font-season">{category.title}</h3>
-        <p className="text-sm text-darkBlue/70 mb-3 font-canva-sans">{category.blurb}</p>
+      <div className="p-3 bg-white">
+        <h3 className="text-lg font-bold text-darkBlue mb-1.5 font-season">{category.title}</h3>
+        <p className="text-xs text-darkBlue/70 mb-2.5 font-canva-sans">{category.blurb}</p>
         <div className="flex justify-end">
-          <Link to={category.link} className="bg-orange text-white py-2 px-5 rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg text-sm">View Packages</Link>
+          <Link to={category.link} className="bg-orange text-white py-1.5 px-4 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg">View Packages</Link>
         </div>
       </div>
     </div>
@@ -33,10 +33,10 @@ export default function PackageCategories(){
   return (
     <section className="section-padding bg-lightGray">
       <div className="container-custom">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-2xl md:text-3xl font-bold text-darkBlue font-poppins">Explore by Category</h2>
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-xl md:text-2xl font-bold text-darkBlue font-poppins">Explore by Category</h2>
         </div>
-  <p className="text-darkBlue/80 mb-8 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
+  <p className="text-sm text-darkBlue/80 mb-6 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
         
         <Swiper
           slidesPerView={1}

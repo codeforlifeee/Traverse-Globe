@@ -20,25 +20,25 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
           alt={title}
           loading="lazy"
           decoding="async"
-          className="w-full h-48 md:h-52 object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full h-40 md:h-44 object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-5">
-        <div className="text-orange text-2xl font-bold mb-2 font-poppins">
+      <div className="p-4">
+        <div className="text-orange text-lg md:text-xl font-bold mb-1.5 font-poppins">
           ₹ {price.toLocaleString()}
         </div>
-        <div className="text-darkBlue font-semibold text-base md:text-lg mb-3 text-center font-poppins">
+        <div className="text-darkBlue font-semibold text-sm md:text-base mb-2 text-center font-poppins">
           {title}
         </div>
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center mb-2">
           {[...Array(5)].map((_, i) => (
-            <i key={i} className="fas fa-star text-orange mx-0.5 transition-transform hover:scale-125"></i>
+            <i key={i} className="fas fa-star text-orange text-xs mx-0.5 transition-transform hover:scale-125"></i>
           ))}
         </div>
         <div className="flex justify-center">
           <button
             onClick={onClick}
-            className="custom-btn px-4 py-2 text-sm"
+            className="custom-btn px-3 py-1.5 text-xs"
           >
             {buttonLabel}
           </button>
@@ -79,11 +79,11 @@ const ExplorePrices = () => {
   return (
     <section className="section-padding bg-lightGray">
       <div className="container-custom">
-        <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-darkBlue mb-3 font-poppins">
+        <div className="mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-darkBlue mb-2 font-poppins">
             Explore Prices
           </h2>
-          <p className="text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
+          <p className="text-sm text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
         </div>
 
         <Swiper

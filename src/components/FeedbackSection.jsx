@@ -85,24 +85,24 @@ const FeedbackSection = () => {
       />
       <div className="container-custom">
         {/* Heading + Rating Summary */}
-  <div className="mb-6 md:mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-darkBlue mb-3 font-poppins">
+  <div className="mb-5 md:mb-6 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-darkBlue mb-2 font-poppins">
             What travelers say about us
           </h2>
-          <p className="text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
+          <p className="text-sm text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
             Real stories from our customers around the world — curated, verified and showcased.
           </p>
 
-          <div className="mt-5 flex flex-col md:flex-row items-center justify-center gap-2.5 md:gap-5">
+          <div className="mt-4 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
             {/* Aggregate rating */}
-            <div className="flex items-center gap-3 rounded-full border border-lightGray bg-white px-4 py-2 shadow-sm">
+            <div className="flex items-center gap-2 rounded-full border border-lightGray bg-white px-3 py-1.5 shadow-sm">
               <div className="flex items-center text-orange">
                 {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} filled={i < Math.round(avgRating)} className="w-5 h-5" />
+                  <Star key={i} filled={i < Math.round(avgRating)} className="w-4 h-4" />
                 ))}
               </div>
               <div className="text-left">
-                <div className="text-sm font-poppins text-darkBlue">
+                <div className="text-xs font-poppins text-darkBlue">
                   {avgRating.toFixed(1)} out of 5
                 </div>
                 <div className="text-xs text-darkBlue/80 font-canva-sans">
@@ -119,10 +119,10 @@ const FeedbackSection = () => {
                   href={getEnv(p.urlEnv)}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group inline-flex items-center gap-2 rounded-full border border-lightGray bg-white px-3 py-1.5 hover:-translate-y-0.5 hover:shadow-md transition"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-lightGray bg-white px-2.5 py-1 hover:-translate-y-0.5 hover:shadow-md transition"
                 >
-                  <span className={`inline-block w-2.5 h-2.5 rounded-full ${p.color}`} />
-                  <span className="text-sm font-poppins text-darkBlue">{p.name}</span>
+                  <span className={`inline-block w-2 h-2 rounded-full ${p.color}`} />
+                  <span className="text-xs font-poppins text-darkBlue">{p.name}</span>
                   <span className="text-xs text-darkBlue/80">{p.rating.toFixed(1)}★</span>
                 </a>
               ))}
@@ -131,12 +131,12 @@ const FeedbackSection = () => {
         </div>
 
         {/* Filter chips */}
-  <div className="flex flex-wrap items-center justify-center gap-1.5 mb-5">
+  <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4">
           {countries.map((c) => (
             <button
               key={c}
               onClick={() => setFilter(c)}
-              className={`px-4 py-1.5 rounded-full text-sm font-poppins border transition shadow-sm ${
+              className={`px-3 py-1 rounded-full text-xs font-poppins border transition shadow-sm ${
                 filter === c
                   ? 'bg-orange text-white border-orange'
                   : 'bg-white text-darkBlue border-lightGray hover:border-orange/50'
@@ -152,22 +152,22 @@ const FeedbackSection = () => {
           <button
             aria-label="Previous reviews"
             onClick={() => scrollBy(-1)}
-            className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
+            className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/></svg>
           </button>
 
           <div
             ref={scrollerRef}
-            className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 scrollbar-thin"
+            className="flex gap-2.5 overflow-x-auto snap-x snap-mandatory px-1 pb-2 scrollbar-thin"
             style={{ scrollBehavior: 'smooth' }}
           >
             {filteredTestimonials.map((t) => (
               <article
                 key={t.key}
-                className="snap-center shrink-0 w-[300px] md:w-[360px] bg-white border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
+                className="snap-center shrink-0 w-[280px] md:w-[320px] bg-white border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
               >
-                <div className="p-4">
+                <div className="p-3">
                   {/* Rating */}
                   <div className="flex items-center gap-1 text-orange">
                     {[0, 1, 2, 3, 4].map((i) => (
@@ -208,12 +208,12 @@ const FeedbackSection = () => {
         </div>
 
         {/* CTA row */}
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-3">
+        <div className="mt-6 flex flex-col md:flex-row items-center justify-center gap-2.5">
           <a
             href={readReviewsUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="custom-btn px-5 py-2 text-sm !rounded-full"
+            className="custom-btn px-4 py-1.5 text-xs !rounded-full"
           >
             Read full reviews
           </a>
@@ -221,7 +221,7 @@ const FeedbackSection = () => {
             href={writeReviewUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="px-5 py-2 text-sm rounded-full border border-teal text-teal hover:bg-teal hover:text-white transition font-poppins"
+            className="px-4 py-1.5 text-xs rounded-full border border-teal text-teal hover:bg-teal hover:text-white transition font-poppins"
           >
             Write a review
           </a>

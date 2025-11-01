@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-lightGray">
       <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-3">
           {/* Logo */}
           <Link to="/" className="transition-transform hover:scale-105" aria-label="Traverse Globe Home">
             <picture>
@@ -15,7 +15,7 @@ const Header = () => {
               <img
                 src="/logo.png"
                 alt="Traverse Globe"
-                className="h-14 md:h-16 object-contain"
+                className="h-12 md:h-14 object-contain"
                 width="176"
                 height="70"
                 decoding="async"
@@ -41,11 +41,11 @@ const Header = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <ul className="hidden lg:flex items-center space-x-8">
+          <ul className="hidden lg:flex items-center space-x-6">
             <li>
               <Link 
                 to="/" 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
               >
                 Home
               </Link>
@@ -53,7 +53,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/about" 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
               >
                 About
               </Link>
@@ -61,28 +61,28 @@ const Header = () => {
             <li>
               <Link 
                 to="/services" 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
               >
                 Services
               </Link>
             </li>
             <li className="relative group">
               <span 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
               >
                 Packages
               </span>
-              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-2 min-w-[200px] border border-lightGray">
-                <Link to="/uae-packages" className="block px-4 py-2.5 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans" >UAE</Link>
-                <Link to="/bali-packages" className="block px-4 py-2.5 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans" >Bali</Link>
-                <Link to="/thailand-packages" className="block px-4 py-2.5 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans" >Thailand</Link>
-                <Link to="/singapore-packages" className="block px-4 py-2.5 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans" >Singapore</Link>
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-2 min-w-[180px] border border-lightGray">
+                <Link to="/uae-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
+                <Link to="/bali-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
+                <Link to="/thailand-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
+                <Link to="/singapore-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
               </div>
             </li>
             <li>
               <Link 
                 to="/blog" 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
               >
                 Blog
               </Link>
@@ -90,7 +90,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/contact" 
-                className="nav-link font-poppins text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
               >
                 Contact
               </Link>
@@ -98,7 +98,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/contact" 
-                className="bg-orange text-white px-5 py-2 rounded-full font-poppins font-semibold hover:bg-teal transition-all hover:shadow-md"
+                className="bg-orange text-white px-4 py-1.5 text-sm rounded-full font-poppins font-semibold hover:bg-teal transition-all hover:shadow-md"
               >
                 Book Now
               </Link>

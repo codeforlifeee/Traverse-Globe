@@ -128,29 +128,6 @@ export default function PackageDetails() {
   return (
     <div className="min-h-screen pt-20 pb-10">
       <div className="container mx-auto px-4">
-        {/* Breadcrumbs */}
-        <nav className="text-sm text-gray-600 mb-4">
-          <Link to="/" className="text-primary hover:underline">Home</Link>
-          <span className="mx-2">/</span>
-          {(() => {
-            const cat = listMeta?._cat;
-            const map = {
-              uae: { path: '/uae-packages', label: 'UAE Packages' },
-              bali: { path: '/bali-packages', label: 'Bali Packages' },
-              thailand: { path: '/thailand-packages', label: 'Thailand Packages' },
-              singapore: { path: '/singapore-packages', label: 'Singapore Packages' },
-            };
-            const item = cat ? map[cat] : null;
-            return item ? (
-              <>
-                <Link to={item.path} className="text-primary hover:underline">{item.label}</Link>
-                <span className="mx-2">/</span>
-              </>
-            ) : null;
-          })()}
-          <span>{detail.name}</span>
-        </nav>
-
         {/* Title */}
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail.name}</h1>
         <p className="text-gray-600 mt-1">{subtitle}</p>

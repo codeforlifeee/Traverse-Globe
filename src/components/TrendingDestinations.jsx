@@ -22,7 +22,7 @@ const DestinationCard = ({ image, title, onClick }) => {
       onClick={onClick}
       style={{ animationDelay: '0.1s' }}
     >
-  <div className="relative overflow-hidden h-60 md:h-72">
+  <div className="relative overflow-hidden h-48 md:h-56">
         <img
           src={buildUrl(800)}
           srcSet={srcSet}
@@ -33,9 +33,9 @@ const DestinationCard = ({ image, title, onClick }) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>
-  <div className="absolute bottom-0 left-0 right-0 p-5">
+  <div className="absolute bottom-0 left-0 right-0 p-3">
           <div className="text-white">
-            <strong className="text-2xl font-season drop-shadow-lg">{title}</strong>
+            <strong className="text-lg md:text-xl font-season drop-shadow-lg">{title}</strong>
           </div>
         </div>
       </div>
@@ -63,10 +63,10 @@ const TrendingDestinations = () => {
   return (
     <section className="section-padding bg-lightGray">
       <div className="container-custom">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-darkBlue font-poppins">
+        <h2 className="text-xl md:text-2xl font-bold mb-2 text-darkBlue font-poppins">
           Trending Destinations | International
         </h2>
-  <p className="text-darkBlue/80 mb-8 font-canva-sans">Explore the hottest travel spots around the globe</p>
+  <p className="text-sm text-darkBlue/80 mb-6 font-canva-sans">Explore the hottest travel spots around the globe</p>
         
         <Swiper
           slidesPerView={1}
