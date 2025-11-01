@@ -22,7 +22,14 @@ function App() {
       <div className="min-h-screen bg-white overflow-x-hidden">
         <Header />
         <main>
-          <Suspense fallback={<div className="py-12 text-center text-darkBlue/80">Loading…</div>}>
+          <Suspense fallback={
+            <div className="min-h-[calc(100vh-80px)] flex items-center justify-center">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange mb-4"></div>
+                <p className="text-darkBlue/80 font-poppins">Loading...</p>
+              </div>
+            </div>
+          }>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
