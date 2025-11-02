@@ -33,5 +33,5 @@ export default function PackageRedirect() {
   }
 
   const category = resolveCategoryFromId(resolvedId);
-  return <Navigate to={`/${category}-packages/${slug}`} replace />;
+  return <Navigate to={`/packages/${category}/${slug}`} replace />;
 }

@@ -51,10 +51,10 @@ const TrendingDestinations = () => {
     // Map destination slug from the provided link to the correct packages route
     const slug = (link || '').split('/').filter(Boolean).pop();
     const routeMap = {
-      uae: '/uae-packages',
-      bali: '/bali-packages',
-      thailand: '/thailand-packages',
-      singapore: '/singapore-packages',
+      uae: '/packages/uae',
+      bali: '/packages/bali',
+      thailand: '/packages/thailand',
+      singapore: '/packages/singapore',
     };
     const target = routeMap[slug] || '/';
     navigate(target);

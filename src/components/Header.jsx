@@ -104,10 +104,10 @@ const Header = () => {
                 Packages
               </span>
               <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-2 min-w-[180px] border border-lightGray">
-                <Link to="/uae-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
-                <Link to="/bali-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
-                <Link to="/thailand-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
-                <Link to="/singapore-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
+                <Link to="/packages/uae" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
+                <Link to="/packages/bali" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
+                <Link to="/packages/thailand" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
+                <Link to="/packages/singapore" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
               </div>
             </li>
             <li>
@@ -190,16 +190,16 @@ const Header = () => {
               <div className="block text-darkBlue font-poppins font-medium py-2">Packages</div>
               <ul className="pl-4 space-y-1">
                 <li>
-                  <Link to="/uae-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>UAE</Link>
+                  <Link to="/packages/uae" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>UAE</Link>
                 </li>
                 <li>
-                  <Link to="/bali-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Bali</Link>
+                  <Link to="/packages/bali" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Bali</Link>
                 </li>
                 <li>
-                  <Link to="/thailand-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Thailand</Link>
+                  <Link to="/packages/thailand" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Thailand</Link>
                 </li>
                 <li>
-                  <Link to="/singapore-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Singapore</Link>
+                  <Link to="/packages/singapore" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Singapore</Link>
                 </li>
               </ul>
             </li>

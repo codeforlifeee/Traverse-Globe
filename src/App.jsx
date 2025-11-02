@@ -39,14 +39,15 @@ function App() {
               <Route path="/services" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/uae-packages" element={<UAEPackages />} />
-              <Route path="/uae-packages/:slug" element={<PackageDetails />} />
-              <Route path="/bali-packages" element={<BaliPackages />} />
-              <Route path="/bali-packages/:slug" element={<PackageDetails />} />
-              <Route path="/thailand-packages" element={<ThailandPackages />} />
-              <Route path="/thailand-packages/:slug" element={<PackageDetails />} />
-              <Route path="/singapore-packages" element={<SingaporePackages />} />
-              <Route path="/singapore-packages/:slug" element={<PackageDetails />} />
+              {/* Package Routes */}
+              <Route path="/packages/uae" element={<UAEPackages />} />
+              <Route path="/packages/uae/:slug" element={<PackageDetails />} />
+              <Route path="/packages/bali" element={<BaliPackages />} />
+              <Route path="/packages/bali/:slug" element={<PackageDetails />} />
+              <Route path="/packages/thailand" element={<ThailandPackages />} />
+              <Route path="/packages/thailand/:slug" element={<PackageDetails />} />
+              <Route path="/packages/singapore" element={<SingaporePackages />} />
+              <Route path="/packages/singapore/:slug" element={<PackageDetails />} />
               {/* Hotels Routes */}
               <Route path="/hotels/:category" element={<Hotels />} />
               {/* Backward compatibility: redirect old slug URLs to nested category path */}

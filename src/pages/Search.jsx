@@ -101,28 +101,28 @@ export default function Search() {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <Link 
-                to="/uae-packages" 
+                to="/packages/uae" 
                 className="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all group"
               >
                 <i className="fas fa-plane-departure text-3xl text-orange mb-2 group-hover:scale-110 transition-transform"></i>
                 <p className="font-semibold text-darkBlue font-poppins">UAE Packages</p>
               </Link>
               <Link 
-                to="/bali-packages" 
+                to="/packages/bali" 
                 className="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all group"
               >
                 <i className="fas fa-umbrella-beach text-3xl text-orange mb-2 group-hover:scale-110 transition-transform"></i>
                 <p className="font-semibold text-darkBlue font-poppins">Bali Packages</p>
               </Link>
               <Link 
-                to="/thailand-packages" 
+                to="/packages/thailand" 
                 className="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all group"
               >
                 <i className="fas fa-water text-3xl text-orange mb-2 group-hover:scale-110 transition-transform"></i>
                 <p className="font-semibold text-darkBlue font-poppins">Thailand Packages</p>
               </Link>
               <Link 
-                to="/singapore-packages" 
+                to="/packages/singapore" 
                 className="bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all group"
               >
                 <i className="fas fa-city text-3xl text-orange mb-2 group-hover:scale-110 transition-transform"></i>

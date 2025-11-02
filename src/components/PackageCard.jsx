@@ -79,7 +79,7 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
             </button>
           ) : (
             <Link 
-              to={`/${resolvedCategory}-packages/${computedSlug}`} 
+              to={`/packages/${resolvedCategory}/${computedSlug}`} 
               target="_blank"
               rel="noopener noreferrer"
               className="custom-btn text-xs px-3 py-1.5 font-medium hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center whitespace-nowrap flex-shrink-0"

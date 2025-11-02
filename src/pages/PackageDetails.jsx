@@ -120,7 +120,7 @@ export default function PackageDetails() {
   if (!detail) {
     return (
       <div className="min-h-screen pt-20 pb-10 container mx-auto px-4">
-        <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-2xl">Package not found. <Link to="/uae-packages" className="text-primary underline">Go back to packages</Link></div>
+        <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-2xl">Package not found. <Link to="/packages/uae" className="text-primary underline">Go back to packages</Link></div>
       </div>
     );
   }
