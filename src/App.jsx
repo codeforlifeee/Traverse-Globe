@@ -15,7 +15,7 @@ const SingaporePackages = lazy(() => import('./pages/SingaporePackages'));
 const PackageDetails = lazy(() => import('./pages/PackageDetails'));
 const PackageRedirect = lazy(() => import('./pages/PackageRedirect'));
 const Hotels = lazy(() => import('./pages/Hotels'));
-const SearchResults = lazy(() => import('./pages/SearchResults'));
+const Search = lazy(() => import('./pages/Search'));
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<About />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/uae-packages" element={<UAEPackages />} />
               <Route path="/uae-packages/:slug" element={<PackageDetails />} />
               <Route path="/bali-packages" element={<BaliPackages />} />

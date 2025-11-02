@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+  // const [searchQuery, setSearchQuery] = useState('');
+  // const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Navigate to search results page with query
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-      setIsOpen(false);
-    }
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchQuery.trim()) {
+  //     navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+  //     setSearchQuery('');
+  //     setIsOpen(false);
+  //   }
+  // };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-lightGray">
@@ -54,6 +54,25 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center space-x-6">
+            {/* Search Bar - Commented Out */}
+            {/* <li>
+              <form onSubmit={handleSearch} className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search packages..."
+                  className="w-48 xl:w-56 px-4 py-1.5 pr-10 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange transition-colors"
+                  aria-label="Search"
+                >
+                  <i className="fas fa-search text-sm"></i>
+                </button>
+              </form>
+            </li> */}
             <li>
               <Link 
                 to="/" 
@@ -107,25 +126,6 @@ const Header = () => {
                 Contact
               </Link>
             </li>
-            {/* Search Bar */}
-            <li>
-              <form onSubmit={handleSearch} className="relative">
-                <input
-                  type="text"
-                  placeholder="Search packages..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-48 px-3 py-1.5 text-sm border border-lightGray rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-darkBlue hover:text-orange transition-colors"
-                  aria-label="Search"
-                >
-                  <i className="fas fa-search text-xs"></i>
-                </button>
-              </form>
-            </li>
             <li>
               <Link 
                 to="/contact" 
@@ -140,25 +140,25 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <ul id="mobile-nav" className="lg:hidden pb-4 space-y-3" role="menu">
-            {/* Mobile Search Bar */}
-            <li>
+            {/* Mobile Search Bar - Commented Out */}
+            {/* <li>
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder="Search packages..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 text-sm border border-lightGray rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
+                  placeholder="Search packages..."
+                  className="w-full px-4 py-2 pr-10 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
                 />
                 <button
                   type="submit"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-darkBlue hover:text-orange transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange transition-colors"
                   aria-label="Search"
                 >
                   <i className="fas fa-search text-sm"></i>
                 </button>
               </form>
-            </li>
+            </li> */}
             <li>
               <Link 
                 to="/" 
