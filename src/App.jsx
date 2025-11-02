@@ -14,6 +14,8 @@ const ThailandPackages = lazy(() => import('./pages/ThailandPackages'));
 const SingaporePackages = lazy(() => import('./pages/SingaporePackages'));
 const PackageDetails = lazy(() => import('./pages/PackageDetails'));
 const PackageRedirect = lazy(() => import('./pages/PackageRedirect'));
+const Hotels = lazy(() => import('./pages/Hotels'));
+const SearchResults = lazy(() => import('./pages/SearchResults'));
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
               <Route path="/thailand-packages/:slug" element={<PackageDetails />} />
               <Route path="/singapore-packages" element={<SingaporePackages />} />
               <Route path="/singapore-packages/:slug" element={<PackageDetails />} />
+              {/* Hotels Routes */}
+              <Route path="/hotels/:category" element={<Hotels />} />
               {/* Backward compatibility: redirect old slug URLs to nested category path */}
               <Route path="/package/:slug" element={<PackageRedirect />} />
             </Routes>

@@ -25,6 +25,338 @@ export const domesticDestinations = [
   { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80', link: '/destinations/kerala' },
 ];
 
+// Hotel Categories
+export const hotelCategories = [
+  { 
+    title: 'Luxury Hotels', 
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/luxury-hotels', 
+    blurb: '5-star amenities, world-class service',
+    icon: 'fa-crown',
+    slug: 'luxury-hotels'
+  },
+  { 
+    title: 'Beach Resorts', 
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/beach-resorts', 
+    blurb: 'Oceanfront views, private beaches',
+    icon: 'fa-umbrella-beach',
+    slug: 'beach-resorts'
+  },
+  { 
+    title: 'Business Hotels', 
+    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/business-hotels', 
+    blurb: 'Conference rooms, city center locations',
+    icon: 'fa-briefcase',
+    slug: 'business-hotels'
+  },
+  { 
+    title: 'Budget Hotels', 
+    image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/budget-hotels', 
+    blurb: 'Affordable comfort, great value',
+    icon: 'fa-tags',
+    slug: 'budget-hotels'
+  },
+  { 
+    title: 'Boutique Hotels', 
+    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/boutique-hotels', 
+    blurb: 'Unique design, personalized experience',
+    icon: 'fa-gem',
+    slug: 'boutique-hotels'
+  },
+  { 
+    title: 'Family Hotels', 
+    image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=800&q=80', 
+    link: '/hotels/family-hotels', 
+    blurb: 'Kid-friendly amenities, spacious rooms',
+    icon: 'fa-users',
+    slug: 'family-hotels'
+  },
+];
+
+// Hotel Listings by Category
+export const hotelListings = {
+  'luxury-hotels': [
+    {
+      id: 'lux-1',
+      name: 'The Taj Mahal Palace Mumbai',
+      location: 'Mumbai, Maharashtra',
+      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 18000,
+      originalPrice: 24000,
+      amenities: ['Pool', 'Spa', 'Fine Dining', 'Butler Service', 'Sea View'],
+      description: 'Iconic luxury hotel overlooking the Gateway of India with world-class hospitality and heritage charm.'
+    },
+    {
+      id: 'lux-2',
+      name: 'The Oberoi Udaivilas Udaipur',
+      location: 'Udaipur, Rajasthan',
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 22000,
+      originalPrice: 28000,
+      amenities: ['Lake View', 'Spa', 'Palace Architecture', 'Fine Dining', 'Boat Rides'],
+      description: 'Majestic palace hotel on Lake Pichola with royal Rajasthani architecture and unparalleled luxury.'
+    },
+    {
+      id: 'lux-3',
+      name: 'The Leela Palace New Delhi',
+      location: 'New Delhi',
+      image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 16000,
+      originalPrice: 21000,
+      amenities: ['Rooftop Pool', 'Luxury Spa', 'Multiple Restaurants', 'Concierge', 'Airport Transfer'],
+      description: 'Contemporary luxury in the heart of Delhi with impeccable service and modern amenities.'
+    },
+    {
+      id: 'lux-4',
+      name: 'ITC Grand Chola Chennai',
+      location: 'Chennai, Tamil Nadu',
+      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 14000,
+      originalPrice: 19000,
+      amenities: ['Grand Architecture', 'Multiple Pools', 'Spa', 'Fine Dining', 'Business Center'],
+      description: 'South India\'s grandest luxury hotel inspired by Chola dynasty architecture with exceptional hospitality.'
+    },
+  ],
+  'beach-resorts': [
+    {
+      id: 'beach-1',
+      name: 'Taj Exotica Resort & Spa Goa',
+      location: 'Benaulim, Goa',
+      image: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 15000,
+      originalPrice: 20000,
+      amenities: ['Private Beach', 'Water Sports', 'Infinity Pool', 'Spa', 'Beachside Dining'],
+      description: 'Mediterranean-style beach resort with pristine beachfront and lush tropical gardens in South Goa.'
+    },
+    {
+      id: 'beach-2',
+      name: 'Alila Diwa Goa',
+      location: 'Majorda, Goa',
+      image: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 12000,
+      originalPrice: 16000,
+      amenities: ['Beach Access', 'Pool', 'Spa', 'Water Sports', 'Goan Cuisine'],
+      description: 'Contemporary luxury resort blending Goan-Portuguese architecture with modern design and beach access.'
+    },
+    {
+      id: 'beach-3',
+      name: 'Radisson Blu Resort Temple Bay',
+      location: 'Mahabalipuram, Tamil Nadu',
+      image: 'https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 9000,
+      originalPrice: 13000,
+      amenities: ['Beach Access', 'Pool', 'Heritage Site Nearby', 'Spa', 'Multi-cuisine Restaurant'],
+      description: 'Coastal resort near UNESCO World Heritage temples with panoramic Bay of Bengal views.'
+    },
+    {
+      id: 'beach-4',
+      name: 'Vivanta by Taj Kovalam',
+      location: 'Kovalam, Kerala',
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 11000,
+      originalPrice: 15000,
+      amenities: ['Cliff-top Views', 'Private Beach', 'Ayurvedic Spa', 'Pool', 'Kerala Cuisine'],
+      description: 'Stunning cliff-top resort overlooking the Arabian Sea with authentic Kerala hospitality.'
+    },
+  ],
+  'business-hotels': [
+    {
+      id: 'biz-1',
+      name: 'JW Marriott Mumbai Sahar',
+      location: 'Mumbai, Maharashtra',
+      image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 12000,
+      originalPrice: 16000,
+      amenities: ['Conference Rooms', 'Business Center', 'High-Speed WiFi', 'Airport Shuttle', 'Executive Lounge'],
+      description: 'Premier business hotel near Mumbai airport with extensive meeting facilities and executive services.'
+    },
+    {
+      id: 'biz-2',
+      name: 'The Westin Bangalore',
+      location: 'Bangalore, Karnataka',
+      image: 'https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 10000,
+      originalPrice: 14000,
+      amenities: ['Meeting Rooms', 'Business Lounge', 'Wellness Center', 'Multiple Restaurants', 'Valet'],
+      description: 'Modern business hotel in IT corridor with state-of-the-art conference facilities and wellness amenities.'
+    },
+    {
+      id: 'biz-3',
+      name: 'Hyatt Regency Pune',
+      location: 'Pune, Maharashtra',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 9000,
+      originalPrice: 12000,
+      amenities: ['Business Center', 'Conference Hall', 'WiFi', 'Fitness Center', 'Multi-cuisine Dining'],
+      description: 'Elegant business hotel near Pune IT parks with comprehensive corporate facilities.'
+    },
+    {
+      id: 'biz-4',
+      name: 'Trident BKC Mumbai',
+      location: 'Mumbai, Maharashtra',
+      image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 11000,
+      originalPrice: 15000,
+      amenities: ['Meeting Rooms', 'Business Center', 'Fine Dining', 'Pool', 'Central Location'],
+      description: 'Contemporary business hotel in Mumbai\'s business district with excellent connectivity and facilities.'
+    },
+  ],
+  'budget-hotels': [
+    {
+      id: 'budget-1',
+      name: 'FabHotel Prime Plaza',
+      location: 'Delhi NCR',
+      image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80',
+      rating: 3,
+      price: 2500,
+      originalPrice: 3500,
+      amenities: ['Free WiFi', 'Breakfast', 'AC Rooms', '24/7 Reception', 'Metro Nearby'],
+      description: 'Comfortable budget accommodation near metro station with modern amenities and clean rooms.'
+    },
+    {
+      id: 'budget-2',
+      name: 'Treebo Trend Pearl Inn',
+      location: 'Jaipur, Rajasthan',
+      image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80',
+      rating: 3,
+      price: 2200,
+      originalPrice: 3200,
+      amenities: ['Clean Rooms', 'WiFi', 'Breakfast', 'Travel Desk', 'Heritage Area'],
+      description: 'Budget-friendly hotel near major Jaipur attractions with comfortable stays and helpful staff.'
+    },
+    {
+      id: 'budget-3',
+      name: 'OYO Flagship Beach View',
+      location: 'Panjim, Goa',
+      image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80',
+      rating: 3,
+      price: 3000,
+      originalPrice: 4500,
+      amenities: ['Beach Nearby', 'WiFi', 'Breakfast', 'Clean Rooms', 'Bike Rental'],
+      description: 'Affordable Goa stay near beaches with basic amenities and easy access to nightlife.'
+    },
+    {
+      id: 'budget-4',
+      name: 'Zostel Manali',
+      location: 'Manali, Himachal Pradesh',
+      image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 1800,
+      originalPrice: 2800,
+      amenities: ['Hostel & Private Rooms', 'Common Area', 'WiFi', 'Mountain Views', 'Cafe'],
+      description: 'Backpacker-friendly accommodation with stunning mountain views and social atmosphere.'
+    },
+  ],
+  'boutique-hotels': [
+    {
+      id: 'boutique-1',
+      name: 'Suryagarh Jaisalmer',
+      location: 'Jaisalmer, Rajasthan',
+      image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 16000,
+      originalPrice: 21000,
+      amenities: ['Fort Architecture', 'Desert Safari', 'Heritage Dining', 'Spa', 'Cultural Performances'],
+      description: 'Magnificent desert fortress hotel with authentic Rajasthani architecture and royal experiences.'
+    },
+    {
+      id: 'boutique-2',
+      name: 'The Malabar House Kochi',
+      location: 'Fort Kochi, Kerala',
+      image: 'https://images.unsplash.com/photo-1569660072562-48a035e65c30?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 12000,
+      originalPrice: 16000,
+      amenities: ['Heritage Property', 'Courtyard Pool', 'Fine Dining', 'Art Collection', 'Spa'],
+      description: 'Restored 18th-century Dutch heritage bungalow with contemporary design and old-world charm.'
+    },
+    {
+      id: 'boutique-3',
+      name: 'Abode Bombay',
+      location: 'Colaba, Mumbai',
+      image: 'https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 10000,
+      originalPrice: 14000,
+      amenities: ['Boutique Suites', 'Rooftop Bar', 'Contemporary Design', 'Curated Art', 'Personalized Service'],
+      description: 'Chic boutique hotel in South Mumbai with curated interiors and personalized hospitality.'
+    },
+    {
+      id: 'boutique-4',
+      name: 'Dune Eco Village & Spa',
+      location: 'Puducherry',
+      image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80',
+      rating: 5,
+      price: 13000,
+      originalPrice: 17000,
+      amenities: ['Eco-friendly', 'Beach Access', 'Organic Farm', 'Yoga', 'Ayurvedic Spa'],
+      description: 'Sustainable luxury eco-resort with organic farm, private beach access, and holistic wellness.'
+    },
+  ],
+  'family-hotels': [
+    {
+      id: 'family-1',
+      name: 'Club Mahindra Goa',
+      location: 'Varca Beach, Goa',
+      image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 12000,
+      originalPrice: 16000,
+      amenities: ['Kids Club', 'Family Pool', 'Beach Access', 'Play Area', 'Family Suites'],
+      description: 'Family-friendly beach resort with dedicated kids activities and entertainment for all ages.'
+    },
+    {
+      id: 'family-2',
+      name: 'The Golden Palms Bangalore',
+      location: 'Bangalore, Karnataka',
+      image: 'https://images.unsplash.com/photo-1562790351-d273a961e0e9?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 10000,
+      originalPrice: 14000,
+      amenities: ['Water Park', 'Kids Club', 'Adventure Activities', 'Family Rooms', 'Multiple Pools'],
+      description: 'Resort with water park and adventure activities perfect for family vacations near Bangalore.'
+    },
+    {
+      id: 'family-3',
+      name: 'Ramada Udaipur Resort',
+      location: 'Udaipur, Rajasthan',
+      image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 9000,
+      originalPrice: 12000,
+      amenities: ['Lake View', 'Kids Play Area', 'Family Suites', 'Pool', 'Rajasthani Cuisine'],
+      description: 'Family resort with lake views and cultural experiences showcasing Rajasthani heritage.'
+    },
+    {
+      id: 'family-4',
+      name: 'Sterling Ooty Fern Hill',
+      location: 'Ooty, Tamil Nadu',
+      image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80',
+      rating: 4,
+      price: 8000,
+      originalPrice: 11000,
+      amenities: ['Mountain Views', 'Kids Activities', 'Family Rooms', 'Indoor Games', 'Nature Trails'],
+      description: 'Hill station resort with cool climate, nature trails, and family-friendly activities in Nilgiris.'
+    },
+  ],
+};
+
 // UAE package listing data (mirrors UAEcard.html)
 export const uaePackages = [
   {
