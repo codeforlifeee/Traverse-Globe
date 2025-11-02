@@ -34,6 +34,7 @@ export const uaePackages = [
     strikePrice: 45999,
     price: 35999,
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+    tags: ['Budget', 'City Tour', 'Shopping'],
   },
   {
     id: 2,
@@ -42,6 +43,7 @@ export const uaePackages = [
     strikePrice: 53999,
     price: 43999,
     image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+    tags: ['Budget', 'Adventure', 'Family'],
   },
   {
     id: 3,
@@ -50,6 +52,7 @@ export const uaePackages = [
     strikePrice: 59999,
     price: 49999,
     image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80',
+    tags: ['Popular', 'Desert Safari', 'Burj Khalifa'],
   },
   {
     id: 4,
@@ -58,6 +61,7 @@ export const uaePackages = [
     strikePrice: 49999,
     price: 39999,
     image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80',
+    tags: ['Comfort', 'Luxury', 'City Tour'],
   },
   {
     id: 5,
@@ -66,6 +70,7 @@ export const uaePackages = [
     strikePrice: 61599,
     price: 51599,
     image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=80',
+    tags: ['Premium', 'Adventure', 'Sightseeing'],
   },
   {
     id: 6,
@@ -74,6 +79,7 @@ export const uaePackages = [
     strikePrice: 69999,
     price: 59999,
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+    tags: ['Popular', 'Family', 'Shopping'],
   },
   {
     id: 7,
@@ -82,6 +88,7 @@ export const uaePackages = [
     strikePrice: 55999,
     price: 45999,
     image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Premium', 'Honeymoon'],
   },
   {
     id: 8,
@@ -90,6 +97,7 @@ export const uaePackages = [
     strikePrice: 64999,
     price: 54999,
     image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Romantic', 'Fine Dining'],
   },
   {
     id: 9,
@@ -98,6 +106,7 @@ export const uaePackages = [
     strikePrice: 76999,
     price: 66999,
     image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Best Seller', 'All Inclusive'],
   },
   {
     id: 10,
@@ -106,6 +115,7 @@ export const uaePackages = [
     strikePrice: 79999,
     price: 59999,
     image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=80',
+    tags: ['Complete Tour', 'Best Value', 'Family'],
   },
 ];
 
@@ -118,6 +128,7 @@ export const baliPackages = [
     strikePrice: 39999,
     price: 32999,
     image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Beach', 'Relaxation', 'Popular'],
   },
   {
     id: 12,
@@ -126,6 +137,7 @@ export const baliPackages = [
     strikePrice: 33999,
     price: 27999,
     image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80',
+    tags: ['Culture', 'Temples', 'Budget'],
   },
   {
     id: 13,
@@ -134,6 +146,7 @@ export const baliPackages = [
     strikePrice: 44999,
     price: 38999,
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
+    tags: ['Adventure', 'Water Sports', 'Trekking'],
   },
   {
     id: 14,
@@ -142,6 +155,7 @@ export const baliPackages = [
     strikePrice: 62999,
     price: 52999,
     image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Spa', 'Honeymoon'],
   },
   {
     id: 15,
@@ -150,6 +164,7 @@ export const baliPackages = [
     strikePrice: 54999,
     price: 45999,
     image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80',
+    tags: ['Complete Tour', 'Best Value', 'Family'],
   },
   // Additional Bali packages (from Balicard.html)
   {
@@ -159,6 +174,7 @@ export const baliPackages = [
     strikePrice: 48999,
     price: 42999,
     image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Honeymoon', 'Romantic', 'Premium'],
   },
   {
     id: 27,
@@ -167,6 +183,7 @@ export const baliPackages = [
     strikePrice: 41999,
     price: 36999,
     image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80',
+    tags: ['Family', 'Kid Friendly', 'Activities'],
   },
   {
     id: 28,
@@ -175,6 +192,7 @@ export const baliPackages = [
     strikePrice: 28999,
     price: 24999,
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
+    tags: ['Budget', 'Backpacker', 'Beach'],
   },
   {
     id: 29,
@@ -183,6 +201,7 @@ export const baliPackages = [
     strikePrice: 68999,
     price: 58999,
     image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
+    tags: ['Premium', 'Luxury', 'All Inclusive'],
   },
   {
     id: 30,
@@ -191,6 +210,7 @@ export const baliPackages = [
     strikePrice: 72999,
     price: 62999,
     image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80',
+    tags: ['Extended Stay', 'Complete', 'Adventure'],
   },
 ];
 
@@ -203,6 +223,7 @@ export const thailandPackages = [
     strikePrice: 42999,
     price: 35999,
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
+    tags: ['Beach', 'Island Hopping', 'Popular'],
   },
   {
     id: 17,
@@ -211,6 +232,7 @@ export const thailandPackages = [
     strikePrice: 36999,
     price: 30999,
     image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80',
+    tags: ['Culture', 'Temples', 'Street Food'],
   },
   {
     id: 18,
@@ -219,6 +241,7 @@ export const thailandPackages = [
     strikePrice: 47999,
     price: 41999,
     image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=80',
+    tags: ['Adventure', 'Scuba Diving', 'Nature'],
   },
   {
     id: 19,
@@ -227,6 +250,7 @@ export const thailandPackages = [
     strikePrice: 65999,
     price: 55999,
     image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Spa', 'Premium'],
   },
   {
     id: 20,
@@ -235,6 +259,7 @@ export const thailandPackages = [
     strikePrice: 57999,
     price: 48999,
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
+    tags: ['Complete Tour', 'Best Value', 'Family'],
   },
   // Extended Thailand packages
   {
@@ -244,6 +269,7 @@ export const thailandPackages = [
     strikePrice: 51999,
     price: 45999,
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
+    tags: ['Honeymoon', 'Romantic', 'Beach'],
   },
   {
     id: 37,
@@ -252,6 +278,7 @@ export const thailandPackages = [
     strikePrice: 44999,
     price: 39999,
     image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80',
+    tags: ['Family', 'Kid Friendly', 'Fun'],
   },
   {
     id: 38,
@@ -260,6 +287,7 @@ export const thailandPackages = [
     strikePrice: 31999,
     price: 27999,
     image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=80',
+    tags: ['Budget', 'Backpacker', 'City Tour'],
   },
   {
     id: 39,
@@ -268,6 +296,7 @@ export const thailandPackages = [
     strikePrice: 71999,
     price: 61999,
     image: 'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Premium', 'All Inclusive', 'Luxury'],
   },
 ];
 
@@ -280,6 +309,7 @@ export const singaporePackages = [
     strikePrice: 30999,
     price: 25999,
     image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
+    tags: ['City Tour', 'Quick Trip', 'Budget'],
   },
   {
     id: 22,
@@ -288,6 +318,7 @@ export const singaporePackages = [
     strikePrice: 38999,
     price: 32999,
     image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=800&q=80',
+    tags: ['Popular', 'Comfort', 'Sightseeing'],
   },
   {
     id: 23,
@@ -296,6 +327,7 @@ export const singaporePackages = [
     strikePrice: 44999,
     price: 38999,
     image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=800&q=80',
+    tags: ['Family', 'Theme Parks', 'Kid Friendly'],
   },
   {
     id: 24,
@@ -304,6 +336,7 @@ export const singaporePackages = [
     strikePrice: 54999,
     price: 48999,
     image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80',
+    tags: ['Luxury', 'Premium', 'Shopping'],
   },
   {
     id: 25,
@@ -312,6 +345,7 @@ export const singaporePackages = [
     strikePrice: 49999,
     price: 44999,
     image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
+    tags: ['Complete Tour', 'Best Value', 'Popular'],
   },
   // Extended Singapore packages (from provided card list)
   {
@@ -321,6 +355,7 @@ export const singaporePackages = [
     strikePrice: 42999,
     price: 36999,
     image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
+    tags: ['Honeymoon', 'Romantic', 'Luxury'],
   },
   {
     id: 32,
@@ -329,6 +364,7 @@ export const singaporePackages = [
     strikePrice: 47999,
     price: 41999,
     image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=800&q=80',
+    tags: ['Business', 'Meetings', 'Hotels'],
   },
   {
     id: 33,
@@ -337,6 +373,7 @@ export const singaporePackages = [
     strikePrice: 28999,
     price: 23999,
     image: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=800&q=80',
+    tags: ['Budget', 'Backpacker', 'City Tour'],
   },
   {
     id: 34,
@@ -345,6 +382,7 @@ export const singaporePackages = [
     strikePrice: 62999,
     price: 52999,
     image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80',
+    tags: ['Premium', 'All Inclusive', 'Luxury'],
   },
   {
     id: 35,
@@ -353,6 +391,7 @@ export const singaporePackages = [
     strikePrice: 58999,
     price: 49999,
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
+    tags: ['Extended Stay', 'Complete', 'Leisure'],
   },
 ];
 

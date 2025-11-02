@@ -19,11 +19,11 @@ const CategoryCard = ({ category }) => {
         <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
       </div>
       <div className="p-3 bg-white">
-        <h3 className="text-lg font-bold text-darkBlue mb-1.5 font-season">{category.title}</h3>
-        <p className="text-xs text-darkBlue/70 mb-2.5 font-canva-sans">{category.blurb}</p>
-        <div className="flex justify-end">
-          <Link to={category.link} className="bg-orange text-white py-1.5 px-4 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg">View Packages</Link>
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <h3 className="text-lg font-bold text-darkBlue font-season">{category.title}</h3>
+          <Link to={category.link} className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0">View Packages</Link>
         </div>
+        <p className="text-xs text-darkBlue/70 font-canva-sans">{category.blurb}</p>
       </div>
     </div>
   );

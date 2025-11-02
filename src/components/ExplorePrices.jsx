@@ -23,25 +23,25 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
           className="w-full h-40 md:h-44 object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-4">
-        <div className="text-orange text-lg md:text-xl font-bold mb-1.5 font-poppins">
+      <div className="p-3">
+        <div className="text-orange text-lg md:text-xl font-bold mb-2 font-poppins">
           ₹ {price.toLocaleString()}
         </div>
-        <div className="text-darkBlue font-semibold text-sm md:text-base mb-2 text-center font-poppins">
-          {title}
-        </div>
-        <div className="flex justify-center mb-2">
-          {[...Array(5)].map((_, i) => (
-            <i key={i} className="fas fa-star text-orange text-xs mx-0.5 transition-transform hover:scale-125"></i>
-          ))}
-        </div>
-        <div className="flex justify-center">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="text-darkBlue font-semibold text-sm md:text-base font-poppins flex-1">
+            {title}
+          </div>
           <button
             onClick={onClick}
-            className="custom-btn px-3 py-1.5 text-xs"
+            className="custom-btn px-3 py-1.5 text-xs whitespace-nowrap flex-shrink-0"
           >
             {buttonLabel}
           </button>
+        </div>
+        <div className="flex justify-center">
+          {[...Array(5)].map((_, i) => (
+            <i key={i} className="fas fa-star text-orange text-xs mx-0.5 transition-transform hover:scale-125"></i>
+          ))}
         </div>
       </div>
     </div>

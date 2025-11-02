@@ -66,15 +66,13 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
         )}
       </div>
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins mb-2 line-clamp-2 min-h-[2.5rem]">{pkg.title}</h3>
-        <PriceTag strike={pkg.strikePrice} price={pkg.price} />
-        
-        {/* Buttons Section - Pushed to bottom */}
-        <div className="mt-auto pt-3 flex flex-col sm:flex-row gap-2">
+        {/* Package Title with View Package Button */}
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins line-clamp-2 flex-1">{pkg.title}</h3>
           {onView ? (
             <button 
               onClick={() => onView(pkg)} 
-              className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200"
+              className="custom-btn text-xs px-3 py-1.5 font-medium hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0"
             >
               <i className="fas fa-eye mr-1 text-xs"></i>
               {buttonLabel}
@@ -84,18 +82,37 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
               to={`/${resolvedCategory}-packages/${computedSlug}`} 
               target="_blank"
               rel="noopener noreferrer"
-              className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center"
+              className="custom-btn text-xs px-3 py-1.5 font-medium hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center whitespace-nowrap flex-shrink-0"
             >
               <i className="fas fa-eye mr-1 text-xs"></i>
               {buttonLabel}
             </Link>
           )}
+        </div>
+
+        {/* Tags Section - Display if tags exist */}
+        {pkg.tags && pkg.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {pkg.tags.slice(0, 3).map((tag, index) => (
+              <span 
+                key={index}
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-orange/10 to-teal/10 text-darkBlue border border-orange/20 font-poppins"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Pricing with Expert Button */}
+        <div className="mt-auto flex items-end justify-between gap-3">
+          <PriceTag strike={pkg.strikePrice} price={pkg.price} />
           
           {/* Connect with Expert Button */}
-          <div className="relative flex-1" ref={menuRef}>
+          <div className="relative flex-shrink-0" ref={menuRef}>
             <button
               onClick={() => setShowExpertMenu(!showExpertMenu)}
-              className="custom-btn w-full text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+              className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap"
             >
               <i className="fas fa-headset mr-1 text-xs"></i>
               Expert
