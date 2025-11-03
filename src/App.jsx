@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingButtons from './components/FloatingButtons';
 import ScrollToTop from './components/ScrollToTop';
+import AnalyticsRouteListener from './components/AnalyticsRouteListener';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <AnalyticsRouteListener />
       <div className="min-h-screen bg-white overflow-x-hidden">
         <Header />
         <main>
