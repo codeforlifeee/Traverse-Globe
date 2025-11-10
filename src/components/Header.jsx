@@ -1,20 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [searchQuery, setSearchQuery] = useState('');
-  // const navigate = useNavigate();
-
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   if (searchQuery.trim()) {
-  //     navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-  //     setSearchQuery('');
-  //     setIsOpen(false);
-  //   }
-  // };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-lightGray">
@@ -23,9 +11,9 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="transition-transform hover:scale-105" aria-label="Traverse Globe Home">
             <picture>
-              <source srcSet="/logo.webp" type="image/webp" />
+              <source srcSet="/logo.png" type="image/png" />
               <img
-                src="/logo.webp"
+                src="/logo.png"
                 alt="Traverse Globe"
                 className="h-12 md:h-14 object-contain"
                 width="176"
@@ -54,25 +42,6 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center space-x-6">
-            {/* Search Bar - Commented Out */}
-            {/* <li>
-              <form onSubmit={handleSearch} className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search packages..."
-                  className="w-48 xl:w-56 px-4 py-1.5 pr-10 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange transition-colors"
-                  aria-label="Search"
-                >
-                  <i className="fas fa-search text-sm"></i>
-                </button>
-              </form>
-            </li> */}
             <li>
               <Link 
                 to="/" 
@@ -104,10 +73,10 @@ const Header = () => {
                 Packages
               </span>
               <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-2 min-w-[180px] border border-lightGray">
-                <Link to="/packages/uae" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
-                <Link to="/packages/bali" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
-                <Link to="/packages/thailand" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
-                <Link to="/packages/singapore" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
+                <Link to="/uae-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
+                <Link to="/bali-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
+                <Link to="/thailand-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
+                <Link to="/singapore-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
               </div>
             </li>
             <li>
@@ -140,25 +109,6 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <ul id="mobile-nav" className="lg:hidden pb-4 space-y-3" role="menu">
-            {/* Mobile Search Bar - Commented Out */}
-            {/* <li>
-              <form onSubmit={handleSearch} className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search packages..."
-                  className="w-full px-4 py-2 pr-10 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-orange transition-colors font-canva-sans"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange transition-colors"
-                  aria-label="Search"
-                >
-                  <i className="fas fa-search text-sm"></i>
-                </button>
-              </form>
-            </li> */}
             <li>
               <Link 
                 to="/" 
@@ -190,16 +140,16 @@ const Header = () => {
               <div className="block text-darkBlue font-poppins font-medium py-2">Packages</div>
               <ul className="pl-4 space-y-1">
                 <li>
-                  <Link to="/packages/uae" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>UAE</Link>
+                  <Link to="/uae-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>UAE</Link>
                 </li>
                 <li>
-                  <Link to="/packages/bali" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Bali</Link>
+                  <Link to="/bali-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Bali</Link>
                 </li>
                 <li>
-                  <Link to="/packages/thailand" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Thailand</Link>
+                  <Link to="/thailand-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Thailand</Link>
                 </li>
                 <li>
-                  <Link to="/packages/singapore" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Singapore</Link>
+                  <Link to="/singapore-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Singapore</Link>
                 </li>
               </ul>
             </li>

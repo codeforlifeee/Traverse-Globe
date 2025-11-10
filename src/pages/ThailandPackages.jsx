@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { thailandPackages } from '../data/siteData';
+import { thailandPackages, thailandBanners } from '../data/siteData';
 import PackageCard from '../components/PackageCard';
 import HeroSlider from '../components/HeroSlider';
 
@@ -15,15 +15,10 @@ export default function ThailandPackages() {
   return (
     <div className="min-h-screen pt-20 pb-10">
       <HeroSlider
-        images={[
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80',
-          'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=1920&q=80',
-          'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1920&q=80',
-          'https://images.unsplash.com/photo-1563492065-1a5a6e0d8ea1?auto=format&fit=crop&w=1920&q=80',
-          'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1920&q=80',
-        ]}
+        images={thailandBanners}
+        className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
       >
-  <h1 className="text-3xl md:text-4xl font-extrabold drop-shadow">Thailand Holiday Packages</h1>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg">Thailand Holiday Packages</h1>
         <p className="text-white/90 mt-3">Top Thailand getaways: islands, culture, food</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form

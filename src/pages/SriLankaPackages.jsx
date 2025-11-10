@@ -1,25 +1,26 @@
 import { useMemo, useState } from 'react';
-import { singaporePackages, singaporeBanners } from '../data/siteData';
+import { srilankaPackages, srilankaBanners } from '../data/siteData';
 import PackageCard from '../components/PackageCard';
 import HeroSlider from '../components/HeroSlider';
 
-export default function SingaporePackages() {
+export default function SriLankaPackages() {
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const filtered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-    if (!q) return singaporePackages;
-    return singaporePackages.filter(p => p.title.toLowerCase().includes(q));
+    if (!q) return srilankaPackages;
+    return srilankaPackages.filter(p => p.title.toLowerCase().includes(q));
   }, [searchTerm]);
 
   return (
     <div className="min-h-screen pt-20 pb-10">
+      {/* Hero slider */}
       <HeroSlider
-        images={singaporeBanners}
-        className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
+        images={srilankaBanners}
+        className="mt-0"
       >
-        <h1 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg">Singapore Holiday Packages</h1>
-        <p className="text-white/90 mt-3">City lights, world-class attractions, and family fun</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold drop-shadow text-white">Sri Lanka Holiday Packages</h1>
+        <p className="text-white/90 mt-3">Explore Kandy, Nuwara Eliya, Yala & Colombo - 4N/5D Tours</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form
             className="flex overflow-hidden rounded-full shadow-xl bg-white"
@@ -30,11 +31,15 @@ export default function SingaporePackages() {
           >
             <input
               className="flex-1 px-6 py-3 outline-none"
-              placeholder="Search Singapore packages..."
+              placeholder="Search Sri Lanka packages..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" className="bg-primary text-white px-6 hover:bg-secondary transition-colors" aria-label="Search">
+            <button
+              type="submit"
+              className="bg-primary text-white px-6 hover:bg-secondary transition-colors"
+              aria-label="Search"
+            >
               <i className="fa fa-search" />
             </button>
           </form>
@@ -50,7 +55,7 @@ export default function SingaporePackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} category="singapore" />
+                <PackageCard key={pkg.id} pkg={pkg} category="srilanka" />
               ))}
             </div>
           ) : (

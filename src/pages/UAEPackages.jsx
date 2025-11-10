@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
-import { uaePackages } from '../data/siteData';
+import { uaePackages, uaeBanners } from '../data/siteData';
 import PackageCard from '../components/PackageCard';
+import HeroSlider from '../components/HeroSlider';
 
 export default function UAEPackages() {
   const [query, setQuery] = useState('');
@@ -13,37 +14,42 @@ export default function UAEPackages() {
 
   return (
     <div className="min-h-screen pt-20 pb-10">
-      {/* Hero banner */}
-      <section className="hero_sec">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold">UAE Holidays <span className="text-accent">Packages</span></h1>
-            <p className="text-gray-600 mt-2">Best curated Dubai & UAE packages with great inclusions</p>
+      {/* Hero Slider */}
+      <section className="relative">
+        <HeroSlider 
+          images={uaeBanners} 
+          className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
+        >
+          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-3xl">
+            <div className="bg-white rounded-2xl p-4 md:p-5 shadow-2xl border border-lightGray">
+              <div className="text-center mb-4">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-season font-bold text-darkBlue">UAE Holidays Packages</h1>
+                <p className="text-darkBlue/70 mt-2 font-canva-sans">Best curated Dubai & UAE packages with great inclusions</p>
+              </div>
+              <form
+                className="flex flex-col md:flex-row gap-2 md:gap-0"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSearchTerm(query);
+                }}
+              >
+                <input
+                  className="flex-1 px-4 py-2.5 md:rounded-l-full rounded-full md:rounded-r-none border-2 border-lightGray focus:outline-none focus:border-orange text-darkBlue text-sm font-canva-sans placeholder:text-darkBlue/50"
+                  placeholder="Search UAE packages..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <button type="submit" className="bg-orange hover:bg-teal text-white px-5 py-2.5 text-sm md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
+                  <i className="fas fa-search mr-2"></i>
+                  Search
+                </button>
+              </form>
+              {searchTerm && (
+                <p className="text-darkBlue/60 text-sm mt-2 text-center">Showing results for: <span className="font-semibold">{searchTerm}</span></p>
+              )}
+            </div>
           </div>
-          {/* Search */}
-          <div className="max-w-3xl mx-auto">
-            <form
-              className="flex overflow-hidden rounded-full shadow-xl bg-white"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSearchTerm(query);
-              }}
-            >
-              <input
-                className="flex-1 px-6 py-3 outline-none"
-                placeholder="Search UAE packages..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <button type="submit" className="bg-primary text-white px-6 hover:bg-secondary transition-colors" aria-label="Search">
-                <i className="fa fa-search" />
-              </button>
-            </form>
-            {searchTerm && (
-              <p className="text-gray-600 text-sm mt-2">Showing results for: <span className="font-semibold">{searchTerm}</span></p>
-            )}
-          </div>
-        </div>
+        </HeroSlider>
       </section>
 
       {/* Grid */}

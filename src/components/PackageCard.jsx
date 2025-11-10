@@ -3,6 +3,16 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { slugify } from '../utils/slug';
 import { packageDetails } from '../data/siteData';
 
+// Utility function to extract days from nights format
+const getDaysFromNights = (nights) => {
+  if (!nights) return '';
+  const match = nights.match(/(\d+)N\/(\d+)D/);
+  if (match) {
+    return `${match[2]} Days`;
+  }
+  return nights;
+};
+
 export const PriceTag = ({ strike, price }) => (
   <div className="mt-2">
     {typeof strike === 'number' && (
@@ -23,8 +33,8 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
 
   // Compute a stable slug for the package details page
   const computedSlug = useMemo(() => {
-    const detailName = packageDetails?.[pkg.id]?.name;
-    const base = detailName || pkg.title;
+    const packageDetail = packageDetails?.[pkg.id];
+    const base = packageDetail?.name || pkg.title;
     return slugify(base);
   }, [pkg.id, pkg.title]);
 
@@ -35,6 +45,11 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
     if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
     if ((id >= 16 && id <= 20) || (id >= 36 && id <= 39)) return 'thailand';
     if ((id >= 21 && id <= 25) || (id >= 31 && id <= 35)) return 'singapore';
+    if ((id >= 40 && id <= 54)) return 'srilanka';
+    if ((id >= 91 && id <= 100)) return 'andaman';
+    if ((id >= 101 && id <= 110)) return 'jaipur';
+    if ((id >= 111 && id <= 120)) return 'kerala';
+    if ((id >= 121 && id <= 130)) return 'kashmir';
     return 'uae';
   }, [category, pkg.id]);
 
@@ -62,57 +77,42 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
           className="w-full h-44 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {pkg.nights && (
-          <div className="absolute left-3 bottom-3 bg-darkBlue text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90">{pkg.nights}</div>
+          <div className="absolute left-3 bottom-3 bg-darkBlue text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90 whitespace-nowrap min-w-fit">
+            <span className="inline-block">{getDaysFromNights(pkg.nights)}</span>
+          </div>
         )}
       </div>
       <div className="p-4 flex flex-col flex-grow">
-        {/* Package Title with View Package Button */}
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins line-clamp-2 flex-1">{pkg.title}</h3>
+        <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins mb-2 line-clamp-2 min-h-[2.5rem]">{pkg.title}</h3>
+        <PriceTag strike={pkg.strikePrice} price={pkg.price} />
+        
+        {/* Buttons Section - Pushed to bottom */}
+        <div className="mt-auto pt-3 flex flex-col sm:flex-row gap-2">
           {onView ? (
             <button 
               onClick={() => onView(pkg)} 
-              className="custom-btn text-xs px-3 py-1.5 font-medium hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0"
+              className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200"
             >
               <i className="fas fa-eye mr-1 text-xs"></i>
               {buttonLabel}
             </button>
           ) : (
             <Link 
-              to={`/packages/${resolvedCategory}/${computedSlug}`} 
+              to={`/${resolvedCategory}-packages/${computedSlug}`} 
               target="_blank"
               rel="noopener noreferrer"
-              className="custom-btn text-xs px-3 py-1.5 font-medium hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center whitespace-nowrap flex-shrink-0"
+              className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center"
             >
               <i className="fas fa-eye mr-1 text-xs"></i>
               {buttonLabel}
             </Link>
           )}
-        </div>
-
-        {/* Tags Section - Display if tags exist */}
-        {pkg.tags && pkg.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            {pkg.tags.slice(0, 3).map((tag, index) => (
-              <span 
-                key={index}
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-orange/10 to-teal/10 text-darkBlue border border-orange/20 font-poppins"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Pricing with Expert Button */}
-        <div className="mt-auto flex items-end justify-between gap-3">
-          <PriceTag strike={pkg.strikePrice} price={pkg.price} />
           
           {/* Connect with Expert Button */}
-          <div className="relative flex-shrink-0" ref={menuRef}>
+          <div className="relative flex-1" ref={menuRef}>
             <button
               onClick={() => setShowExpertMenu(!showExpertMenu)}
-              className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap"
+              className="custom-btn w-full text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
             >
               <i className="fas fa-headset mr-1 text-xs"></i>
               Expert

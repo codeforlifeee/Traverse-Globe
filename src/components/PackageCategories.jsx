@@ -5,10 +5,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const categories = [
-  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', link: '/packages/uae', blurb: 'Desert safari, sky-high views, and culture' },
-  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80', link: '/packages/bali', blurb: 'Beaches, temples, and lush rice terraces' },
-  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80', link: '/packages/thailand', blurb: 'Islands, food, and vibrant culture' },
-  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80', link: '/packages/singapore', blurb: 'City lights, attractions, and family fun' },
+  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', link: '/uae-packages', blurb: 'Desert safari, sky-high views, and culture' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80', link: '/bali-packages', blurb: 'Beaches, temples, and lush rice terraces' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80', link: '/thailand-packages', blurb: 'Islands, food, and vibrant culture' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80', link: '/singapore-packages', blurb: 'City lights, attractions, and family fun' },
 ];
 
 const CategoryCard = ({ category }) => {
@@ -19,11 +19,11 @@ const CategoryCard = ({ category }) => {
         <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
       </div>
       <div className="p-3 bg-white">
-        <div className="flex items-center justify-between gap-2 mb-1.5">
-          <h3 className="text-lg font-bold text-darkBlue font-season">{category.title}</h3>
-          <Link to={category.link} className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0">View Packages</Link>
+        <h3 className="text-lg font-bold text-darkBlue mb-1.5 font-season">{category.title}</h3>
+        <p className="text-xs text-darkBlue/70 mb-2.5 font-canva-sans">{category.blurb}</p>
+        <div className="flex justify-end">
+          <Link to={category.link} className="bg-orange text-white py-1.5 px-4 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg">View Packages</Link>
         </div>
-        <p className="text-xs text-darkBlue/70 font-canva-sans">{category.blurb}</p>
       </div>
     </div>
   );
