@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSlider({ images = [], interval = 4000, className = '', children }){
   const [index, setIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState(new Set([0])); // Preload first image
   const timer = useRef(null);
   const hoverRef = useRef(false);
 
@@ -9,7 +10,12 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
     if (!images.length) return;
     timer.current = setInterval(() => {
       if (!hoverRef.current) {
-        setIndex(i => (i + 1) % images.length);
+        setIndex(i => {
+          const nextIndex = (i + 1) % images.length;
+          // Preload next image
+          setLoadedImages(prev => new Set([...prev, nextIndex, (nextIndex + 1) % images.length]));
+          return nextIndex;
+        });
       }
     }, interval);
     return () => clearInterval(timer.current);
@@ -18,8 +24,18 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
   const go = (dir) => {
     setIndex(i => {
       const n = images.length;
-      return (i + (dir === 'next' ? 1 : -1) + n) % n;
+      const nextIndex = (i + (dir === 'next' ? 1 : -1) + n) % n;
+      setLoadedImages(prev => new Set([...prev, nextIndex]));
+      return nextIndex;
     });
+  };
+
+  // Helper to get optimized Unsplash URL
+  const getOptimizedUrl = (url) => {
+    if (url.includes('unsplash.com')) {
+      return `${url}${url.includes('?') ? '&' : '?'}auto=format&fit=crop&q=75`;
+    }
+    return url;
   };
 
   return (
@@ -31,7 +47,14 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
             <div className="h-full w-full flex transition-transform duration-700" style={{ transform: `translateX(-${index * 100}%)` }}>
               {images.map((src, idx) => (
                 <div key={idx} className="h-full w-full shrink-0 grow-0 basis-full relative">
-                  <img src={src} alt={`slide-${idx}`} className="absolute inset-0 w-full h-full object-cover" />
+                  <img 
+                    src={getOptimizedUrl(src)} 
+                    alt={`Travel destination ${idx + 1}`}
+                    className="absolute inset-0 w-full h-full object-cover" 
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={idx === 0 ? 'high' : 'auto'}
+                    decoding={idx === 0 ? 'sync' : 'async'}
+                  />
                   <div className="absolute inset-0 bg-black/30" />
                 </div>
               ))}
