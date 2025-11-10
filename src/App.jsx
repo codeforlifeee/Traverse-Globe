@@ -1,26 +1,48 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, memo } from 'react';
+
+// Critical components - loaded immediately
 import Header from './components/Header';
 import Footer from './components/Footer';
-import FloatingButtons from './components/FloatingButtons';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
-const About = lazy(() => import('./pages/About'));
-const Blog = lazy(() => import('./pages/Blog'));
-const Contact = lazy(() => import('./pages/Contact'));
-const UAEPackages = lazy(() => import('./pages/UAEPackages'));
-const BaliPackages = lazy(() => import('./pages/BaliPackages'));
-const ThailandPackages = lazy(() => import('./pages/ThailandPackages'));
-const SingaporePackages = lazy(() => import('./pages/SingaporePackages'));
-const SriLankaPackages = lazy(() => import('./pages/SriLankaPackages'));
-const VietnamPackages = lazy(() => import('./pages/VietnamPackages'));
-const LaosPackages = lazy(() => import('./pages/LaosPackages'));
-const AndamanPackages = lazy(() => import('./pages/AndamanPackages'));
-const JaipurPackages = lazy(() => import('./pages/JaipurPackages'));
-const KeralaPackages = lazy(() => import('./pages/KeralaPackages'));
-const KashmirPackages = lazy(() => import('./pages/KashmirPackages'));
-const PackageDetails = lazy(() => import('./pages/PackageDetails'));
-const PackageRedirect = lazy(() => import('./pages/PackageRedirect'));
+
+// Lazy load non-critical components
+const FloatingButtons = lazy(() => import('./components/FloatingButtons'));
+
+// Lazy load all page components
+const About = lazy(() => import(/* webpackChunkName: "about" */ './pages/About'));
+const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
+const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
+
+// Package pages
+const UAEPackages = lazy(() => import(/* webpackChunkName: "uae" */ './pages/UAEPackages'));
+const BaliPackages = lazy(() => import(/* webpackChunkName: "bali" */ './pages/BaliPackages'));
+const ThailandPackages = lazy(() => import(/* webpackChunkName: "thailand" */ './pages/ThailandPackages'));
+const SingaporePackages = lazy(() => import(/* webpackChunkName: "singapore" */ './pages/SingaporePackages'));
+const SriLankaPackages = lazy(() => import(/* webpackChunkName: "srilanka" */ './pages/SriLankaPackages'));
+const VietnamPackages = lazy(() => import(/* webpackChunkName: "vietnam" */ './pages/VietnamPackages'));
+const LaosPackages = lazy(() => import(/* webpackChunkName: "laos" */ './pages/LaosPackages'));
+const AndamanPackages = lazy(() => import(/* webpackChunkName: "andaman" */ './pages/AndamanPackages'));
+const JaipurPackages = lazy(() => import(/* webpackChunkName: "jaipur" */ './pages/JaipurPackages'));
+const KeralaPackages = lazy(() => import(/* webpackChunkName: "kerala" */ './pages/KeralaPackages'));
+const KashmirPackages = lazy(() => import(/* webpackChunkName: "kashmir" */ './pages/KashmirPackages'));
+const PackageDetails = lazy(() => import(/* webpackChunkName: "package-details" */ './pages/PackageDetails'));
+const PackageRedirect = lazy(() => import(/* webpackChunkName: "redirect" */ './pages/PackageRedirect'));
+
+// Optimized loading fallback
+const LoadingFallback = memo(() => (
+  <div className="min-h-[calc(100vh-80px)] flex items-center justify-center" role="status" aria-live="polite">
+    <div className="text-center">
+      <div 
+        className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange mb-4"
+        aria-hidden="true"
+      ></div>
+      <p className="text-darkBlue/80 font-poppins">Loading...</p>
+    </div>
+  </div>
+));
+LoadingFallback.displayName = 'LoadingFallback';
 
 function App() {
   return (
@@ -28,21 +50,16 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-white overflow-x-hidden">
         <Header />
-        <main>
-          <Suspense fallback={
-            <div className="min-h-[calc(100vh-80px)] flex items-center justify-center">
-              <div className="text-center">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange mb-4"></div>
-                <p className="text-darkBlue/80 font-poppins">Loading...</p>
-              </div>
-            </div>
-          }>
+        <main role="main">
+          <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<About />} />
               <Route path="/blog" element={<Blog />} />
+              
+              {/* Package Routes */}
               <Route path="/uae-packages" element={<UAEPackages />} />
               <Route path="/uae-packages/:slug" element={<PackageDetails />} />
               <Route path="/bali-packages" element={<BaliPackages />} />
@@ -65,13 +82,16 @@ function App() {
               <Route path="/kerala-packages/:slug" element={<PackageDetails />} />
               <Route path="/kashmir-packages" element={<KashmirPackages />} />
               <Route path="/kashmir-packages/:slug" element={<PackageDetails />} />
-              {/* Backward compatibility: redirect old slug URLs to nested category path */}
+              
+              {/* Backward compatibility */}
               <Route path="/package/:slug" element={<PackageRedirect />} />
             </Routes>
           </Suspense>
         </main>
         <Footer />
-        <FloatingButtons />
+        <Suspense fallback={null}>
+          <FloatingButtons />
+        </Suspense>
       </div>
     </Router>
   );

@@ -3,24 +3,81 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+// Performance monitoring
+if (typeof window !== 'undefined' && 'performance' in window) {
+  // Report Web Vitals
+  window.addEventListener('load', () => {
+    // Log initial load metrics
+    const perfData = performance.getEntriesByType('navigation')[0];
+    if (perfData) {
+      console.log('Performance Metrics:', {
+        DNS: perfData.domainLookupEnd - perfData.domainLookupStart,
+        TCP: perfData.connectEnd - perfData.connectStart,
+        Request: perfData.responseStart - perfData.requestStart,
+        Response: perfData.responseEnd - perfData.responseStart,
+        DOM: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+        Load: perfData.loadEventEnd - perfData.loadEventStart,
+        Total: perfData.loadEventEnd - perfData.fetchStart
+      });
+    }
+  });
+
+  // Observe Long Tasks
+  if ('PerformanceObserver' in window) {
+    try {
+      const longTaskObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration > 50) {
+            console.warn('Long task detected:', entry.duration.toFixed(2) + 'ms');
+          }
+        }
+      });
+      longTaskObserver.observe({ entryTypes: ['longtask'] });
+    } catch (e) {
+      // Long task API not supported
+    }
+  }
+}
+
+// Hydrate the root
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render(
   <StrictMode>
     <App />
-  </StrictMode>,
-)
+  </StrictMode>
+);
 
-// Defer Font Awesome until user intent or after a short delay
-const loadFontAwesome = () => import('@fortawesome/fontawesome-free/css/all.min.css').catch(() => {});
-const loadOnFirstInteraction = () => {
-  loadFontAwesome();
-  window.removeEventListener('pointerdown', loadOnFirstInteraction);
-  window.removeEventListener('mousemove', loadOnFirstInteraction);
-  window.removeEventListener('keydown', loadOnFirstInteraction);
-  window.removeEventListener('scroll', loadOnFirstInteraction);
-};
-window.addEventListener('pointerdown', loadOnFirstInteraction, { once: true });
-window.addEventListener('mousemove', loadOnFirstInteraction, { once: true });
-window.addEventListener('keydown', loadOnFirstInteraction, { once: true });
-window.addEventListener('scroll', loadOnFirstInteraction, { once: true, passive: true });
-// Fallback: load after 5s if no interaction
-setTimeout(() => loadFontAwesome(), 5000);
+// Register service worker for PWA
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(
+      registration => {
+        console.log('SW registered:', registration);
+      },
+      err => {
+        console.log('SW registration failed:', err);
+      }
+    );
+  });
+}
+
+// Preload critical routes on idle
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => {
+    // Preload top destination images
+    const criticalImages = [
+      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c',
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4'
+    ];
+    
+    criticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'image';
+      link.href = `${src}?auto=format&fit=crop&w=800&q=80`;
+      document.head.appendChild(link);
+    });
+  }, { timeout: 2000 });
+}
