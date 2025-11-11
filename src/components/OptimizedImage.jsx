@@ -23,8 +23,9 @@ export default function OptimizedImage({
   const imgRef = useRef(null);
   const maxRetries = 2;
 
-  // Extract base URL and check if it's from Unsplash
+  // Extract base URL and check image source
   const isUnsplash = src?.includes('unsplash.com');
+  const isPexels = src?.includes('pexels.com');
   
   // Generate responsive images for Unsplash
   const getSrcSet = () => {
@@ -41,9 +42,17 @@ export default function OptimizedImage({
   // Optimize src with quality parameter
   const getOptimizedSrc = () => {
     if (!src) return '';
+    
+    // Unsplash optimization
     if (isUnsplash && !src.includes('q=')) {
       return `${src}${src.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80`;
     }
+    
+    // Pexels images already have params, return as-is
+    if (isPexels) {
+      return src;
+    }
+    
     return src;
   };
 
@@ -86,6 +95,7 @@ export default function OptimizedImage({
           fetchpriority={fetchpriority}
           onLoad={handleLoad}
           onError={handleError}
+          crossOrigin="anonymous"
           className={`w-full h-full object-cover transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}

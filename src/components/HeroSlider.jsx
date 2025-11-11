@@ -30,11 +30,21 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
     });
   };
 
-  // Helper to get optimized Unsplash URL
+  // Helper to get optimized URL for all image sources
   const getOptimizedUrl = (url) => {
+    if (!url) return '';
+    
+    // Unsplash images
     if (url.includes('unsplash.com')) {
-      return `${url}${url.includes('?') ? '&' : '?'}auto=format&fit=crop&q=75`;
+      return `${url}${url.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80`;
     }
+    
+    // Pexels images - ensure they have proper params
+    if (url.includes('pexels.com')) {
+      // Pexels URLs already have params, just return as-is
+      return url;
+    }
+    
     return url;
   };
 
@@ -54,6 +64,11 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
                     loading={idx === 0 ? 'eager' : 'lazy'}
                     fetchpriority={idx === 0 ? 'high' : 'auto'}
                     decoding={idx === 0 ? 'sync' : 'async'}
+                    crossOrigin="anonymous"
+                    onError={(e) => {
+                      console.error('Image failed to load:', src);
+                      e.target.style.background = '#ddd';
+                    }}
                   />
                   <div className="absolute inset-0 bg-black/30" />
                 </div>

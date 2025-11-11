@@ -104,6 +104,25 @@ export default defineConfig({
             }
           },
           {
+            urlPattern: /^https:\/\/images\.pexels\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pexels-images-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+              networkTimeoutSeconds: 10,
+              fetchOptions: {
+                mode: 'cors',
+                credentials: 'omit'
+              }
+            }
+          },
+          {
             urlPattern: /^https:\/\/cdnjs\.cloudflare\.com\/.*/i,
             handler: 'CacheFirst',
             options: {

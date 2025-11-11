@@ -12,19 +12,19 @@ export const banners = [
 ];
 
 export const laosBanners = [
-  'https://images.pexels.com/photos/924631/pexels-photo-924631.jpeg?auto=format&fit=crop&w=1920&q=80',
-  'https://images.pexels.com/photos/924633/pexels-photo-924633.jpeg?auto=format&fit=crop&w=1920&q=80',
-  'https://images.pexels.com/photos/30174701/pexels-photo-30174701.jpeg',
-  'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg',
-  'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg',
+  'https://images.pexels.com/photos/924631/pexels-photo-924631.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/924633/pexels-photo-924633.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/30174701/pexels-photo-30174701.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
 ];
 
 export const uaeBanners = [
-  'https://images.pexels.com/photos/1589237/pexels-photo-1589237.jpeg',
-  'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg',
-  'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg',
-  'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg',
-  'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg',
+  'https://images.pexels.com/photos/1589237/pexels-photo-1589237.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
 ];
 
 export const baliBanners = [
@@ -52,18 +52,18 @@ export const singaporeBanners = [
 ];
 
 export const vietnamBanners = [
-  'https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg',
-  'https://images.pexels.com/photos/34571722/pexels-photo-34571722.jpeg',
-  'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg',
-  'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg',
-  'https://images.pexels.com/photos/34514455/pexels-photo-34514455.jpeg',
+  'https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/34571722/pexels-photo-34571722.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/34514455/pexels-photo-34514455.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
 ];
 
 export const srilankaBanners = [
-  'https://images.pexels.com/photos/16508234/pexels-photo-16508234.jpeg',
-  'https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg',
-  'https://images.pexels.com/photos/34516955/pexels-photo-34516955.jpeg',
-  'https://images.pexels.com/photos/1998435/pexels-photo-1998435.jpeg',
+  'https://images.pexels.com/photos/16508234/pexels-photo-16508234.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/34516955/pexels-photo-34516955.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
+  'https://images.pexels.com/photos/1998435/pexels-photo-1998435.jpeg?auto=compress&cs=tinysrgb&w=1920&h=650&fit=crop',
 ];
 
 export const andamanBanners = [
