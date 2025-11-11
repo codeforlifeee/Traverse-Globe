@@ -25,6 +25,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    
+    <!-- Preload critical FontAwesome fonts with font-display: swap -->
+    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" crossorigin="anonymous" />
     
     <!-- Critical inline CSS for above-the-fold content -->
     <style>
@@ -73,27 +79,6 @@
     <!-- Main app script -->
     <script type="module" src="/src/main.jsx"></script>
     
-    <!-- Defer Font Awesome loading -->
-    <script>
-      // Load Font Awesome on user interaction or after 3s
-      const loadFA = () => {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-        link.crossOrigin = 'anonymous';
-        document.head.appendChild(link);
-      };
-      
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadFA, { timeout: 3000 });
-      } else {
-        setTimeout(loadFA, 3000);
-      }
-      
-      // Also load on first interaction
-      ['mousedown', 'touchstart', 'keydown', 'scroll'].forEach(event => {
-        window.addEventListener(event, loadFA, { once: true, passive: true });
-      });
-    </script>
+    <!-- Font Awesome is now loaded via @font-face in index.css with font-display: swap -->
   </body>
 </html>
