@@ -19,7 +19,9 @@ export default function OptimizedImage({
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const imgRef = useRef(null);
+  const maxRetries = 2;
 
   // Extract base URL and check if it's from Unsplash
   const isUnsplash = src?.includes('unsplash.com');
@@ -32,7 +34,7 @@ export default function OptimizedImage({
     const widths = [640, 750, 828, 1080, 1200, 1920];
     
     return widths
-      .map(w => `${baseUrl}?auto=format&fit=crop&w=${w}&q=75 ${w}w`)
+      .map(w => `${baseUrl}?auto=format&fit=crop&w=${w}&q=80 ${w}w`)
       .join(', ');
   };
 
@@ -40,7 +42,7 @@ export default function OptimizedImage({
   const getOptimizedSrc = () => {
     if (!src) return '';
     if (isUnsplash && !src.includes('q=')) {
-      return `${src}${src.includes('?') ? '&' : '?'}auto=format&fit=crop&q=75`;
+      return `${src}${src.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80`;
     }
     return src;
   };
@@ -51,8 +53,18 @@ export default function OptimizedImage({
   };
 
   const handleError = (e) => {
-    setHasError(true);
-    onError?.(e);
+    // Retry loading the image up to maxRetries times
+    if (retryCount < maxRetries) {
+      setTimeout(() => {
+        setRetryCount(prev => prev + 1);
+        if (imgRef.current) {
+          imgRef.current.src = getOptimizedSrc();
+        }
+      }, 1000 * (retryCount + 1)); // Exponential backoff
+    } else {
+      setHasError(true);
+      onError?.(e);
+    }
   };
 
   return (

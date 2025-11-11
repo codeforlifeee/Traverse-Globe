@@ -45,8 +45,16 @@ export default defineConfig({
     // PWA for caching and offline support
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      devOptions: {
+        enabled: false
+      },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}'],
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+        sourcemap: false,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -78,15 +86,20 @@ export default defineConfig({
           },
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'unsplash-images-cache',
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxEntries: 60,
+                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
               },
               cacheableResponse: {
                 statuses: [0, 200]
+              },
+              networkTimeoutSeconds: 10,
+              fetchOptions: {
+                mode: 'cors',
+                credentials: 'omit'
               }
             }
           },

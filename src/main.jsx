@@ -49,17 +49,34 @@ root.render(
   </StrictMode>
 );
 
-// Register service worker for PWA
+// Register service worker for PWA with better error handling
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(
+    navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
       registration => {
-        console.log('SW registered:', registration);
+        console.log('SW registered:', registration.scope);
+        
+        // Check for updates periodically
+        setInterval(() => {
+          registration.update();
+        }, 60 * 60 * 1000); // Check every hour
       },
       err => {
-        console.log('SW registration failed:', err);
+        console.error('SW registration failed:', err);
       }
     );
+    
+    // Handle service worker errors
+    navigator.serviceWorker.addEventListener('error', (error) => {
+      console.error('Service Worker error:', error);
+    });
+  });
+}
+
+// Load diagnostics in development
+if (import.meta.env.DEV) {
+  import('./utils/swDiagnostics.js').catch(() => {
+    console.log('SW diagnostics not available');
   });
 }
 
