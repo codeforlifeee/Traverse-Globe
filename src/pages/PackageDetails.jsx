@@ -161,10 +161,10 @@ export default function PackageDetails() {
 
   const subtitle = (
     <span>
-      <i className="fas fa-map-marker-alt" /> {destination}
+      <i className="fa-solid fa-map-marker-alt" /> {destination}
       {' '}
-      {listMeta?.nights ? (<span>| <i className="fas fa-calendar" /> {listMeta.nights}</span>) : (<span>| <i className="fas fa-calendar" /> Multi-Day</span>)}
-      {' '}| <i className="fas fa-star text-yellow-400" /> 4.8 (256 Reviews)
+      {listMeta?.nights ? (<span>| <i className="fa-solid fa-calendar" /> {listMeta.nights}</span>) : (<span>| <i className="fa-solid fa-calendar" /> Multi-Day</span>)}
+      {' '}| <i className="fa-solid fa-star text-yellow-400" /> 4.8 (256 Reviews)
     </span>
   );
 
@@ -221,7 +221,7 @@ export default function PackageDetails() {
                         : 'text-gray-600 hover:bg-[#E4EEF0] hover:text-[#16232A]'
                     }`}
                   >
-                    <i className={`fas ${icon} mr-2`}></i>
+                    <i className={`fa-solid ${icon} mr-2`}></i>
                     {label}
                   </button>
                 ))}
@@ -233,14 +233,14 @@ export default function PackageDetails() {
               {/* Overview Section */}
               <div id="overview" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
                 <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
-                  <i className="fas fa-info-circle text-[#FF5B04]"></i>
+                  <i className="fa-solid fa-info-circle text-[#FF5B04]"></i>
                   Overview
                 </h3>
                 <div className="text-gray-700 space-y-3">
                   <p>Discover the allure of {destination.split(',')[0]} with our exclusive tour package! Explore iconic landmarks, enjoy thrilling adventures and world-class shopping. With comfortable stays, guided tours, and seamless transfers, experience the perfect blend of adventure, luxury, and culture.</p>
                   <div className="bg-gradient-to-br from-[#d4f1f4] via-[#E4EEF0] to-[#cfe9ec] rounded-lg p-6 shadow-md border-l-4 border-[#075056]">
                     <h6 className="text-[#16232A] font-bold mb-3 flex items-center gap-2 text-lg">
-                      <i className="fas fa-star text-[#FF5B04]"/> {detail.name}
+                      <i className="fa-solid fa-star text-[#FF5B04]"/> {detail.name}
                     </h6>
                     <ul className="list-disc pl-5 space-y-2 text-[#16232A]">
                       {overviewList.map((li,i)=>(<li key={i}>{li}</li>))}
@@ -252,7 +252,7 @@ export default function PackageDetails() {
               {/* Itinerary Section */}
               <div id="itinerary" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
                 <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
-                  <i className="fas fa-calendar-alt text-[#FF5B04]"></i>
+                  <i className="fa-solid fa-calendar-alt text-[#FF5B04]"></i>
                   Day-wise Itinerary
                 </h3>
                 <div className="space-y-4">
@@ -273,18 +273,18 @@ export default function PackageDetails() {
               {/* Inclusions Section */}
               <div id="inclusions" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
                 <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
-                  <i className="fas fa-check-circle text-[#FF5B04]"></i>
+                  <i className="fa-solid fa-check-circle text-[#FF5B04]"></i>
                   Inclusions & Exclusions
                 </h3>
                 <div className="text-gray-700">
                   <div className="bg-gradient-to-br from-[#d4f1f4] to-[#E4EEF0] rounded-xl p-5 mb-4 shadow-md border-l-4 border-[#075056]">
                     <h5 className="text-[#075056] font-bold mb-4 text-lg flex items-center gap-2">
-                      <i className="fas fa-check-circle text-[#075056]"/>What's Included
+                      <i className="fa-solid fa-check-circle text-[#075056]"/>What's Included
                     </h5>
                     <ul className="space-y-3">
                       {getInclusions(pkgId).map((item,i)=>(
                         <li key={i} className="flex items-start gap-3 text-[#16232A]">
-                          <i className="fas fa-check-circle text-[#075056] mt-1 flex-shrink-0"/> 
+                          <i className="fa-solid fa-check-circle text-[#075056] mt-1 flex-shrink-0"/> 
                           <span>{item}</span>
                         </li>
                       ))}
@@ -292,12 +292,12 @@ export default function PackageDetails() {
                   </div>
                   <div className="bg-gradient-to-br from-red-100 to-red-50 rounded-xl p-5 shadow-md border-l-4 border-red-400">
                     <h5 className="text-red-600 font-bold mb-4 text-lg flex items-center gap-2">
-                      <i className="fas fa-times-circle"/>What's Not Included
+                      <i className="fa-solid fa-times-circle"/>What's Not Included
                     </h5>
                     <ul className="space-y-3">
                       {getExclusions().map((item,i)=>(
                         <li key={i} className="flex items-start gap-3 text-red-800">
-                          <i className="fas fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
+                          <i className="fa-solid fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
                           <span>{item}</span>
                         </li>
                       ))}
@@ -309,7 +309,7 @@ export default function PackageDetails() {
               {/* Hotels Section */}
               <div id="hotels" className="bg-white rounded-2xl shadow p-6 scroll-mt-24">
                 <h3 className="text-2xl font-bold text-[#16232A] mb-4 flex items-center gap-2">
-                  <i className="fas fa-hotel text-[#FF5B04]"></i>
+                  <i className="fa-solid fa-hotel text-[#FF5B04]"></i>
                   Accommodation Details
                 </h3>
                 <div className="text-gray-700">
@@ -317,14 +317,14 @@ export default function PackageDetails() {
                   <ul className="space-y-3">
                     {getHotels(pkgId, destination).map((h,i)=>(
                       <li key={i} className="flex items-start gap-3 bg-gradient-to-r from-[#E4EEF0] via-[#f5fafb] to-[#E4EEF0] p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-[#075056]">
-                        <i className="fas fa-building text-[#075056] mt-1 flex-shrink-0 text-xl"/> 
+                        <i className="fa-solid fa-building text-[#075056] mt-1 flex-shrink-0 text-xl"/> 
                         <span>{h}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="mt-5 bg-gradient-to-r from-[#fff3e0] to-[#ffe0b2] p-4 rounded-xl shadow-md border-l-4 border-[#FF5B04]">
                     <p className="text-sm text-[#16232A] font-medium">
-                      <i className="fas fa-info-circle mr-2 text-[#FF5B04]"></i>
+                      <i className="fa-solid fa-info-circle mr-2 text-[#FF5B04]"></i>
                       *Hotel subject to availability at the time of booking. Similar category hotel will be provided.
                     </p>
                   </div>
@@ -375,15 +375,15 @@ export default function PackageDetails() {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <a href="tel:+919997085457" className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap"><i className="fas fa-phone mr-1 sm:mr-2"/>Call</a>
-                <button onClick={()=>openWhatsApp(detail)} className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}><i className="fab fa-whatsapp mr-1 sm:mr-2"/>WhatsApp</button>
+                <a href="tel:+919997085457" className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap"><i className="fa-solid fa-phone mr-1 sm:mr-2"/>Call</a>
+                <button onClick={()=>openWhatsApp(detail)} className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}><i className="fa-brands fa-whatsapp mr-1 sm:mr-2"/>WhatsApp</button>
               </div>
 
               <button className="mt-3 w-full custom-btn" onClick={()=>setShowModal(true)}>Book Now</button>
 
               <div className="mt-5 pt-4 border-t text-sm text-gray-600 space-y-2">
-                <div><i className="fas fa-phone text-primary mr-2"/> +91 99970 85457</div>
-                <div><i className="fas fa-envelope text-primary mr-2"/> mail@traverseglobe.com</div>
+                <div><i className="fa-solid fa-phone text-primary mr-2"/> +91 99970 85457</div>
+                <div><i className="fa-solid fa-envelope text-primary mr-2"/> mail@traverseglobe.com</div>
               </div>
             </div>
           </aside>
@@ -480,7 +480,7 @@ export default function PackageDetails() {
               className="inline-flex items-center gap-2 bg-orange text-white px-8 py-3 rounded-full font-poppins font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal"
             >
               View All {listMeta?._cat?.toUpperCase() || 'Tour'} Packages
-              <i className="fas fa-arrow-right"></i>
+              <i className="fa-solid fa-arrow-right"></i>
             </Link>
           </div>
         </div>
@@ -493,7 +493,7 @@ export default function PackageDetails() {
           className="fixed bottom-6 right-6 z-50 bg-green-600 hover:bg-green-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
           aria-label="Back to top"
         >
-          <i className="fas fa-arrow-up"></i>
+          <i className="fa-solid fa-arrow-up"></i>
         </button>
       )}
     </div>

@@ -2352,12 +2352,12 @@ export const packageDetails = {
 };
 
 export const services = [
-  { icon: 'fas fa-cogs', title: 'Quick Booking', description: 'Booking is quick as clicking a few clicks. We take care of all transportation and accommodations during your journey.' },
-  { icon: 'fas fa-chart-pie', title: 'Backup Team', description: 'We have staff to assist in all stages of your holiday, from travel advise & best prices to ground handling & support during your holiday.' },
-  { icon: 'fas fa-thumbs-up', title: 'Exciting Travel', description: 'We have a wide range of expertise and knowledge in our services. So we can provide you exciting and memorable travel experiences.' },
-  { icon: 'fas fa-layer-group', title: 'Unique Destinations', description: 'Looking for a unique vacation destination? Then maybe a trip to one of the 10 most unique tourist destinations might.' },
+  { icon: 'fa-solid fa-cogs', title: 'Quick Booking', description: 'Booking is quick as clicking a few clicks. We take care of all transportation and accommodations during your journey.' },
+  { icon: 'fa-solid fa-chart-pie', title: 'Backup Team', description: 'We have staff to assist in all stages of your holiday, from travel advise & best prices to ground handling & support during your holiday.' },
+  { icon: 'fa-solid fa-thumbs-up', title: 'Exciting Travel', description: 'We have a wide range of expertise and knowledge in our services. So we can provide you exciting and memorable travel experiences.' },
+  { icon: 'fa-solid fa-layer-group', title: 'Unique Destinations', description: 'Looking for a unique vacation destination? Then maybe a trip to one of the 10 most unique tourist destinations might.' },
   { icon: 'far fa-chart-bar', title: 'Worth of Money', description: 'There is not a better way to spend money, than spending money on travel. This is what we say, others and science.' },
-  { icon: 'fas fa-database', title: 'Wonderful Places', description: 'We do our best to have you a wonderful experience by taking you to the wonderful and amazing places around the world.' },
+  { icon: 'fa-solid fa-database', title: 'Wonderful Places', description: 'We do our best to have you a wonderful experience by taking you to the wonderful and amazing places around the world.' },
 ];
 
 // Blog posts used in Blog page

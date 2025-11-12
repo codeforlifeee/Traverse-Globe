@@ -93,7 +93,7 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
               onClick={() => onView(pkg)} 
               className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200"
             >
-              <i className="fas fa-eye mr-1 text-xs"></i>
+              <i className="fa-solid fa-eye mr-1 text-xs"></i>
               {buttonLabel}
             </button>
           ) : (
@@ -103,7 +103,7 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
               rel="noopener noreferrer"
               className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200 text-center inline-flex items-center justify-center"
             >
-              <i className="fas fa-eye mr-1 text-xs"></i>
+              <i className="fa-solid fa-eye mr-1 text-xs"></i>
               {buttonLabel}
             </Link>
           )}
@@ -114,7 +114,7 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
               onClick={() => setShowExpertMenu(!showExpertMenu)}
               className="custom-btn w-full text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
             >
-              <i className="fas fa-headset mr-1 text-xs"></i>
+              <i className="fa-solid fa-headset mr-1 text-xs"></i>
               Expert
             </button>
             
@@ -131,13 +131,13 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
                     onClick={() => setShowExpertMenu(false)}
                   >
                     <div className="w-9 h-9 rounded-full bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                      <i className="fas fa-phone text-orange text-sm"></i>
+                      <i className="fa-solid fa-phone text-orange text-sm"></i>
                     </div>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Request a Call Back</p>
                       <p className="text-xs text-gray-500">We'll call you shortly</p>
                     </div>
-                    <i className="fas fa-chevron-right text-gray-400 text-xs group-hover/item:text-orange transition-colors"></i>
+                    <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-orange transition-colors"></i>
                   </a>
                   <a
                     href="https://wa.me/919997085457"
@@ -147,13 +147,13 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
                     onClick={() => setShowExpertMenu(false)}
                   >
                     <div className="w-9 h-9 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                      <i className="fab fa-whatsapp text-[#25D366] text-base"></i>
+                      <i className="fa-brands fa-whatsapp text-[#25D366] text-base"></i>
                     </div>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp Chat</p>
                       <p className="text-xs text-gray-500">Chat with us now</p>
                     </div>
-                    <i className="fas fa-chevron-right text-gray-400 text-xs group-hover/item:text-[#25D366] transition-colors"></i>
+                    <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-[#25D366] transition-colors"></i>
                   </a>
                 </div>
               </div>

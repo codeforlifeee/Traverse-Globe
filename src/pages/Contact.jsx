@@ -47,7 +47,7 @@ export default function Contact() {
                   </div>
                   <div className="mt-2">
                     <a href="https://maps.app.goo.gl/oPShVDMztyVRTR42F" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium flex items-center gap-1">
-                      <i className="fas fa-map-marker-alt" aria-hidden="true"></i> View on Google Maps
+                      <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i> View on Google Maps
                     </a>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-primary/90 transition-all font-medium"
             >
-              <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i>
               Open in Google Maps
             </a>
           </div>

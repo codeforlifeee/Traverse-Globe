@@ -39,7 +39,7 @@ const JaipurPackages = () => {
                   onChange={(e) => setQuery(e.target.value)}
                 />
                 <button type="submit" className="bg-orange hover:bg-teal text-white px-5 py-2.5 text-sm md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
-                  <i className="fas fa-search mr-2"></i>
+                  <i className="fa-solid fa-search mr-2"></i>
                   Search
                 </button>
               </form>

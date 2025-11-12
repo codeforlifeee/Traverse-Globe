@@ -40,7 +40,7 @@ export default function VietnamPackages() {
               className="bg-primary text-white px-6 hover:bg-secondary transition-colors"
               aria-label="Search"
             >
-              <i className="fa fa-search" />
+              <i className="fa-solid fa-search" />
             </button>
           </form>
           {searchTerm && (

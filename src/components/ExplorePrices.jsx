@@ -33,7 +33,7 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
         </div>
         <div className="flex justify-center mb-2">
           {[...Array(5)].map((_, i) => (
-            <i key={i} className="fas fa-star text-orange text-xs mx-0.5 transition-transform hover:scale-125"></i>
+            <i key={i} className="fa-solid fa-star text-orange text-xs mx-0.5 transition-transform hover:scale-125"></i>
           ))}
         </div>
         <div className="flex justify-center">

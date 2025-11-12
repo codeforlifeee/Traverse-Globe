@@ -50,15 +50,15 @@ const Footer = () => {
               <h4 className="text-xl font-semibold mb-4 font-poppins">Contact Us</h4>
               <ul className="space-y-2 text-white/70 font-canva-sans text-sm">
                 <li className="flex items-start">
-                  <i className="fas fa-phone mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
+                  <i className="fa-solid fa-phone mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
                   <span>+91 9997085457</span>
                 </li>
                 <li className="flex items-start">
-                  <i className="fas fa-envelope mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
+                  <i className="fa-solid fa-envelope mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
                   <span className="break-words">mail@traverseglobe.com</span>
                 </li>
                 <li className="flex items-start">
-                  <i className="fas fa-map-marker-alt mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
+                  <i className="fa-solid fa-map-marker-alt mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
                   <a 
                     href="https://maps.app.goo.gl/oPShVDMztyVRTR42F" 
                     target="_blank" 
@@ -83,7 +83,7 @@ const Footer = () => {
                 aria-label="Facebook" 
                 className="text-white/70 hover:text-orange transition-colors text-xl"
               >
-                <i className="fab fa-facebook"></i>
+                <i className="fa-brands fa-facebook"></i>
               </a>
               <a 
                 href="https://www.instagram.com/traverse.glob" 
@@ -92,7 +92,7 @@ const Footer = () => {
                 aria-label="Instagram" 
                 className="text-white/70 hover:text-orange transition-colors text-xl"
               >
-                <i className="fab fa-instagram"></i>
+                <i className="fa-brands fa-instagram"></i>
               </a>
               <a 
                 href="https://www.linkedin.com/company/traverse-globe" 
@@ -101,7 +101,7 @@ const Footer = () => {
                 aria-label="LinkedIn" 
                 className="text-white/70 hover:text-orange transition-colors text-xl"
               >
-                <i className="fab fa-linkedin"></i>
+                <i className="fa-brands fa-linkedin"></i>
               </a>
             </div>
           </div>

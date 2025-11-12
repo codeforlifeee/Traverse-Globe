@@ -21,7 +21,7 @@ const HeroSection = () => {
                 className="flex-1 px-4 py-2.5 md:rounded-l-full rounded-full md:rounded-r-none border-2 border-lightGray focus:outline-none focus:border-orange text-darkBlue text-sm font-canva-sans placeholder:text-darkBlue/50"
               />
               <button className="bg-orange hover:bg-teal text-white px-5 py-2.5 text-sm md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
-                <i className="fas fa-search mr-2"></i>
+                <i className="fa-solid fa-search mr-2"></i>
                 Search
               </button>
             </div>
