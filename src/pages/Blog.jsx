@@ -6,9 +6,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1280&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=1280&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1280&q=50&fm=webp',
 ];
 
 export default function Blog() {
@@ -74,7 +74,15 @@ export default function Blog() {
           {heroImages.map((src, idx) => (
             <SwiperSlide key={idx}>
               <div className="relative w-full h-full">
-                <img src={src} alt={`Travel hero ${idx + 1}`} className="w-full h-full object-cover" />
+                <img 
+                  src={src}
+                  srcSet={`${src.replace(/w=\d+/, 'w=640')} 640w, ${src.replace(/w=\d+/, 'w=960')} 960w, ${src.replace(/w=\d+/, 'w=1280')} 1280w`}
+                  sizes="100vw"
+                  alt={`Travel hero ${idx + 1}`} 
+                  className="w-full h-full object-cover" 
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="absolute inset-0 bg-black/40" />
               </div>
             </SwiperSlide>
@@ -125,7 +133,15 @@ export default function Blog() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
               <div className="relative rounded-2xl overflow-hidden shadow-md">
-                <img src={featured.image} alt={featured.title} className="w-full h-64 md:h-full object-cover" />
+                <img 
+                  src={(featured.image.includes('images.unsplash.com') ? featured.image.replace(/q=\d+/, 'q=50') + (featured.image.includes('fm=') ? '' : '&fm=webp') : featured.image)} 
+                  srcSet={`${featured.image.replace(/w=\d+/, 'w=640').replace(/q=\d+/, 'q=50')} 640w, ${featured.image.replace(/w=\d+/, 'w=960').replace(/q=\d+/, 'q=50')} 960w, ${featured.image.replace(/w=\d+/, 'w=1280').replace(/q=\d+/, 'q=50')} 1280w`}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  alt={featured.title} 
+                  className="w-full h-64 md:h-full object-cover" 
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
                   <span className="inline-block bg-white/90 text-darkBlue text-xs font-semibold px-2 py-1 rounded-full">
@@ -162,7 +178,15 @@ export default function Blog() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {others.map((p) => (
               <article key={p.id} className="bg-white rounded-2xl shadow-sm hover:shadow-md border border-lightGray overflow-hidden transition">
-                <img src={p.image} alt={p.title} className="w-full h-44 object-cover" />
+                <img 
+                  src={(p.image.includes('images.unsplash.com') ? p.image.replace(/q=\d+/, 'q=50') + (p.image.includes('fm=') ? '' : '&fm=webp') : p.image)} 
+                  srcSet={`${p.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50')} 400w, ${p.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50')} 600w, ${p.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50')} 800w`}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  alt={p.title} 
+                  className="w-full h-44 object-cover" 
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="p-5">
                   <div className="flex items-center gap-2 text-xs text-darkBlue/80">
                     <span className="inline-block bg-lightGray text-darkBlue px-2 py-0.5 rounded-full font-semibold">{p.category}</span>

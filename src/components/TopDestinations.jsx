@@ -45,9 +45,9 @@ const TopDestinations = () => {
                 <div className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
                   <div className="relative overflow-hidden h-48 md:h-56">
                     <img
-                      src={destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')}
-                      srcSet={`${destination.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=55')} 400w, ${destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')} 600w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=55')} 800w`}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      src={destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')}
+                      srcSet={`${destination.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 400w, ${destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 600w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 800w`}
+                      sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                       alt={destination.title}
                       loading="lazy"
                       decoding="async"

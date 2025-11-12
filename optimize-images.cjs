@@ -15,6 +15,23 @@ console.log('🖼️  Starting image optimization...\n');
 
 // Optimization rules
 const optimizations = [
+  // Ensure all Unsplash URLs use WebP (append fm=webp if missing, preserve other params)
+  {
+    pattern: /https:\/\/images\.unsplash\.com\/([^"'\s)]+)\?([^"'\s)]*)/g,
+    replace: (match, photoPath, query) => {
+      try {
+        const params = new URLSearchParams(query);
+        if (!params.has('fm')) params.set('fm', 'webp');
+        // enforce auto=format and fit=crop to align with delivery expectations
+        if (!params.has('auto')) params.set('auto', 'format');
+        if (!params.has('fit')) params.set('fit', 'crop');
+        return `https://images.unsplash.com/${photoPath}?${params.toString()}`;
+      } catch {
+        return match; // fallback if parsing fails
+      }
+    },
+    name: 'Unsplash add fm=webp'
+  },
   // Unsplash optimizations - reduce quality and size
   {
     pattern: /https:\/\/images\.unsplash\.com\/([^?]+)\?auto=format&fit=crop&w=(\d+)&q=(\d+)&fm=webp/g,

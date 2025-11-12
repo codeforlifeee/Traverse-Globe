@@ -7,9 +7,10 @@ import BookingModal from './BookingModal';
 import { slugify } from '../utils/slug';
 
 const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick }) => {
-  const src480 = image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70');
-  const src800 = image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70');
-  const src1200 = image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=70');
+  const addWebp = (u) => u.includes('images.unsplash.com') && !/fm=/.test(u) ? `${u}${u.includes('?') ? '&' : '?'}fm=webp` : u;
+  const src480 = addWebp(image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=50'));
+  const src800 = addWebp(image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50'));
+  const src1200 = addWebp(image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=50'));
   return (
     <div className="custom-card bg-white">
       <div className="overflow-hidden">

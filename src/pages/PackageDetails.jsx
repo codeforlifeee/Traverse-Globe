@@ -85,27 +85,60 @@ export default function PackageDetails() {
   }, [pkgId]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['overview', 'itinerary', 'inclusions', 'hotels'];
-      const scrollPosition = window.scrollY + 200;
+    // Observe section visibility instead of reading layout on every scroll (avoids forced reflow)
+    const sectionIds = ['overview', 'itinerary', 'inclusions', 'hotels'];
+    const sections = sectionIds
+      .map(id => ({ id, el: document.getElementById(id) }))
+      .filter(s => s.el);
 
-      // Show back to top button
-      setShowBackToTop(window.scrollY > 300);
+    if (!sections.length) return;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+    let raf = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the most visible section
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0));
+        if (visible.length) {
+          const top = visible[0];
+          const id = top.target.getAttribute('id');
+          if (id) setActiveSection(id);
+        } else {
+          // Fallback: choose the first section above the viewport
+          const above = entries
+            .slice()
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+            .find(e => e.boundingClientRect.top <= 120);
+          const id = above?.target.getAttribute('id');
+          if (id) setActiveSection(id);
         }
+      },
+      {
+        // Treat a section as active when ~60% is visible; account for sticky header (top offset)
+        root: null,
+        threshold: [0.3, 0.6, 0.9],
+        rootMargin: '-120px 0px -40% 0px',
       }
-    };
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    sections.forEach(({ el }) => observer.observe(el));
+
+    // Lightweight scroll listener for Back-to-top (no layout reads, throttled by rAF)
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setShowBackToTop(window.scrollY > 300);
+        raf = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const scrollToSection = (sectionId) => {

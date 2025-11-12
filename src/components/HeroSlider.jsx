@@ -30,34 +30,48 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
     });
   };
 
-  // Helper to get optimized URL for all image sources - reduced quality for faster loading
-  const getOptimizedUrl = (url) => {
+  // Build optimized URL + responsive sets
+  const buildBase = (url) => (url || '').split('?')[0];
+  const getOptimizedUrl = (url, w = 1280, q = 60) => {
     if (!url) return '';
-    
-    // Unsplash images - reduce to q=60 for faster loading
+    const base = buildBase(url);
     if (url.includes('unsplash.com')) {
-      return url.replace(/q=\d+/, 'q=60').replace(/w=\d+/, 'w=1200');
+      return `${base}?auto=format&fit=crop&w=${w}&q=${q}&fm=webp`;
     }
-    
-    // Pexels images - already optimized in siteData.js
     if (url.includes('pexels.com')) {
-      return url;
+      // Pexels: prefer dpr=1, rely on auto=compress
+      return `${base}?auto=compress&cs=tinysrgb&w=${w}&fit=crop&dpr=1`;
     }
-    
     return url;
   };
 
+  const getSrcSet = (url) => {
+    if (!url) return undefined;
+    const widths = [640, 960, 1280, 1600];
+    return widths.map((w) => `${getOptimizedUrl(url, w)} ${w}w`).join(', ');
+  };
+
   return (
-    <div className={`relative w-full select-none ${className}`} onMouseEnter={() => (hoverRef.current = true)} onMouseLeave={() => (hoverRef.current = false)}>
+    <div
+      className={`relative w-full select-none ${className}`}
+      onMouseEnter={() => (hoverRef.current = true)}
+      onMouseLeave={() => (hoverRef.current = false)}
+      style={{ contain: 'layout paint' }}
+    >
       <div className="relative overflow-hidden rounded-none">
         <div className="w-full h-[260px] md:h-[480px] relative">
           {/* Slides */}
           <div className="absolute inset-0">
-            <div className="h-full w-full flex transition-transform duration-700" style={{ transform: `translateX(-${index * 100}%)` }}>
+            <div
+              className="h-full w-full flex transition-transform duration-700"
+              style={{ transform: `translateX(-${index * 100}%)`, willChange: 'transform' }}
+            >
               {images.map((src, idx) => (
                 <div key={idx} className="h-full w-full shrink-0 grow-0 basis-full relative">
                   <img 
-                    src={getOptimizedUrl(src)} 
+                    src={getOptimizedUrl(src, 1280)} 
+                    srcSet={getSrcSet(src)}
+                    sizes="100vw"
                     alt={`Travel destination ${idx + 1}`}
                     className="absolute inset-0 w-full h-full object-cover" 
                     loading={idx === 0 ? 'eager' : 'lazy'}

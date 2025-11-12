@@ -10,9 +10,10 @@ const DestinationCard = ({ image, title, onClick }) => {
   const buildUrl = (w) => {
     let u = image;
     u = u.replace(/w=\d+/, `w=${w}`);
-    u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=55') : `${u}&q=55`;
+    u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=50') : `${u}&q=50`;
     if (!/auto=/.test(u)) u += `${u.includes('?') ? '&' : '?'}auto=format`;
     if (!/fit=/.test(u)) u += `&fit=crop`;
+    if (u.includes('images.unsplash.com') && !/fm=/.test(u)) u += `&fm=webp`;
     // Add dpr=1 for Pexels to prevent serving 2x images unnecessarily
     if (u.includes('pexels.com') && !/dpr=/.test(u)) u += `&dpr=1`;
     return u;
@@ -32,7 +33,6 @@ const DestinationCard = ({ image, title, onClick }) => {
           alt={title}
           loading="lazy"
           decoding="async"
-          fetchpriority="high"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>

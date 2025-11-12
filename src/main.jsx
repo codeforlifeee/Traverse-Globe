@@ -50,27 +50,34 @@ root.render(
   </StrictMode>
 );
 
-// Register service worker for PWA with better error handling
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
-      registration => {
-        console.log('SW registered:', registration.scope);
-        
-        // Check for updates periodically
-        setInterval(() => {
-          registration.update();
-        }, 60 * 60 * 1000); // Check every hour
-      },
-      err => {
-        console.error('SW registration failed:', err);
-      }
-    );
-    
-    // Handle service worker errors
-    navigator.serviceWorker.addEventListener('error', (error) => {
-      console.error('Service Worker error:', error);
-    });
+// Register service worker for PWA (deferred to after window load)
+if (import.meta.env.PROD) {
+  window.addEventListener('load', async () => {
+    try {
+      const { registerSW } = await import('virtual:pwa-register');
+      const updateSW = registerSW({
+        immediate: false,
+        onRegistered(registration) {
+          if (registration) {
+            console.log('SW registered:', registration.scope);
+          } else {
+            console.log('SW registered');
+          }
+        },
+        onRegisterError(error) {
+          console.error('SW registration failed:', error);
+        }
+      });
+
+      // Proactively check for updates periodically
+      setInterval(() => {
+        try {
+          updateSW && updateSW();
+        } catch {}
+      }, 60 * 60 * 1000);
+    } catch (e) {
+      console.warn('PWA register module not available:', e);
+    }
   });
 }
 

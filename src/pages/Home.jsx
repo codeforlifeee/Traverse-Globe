@@ -10,12 +10,25 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <TrendingDestinations />
-  <PackageCategories />
-      <TopDestinations />
-      <FeedbackSection />
-      <ExplorePrices />
-      <WhyChooseUs />
+      {/* Defer rendering/painting of below-the-fold sections to reduce initial layout work */}
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1200px]">
+        <TrendingDestinations />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1400px]">
+        <PackageCategories />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1200px]">
+        <TopDestinations />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1000px]">
+        <FeedbackSection />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:900px]">
+        <ExplorePrices />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:900px]">
+        <WhyChooseUs />
+      </div>
     </div>
   );
 };

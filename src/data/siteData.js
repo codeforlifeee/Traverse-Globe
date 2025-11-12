@@ -67,52 +67,52 @@ export const srilankaBanners = [
 ];
 
 export const andamanBanners = [
-  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
 ];
 
 export const jaipurBanners = [
-  'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
 ];
 
 export const keralaBanners = [
-  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=35&fm=webp',
 ];
 
 export const kashmirBanners = [
-  'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=35&fm=webp',
-  'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=400&q=35&fm=webp',
 ];
 
 export const internationalDestinations = [
-  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=55', link: '/uae-packages' },
-  { title: 'Bali', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=55', link: '/bali-packages' },
-  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=55', link: '/thailand-packages' },
-  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55', link: '/singapore-packages' },
-  { title: 'Sri Lanka', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=55', link: '/srilanka-packages' },
-  { title: 'Vietnam', image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55', link: '/vietnam-packages' },
-  { title: 'Laos', image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55', link: '/laos-packages' },
+  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/uae-packages' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/bali-packages' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/thailand-packages' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/singapore-packages' },
+  { title: 'Sri Lanka', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/srilanka-packages' },
+  { title: 'Vietnam', image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/vietnam-packages' },
+  { title: 'Laos', image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/laos-packages' },
 ];
 
 export const domesticDestinations = [
-  { title: 'Andaman', image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=55', link: '/andaman-packages' },
-  { title: 'Jaipur', image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=55', link: '/jaipur-packages' },
-  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=55', link: '/kerala-packages' },
-  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55', link: '/kashmir-packages' },
+  { title: 'Andaman', image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/andaman-packages' },
+  { title: 'Jaipur', image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/jaipur-packages' },
+  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/kerala-packages' },
+  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/kashmir-packages' },
 ];
 
 // UAE package listing data (mirrors UAEcard.html)
@@ -308,7 +308,7 @@ export const thailandPackages = [
     nights: '6D/5N',
     strikePrice: 47999,
     price: 41999,
-    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 19,
@@ -877,7 +877,7 @@ export const andamanPackages = [
     nights: '7N/8D',
     strikePrice: 49999,
     price: 44999,
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
 ];
 
@@ -889,7 +889,7 @@ export const jaipurPackages = [
     nights: '3N/4D',
     strikePrice: 18999,
     price: 15999,
-    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 102,
@@ -897,7 +897,7 @@ export const jaipurPackages = [
     nights: '3N/4D',
     strikePrice: 24999,
     price: 21999,
-    image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 103,
@@ -905,7 +905,7 @@ export const jaipurPackages = [
     nights: '3N/4D',
     strikePrice: 32999,
     price: 28999,
-    image: 'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 104,
@@ -913,7 +913,7 @@ export const jaipurPackages = [
     nights: '4N/5D',
     strikePrice: 22999,
     price: 19999,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 105,
@@ -921,7 +921,7 @@ export const jaipurPackages = [
     nights: '4N/5D',
     strikePrice: 28999,
     price: 25999,
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 106,
@@ -929,7 +929,7 @@ export const jaipurPackages = [
     nights: '4N/5D',
     strikePrice: 36999,
     price: 32999,
-    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 107,
@@ -937,7 +937,7 @@ export const jaipurPackages = [
     nights: '5N/6D',
     strikePrice: 26999,
     price: 23999,
-    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 108,
@@ -945,7 +945,7 @@ export const jaipurPackages = [
     nights: '5N/6D',
     strikePrice: 32999,
     price: 29999,
-    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 109,
@@ -953,7 +953,7 @@ export const jaipurPackages = [
     nights: '5N/6D',
     strikePrice: 42999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 110,
@@ -961,7 +961,7 @@ export const jaipurPackages = [
     nights: '6N/7D',
     strikePrice: 38999,
     price: 34999,
-    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
 ];
 
@@ -973,7 +973,7 @@ export const keralaPackages = [
     nights: '4N/5D',
     strikePrice: 22999,
     price: 19999,
-    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 112,
@@ -981,7 +981,7 @@ export const keralaPackages = [
     nights: '4N/5D',
     strikePrice: 28999,
     price: 25999,
-    image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 113,
@@ -989,7 +989,7 @@ export const keralaPackages = [
     nights: '4N/5D',
     strikePrice: 36999,
     price: 32999,
-    image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 114,
@@ -997,7 +997,7 @@ export const keralaPackages = [
     nights: '5N/6D',
     strikePrice: 26999,
     price: 23999,
-    image: 'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 115,
@@ -1005,7 +1005,7 @@ export const keralaPackages = [
     nights: '5N/6D',
     strikePrice: 32999,
     price: 29999,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 116,
@@ -1013,7 +1013,7 @@ export const keralaPackages = [
     nights: '5N/6D',
     strikePrice: 42999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 117,
@@ -1021,7 +1021,7 @@ export const keralaPackages = [
     nights: '6N/7D',
     strikePrice: 32999,
     price: 28999,
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 118,
@@ -1029,7 +1029,7 @@ export const keralaPackages = [
     nights: '6N/7D',
     strikePrice: 38999,
     price: 34999,
-    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 119,
@@ -1037,7 +1037,7 @@ export const keralaPackages = [
     nights: '6N/7D',
     strikePrice: 48999,
     price: 44999,
-    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 120,
@@ -1045,7 +1045,7 @@ export const keralaPackages = [
     nights: '7N/8D',
     strikePrice: 42999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
 ];
 
@@ -1057,7 +1057,7 @@ export const kashmirPackages = [
     nights: '4N/5D',
     strikePrice: 26999,
     price: 23999,
-    image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 122,
@@ -1065,7 +1065,7 @@ export const kashmirPackages = [
     nights: '4N/5D',
     strikePrice: 32999,
     price: 29999,
-    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 123,
@@ -1073,7 +1073,7 @@ export const kashmirPackages = [
     nights: '4N/5D',
     strikePrice: 42999,
     price: 38999,
-    image: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 124,
@@ -1081,7 +1081,7 @@ export const kashmirPackages = [
     nights: '5N/6D',
     strikePrice: 30999,
     price: 27999,
-    image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 125,
@@ -1089,7 +1089,7 @@ export const kashmirPackages = [
     nights: '5N/6D',
     strikePrice: 36999,
     price: 33999,
-    image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 126,
@@ -1097,7 +1097,7 @@ export const kashmirPackages = [
     nights: '5N/6D',
     strikePrice: 46999,
     price: 42999,
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 127,
@@ -1105,7 +1105,7 @@ export const kashmirPackages = [
     nights: '6N/7D',
     strikePrice: 34999,
     price: 31999,
-    image: 'https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 128,
@@ -1113,7 +1113,7 @@ export const kashmirPackages = [
     nights: '6N/7D',
     strikePrice: 40999,
     price: 37999,
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 129,
@@ -1121,7 +1121,7 @@ export const kashmirPackages = [
     nights: '6N/7D',
     strikePrice: 52999,
     price: 48999,
-    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
   {
     id: 130,
@@ -1129,17 +1129,17 @@ export const kashmirPackages = [
     nights: '7N/8D',
     strikePrice: 46999,
     price: 42999,
-    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=55',
+    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=400&q=35&fm=webp',
   },
 ];
 
 export const packages = [
-  { id: 'australia', title: 'Australia', price: 29199, image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=600&q=55', buttonLabel: 'Book Now' },
+  { id: 'australia', title: 'Australia', price: 29199, image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=400&q=35&fm=webp', buttonLabel: 'Book Now' },
   // When buttonLabel is 'View Package', provide detailId to navigate to Package Details page
-  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=55', buttonLabel: 'View Package', detailId: 1 },
-  { id: 'italy', title: 'Italy', price: 29799, image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=600&q=55', buttonLabel: 'Book Now' },
-  { id: 'japan', title: 'Japan', price: 29899, image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=55', buttonLabel: 'Book Now' },
-  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=600&q=55', buttonLabel: 'Book Now' },
+  { id: 'dubai-supersaver', title: 'SUPERSAVER PACKAGE - Dubai (3N/4D)', price: 24999, image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp', buttonLabel: 'View Package', detailId: 1 },
+  { id: 'italy', title: 'Italy', price: 29799, image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=400&q=35&fm=webp', buttonLabel: 'Book Now' },
+  { id: 'japan', title: 'Japan', price: 29899, image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=400&q=35&fm=webp', buttonLabel: 'Book Now' },
+  { id: 'turkey', title: 'Turkey', price: 29699, image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=35&fm=webp', buttonLabel: 'Book Now' },
 ];
 
 // Detailed package content (subset from package-details-new.html)
@@ -1207,7 +1207,7 @@ export const packageDetails = {
       'https://images.pexels.com/photos/8319460/pexels-photo-8319460.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/5614592/pexels-photo-5614592.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/5075320/pexels-photo-5075320.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
-      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   7: {
@@ -1381,10 +1381,10 @@ export const packageDetails = {
     priceHTML: '&#8377;62,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   // Thailand Packages (16-20)
@@ -1394,8 +1394,8 @@ export const packageDetails = {
     destination: 'Thailand',
     images: [
       'https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
-      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp',
       'https://images.pexels.com/photos/594077/pexels-photo-594077.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
@@ -1694,10 +1694,10 @@ export const packageDetails = {
     priceHTML: '&#8377;46,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   // Fourth Row Package Details (49-51)
@@ -1908,10 +1908,10 @@ export const packageDetails = {
     priceHTML: '&#8377;19,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   71: {
@@ -1919,10 +1919,10 @@ export const packageDetails = {
     priceHTML: '&#8377;25,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   72: {
@@ -1930,10 +1930,10 @@ export const packageDetails = {
     priceHTML: '&#8377;32,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   73: {
@@ -1941,10 +1941,10 @@ export const packageDetails = {
     priceHTML: '&#8377;25,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   74: {
@@ -1952,10 +1952,10 @@ export const packageDetails = {
     priceHTML: '&#8377;31,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   75: {
@@ -1963,10 +1963,10 @@ export const packageDetails = {
     priceHTML: '&#8377;38,999',
     destination: 'Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   76: {
@@ -1974,10 +1974,10 @@ export const packageDetails = {
     priceHTML: '&#8377;35,999',
     destination: 'Luang Prabang, Vientiane - Laos',
     images: [
-      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   77: {
@@ -2018,10 +2018,10 @@ export const packageDetails = {
     priceHTML: '&#8377;15,999',
     destination: 'Vientiane, Luang Prabang - Laos',
     images: [
-      'https://images.unsplash.com/photo-1684918172034-399cc1ad6564?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1684918172034-399cc1ad6564?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROIqwgggKLK46xGxqTwaoVpUQ81H0ZaMvpOQ&s',
-      'https://images.unsplash.com/photo-1705917950934-7efe2b6866cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFvc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1686120552846-7caf1a345876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1705917950934-7efe2b6866cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFvc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1686120552846-7caf1a345876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
     ],
   },
   81: {
@@ -2031,8 +2031,8 @@ export const packageDetails = {
     images: [
       'https://media.istockphoto.com/id/611609802/photo/rice-fields-on-terraced-of-mu-cang-chai-yenbai-vietnam.jpg?s=612x612&w=0&k=20&c=fen9FXrdANizX7oMFQbVexqyjQDugJymqmicRYd-WW0=',
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUrXORw-lZuj3vd3N3qCuy63gZJxCu3nm2w&s',
-      'https://images.unsplash.com/photo-1686120552846-7caf1a345876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1694785918647-b392a36aec75?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGFvc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1686120552846-7caf1a345876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1694785918647-b392a36aec75?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGFvc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
     ],
   },
   82: {
@@ -2041,9 +2041,9 @@ export const packageDetails = {
     destination: 'Luang Prabang, Pakse, Bolaven Plateau, Wat Phou, 4000 Islands - Laos',
     images: [
       'https://plus.unsplash.com/premium_photo-1694475495121-cf6b8e57f219?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1712455498779-2a82e9d4b41a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1553856622-d1b352e9a211?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1603681033751-717c7e410fdf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1712455498779-2a82e9d4b41a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1553856622-d1b352e9a211?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1603681033751-717c7e410fdf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
     ],
   },
   83: {
@@ -2051,10 +2051,10 @@ export const packageDetails = {
     priceHTML: '&#8377;145,999',
     destination: 'Luang Prabang, Pakse, Bolaven Plateau, Wat Phou, 4000 Islands - Laos',
     images: [
-      'https://images.unsplash.com/photo-1552058185-b7e8f6744229?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1626374222999-a853af7640d3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1535961652354-923cb08225a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
-      'https://images.unsplash.com/photo-1633984904221-29bb70dffef8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1552058185-b7e8f6744229?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1626374222999-a853af7640d3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1535961652354-923cb08225a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
+      'https://images.unsplash.com/photo-1633984904221-29bb70dffef8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
     ],
   },
   84: {
@@ -2062,7 +2062,7 @@ export const packageDetails = {
     priceHTML: '&#8377;158,999',
     destination: 'Luang Prabang, Pakse, Bolaven Plateau, Wat Phou, 4000 Islands - Laos',
     images: [
-      'https://images.unsplash.com/photo-1558220168-42cbb39df876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600',
+      'https://images.unsplash.com/photo-1558220168-42cbb39df876?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGxhb3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600&fm=webp',
       'https://media.istockphoto.com/id/1473427033/photo/aerial-view-of-luang-prabang-town-and-mekong-river.jpg?s=612x612&w=0&k=20&c=kJiCuy_RO-IzhevTi7nOGRX5rLex9m6QJV5QdTo_gI8=',
       'https://media.istockphoto.com/id/1473427033/photo/aerial-view-of-luang-prabang-town-and-mekong-river.jpg?s=612x612&w=0&k=20&c=kJiCuy_RO-IzhevTi7nOGRX5rLex9m6QJV5QdTo_gI8=',
       'https://plus.unsplash.com/premium_photo-1661916287718-edb15703cbaf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFvc3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000',
@@ -2083,10 +2083,10 @@ export const packageDetails = {
       'Day 7': 'Departure (B): Free time until transfer to the airport for your onward flight.'
     },
     images: [
-      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   86: {
@@ -2103,10 +2103,10 @@ export const packageDetails = {
       'Day 7': 'Departure (B): Free time until transfer to the airport for your onward flight.'
     },
     images: [
-      'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   87: {
@@ -2123,10 +2123,10 @@ export const packageDetails = {
       'Day 7': 'Departure (B): Free time until transfer to the airport for your onward flight.'
     },
     images: [
-      'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   // 8-Day Laos Heritage & Nature Discovery (88-90)
@@ -2145,10 +2145,10 @@ export const packageDetails = {
       'Day 8': 'Pakse – Ubon Ratchathani – Departure (B): After breakfast, transfer to Ubon Ratchathani Airport (Thailand) via the Chongmek Border for your flight to Bangkok or onward destination. Transfer time: approx. 3 hours.'
     },
     images: [
-      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   89: {
@@ -2166,10 +2166,10 @@ export const packageDetails = {
       'Day 8': 'Pakse – Ubon Ratchathani – Departure (B): After breakfast, transfer to Ubon Ratchathani Airport (Thailand) via the Chongmek Border for your flight to Bangkok or onward destination. Transfer time: approx. 3 hours.'
     },
     images: [
-      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   90: {
@@ -2187,10 +2187,10 @@ export const packageDetails = {
       'Day 8': 'Pakse – Ubon Ratchathani – Departure (B): After breakfast, transfer to Ubon Ratchathani Airport (Thailand) via the Chongmek Border for your flight to Bangkok or onward destination. Transfer time: approx. 3 hours.'
     },
     images: [
-      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=55',
-      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=55',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=400&q=35&fm=webp',
+      'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=400&q=35&fm=webp',
     ],
   },
   // Andaman Package Details (91-100)
@@ -2315,40 +2315,40 @@ export const packageDetails = {
     },
     images: ['https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
-  100: { name: 'Andaman Grand Tour - 7N/8D', priceHTML: '&#8377;44,999', destination: 'Port Blair, Andaman', images: ['https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80'] },
+  100: { name: 'Andaman Grand Tour - 7N/8D', priceHTML: '&#8377;44,999', destination: 'Port Blair, Andaman', images: ['https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=35&fm=webp'] },
   // Jaipur Package Details (101-110)
-  101: { name: '3-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;15,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80'] },
-  102: { name: '4-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;21,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80'] },
-  103: { name: '5-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;28,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=800&q=80'] },
-  104: { name: '3-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;19,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80'] },
-  105: { name: '4-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;25,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80'] },
-  106: { name: '5-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;32,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80'] },
-  107: { name: '3-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;23,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80'] },
-  108: { name: '4-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;29,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80'] },
-  109: { name: '5-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;38,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=800&q=80'] },
-  110: { name: 'Jaipur Golden Triangle - 6N/7D', priceHTML: '&#8377;34,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=800&q=80'] },
+  101: { name: '3-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;15,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  102: { name: '4-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;21,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  103: { name: '5-Star Jaipur Heritage - 3N/4D', priceHTML: '&#8377;28,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  104: { name: '3-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;19,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  105: { name: '4-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;25,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  106: { name: '5-Star Jaipur Royal - 4N/5D', priceHTML: '&#8377;32,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  107: { name: '3-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;23,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  108: { name: '4-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;29,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  109: { name: '5-Star Jaipur Palace Tour - 5N/6D', priceHTML: '&#8377;38,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  110: { name: 'Jaipur Golden Triangle - 6N/7D', priceHTML: '&#8377;34,999', destination: 'Jaipur, Rajasthan', images: ['https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=35&fm=webp'] },
   // Kerala Package Details (111-120)
-  111: { name: '3-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;19,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80'] },
-  112: { name: '4-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;25,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80'] },
-  113: { name: '5-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;32,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80'] },
-  114: { name: '3-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;23,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=800&q=80'] },
-  115: { name: '4-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;29,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80'] },
-  116: { name: '5-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;38,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80'] },
-  117: { name: '3-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;28,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80'] },
-  118: { name: '4-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;34,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80'] },
-  119: { name: '5-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;44,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=80'] },
-  120: { name: 'Kerala Complete Tour - 7N/8D', priceHTML: '&#8377;38,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80'] },
+  111: { name: '3-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;19,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  112: { name: '4-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;25,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  113: { name: '5-Star Kerala Backwaters - 4N/5D', priceHTML: '&#8377;32,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  114: { name: '3-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;23,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  115: { name: '4-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;29,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  116: { name: '5-Star Kerala Hill Stations - 5N/6D', priceHTML: '&#8377;38,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  117: { name: '3-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;28,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  118: { name: '4-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;34,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  119: { name: '5-Star Kerala Ayurveda - 6N/7D', priceHTML: '&#8377;44,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  120: { name: 'Kerala Complete Tour - 7N/8D', priceHTML: '&#8377;38,999', destination: 'Kochi, Kerala', images: ['https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=35&fm=webp'] },
   // Kashmir Package Details (121-130)
-  121: { name: '3-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;23,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=800&q=80'] },
-  122: { name: '4-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;29,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=80'] },
-  123: { name: '5-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;38,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=800&q=80'] },
-  124: { name: '3-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;27,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80'] },
-  125: { name: '4-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;33,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80'] },
-  126: { name: '5-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;42,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80'] },
-  127: { name: '3-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;31,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=800&q=80'] },
-  128: { name: '4-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;37,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80'] },
-  129: { name: '5-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;48,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80'] },
-  130: { name: 'Kashmir Complete Tour - 7N/8D', priceHTML: '&#8377;42,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80'] },
+  121: { name: '3-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;23,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  122: { name: '4-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;29,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  123: { name: '5-Star Kashmir Paradise - 4N/5D', priceHTML: '&#8377;38,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  124: { name: '3-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;27,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  125: { name: '4-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;33,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  126: { name: '5-Star Kashmir Valley - 5N/6D', priceHTML: '&#8377;42,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  127: { name: '3-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;31,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1559804506-669a67965ba0?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  128: { name: '4-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;37,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  129: { name: '5-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;48,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+  130: { name: 'Kashmir Complete Tour - 7N/8D', priceHTML: '&#8377;42,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=35&fm=webp'] },
 };
 
 export const services = [
@@ -2369,7 +2369,7 @@ export const blogPosts = [
     date: '2025-09-02',
     readTime: 8,
     author: 'Team Traverse Globe',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'From winter festivals to summer sales, here’s how to time your Dubai trip for weather and wallet-friendly fun.',
     url: '#',
   },
@@ -2380,7 +2380,7 @@ export const blogPosts = [
     date: '2025-08-18',
     readTime: 9,
     author: 'Aisha Khan',
-    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'Uluwatu sunsets, Ubud rice terraces, waterfalls, and cafés—this balanced plan saves you time and avoids FOMO.',
     url: '#',
   },
@@ -2391,7 +2391,7 @@ export const blogPosts = [
     date: '2025-07-12',
     readTime: 7,
     author: 'Rohit Verma',
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'Beaches, nightlife, visas, budgets, and food—here’s a side‑by‑side comparison to help you decide.',
     url: '#',
   },
@@ -2402,7 +2402,7 @@ export const blogPosts = [
     date: '2025-06-25',
     readTime: 6,
     author: 'Team Traverse Globe',
-    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'Short on time? Squeeze in hawker food, Gardens by the Bay, Marina Bay views, and Sentosa highlights.',
     url: '#',
   },
@@ -2413,7 +2413,7 @@ export const blogPosts = [
     date: '2025-05-14',
     readTime: 10,
     author: 'Neelam Patel',
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'From Motiongate to Ferrari World—tickets, height limits, fast passes, and where to stay nearby.',
     url: '#',
   },
@@ -2424,7 +2424,7 @@ export const blogPosts = [
     date: '2025-04-20',
     readTime: 7,
     author: 'Team Traverse Globe',
-    image: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'From taxi tricks to too‑good‑to‑be‑true tours—spot the signs early and keep your trip stress‑free.',
     url: '#',
   },
@@ -2435,7 +2435,7 @@ export const blogPosts = [
     date: '2025-03-05',
     readTime: 8,
     author: 'Ankit Sharma',
-    image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'Documents, timelines, and common pitfalls—plus how our team supports you at every step.',
     url: '#',
   },
@@ -2446,7 +2446,7 @@ export const blogPosts = [
     date: '2025-02-10',
     readTime: 6,
     author: 'Team Traverse Globe',
-    image: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'Old Dubai walks, free viewpoints, abra rides, and local eats that save big without compromise.',
     url: '#',
   },
@@ -2457,7 +2457,7 @@ export const blogPosts = [
     date: '2025-01-19',
     readTime: 5,
     author: 'Sara D’Souza',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=50&fm=webp',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=50&fm=webp&auto=format&fit=crop',
     excerpt: 'The essential list that fits in a cabin bag: meds, tech, docs, and the underrated items pros swear by.',
     url: '#',
   },
@@ -2466,7 +2466,7 @@ export const blogPosts = [
 export const feedback = {
   Dubai: {
     country: 'Dubai',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=50',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp',
     testimonials: [
       { rating: 5, text: 'Amazing experience in Dubai! The Burj Khalifa was breathtaking and the desert safari was unforgettable. TraverseGlobe made everything perfect from start to finish.', author: 'Priya Sharma, Mumbai' },
       { rating: 5, text: 'Dubai trip was incredible! The luxury hotels and shopping malls exceeded expectations. Professional service throughout.', author: 'Amit Gupta, Bangalore' },
@@ -2475,7 +2475,7 @@ export const feedback = {
   },
   Japan: {
     country: 'Japan',
-    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=50',
+    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp',
     testimonials: [
       { rating: 5, text: 'Japan exceeded all expectations! From Tokyo to Kyoto, every moment was magical. Cherry blossoms were beautiful.', author: 'Rajesh Kumar, Delhi' },
       { rating: 5, text: 'Cultural experience was amazing! Mount Fuji, temples, and Japanese cuisine - everything was perfect.', author: 'Sita Devi, Chennai' },
@@ -2484,7 +2484,7 @@ export const feedback = {
   },
   USA: {
     country: 'USA',
-    image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=400&q=50',
+    image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=400&q=35&fm=webp',
     testimonials: [
       { rating: 5, text: 'USA was absolutely wonderful! Times Square, Central Park, and the food scene were incredible.', author: 'Anita Patel, Ahmedabad' },
       { rating: 5, text: 'From New York to California, every city had its charm. Grand Canyon was breathtaking!', author: 'Ravi Sharma, Hyderabad' },
@@ -2493,7 +2493,7 @@ export const feedback = {
   },
   Egypt: {
     country: 'Egypt',
-    image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=400&q=50',
+    image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=400&q=35&fm=webp',
     testimonials: [
       { rating: 5, text: 'Egypt was a perfect blend of history and culture. The pyramids and Nile River were stunning.', author: 'Vikram Singh, Jaipur' },
       { rating: 5, text: 'Pharaohs history came alive! Sphinx and Valley of Kings were incredible. Great archaeological experience.', author: 'Dr. Sunita Rao, Mumbai' },

@@ -61,7 +61,8 @@ export default defineConfig({
     // PWA for caching and offline support
     VitePWA({
       registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      // Avoid injecting registerSW.js to reduce critical request chain; we register manually in main.jsx after load
+      injectRegister: null,
       devOptions: {
         enabled: false
       },
