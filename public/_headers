@@ -27,6 +27,14 @@
   Cache-Control: public, max-age=31536000, immutable
   Content-Type: font/woff
 
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/ttf
+
+/*.eot
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: application/vnd.ms-fontobject
+
 /*.webp
   Cache-Control: public, max-age=31536000, immutable
   Content-Type: image/webp

@@ -216,6 +216,9 @@ export default defineConfig({
           if (/\.css$/.test(name ?? '')) {
             return 'assets/css/[name]-[hash][extname]';
           }
+          if (/\.(woff|woff2|ttf|eot)$/.test(name ?? '')) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
           return 'assets/[name]-[hash][extname]';
         }
       }
@@ -255,9 +258,9 @@ export default defineConfig({
       'react-dom', 
       'react-router-dom',
       'framer-motion',
-      'swiper'
-    ],
-    exclude: ['@fortawesome/fontawesome-free']
+      'swiper',
+      '@fortawesome/fontawesome-free'
+    ]
   },
   
   // Server configuration
