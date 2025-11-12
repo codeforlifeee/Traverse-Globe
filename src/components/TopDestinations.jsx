@@ -45,8 +45,8 @@ const TopDestinations = () => {
                 <div className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
                   <div className="relative overflow-hidden h-48 md:h-56">
                     <img
-                      src={destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')}
-                      srcSet={`${destination.image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=70')} 480w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=70')} 800w, ${destination.image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=70')} 1200w`}
+                      src={destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')}
+                      srcSet={`${destination.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=55')} 400w, ${destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')} 600w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=55')} 800w`}
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                       alt={destination.title}
                       loading="lazy"

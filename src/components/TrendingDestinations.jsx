@@ -6,16 +6,18 @@ import { internationalDestinations } from '../data/siteData';
 import { useNavigate } from 'react-router-dom';
 
 const DestinationCard = ({ image, title, onClick }) => {
-  // Build responsive sets for Unsplash 800px base URLs
+  // Build responsive sets with optimized quality for faster loading
   const buildUrl = (w) => {
     let u = image;
     u = u.replace(/w=\d+/, `w=${w}`);
-    u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=70') : `${u}&q=70`;
+    u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=55') : `${u}&q=55`;
     if (!/auto=/.test(u)) u += `${u.includes('?') ? '&' : '?'}auto=format`;
     if (!/fit=/.test(u)) u += `&fit=crop`;
+    // Add dpr=1 for Pexels to prevent serving 2x images unnecessarily
+    if (u.includes('pexels.com') && !/dpr=/.test(u)) u += `&dpr=1`;
     return u;
   };
-  const srcSet = `${buildUrl(480)} 480w, ${buildUrl(800)} 800w, ${buildUrl(1200)} 1200w`;
+  const srcSet = `${buildUrl(400)} 400w, ${buildUrl(600)} 600w, ${buildUrl(800)} 800w`;
   return (
     <div 
       className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
@@ -24,12 +26,13 @@ const DestinationCard = ({ image, title, onClick }) => {
     >
   <div className="relative overflow-hidden h-48 md:h-56">
         <img
-          src={buildUrl(800)}
+          src={buildUrl(600)}
           srcSet={srcSet}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={title}
           loading="lazy"
           decoding="async"
+          fetchpriority="high"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>

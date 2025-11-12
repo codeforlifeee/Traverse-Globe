@@ -30,18 +30,17 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
     });
   };
 
-  // Helper to get optimized URL for all image sources
+  // Helper to get optimized URL for all image sources - reduced quality for faster loading
   const getOptimizedUrl = (url) => {
     if (!url) return '';
     
-    // Unsplash images
+    // Unsplash images - reduce to q=60 for faster loading
     if (url.includes('unsplash.com')) {
-      return `${url}${url.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80`;
+      return url.replace(/q=\d+/, 'q=60').replace(/w=\d+/, 'w=1200');
     }
     
-    // Pexels images - ensure they have proper params
+    // Pexels images - already optimized in siteData.js
     if (url.includes('pexels.com')) {
-      // Pexels URLs already have params, just return as-is
       return url;
     }
     

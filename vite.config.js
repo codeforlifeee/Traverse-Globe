@@ -86,40 +86,54 @@ export default defineConfig({
           },
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
-            handler: 'NetworkFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'unsplash-images-cache',
               expiration: {
-                maxEntries: 60,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               },
               cacheableResponse: {
                 statuses: [0, 200]
               },
-              networkTimeoutSeconds: 10,
               fetchOptions: {
                 mode: 'cors',
                 credentials: 'omit'
-              }
+              },
+              plugins: [
+                {
+                  cacheWillUpdate: async ({ response }) => {
+                    // Only cache successful responses
+                    return response.status === 200 ? response : null;
+                  }
+                }
+              ]
             }
           },
           {
             urlPattern: /^https:\/\/images\.pexels\.com\/.*/i,
-            handler: 'NetworkFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'pexels-images-cache',
               expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+                maxEntries: 150,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               },
               cacheableResponse: {
                 statuses: [0, 200]
               },
-              networkTimeoutSeconds: 10,
               fetchOptions: {
                 mode: 'cors',
                 credentials: 'omit'
-              }
+              },
+              plugins: [
+                {
+                  cacheWillUpdate: async ({ response }) => {
+                    // Only cache successful responses
+                    return response.status === 200 ? response : null;
+                  }
+                }
+              ]
             }
           },
           {
