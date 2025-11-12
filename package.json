@@ -9,7 +9,8 @@
     "build:analyze": "ANALYZE=true vite build",
     "preview": "vite preview",
     "preview:network": "vite preview --host",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "optimize-images": "node optimize-images.cjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",

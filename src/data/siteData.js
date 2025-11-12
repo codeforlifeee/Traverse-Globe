@@ -2,100 +2,100 @@
 // Updated: Andaman packages with Alluring Andamans content - 2024-12-19
 
 export const banners = [
-  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp',
 ];
 
 export const laosBanners = [
-  'https://images.pexels.com/photos/924631/pexels-photo-924631.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/924633/pexels-photo-924633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/30174701/pexels-photo-30174701.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/924631/pexels-photo-924631.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/924633/pexels-photo-924633.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/30174701/pexels-photo-30174701.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const uaeBanners = [
-  'https://images.pexels.com/photos/1589237/pexels-photo-1589237.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1589237/pexels-photo-1589237.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const baliBanners = [
-  'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/2166643/pexels-photo-2166643.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/2100804/pexels-photo-2100804.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/1643130/pexels-photo-1643130.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/2166643/pexels-photo-2166643.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/2100804/pexels-photo-2100804.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1643130/pexels-photo-1643130.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const thailandBanners = [
-  'https://images.pexels.com/photos/5602467/pexels-photo-5602467.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/32607680/pexels-photo-32607680.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/2617548/pexels-photo-2617548.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/3375296/pexels-photo-3375296.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/358229/pexels-photo-358229.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/5602467/pexels-photo-5602467.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/32607680/pexels-photo-32607680.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/2617548/pexels-photo-2617548.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/3375296/pexels-photo-3375296.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/358229/pexels-photo-358229.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const singaporeBanners = [
-  'https://images.pexels.com/photos/717637/pexels-photo-717637.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/32375761/pexels-photo-32375761.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/6016770/pexels-photo-6016770.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/15480503/pexels-photo-15480503.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/33333679/pexels-photo-33333679.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/717637/pexels-photo-717637.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/32375761/pexels-photo-32375761.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/6016770/pexels-photo-6016770.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/15480503/pexels-photo-15480503.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/33333679/pexels-photo-33333679.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const vietnamBanners = [
-  'https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/34571722/pexels-photo-34571722.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/34514455/pexels-photo-34514455.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/34571722/pexels-photo-34571722.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/34514455/pexels-photo-34514455.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const srilankaBanners = [
-  'https://images.pexels.com/photos/16508234/pexels-photo-16508234.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/34516955/pexels-photo-34516955.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
-  'https://images.pexels.com/photos/1998435/pexels-photo-1998435.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/16508234/pexels-photo-16508234.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/34516955/pexels-photo-34516955.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
+  'https://images.pexels.com/photos/1998435/pexels-photo-1998435.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop&dpr=1',
 ];
 
 export const andamanBanners = [
-  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=35&fm=webp',
 ];
 
 export const jaipurBanners = [
-  'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1599661046827-dacde6976549?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=35&fm=webp',
 ];
 
 export const keralaBanners = [
-  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=35&fm=webp',
 ];
 
 export const kashmirBanners = [
-  'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=50&fm=webp',
-  'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1580674684081-7617fbf4d82d?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=600&q=35&fm=webp',
+  'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=35&fm=webp',
 ];
 
 export const internationalDestinations = [
@@ -123,7 +123,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 45999,
     price: 35999,
-    image: 'https://images.pexels.com/photos/30852849/pexels-photo-30852849.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/30852849/pexels-photo-30852849.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 2,
@@ -131,7 +131,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 53999,
     price: 43999,
-    image: 'https://images.pexels.com/photos/258261/pexels-photo-258261.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/258261/pexels-photo-258261.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 3,
@@ -139,7 +139,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 59999,
     price: 49999,
-    image: 'https://images.pexels.com/photos/14063661/pexels-photo-14063661.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/14063661/pexels-photo-14063661.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 4,
@@ -147,7 +147,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 49999,
     price: 39999,
-    image: 'https://images.pexels.com/photos/5577701/pexels-photo-5577701.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/5577701/pexels-photo-5577701.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 5,
@@ -155,7 +155,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 61599,
     price: 51599,
-    image: 'https://images.pexels.com/photos/15693276/pexels-photo-15693276.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/15693276/pexels-photo-15693276.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 6,
@@ -163,7 +163,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 69999,
     price: 59999,
-    image: 'https://images.pexels.com/photos/31747296/pexels-photo-31747296.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/31747296/pexels-photo-31747296.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 7,
@@ -171,7 +171,7 @@ export const uaePackages = [
     nights: '3N/4D',
     strikePrice: 55999,
     price: 45999,
-    image: 'https://images.pexels.com/photos/442579/pexels-photo-442579.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/442579/pexels-photo-442579.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 8,
@@ -179,7 +179,7 @@ export const uaePackages = [
     nights: '4N/5D',
     strikePrice: 64999,
     price: 54999,
-    image: 'https://images.pexels.com/photos/12238221/pexels-photo-12238221.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/12238221/pexels-photo-12238221.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 9,
@@ -187,7 +187,7 @@ export const uaePackages = [
     nights: '5N/6D',
     strikePrice: 76999,
     price: 66999,
-    image: 'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/33709887/pexels-photo-33709887.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 10,
@@ -195,7 +195,7 @@ export const uaePackages = [
     nights: '9D/8N',
     strikePrice: 79999,
     price: 59999,
-    image: 'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -207,7 +207,7 @@ export const baliPackages = [
     nights: '4N/5D',
     strikePrice: 34999,
     price: 28999,
-    image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 12,
@@ -215,7 +215,7 @@ export const baliPackages = [
     nights: '4N/5D',
     strikePrice: 42999,
     price: 36999,
-    image: 'https://images.pexels.com/photos/1544351/pexels-photo-1544351.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1544351/pexels-photo-1544351.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 13,
@@ -223,7 +223,7 @@ export const baliPackages = [
     nights: '4N/5D',
     strikePrice: 52999,
     price: 45999,
-    image: 'https://images.pexels.com/photos/3068249/pexels-photo-3068249.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3068249/pexels-photo-3068249.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 14,
@@ -231,7 +231,7 @@ export const baliPackages = [
     nights: '7D/6N',
     strikePrice: 62999,
     price: 52999,
-    image: 'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 15,
@@ -239,7 +239,7 @@ export const baliPackages = [
     nights: '8D/7N',
     strikePrice: 54999,
     price: 45999,
-    image: 'https://images.pexels.com/photos/2253813/pexels-photo-2253813.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2253813/pexels-photo-2253813.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   // Additional Bali packages (from Balicard.html)
   {
@@ -248,7 +248,7 @@ export const baliPackages = [
     nights: '4N/5D',
     strikePrice: 48999,
     price: 42999,
-    image: 'https://images.pexels.com/photos/3436480/pexels-photo-3436480.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3436480/pexels-photo-3436480.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 27,
@@ -256,7 +256,7 @@ export const baliPackages = [
     nights: '5N/6D',
     strikePrice: 41999,
     price: 36999,
-    image: 'https://images.pexels.com/photos/6336345/pexels-photo-6336345.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/6336345/pexels-photo-6336345.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 28,
@@ -264,7 +264,7 @@ export const baliPackages = [
     nights: '3N/4D',
     strikePrice: 28999,
     price: 24999,
-    image: 'https://images.pexels.com/photos/2253821/pexels-photo-2253821.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2253821/pexels-photo-2253821.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 29,
@@ -272,7 +272,7 @@ export const baliPackages = [
     nights: '8N/9D',
     strikePrice: 68999,
     price: 58999,
-    image: 'https://images.pexels.com/photos/2583833/pexels-photo-2583833.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2583833/pexels-photo-2583833.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 30,
@@ -280,7 +280,7 @@ export const baliPackages = [
     nights: '9N/10D',
     strikePrice: 72999,
     price: 62999,
-    image: 'https://images.pexels.com/photos/2403025/pexels-photo-2403025.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2403025/pexels-photo-2403025.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -292,7 +292,7 @@ export const thailandPackages = [
     nights: '5D/4N',
     strikePrice: 42999,
     price: 35999,
-    image: 'https://images.pexels.com/photos/8299700/pexels-photo-8299700.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/8299700/pexels-photo-8299700.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 17,
@@ -300,7 +300,7 @@ export const thailandPackages = [
     nights: '4D/3N',
     strikePrice: 36999,
     price: 30999,
-    image: 'https://images.pexels.com/photos/26087752/pexels-photo-26087752.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/26087752/pexels-photo-26087752.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 18,
@@ -316,7 +316,7 @@ export const thailandPackages = [
     nights: '7D/6N',
     strikePrice: 65999,
     price: 55999,
-    image: 'https://images.pexels.com/photos/2416472/pexels-photo-2416472.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2416472/pexels-photo-2416472.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 20,
@@ -324,7 +324,7 @@ export const thailandPackages = [
     nights: '8D/7N',
     strikePrice: 57999,
     price: 48999,
-    image: 'https://images.pexels.com/photos/3355777/pexels-photo-3355777.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3355777/pexels-photo-3355777.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   // Extended Thailand packages
   {
@@ -333,7 +333,7 @@ export const thailandPackages = [
     nights: '5D/4N',
     strikePrice: 51999,
     price: 45999,
-    image: 'https://images.pexels.com/photos/28264971/pexels-photo-28264971.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/28264971/pexels-photo-28264971.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 37,
@@ -341,7 +341,7 @@ export const thailandPackages = [
     nights: '6D/5N',
     strikePrice: 44999,
     price: 39999,
-    image: 'https://images.pexels.com/photos/176400/pexels-photo-176400.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/176400/pexels-photo-176400.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 38,
@@ -349,7 +349,7 @@ export const thailandPackages = [
     nights: '4D/3N',
     strikePrice: 31999,
     price: 27999,
-    image: 'https://images.pexels.com/photos/11104877/pexels-photo-11104877.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/11104877/pexels-photo-11104877.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 39,
@@ -357,7 +357,7 @@ export const thailandPackages = [
     nights: '9D/8N',
     strikePrice: 71999,
     price: 61999,
-    image: 'https://images.pexels.com/photos/1929611/pexels-photo-1929611.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1929611/pexels-photo-1929611.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -369,7 +369,7 @@ export const singaporePackages = [
     nights: '3D/2N',
     strikePrice: 30999,
     price: 25999,
-    image: 'https://images.pexels.com/photos/867092/pexels-photo-867092.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/867092/pexels-photo-867092.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 22,
@@ -377,7 +377,7 @@ export const singaporePackages = [
     nights: '4D/3N',
     strikePrice: 38999,
     price: 32999,
-    image: 'https://images.pexels.com/photos/2804038/pexels-photo-2804038.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2804038/pexels-photo-2804038.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 23,
@@ -385,7 +385,7 @@ export const singaporePackages = [
     nights: '5D/4N',
     strikePrice: 44999,
     price: 38999,
-    image: 'https://images.pexels.com/photos/414675/pexels-photo-414675.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/414675/pexels-photo-414675.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 24,
@@ -393,7 +393,7 @@ export const singaporePackages = [
     nights: '6D/5N',
     strikePrice: 54999,
     price: 48999,
-    image: 'https://images.pexels.com/photos/2689554/pexels-photo-2689554.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2689554/pexels-photo-2689554.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 25,
@@ -401,7 +401,7 @@ export const singaporePackages = [
     nights: '7D/6N',
     strikePrice: 49999,
     price: 44999,
-    image: 'https://images.pexels.com/photos/315403/pexels-photo-315403.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/315403/pexels-photo-315403.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   // Extended Singapore packages (from provided card list)
   {
@@ -410,7 +410,7 @@ export const singaporePackages = [
     nights: '4D/3N',
     strikePrice: 42999,
     price: 36999,
-    image: 'https://images.pexels.com/photos/3881761/pexels-photo-3881761.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3881761/pexels-photo-3881761.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 32,
@@ -418,7 +418,7 @@ export const singaporePackages = [
     nights: '5D/4N',
     strikePrice: 47999,
     price: 41999,
-    image: 'https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 33,
@@ -426,7 +426,7 @@ export const singaporePackages = [
     nights: '3D/2N',
     strikePrice: 28999,
     price: 23999,
-    image: 'https://images.pexels.com/photos/2434268/pexels-photo-2434268.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2434268/pexels-photo-2434268.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 34,
@@ -434,7 +434,7 @@ export const singaporePackages = [
     nights: '8D/7N',
     strikePrice: 62999,
     price: 52999,
-    image: 'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 35,
@@ -442,7 +442,7 @@ export const singaporePackages = [
     nights: '9D/8N',
     strikePrice: 58999,
     price: 49999,
-    image: 'https://images.pexels.com/photos/9859026/pexels-photo-9859026.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/9859026/pexels-photo-9859026.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -454,7 +454,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 35599,
     price: 31599,
-    image: 'https://images.pexels.com/photos/1658967/pexels-photo-1658967.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1658967/pexels-photo-1658967.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 41,
@@ -462,7 +462,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 38599,
     price: 36599,
-    image: 'https://images.pexels.com/photos/2403209/pexels-photo-2403209.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2403209/pexels-photo-2403209.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 42,
@@ -470,7 +470,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 52599,
     price: 49599,
-    image: 'https://images.pexels.com/photos/5725103/pexels-photo-5725103.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/5725103/pexels-photo-5725103.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 43,
@@ -478,7 +478,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 37999,
     price: 32999,
-    image: 'https://images.pexels.com/photos/321542/pexels-photo-321542.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/321542/pexels-photo-321542.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 44,
@@ -486,7 +486,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 42999,
     price: 39999,
-    image: 'https://images.pexels.com/photos/595196/pexels-photo-595196.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/595196/pexels-photo-595196.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 45,
@@ -494,7 +494,7 @@ export const srilankaPackages = [
     nights: '4N/5D',
     strikePrice: 59999,
     price: 54999,
-    image: 'https://images.pexels.com/photos/30857972/pexels-photo-30857972.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/30857972/pexels-photo-30857972.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 46,
@@ -502,7 +502,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 38999,
     price: 36999,
-    image: 'https://images.pexels.com/photos/34516197/pexels-photo-34516197.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/34516197/pexels-photo-34516197.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 47,
@@ -510,7 +510,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 45999,
     price:41599,
-    image: 'https://images.pexels.com/photos/3214944/pexels-photo-3214944.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3214944/pexels-photo-3214944.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 48,
@@ -518,7 +518,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 62999,
     price: 59999,
-    image: 'https://images.pexels.com/photos/330260/pexels-photo-330260.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/330260/pexels-photo-330260.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   // Fourth Row - 5N/6D
   {
@@ -527,7 +527,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 39599,
     price: 37599,
-    image: 'https://images.pexels.com/photos/8692688/pexels-photo-8692688.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/8692688/pexels-photo-8692688.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 50,
@@ -535,7 +535,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 44999,
     price: 42999,
-  image: 'https://images.pexels.com/photos/12343661/pexels-photo-12343661.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+  image: 'https://images.pexels.com/photos/12343661/pexels-photo-12343661.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 51,
@@ -543,7 +543,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 68599,
     price: 64599,
-  image: 'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+  image: 'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   // Fifth Row - 6N/7D
   {
@@ -552,7 +552,7 @@ export const srilankaPackages = [
     nights: '6N/7D',
     strikePrice: 44999,
     price: 41599,
-    image: 'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 53,
@@ -560,7 +560,7 @@ export const srilankaPackages = [
     nights: '6N/7D',
     strikePrice: 52599,
     price: 49599,
-    image: 'https://images.pexels.com/photos/5008230/pexels-photo-5008230.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/5008230/pexels-photo-5008230.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 54,
@@ -568,7 +568,7 @@ export const srilankaPackages = [
     nights: '6N/7D',
     strikePrice: 72799,
     price: 69799,
-    image: 'https://images.pexels.com/photos/2932486/pexels-photo-2932486.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2932486/pexels-photo-2932486.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 
 ];
@@ -581,7 +581,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 35799,
     price: 31799,
-    image: 'https://images.pexels.com/photos/1660996/pexels-photo-1660996.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1660996/pexels-photo-1660996.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 59,
@@ -589,7 +589,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 37199,
     price: 33199,
-    image: 'https://images.pexels.com/photos/58597/pexels-photo-58597.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/58597/pexels-photo-58597.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 60,
@@ -597,7 +597,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 42999,
     price: 38999,
-    image: 'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 61,
@@ -605,7 +605,7 @@ export const vietnamPackages = [
     nights: '4N/5D',
     strikePrice: 45999,
     price: 41999,
-    image: 'https://images.pexels.com/photos/2181111/pexels-photo-2181111.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2181111/pexels-photo-2181111.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 62,
@@ -613,7 +613,7 @@ export const vietnamPackages = [
     nights: '4N/5D',
     strikePrice: 48999,
     price: 43999,
-    image: 'https://images.pexels.com/photos/2796627/pexels-photo-2796627.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2796627/pexels-photo-2796627.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 63,
@@ -621,7 +621,7 @@ export const vietnamPackages = [
     nights: '4N/5D',
     strikePrice: 57999,
     price: 53999,
-    image: 'https://images.pexels.com/photos/746749/pexels-photo-746749.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/746749/pexels-photo-746749.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 64,
@@ -629,7 +629,7 @@ export const vietnamPackages = [
     nights: '6N/7D',
     strikePrice: 33199,
     price: 26199,
-    image: 'https://images.pexels.com/photos/2147980/pexels-photo-2147980.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2147980/pexels-photo-2147980.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 65,
@@ -637,7 +637,7 @@ export const vietnamPackages = [
     nights: '6N/7D',
     strikePrice: 33899,
     price: 30899,
-    image: 'https://images.pexels.com/photos/2582757/pexels-photo-2582757.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2582757/pexels-photo-2582757.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 66,
@@ -645,7 +645,7 @@ export const vietnamPackages = [
     nights: '6N/7D',
     strikePrice: 39599,
     price: 37599,
-    image: 'https://images.pexels.com/photos/3155276/pexels-photo-3155276.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/3155276/pexels-photo-3155276.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 67,
@@ -653,7 +653,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 63999,
     price: 59999,
-    image: 'https://images.pexels.com/photos/4253835/pexels-photo-4253835.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/4253835/pexels-photo-4253835.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 68,
@@ -661,7 +661,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 72999,
     price: 67999,
-    image: 'https://images.pexels.com/photos/4253927/pexels-photo-4253927.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/4253927/pexels-photo-4253927.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 69,
@@ -669,7 +669,7 @@ export const vietnamPackages = [
     nights: '3N/4D',
     strikePrice: 86999,
     price: 81999,
-    image: 'https://images.pexels.com/photos/2993132/pexels-photo-2993132.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/2993132/pexels-photo-2993132.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -689,7 +689,7 @@ export const laosPackages = [
     nights: '2N/3D',
     strikePrice: 49970,
     price: 47970,
-    image: 'https://images.pexels.com/photos/4463430/pexels-photo-4463430.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/4463430/pexels-photo-4463430.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 72,
@@ -721,7 +721,7 @@ export const laosPackages = [
     nights: '3N/4D',
     strikePrice: 89560,
     price: 86580,
-    image: 'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1105525/pexels-photo-1105525.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 76,
@@ -729,7 +729,7 @@ export const laosPackages = [
     nights: '5N/6D',
     strikePrice: 83910,
     price: 80910,
-    image: 'https://images.pexels.com/photos/4553124/pexels-photo-4553124.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/4553124/pexels-photo-4553124.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
   id: 77,
@@ -737,7 +737,7 @@ export const laosPackages = [
   nights: '5N/6D',
   strikePrice: 91200,
   price: 88200,
-  image: 'https://images.pexels.com/photos/4553124/pexels-photo-4553124.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+  image: 'https://images.pexels.com/photos/4553124/pexels-photo-4553124.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
 },
 {
   id: 78,
@@ -745,7 +745,7 @@ export const laosPackages = [
   nights: '5N/6D',
   strikePrice: 119370,
   price: 116370,
-  image: 'https://images.pexels.com/photos/319912/pexels-photo-319912.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+  image: 'https://images.pexels.com/photos/319912/pexels-photo-319912.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
 },
   {
     id: 79,
@@ -753,7 +753,7 @@ export const laosPackages = [
     nights: '6N/7D',
     strikePrice: 117420,
     price: 111420,
-    image: 'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/1385474/pexels-photo-1385474.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 80,
@@ -761,7 +761,7 @@ export const laosPackages = [
     nights: '2N/3D',
     strikePrice: 123990,
     price: 119990,
-    image: 'https://images.pexels.com/photos/17653317/pexels-photo-17653317.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/17653317/pexels-photo-17653317.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 81,
@@ -769,7 +769,7 @@ export const laosPackages = [
     nights: '4N/5D',
     strikePrice: 158999,
     price: 152199,
-    image: 'https://images.pexels.com/photos/17653318/pexels-photo-17653318.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/17653318/pexels-photo-17653318.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 82,
@@ -777,7 +777,7 @@ export const laosPackages = [
     nights: '7N/8D',
     strikePrice: 143199,
     price: 140199,
-    image: 'https://images.pexels.com/photos/9718010/pexels-photo-9718010.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/9718010/pexels-photo-9718010.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 83,
@@ -785,7 +785,7 @@ export const laosPackages = [
     nights: '7N/8D',
     strikePrice: 149999,
     price: 145999,
-    image: 'https://images.pexels.com/photos/11067407/pexels-photo-11067407.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/11067407/pexels-photo-11067407.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
   {
     id: 84,
@@ -793,7 +793,7 @@ export const laosPackages = [
     nights: '7N/8D',
     strikePrice: 163999,
     price: 158999,
-    image: 'https://images.pexels.com/photos/31418553/pexels-photo-31418553.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+    image: 'https://images.pexels.com/photos/31418553/pexels-photo-31418553.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
   },
 ];
 
@@ -1149,10 +1149,10 @@ export const packageDetails = {
     priceHTML: '&#8377;35,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/17910099/pexels-photo-17910099.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/12369779/pexels-photo-12369779.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3611545/pexels-photo-3611545.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2403251/pexels-photo-2403251.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/17910099/pexels-photo-17910099.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/12369779/pexels-photo-12369779.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3611545/pexels-photo-3611545.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2403251/pexels-photo-2403251.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   2: {
@@ -1160,10 +1160,10 @@ export const packageDetails = {
     priceHTML: '&#8377;43,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/5075089/pexels-photo-5075089.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33761821/pexels-photo-33761821.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/837908/pexels-photo-837908.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3581162/pexels-photo-3581162.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5075089/pexels-photo-5075089.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33761821/pexels-photo-33761821.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/837908/pexels-photo-837908.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3581162/pexels-photo-3581162.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   3: {
@@ -1171,10 +1171,10 @@ export const packageDetails = {
     priceHTML: '&#8377;49,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/16430571/pexels-photo-16430571.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3787840/pexels-photo-3787840.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5577701/pexels-photo-5577701.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/15693276/pexels-photo-15693276.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/16430571/pexels-photo-16430571.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3787840/pexels-photo-3787840.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5577701/pexels-photo-5577701.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/15693276/pexels-photo-15693276.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   4: {
@@ -1182,10 +1182,10 @@ export const packageDetails = {
     priceHTML: '&#8377;39,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/7168452/pexels-photo-7168452.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2867771/pexels-photo-2867771.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/10975584/pexels-photo-10975584.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7168452/pexels-photo-7168452.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2867771/pexels-photo-2867771.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/10975584/pexels-photo-10975584.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/24377410/pexels-photo-24377410.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   5: {
@@ -1193,10 +1193,10 @@ export const packageDetails = {
     priceHTML: '&#8377;51,599',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/5075789/pexels-photo-5075789.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/13398521/pexels-photo-13398521.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5075774/pexels-photo-5075774.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5075789/pexels-photo-5075789.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/809060/pexels-photo-809060.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/13398521/pexels-photo-13398521.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5075774/pexels-photo-5075774.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   6: {
@@ -1204,9 +1204,9 @@ export const packageDetails = {
     priceHTML: '&#8377;59,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/8319460/pexels-photo-8319460.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5614592/pexels-photo-5614592.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5075320/pexels-photo-5075320.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8319460/pexels-photo-8319460.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5614592/pexels-photo-5614592.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5075320/pexels-photo-5075320.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=600&q=55',
     ],
   },
@@ -1215,10 +1215,10 @@ export const packageDetails = {
     priceHTML: '&#8377;45,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/4502694/pexels-photo-4502694.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/7168553/pexels-photo-7168553.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/713458/pexels-photo-713458.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5087052/pexels-photo-5087052.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4502694/pexels-photo-4502694.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7168553/pexels-photo-7168553.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/713458/pexels-photo-713458.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5087052/pexels-photo-5087052.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   8: {
@@ -1226,10 +1226,10 @@ export const packageDetails = {
     priceHTML: '&#8377;54,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/28902541/pexels-photo-28902541.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33841658/pexels-photo-33841658.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33761821/pexels-photo-33761821.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/7168587/pexels-photo-7168587.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/28902541/pexels-photo-28902541.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33841658/pexels-photo-33841658.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33761821/pexels-photo-33761821.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7168587/pexels-photo-7168587.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   9: {
@@ -1237,10 +1237,10 @@ export const packageDetails = {
     priceHTML: '&#8377;66,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/8319453/pexels-photo-8319453.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/8319477/pexels-photo-8319477.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3581162/pexels-photo-3581162.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33720952/pexels-photo-33720952.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8319453/pexels-photo-8319453.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8319477/pexels-photo-8319477.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3581162/pexels-photo-3581162.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33720952/pexels-photo-33720952.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   10: {
@@ -1248,10 +1248,10 @@ export const packageDetails = {
     priceHTML: '&#8377;59,999',
     destination: 'Dubai, UAE',
     images: [
-      'https://images.pexels.com/photos/12507327/pexels-photo-12507327.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/13398531/pexels-photo-13398531.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/20613690/pexels-photo-20613690.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33438757/pexels-photo-33438757.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/12507327/pexels-photo-12507327.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/13398531/pexels-photo-13398531.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/20613690/pexels-photo-20613690.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33438757/pexels-photo-33438757.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Bali Packages (11-15)
@@ -1267,10 +1267,10 @@ export const packageDetails = {
       'Day 5': 'Departure from Bali | Airport Transfer: Enjoy a leisurely breakfast at the hotel before checking out. Our representative will assist you with your transfer to Ngurah Rai International Airport for your onward journey.'
     },
     images: [
-      'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1643130/pexels-photo-1643130.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2412711/pexels-photo-2412711.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1643130/pexels-photo-1643130.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2412711/pexels-photo-2412711.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   12: {
@@ -1285,10 +1285,10 @@ export const packageDetails = {
       'Day 5': 'Departure from Bali | Airport Transfer: Enjoy a leisurely breakfast at the hotel before checking out. Our representative will assist you with your transfer to Ngurah Rai International Airport for your onward journey.'
     },
     images: [
-      'https://images.pexels.com/photos/2480608/pexels-photo-2480608.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/994477/pexels-photo-994477.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1005474/pexels-photo-1005474.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2480608/pexels-photo-2480608.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/994477/pexels-photo-994477.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1005474/pexels-photo-1005474.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   13: {
@@ -1303,10 +1303,10 @@ export const packageDetails = {
       'Day 5': 'Departure from Bali | Airport Transfer: Enjoy a leisurely breakfast at the hotel before checking out. Our representative will assist you with your transfer to Ngurah Rai International Airport for your onward journey.'
     },
     images: [
-      'https://images.pexels.com/photos/2583833/pexels-photo-2583833.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2412711/pexels-photo-2412711.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1005472/pexels-photo-1005472.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2583833/pexels-photo-2583833.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2412711/pexels-photo-2412711.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1005472/pexels-photo-1005472.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   14: {
@@ -1314,10 +1314,10 @@ export const packageDetails = {
     priceHTML: '&#8377;52,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/2907196/pexels-photo-2907196.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1850539/pexels-photo-1850539.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6015472/pexels-photo-6015472.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6336345/pexels-photo-6336345.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2907196/pexels-photo-2907196.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1850539/pexels-photo-1850539.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6015472/pexels-photo-6015472.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6336345/pexels-photo-6336345.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   15: {
@@ -1325,10 +1325,10 @@ export const packageDetails = {
     priceHTML: '&#8377;45,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/32387246/pexels-photo-32387246.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6965316/pexels-photo-6965316.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1694621/pexels-photo-1694621.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6964999/pexels-photo-6964999.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32387246/pexels-photo-32387246.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6965316/pexels-photo-6965316.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1694621/pexels-photo-1694621.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6964999/pexels-photo-6964999.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Bali Extended (26-30)
@@ -1337,10 +1337,10 @@ export const packageDetails = {
     priceHTML: '&#8377;42,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/3067621/pexels-photo-3067621.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/29989224/pexels-photo-29989224.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/29989223/pexels-photo-29989223.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3067621/pexels-photo-3067621.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2573486/pexels-photo-2573486.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/29989224/pexels-photo-29989224.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/29989223/pexels-photo-29989223.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   27: {
@@ -1348,10 +1348,10 @@ export const packageDetails = {
     priceHTML: '&#8377;36,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6965529/pexels-photo-6965529.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6015450/pexels-photo-6015450.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6015472/pexels-photo-6015472.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/889954/pexels-photo-889954.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6965529/pexels-photo-6965529.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6015450/pexels-photo-6015450.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6015472/pexels-photo-6015472.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   28: {
@@ -1359,10 +1359,10 @@ export const packageDetails = {
     priceHTML: '&#8377;24,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/2677214/pexels-photo-2677214.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6965525/pexels-photo-6965525.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31973187/pexels-photo-31973187.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/7723736/pexels-photo-7723736.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2677214/pexels-photo-2677214.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6965525/pexels-photo-6965525.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31973187/pexels-photo-31973187.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7723736/pexels-photo-7723736.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   29: {
@@ -1370,10 +1370,10 @@ export const packageDetails = {
     priceHTML: '&#8377;58,999',
     destination: 'Bali, Indonesia',
     images: [
-      'https://images.pexels.com/photos/1850547/pexels-photo-1850547.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/4913546/pexels-photo-4913546.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/4517401/pexels-photo-4517401.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/14984120/pexels-photo-14984120.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1850547/pexels-photo-1850547.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4913546/pexels-photo-4913546.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4517401/pexels-photo-4517401.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14984120/pexels-photo-14984120.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   30: {
@@ -1393,10 +1393,10 @@ export const packageDetails = {
     priceHTML: '&#8377;28,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=55',
       'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55',
-      'https://images.pexels.com/photos/594077/pexels-photo-594077.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/594077/pexels-photo-594077.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   17: {
@@ -1404,10 +1404,10 @@ export const packageDetails = {
     priceHTML: '&#8377;34,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/2797526/pexels-photo-2797526.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/257433/pexels-photo-257433.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/753885/pexels-photo-753885.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34499700/pexels-photo-34499700.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2797526/pexels-photo-2797526.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/257433/pexels-photo-257433.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/753885/pexels-photo-753885.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34499700/pexels-photo-34499700.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   18: {
@@ -1415,10 +1415,10 @@ export const packageDetails = {
     priceHTML: '&#8377;42,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/11104877/pexels-photo-11104877.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/4024726/pexels-photo-4024726.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1154193/pexels-photo-1154193.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3355777/pexels-photo-3355777.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11104877/pexels-photo-11104877.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4024726/pexels-photo-4024726.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1154193/pexels-photo-1154193.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3355777/pexels-photo-3355777.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   19: {
@@ -1426,10 +1426,10 @@ export const packageDetails = {
     priceHTML: '&#8377;36,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/17746130/pexels-photo-17746130.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/681592/pexels-photo-681592.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33636735/pexels-photo-33636735.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2331014/pexels-photo-2331014.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/17746130/pexels-photo-17746130.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/681592/pexels-photo-681592.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33636735/pexels-photo-33636735.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2331014/pexels-photo-2331014.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   20: {
@@ -1437,10 +1437,10 @@ export const packageDetails = {
     priceHTML: '&#8377;55,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/11104822/pexels-photo-11104822.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/895549/pexels-photo-895549.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5608227/pexels-photo-5608227.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/12681176/pexels-photo-12681176.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11104822/pexels-photo-11104822.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/895549/pexels-photo-895549.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5608227/pexels-photo-5608227.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/12681176/pexels-photo-12681176.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Singapore Packages (21-25)
@@ -1449,10 +1449,10 @@ export const packageDetails = {
     priceHTML: '&#8377;25,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/15480503/pexels-photo-15480503.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/60686/singapore-river-skyline-building-60686.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2434268/pexels-photo-2434268.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1682794/pexels-photo-1682794.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/15480503/pexels-photo-15480503.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/60686/singapore-river-skyline-building-60686.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2434268/pexels-photo-2434268.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1682794/pexels-photo-1682794.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   22: {
@@ -1460,10 +1460,10 @@ export const packageDetails = {
     priceHTML: '&#8377;32,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/326787/pexels-photo-326787.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/15480459/pexels-photo-15480459.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/434576/pexels-photo-434576.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/356614/pexels-photo-356614.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/326787/pexels-photo-326787.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/15480459/pexels-photo-15480459.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/434576/pexels-photo-434576.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/356614/pexels-photo-356614.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   23: {
@@ -1471,10 +1471,10 @@ export const packageDetails = {
     priceHTML: '&#8377;38,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/33333679/pexels-photo-33333679.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/290597/pexels-photo-290597.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2573993/pexels-photo-2573993.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6016766/pexels-photo-6016766.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33333679/pexels-photo-33333679.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/290597/pexels-photo-290597.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2573993/pexels-photo-2573993.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6016766/pexels-photo-6016766.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   24: {
@@ -1482,10 +1482,10 @@ export const packageDetails = {
     priceHTML: '&#8377;48,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/31027804/pexels-photo-31027804.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32942982/pexels-photo-32942982.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2573995/pexels-photo-2573995.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6016752/pexels-photo-6016752.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31027804/pexels-photo-31027804.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32942982/pexels-photo-32942982.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2573995/pexels-photo-2573995.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6016752/pexels-photo-6016752.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   25: {
@@ -1493,10 +1493,10 @@ export const packageDetails = {
     priceHTML: '&#8377;44,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/302831/pexels-photo-302831.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6016759/pexels-photo-6016759.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/302831/pexels-photo-302831.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/777059/pexels-photo-777059.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6016759/pexels-photo-6016759.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Singapore Extended (31-35)
@@ -1505,10 +1505,10 @@ export const packageDetails = {
     priceHTML: '&#8377;36,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/14970196/pexels-photo-14970196.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/28539711/pexels-photo-28539711.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33557850/pexels-photo-33557850.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6016765/pexels-photo-6016765.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14970196/pexels-photo-14970196.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/28539711/pexels-photo-28539711.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33557850/pexels-photo-33557850.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6016765/pexels-photo-6016765.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   32: {
@@ -1516,10 +1516,10 @@ export const packageDetails = {
     priceHTML: '&#8377;41,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/14426304/pexels-photo-14426304.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/18421641/pexels-photo-18421641.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31583542/pexels-photo-31583542.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32545622/pexels-photo-32545622.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14426304/pexels-photo-14426304.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/18421641/pexels-photo-18421641.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31583542/pexels-photo-31583542.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32545622/pexels-photo-32545622.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   33: {
@@ -1527,10 +1527,10 @@ export const packageDetails = {
     priceHTML: '&#8377;23,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/6016763/pexels-photo-6016763.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/15711737/pexels-photo-15711737.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/7419607/pexels-photo-7419607.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31270336/pexels-photo-31270336.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6016763/pexels-photo-6016763.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/15711737/pexels-photo-15711737.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7419607/pexels-photo-7419607.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31270336/pexels-photo-31270336.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   34: {
@@ -1538,10 +1538,10 @@ export const packageDetails = {
     priceHTML: '&#8377;52,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/5229477/pexels-photo-5229477.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/8162540/pexels-photo-8162540.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32074540/pexels-photo-32074540.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31270046/pexels-photo-31270046.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5229477/pexels-photo-5229477.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8162540/pexels-photo-8162540.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32074540/pexels-photo-32074540.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31270046/pexels-photo-31270046.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   35: {
@@ -1549,10 +1549,10 @@ export const packageDetails = {
     priceHTML: '&#8377;49,999',
     destination: 'Singapore',
     images: [
-      'https://images.pexels.com/photos/30705938/pexels-photo-30705938.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/27087197/pexels-photo-27087197.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/8910246/pexels-photo-8910246.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/14337959/pexels-photo-14337959.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/30705938/pexels-photo-30705938.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/27087197/pexels-photo-27087197.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8910246/pexels-photo-8910246.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14337959/pexels-photo-14337959.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Thailand Extended (36-39)
@@ -1561,10 +1561,10 @@ export const packageDetails = {
     priceHTML: '&#8377;45,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/3375296/pexels-photo-3375296.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/14360117/pexels-photo-14360117.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/208444/pexels-photo-208444.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/753885/pexels-photo-753885.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3375296/pexels-photo-3375296.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14360117/pexels-photo-14360117.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/208444/pexels-photo-208444.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/753885/pexels-photo-753885.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   37: {
@@ -1572,10 +1572,10 @@ export const packageDetails = {
     priceHTML: '&#8377;39,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/460376/pexels-photo-460376.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2956618/pexels-photo-2956618.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1031659/pexels-photo-1031659.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1647064/pexels-photo-1647064.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/460376/pexels-photo-460376.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2956618/pexels-photo-2956618.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1031659/pexels-photo-1031659.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1647064/pexels-photo-1647064.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   38: {
@@ -1583,10 +1583,10 @@ export const packageDetails = {
     priceHTML: '&#8377;27,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/2554603/pexels-photo-2554603.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/91119/pexels-photo-91119.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1647110/pexels-photo-1647110.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5608203/pexels-photo-5608203.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2554603/pexels-photo-2554603.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/91119/pexels-photo-91119.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1647110/pexels-photo-1647110.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5608203/pexels-photo-5608203.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   39: {
@@ -1594,10 +1594,10 @@ export const packageDetails = {
     priceHTML: '&#8377;61,999',
     destination: 'Thailand',
     images: [
-      'https://images.pexels.com/photos/1139041/pexels-photo-1139041.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/28264971/pexels-photo-28264971.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5607877/pexels-photo-5607877.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5608200/pexels-photo-5608200.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1139041/pexels-photo-1139041.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/28264971/pexels-photo-28264971.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5607877/pexels-photo-5607877.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5608200/pexels-photo-5608200.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Sri Lanka Package Details (40-42)
@@ -1606,10 +1606,10 @@ export const packageDetails = {
     priceHTML: '&#8377;28,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/739409/pexels-photo-739409.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/14041994/pexels-photo-14041994.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/14372006/pexels-photo-14372006.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31621576/pexels-photo-31621576.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/739409/pexels-photo-739409.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14041994/pexels-photo-14041994.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/14372006/pexels-photo-14372006.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31621576/pexels-photo-31621576.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   41: {
@@ -1617,10 +1617,10 @@ export const packageDetails = {
     priceHTML: '&#8377;34,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/32861263/pexels-photo-32861263.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/31001488/pexels-photo-31001488.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34575058/pexels-photo-34575058.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/24613560/pexels-photo-24613560.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32861263/pexels-photo-32861263.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31001488/pexels-photo-31001488.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34575058/pexels-photo-34575058.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/24613560/pexels-photo-24613560.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   42: {
@@ -1628,10 +1628,10 @@ export const packageDetails = {
     priceHTML: '&#8377;41,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/595196/pexels-photo-595196.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/319922/pexels-photo-319922.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/684349/pexels-photo-684349.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/595196/pexels-photo-595196.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319922/pexels-photo-319922.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/684349/pexels-photo-684349.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   43: {
@@ -1639,10 +1639,10 @@ export const packageDetails = {
     priceHTML: '&#8377;28,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/8692688/pexels-photo-8692688.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5008230/pexels-photo-5008230.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8692688/pexels-photo-8692688.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5008230/pexels-photo-5008230.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   44: {
@@ -1650,10 +1650,10 @@ export const packageDetails = {
     priceHTML: '&#8377;34,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/29813523/pexels-photo-29813523.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/29813527/pexels-photo-29813527.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2933943/pexels-photo-2933943.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/20685272/pexels-photo-20685272.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/29813523/pexels-photo-29813523.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/29813527/pexels-photo-29813527.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2933943/pexels-photo-2933943.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/20685272/pexels-photo-20685272.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   45: {
@@ -1661,10 +1661,10 @@ export const packageDetails = {
     priceHTML: '&#8377;41,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/16508233/pexels-photo-16508233.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/3214944/pexels-photo-3214944.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/319892/pexels-photo-319892.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/16508233/pexels-photo-16508233.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/3214944/pexels-photo-3214944.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319892/pexels-photo-319892.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   46: {
@@ -1672,10 +1672,10 @@ export const packageDetails = {
     priceHTML: '&#8377;33,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/34575058/pexels-photo-34575058.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34515386/pexels-photo-34515386.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/739409/pexels-photo-739409.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/4185785/pexels-photo-4185785.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34575058/pexels-photo-34575058.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34515386/pexels-photo-34515386.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/739409/pexels-photo-739409.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4185785/pexels-photo-4185785.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   47: {
@@ -1683,10 +1683,10 @@ export const packageDetails = {
     priceHTML: '&#8377;39,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/319912/pexels-photo-319912.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2933943/pexels-photo-2933943.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/321539/pexels-photo-321539.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/319922/pexels-photo-319922.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319912/pexels-photo-319912.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2933943/pexels-photo-2933943.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/321539/pexels-photo-321539.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319922/pexels-photo-319922.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   48: {
@@ -1706,10 +1706,10 @@ export const packageDetails = {
     priceHTML: '&#8377;33,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/29813527/pexels-photo-29813527.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/11495866/pexels-photo-11495866.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/322437/pexels-photo-322437.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/29813527/pexels-photo-29813527.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11495866/pexels-photo-11495866.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   50: {
@@ -1717,10 +1717,10 @@ export const packageDetails = {
     priceHTML: '&#8377;39,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/32298236/pexels-photo-32298236.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34520024/pexels-photo-34520024.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/11495863/pexels-photo-11495863.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/11398739/pexels-photo-11398739.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32298236/pexels-photo-32298236.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34520024/pexels-photo-34520024.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11495863/pexels-photo-11495863.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11398739/pexels-photo-11398739.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   51: {
@@ -1728,10 +1728,10 @@ export const packageDetails = {
     priceHTML: '&#8377;46,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/10572438/pexels-photo-10572438.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/30945846/pexels-photo-30945846.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32310246/pexels-photo-32310246.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5620146/pexels-photo-5620146.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/10572438/pexels-photo-10572438.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/30945846/pexels-photo-30945846.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32310246/pexels-photo-32310246.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5620146/pexels-photo-5620146.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Fifth Row Package Details (52-54)
@@ -1740,10 +1740,10 @@ export const packageDetails = {
     priceHTML: '&#8377;39,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/31360384/pexels-photo-31360384.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/11388106/pexels-photo-11388106.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/33435741/pexels-photo-33435741.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32414014/pexels-photo-32414014.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/31360384/pexels-photo-31360384.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/11388106/pexels-photo-11388106.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/33435741/pexels-photo-33435741.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32414014/pexels-photo-32414014.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   53: {
@@ -1751,10 +1751,10 @@ export const packageDetails = {
     priceHTML: '&#8377;46,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/27407536/pexels-photo-27407536.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32548024/pexels-photo-32548024.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2370934/pexels-photo-2370934.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/27407536/pexels-photo-27407536.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1074523/pexels-photo-1074523.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32548024/pexels-photo-32548024.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2370934/pexels-photo-2370934.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   54: {
@@ -1762,10 +1762,10 @@ export const packageDetails = {
     priceHTML: '&#8377;53,999',
     destination: 'Colombo, Sri Lanka',
     images: [
-      'https://images.pexels.com/photos/32398207/pexels-photo-32398207.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32398212/pexels-photo-32398212.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32398184/pexels-photo-32398184.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/32398177/pexels-photo-32398177.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32398207/pexels-photo-32398207.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32398212/pexels-photo-32398212.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32398184/pexels-photo-32398184.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/32398177/pexels-photo-32398177.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
 
@@ -1775,10 +1775,10 @@ export const packageDetails = {
     priceHTML: '&#8377;31,999',
     destination: 'Hanoi, Ha Long Bay - Vietnam',
     images: [
-      'https://images.pexels.com/photos/1660996/pexels-photo-1660996.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2796627/pexels-photo-2796627.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34574527/pexels-photo-34574527.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34571815/pexels-photo-34571815.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1660996/pexels-photo-1660996.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2796627/pexels-photo-2796627.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34574527/pexels-photo-34574527.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34571815/pexels-photo-34571815.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   59: {
@@ -1786,10 +1786,10 @@ export const packageDetails = {
     priceHTML: '&#8377;37,999',
     destination: 'Hanoi, Ha Long Bay - Vietnam',
     images: [
-      'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5334890/pexels-photo-5334890.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34477004/pexels-photo-34477004.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34545913/pexels-photo-34545913.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5334890/pexels-photo-5334890.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34531652/pexels-photo-34531652.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34477004/pexels-photo-34477004.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   60: {
@@ -1797,10 +1797,10 @@ export const packageDetails = {
     priceHTML: '&#8377;44,999',
     destination: 'Hanoi, Ha Long Bay - Vietnam',
     images: [
-      'https://images.pexels.com/photos/34522667/pexels-photo-34522667.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34517302/pexels-photo-34517302.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34516528/pexels-photo-34516528.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34503582/pexels-photo-34503582.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34522667/pexels-photo-34522667.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34517302/pexels-photo-34517302.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34516528/pexels-photo-34516528.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34503582/pexels-photo-34503582.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   61: {
@@ -1808,10 +1808,10 @@ export const packageDetails = {
     priceHTML: '&#8377;38,999',
     destination: 'Hanoi, Ha Long Bay, Ninh Binh - Vietnam',
     images: [
-      'https://images.pexels.com/photos/34502541/pexels-photo-34502541.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34503141/pexels-photo-34503141.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34502541/pexels-photo-34502541.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34503141/pexels-photo-34503141.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg',
-      'https://images.pexels.com/photos/2166695/pexels-photo-2166695.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2166695/pexels-photo-2166695.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   62: {
@@ -1819,10 +1819,10 @@ export const packageDetails = {
     priceHTML: '&#8377;44,999',
     destination: 'Hanoi, Ha Long Bay, Ninh Binh - Vietnam',
     images: [
-      'https://images.pexels.com/photos/4253835/pexels-photo-4253835.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34486867/pexels-photo-34486867.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2162459/pexels-photo-2162459.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2152994/pexels-photo-2152994.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4253835/pexels-photo-4253835.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34486867/pexels-photo-34486867.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2162459/pexels-photo-2162459.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2152994/pexels-photo-2152994.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   63: {
@@ -1830,10 +1830,10 @@ export const packageDetails = {
     priceHTML: '&#8377;51,999',
     destination: 'Hanoi, Ha Long Bay, Ninh Binh - Vietnam',
     images: [
-      'https://images.pexels.com/photos/235925/pexels-photo-235925.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34487743/pexels-photo-34487743.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2162459/pexels-photo-2162459.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2162442/pexels-photo-2162442.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/235925/pexels-photo-235925.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34487743/pexels-photo-34487743.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2162459/pexels-photo-2162459.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2162442/pexels-photo-2162442.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   64: {
@@ -1841,10 +1841,10 @@ export const packageDetails = {
     priceHTML: '&#8377;45,999',
     destination: 'Hanoi, Ho Chi Minh City, Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/2884600/pexels-photo-2884600.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5334890/pexels-photo-5334890.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34517107/pexels-photo-34517107.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/34502541/pexels-photo-34502541.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2884600/pexels-photo-2884600.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5334890/pexels-photo-5334890.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34517107/pexels-photo-34517107.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/34502541/pexels-photo-34502541.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   65: {
@@ -1852,10 +1852,10 @@ export const packageDetails = {
     priceHTML: '&#8377;51,999',
     destination: 'Hanoi, Ho Chi Minh City, Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/1882228/pexels-photo-1882228.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/5481200/pexels-photo-5481200.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/7264054/pexels-photo-7264054.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/58597/pexels-photo-58597.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/1882228/pexels-photo-1882228.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/5481200/pexels-photo-5481200.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/7264054/pexels-photo-7264054.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/58597/pexels-photo-58597.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   66: {
@@ -1863,10 +1863,10 @@ export const packageDetails = {
     priceHTML: '&#8377;58,999',
     destination: 'Hanoi, Ho Chi Minh City, Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/27356535/pexels-photo-27356535.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/30174359/pexels-photo-30174359.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/2831299/pexels-photo-2831299.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/692426/pexels-photo-692426.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/27356535/pexels-photo-27356535.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/30174359/pexels-photo-30174359.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2831299/pexels-photo-2831299.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/692426/pexels-photo-692426.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   67: {
@@ -1874,10 +1874,10 @@ export const packageDetails = {
     priceHTML: '&#8377;28,999',
     destination: 'Ho Chi Minh City (Saigon), Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/4253927/pexels-photo-4253927.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/4253927/pexels-photo-4253927.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/1460761/pexels-photo-1460761.png',
-      'https://images.pexels.com/photos/746756/pexels-photo-746756.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/8152028/pexels-photo-8152028.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/746756/pexels-photo-746756.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/8152028/pexels-photo-8152028.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   68: {
@@ -1885,9 +1885,9 @@ export const packageDetails = {
     priceHTML: '&#8377;34,999',
     destination: 'Ho Chi Minh City (Saigon), Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/188008/pexels-photo-188008.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6531913/pexels-photo-6531913.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/6481618/pexels-photo-6481618.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/188008/pexels-photo-188008.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6531913/pexels-photo-6531913.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/6481618/pexels-photo-6481618.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/1621248/pexels-photo-1621248.png',
     ],
   },
@@ -1896,10 +1896,10 @@ export const packageDetails = {
     priceHTML: '&#8377;41,999',
     destination: 'Ho Chi Minh City (Saigon), Cu Chi Tunnels, Mekong Delta - Vietnam',
     images: [
-      'https://images.pexels.com/photos/2162725/pexels-photo-2162725.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/2162725/pexels-photo-2162725.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
       'https://images.pexels.com/photos/1467989/pexels-photo-1467989.png',
-      'https://images.pexels.com/photos/256937/pexels-photo-256937.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
-      'https://images.pexels.com/photos/19828761/pexels-photo-19828761.jpeg?auto=compress&cs=tinysrgb&w=500&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/256937/pexels-photo-256937.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
+      'https://images.pexels.com/photos/19828761/pexels-photo-19828761.jpeg?auto=compress&cs=tinysrgb&w=250&fit=crop&dpr=1',
     ],
   },
   // Laos Package Details (70-84)
