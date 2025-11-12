@@ -4,9 +4,25 @@ import { VitePWA } from 'vite-plugin-pwa'
 import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 
+// Custom plugin to inject CSP meta tag
+function injectCSPMetaTag() {
+  return {
+    name: 'inject-csp-meta',
+    transformIndexHtml(html) {
+      // Add CSP meta tag for additional security
+      return html.replace(
+        '<meta charset="UTF-8" />',
+        `<meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">`
+      );
+    }
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    injectCSPMetaTag(),
     react({
       babel: {
         plugins: [
@@ -124,10 +140,20 @@ export default defineConfig({
               },
               fetchOptions: {
                 mode: 'cors',
-                credentials: 'omit'
+                credentials: 'omit', // Block third-party cookies
+                referrerPolicy: 'no-referrer'
               },
               plugins: [
                 {
+                  requestWillFetch: async ({ request }) => {
+                    // Strip cookies from Pexels requests
+                    const headers = new Headers(request.headers);
+                    headers.delete('Cookie');
+                    return new Request(request, { 
+                      headers,
+                      credentials: 'omit'
+                    });
+                  },
                   cacheWillUpdate: async ({ response }) => {
                     // Only cache successful responses
                     return response.status === 200 ? response : null;

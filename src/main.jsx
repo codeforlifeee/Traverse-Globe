@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import './utils/trustedTypes.js' // Initialize Trusted Types policy
 
 // Performance monitoring
 if (typeof window !== 'undefined' && 'performance' in window) {
@@ -83,10 +84,10 @@ if (import.meta.env.DEV) {
 // Preload critical routes on idle
 if ('requestIdleCallback' in window) {
   requestIdleCallback(() => {
-    // Preload top destination images
+    // Preload top destination images with valid URLs
     const criticalImages = [
       'https://images.unsplash.com/photo-1512453979798-5ea266f8880c',
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4'
+      'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'
     ];
     
     criticalImages.forEach(src => {
