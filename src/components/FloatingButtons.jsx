@@ -9,7 +9,7 @@ const FloatingButtons = () => {
         className="floating-btn bg-[#25D366] hover:bg-[#128C7E]"
         aria-label="WhatsApp"
       >
-        <i className="fab fa-whatsapp"></i>
+        <i className="fa-brands fa-whatsapp"></i>
       </a>
 
       {/* Call Button */}
@@ -18,7 +18,7 @@ const FloatingButtons = () => {
         className="floating-btn bg-orange hover:bg-teal"
         aria-label="Call Us"
       >
-        <i className="fas fa-phone"></i>
+        <i className="fa-solid fa-phone"></i>
       </a>
     </div>
   );

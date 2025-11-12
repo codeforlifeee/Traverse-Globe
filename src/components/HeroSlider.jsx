@@ -102,10 +102,10 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
           {images.length > 1 && (
             <>
               <button aria-label="Previous" className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center" onClick={() => go('prev')}>
-                <i className="fas fa-chevron-left"></i>
+                <i className="fa-solid fa-chevron-left"></i>
               </button>
               <button aria-label="Next" className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center" onClick={() => go('next')}>
-                <i className="fas fa-chevron-right"></i>
+                <i className="fa-solid fa-chevron-right"></i>
               </button>
             </>
           )}

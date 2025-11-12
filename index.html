@@ -19,13 +19,13 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     
     <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     
   <!-- Preload LCP hero image for immediate discovery and render -->
   <!-- NOTE: Keep this URL in sync with the first hero image (LCP) in src/components/HeroSlider.jsx.
@@ -41,10 +41,7 @@
     crossorigin="anonymous"
   />
     
-    <!-- Preload critical FontAwesome fonts with font-display: swap -->
-    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" crossorigin="anonymous" />
-    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2" crossorigin="anonymous" />
-    <link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" crossorigin="anonymous" />
+  <!-- Font Awesome fonts are bundled via Vite (npm package). Removing external font preloads to avoid version conflicts. -->
     
     <!-- Critical inline CSS for above-the-fold content -->
     <style>
