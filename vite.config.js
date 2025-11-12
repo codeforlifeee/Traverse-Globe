@@ -258,8 +258,7 @@ export default defineConfig({
       'react-dom', 
       'react-router-dom',
       'framer-motion',
-      'swiper',
-      '@fortawesome/fontawesome-free'
+      'swiper'
     ]
   },
   
