@@ -68,8 +68,8 @@ export default function PackageCard({ pkg, onView, buttonLabel = 'View Package',
     <div className="custom-card group bg-white h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-2xl">
         <img
-          src={pkg.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')}
-          srcSet={`${pkg.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=55')} 400w, ${pkg.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=55')} 600w, ${pkg.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=55')} 800w`}
+          src={pkg.image.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
+          srcSet={`${pkg.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${pkg.image.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={pkg.title}
           loading="lazy"

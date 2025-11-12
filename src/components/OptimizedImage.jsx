@@ -40,20 +40,21 @@ export default function OptimizedImage({
   };
   
   // Generate responsive images with lower quality for faster loading
+  // Optimized: reduced max width to 800px and quality to 50 for better performance
   const getSrcSet = () => {
     if (!src) return undefined;
     
     if (isUnsplash) {
       const baseUrl = src.split('?')[0];
-      const widths = [400, 600, 800, 1000, 1200];
+      const widths = [400, 600, 800];
       return widths
-        .map(w => `${baseUrl}?auto=format&fit=crop&w=${w}&q=60&fm=webp ${w}w`)
+        .map(w => `${baseUrl}?auto=format&fit=crop&w=${w}&q=50&fm=webp ${w}w`)
         .join(', ');
     }
     
     if (isPexels) {
       const baseUrl = src.split('?')[0];
-      const widths = [400, 600, 800, 1000, 1200];
+      const widths = [400, 600, 800];
       return widths
         .map(w => `${baseUrl}?auto=compress&cs=tinysrgb&w=${w}&fit=crop&dpr=1&fm=webp ${w}w`)
         .join(', ');
@@ -62,19 +63,19 @@ export default function OptimizedImage({
     return undefined;
   };
 
-  // Optimize src with quality parameter - reduced to q=60 for faster loading + WebP format
+  // Optimize src with quality parameter - reduced to q=50 for faster loading + WebP format
   const getOptimizedSrc = () => {
     if (!src) return '';
     
-    // Unsplash optimization - reduce quality to 60 and request WebP
+    // Unsplash optimization - reduce quality to 50 and request WebP
     if (isUnsplash) {
       const baseUrl = src.split('?')[0];
-      return `${baseUrl}?auto=format&fit=crop&w=1200&q=60&fm=webp`;
+      return `${baseUrl}?auto=format&fit=crop&w=800&q=50&fm=webp`;
     }
     
     // Pexels optimization - ensure proper params and request WebP if supported
     if (isPexels) {
-      let optimized = src.replace(/w=\d+/, 'w=1200').replace(/&dpr=\d+/, '&dpr=1');
+      let optimized = src.replace(/w=\d+/, 'w=800').replace(/&dpr=\d+/, '&dpr=1');
       // Pexels auto-delivers WebP when requested via auto=compress
       return optimized;
     }

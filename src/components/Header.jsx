@@ -16,8 +16,8 @@ const Header = () => {
                 src="/logo.webp"
                 alt="Traverse Globe"
                 className="h-12 md:h-14 object-contain"
-                width="176"
-                height="70"
+                width="151"
+                height="60"
                 decoding="async"
               />
             </picture>

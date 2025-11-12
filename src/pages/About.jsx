@@ -20,9 +20,11 @@ const About = () => {
             </div>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&q=50&fm=webp"
                 alt="Travel Experience"
                 className="w-full rounded-2xl shadow-xl"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

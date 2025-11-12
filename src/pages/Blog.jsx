@@ -6,9 +6,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=80',
-  'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1920&q=80',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=800&q=50&fm=webp',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=50&fm=webp',
 ];
 
 export default function Blog() {
