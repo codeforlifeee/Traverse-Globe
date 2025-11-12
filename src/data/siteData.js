@@ -2,13 +2,13 @@
 // Updated: Andaman packages with Alluring Andamans content - 2024-12-19
 
 export const banners = [
-  'https://images.pexels.com/photos/1660603/pexels-photo-1660603.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/3243025/pexels-photo-3243025.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/1029188/pexels-photo-1029188.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/3152128/pexels-photo-3152128.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/2853964/pexels-photo-2853964.jpeg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
-  'https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&w=1200&h=500&fit=crop&dpr=1', 
+  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=60',
+  'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1200&q=60',
 ];
 
 export const laosBanners = [
@@ -99,12 +99,12 @@ export const kashmirBanners = [
 ];
 
 export const internationalDestinations = [
-  { title: 'UAE', image: 'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop&dpr=1', link: '/uae-packages' },
-  { title: 'Bali', image: 'https://images.pexels.com/photos/3067621/pexels-photo-3067621.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop&dpr=1', link: '/bali-packages' },
-  { title: 'Thailand', image: 'https://images.pexels.com/photos/472309/pexels-photo-472309.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop&dpr=1', link: '/thailand-packages' },
-  { title: 'Singapore', image: 'https://images.pexels.com/photos/711193/pexels-photo-711193.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop&dpr=1', link: '/singapore-packages' },
-  { title: 'Sri Lanka', image: 'https://images.pexels.com/photos/16508228/pexels-photo-16508228.jpeg?auto=compress&cs=tinysrgb&w=600&fit=crop&dpr=1', link: '/srilanka-packages' },
-  { title: 'Vietnam', image: 'https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&w=600&fit=crop&dpr=1', link: '/vietnam-packages' },
+  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=55', link: '/uae-packages' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=55', link: '/bali-packages' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=600&q=55', link: '/thailand-packages' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=55', link: '/singapore-packages' },
+  { title: 'Sri Lanka', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=55', link: '/srilanka-packages' },
+  { title: 'Vietnam', image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=600&q=55', link: '/vietnam-packages' },
   { title: 'Laos', image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=600&q=55', link: '/laos-packages' },
 ];
 
@@ -535,7 +535,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 44999,
     price: 42999,
-    image: 'hhttps://images.pexels.com/photos/12343661/pexels-photo-12343661.jpeg?auto=compress&cs=tinysrgb&w=600&fit=crop&dpr=1',
+  image: 'https://images.pexels.com/photos/12343661/pexels-photo-12343661.jpeg?auto=compress&cs=tinysrgb&w=600&fit=crop&dpr=1',
   },
   {
     id: 51,
@@ -543,7 +543,7 @@ export const srilankaPackages = [
     nights: '5N/6D',
     strikePrice: 68599,
     price: 64599,
-    image: 'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg0',
+  image: 'https://images.pexels.com/photos/319941/pexels-photo-319941.jpeg?auto=compress&cs=tinysrgb&w=600&fit=crop&dpr=1',
   },
   // Fifth Row - 6N/7D
   {
