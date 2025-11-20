@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getInternationalCategories, getDomesticCategories } from '../data/categoryConfig';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPackagesDropdown, setShowPackagesDropdown] = useState(false);
+  
+  const internationalDestinations = getInternationalCategories();
+  const domesticDestinations = getDomesticCategories();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-lightGray">
@@ -67,16 +72,52 @@ const Header = () => {
               </Link>
             </li>
             <li className="relative group">
-              <span 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
+              <Link 
+                to="/destinations"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
               >
-                Packages
-              </span>
-              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-2 min-w-[180px] border border-lightGray">
-                <Link to="/uae-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >UAE</Link>
-                <Link to="/bali-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Bali</Link>
-                <Link to="/thailand-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Thailand</Link>
-                <Link to="/singapore-packages" className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm" >Singapore</Link>
+                Destinations
+              </Link>
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-4 min-w-[500px] border border-lightGray grid grid-cols-2 gap-4">
+                {/* International Column */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
+                    <span className="text-lg">✈️</span>
+                    <Link to="/destinations/international" className="font-poppins font-semibold text-darkBlue hover:text-orange transition-colors">
+                      International
+                    </Link>
+                  </div>
+                  {internationalDestinations.map((dest) => (
+                    <Link 
+                      key={dest.slug}
+                      to={`/destinations/international/${dest.slug}`} 
+                      className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                    >
+                      <span>{dest.icon}</span>
+                      <span>{dest.name}</span>
+                    </Link>
+                  ))}
+                </div>
+                
+                {/* Domestic Column */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
+                    <span className="text-lg">🇮🇳</span>
+                    <Link to="/destinations/domestic" className="font-poppins font-semibold text-darkBlue hover:text-orange transition-colors">
+                      Domestic
+                    </Link>
+                  </div>
+                  {domesticDestinations.map((dest) => (
+                    <Link 
+                      key={dest.slug}
+                      to={`/destinations/domestic/${dest.slug}`} 
+                      className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                    >
+                      <span>{dest.icon}</span>
+                      <span>{dest.name}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </li>
             <li>
@@ -137,21 +178,61 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <div className="block text-darkBlue font-poppins font-medium py-2">Packages</div>
-              <ul className="pl-4 space-y-1">
-                <li>
-                  <Link to="/uae-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>UAE</Link>
-                </li>
-                <li>
-                  <Link to="/bali-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Bali</Link>
-                </li>
-                <li>
-                  <Link to="/thailand-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Thailand</Link>
-                </li>
-                <li>
-                  <Link to="/singapore-packages" className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans" onClick={() => setIsOpen(false)}>Singapore</Link>
-                </li>
-              </ul>
+              <button 
+                onClick={() => setShowPackagesDropdown(!showPackagesDropdown)}
+                className="flex items-center justify-between w-full text-darkBlue font-poppins font-medium py-2"
+              >
+                <span>Destinations</span>
+                <i className={`fa-solid fa-chevron-${showPackagesDropdown ? 'up' : 'down'} text-xs`}></i>
+              </button>
+              {showPackagesDropdown && (
+                <div className="pl-4 space-y-2 mt-2">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>✈️</span>
+                      <Link to="/destinations/international" className="font-poppins font-semibold text-darkBlue hover:text-orange" onClick={() => setIsOpen(false)}>
+                        International
+                      </Link>
+                    </div>
+                    <ul className="pl-6 space-y-1">
+                      {internationalDestinations.map((dest) => (
+                        <li key={dest.slug}>
+                          <Link 
+                            to={`/destinations/international/${dest.slug}`} 
+                            className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <span>{dest.icon}</span>
+                            <span>{dest.name}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>🇮🇳</span>
+                      <Link to="/destinations/domestic" className="font-poppins font-semibold text-darkBlue hover:text-orange" onClick={() => setIsOpen(false)}>
+                        Domestic
+                      </Link>
+                    </div>
+                    <ul className="pl-6 space-y-1">
+                      {domesticDestinations.map((dest) => (
+                        <li key={dest.slug}>
+                          <Link 
+                            to={`/destinations/domestic/${dest.slug}`} 
+                            className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <span>{dest.icon}</span>
+                            <span>{dest.name}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </li>
             <li>
               <Link 

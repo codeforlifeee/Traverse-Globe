@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { companyInfo } from '../data/siteData';
 
 const Footer = () => {
   return (
@@ -9,10 +10,9 @@ const Footer = () => {
         <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8">
           {/* About Section - Full width on mobile, 1 column on desktop */}
           <div className="md:col-span-1">
-            <h3 className="text-2xl font-bold mb-4 text-orange font-season">Traverse Globe</h3>
+            <h3 className="text-2xl font-bold mb-4 text-orange font-season">{companyInfo.name}</h3>
             <p className="text-white/70 font-canva-sans leading-relaxed">
-              Your trusted travel partner for unforgettable journeys across the world. 
-              We specialize in creating unique travel experiences that you'll cherish forever.
+              {companyInfo.description}
             </p>
           </div>
 
@@ -51,21 +51,21 @@ const Footer = () => {
               <ul className="space-y-2 text-white/70 font-canva-sans text-sm">
                 <li className="flex items-start">
                   <i className="fa-solid fa-phone mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
-                  <span>+91 9997085457</span>
+                  <span>{companyInfo.phone.primary}</span>
                 </li>
                 <li className="flex items-start">
                   <i className="fa-solid fa-envelope mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
-                  <span className="break-words">mail@traverseglobe.com</span>
+                  <span className="break-words">{companyInfo.email.primary}</span>
                 </li>
                 <li className="flex items-start">
                   <i className="fa-solid fa-map-marker-alt mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
                   <a 
-                    href="https://maps.app.goo.gl/oPShVDMztyVRTR42F" 
+                    href={companyInfo.address.karnal.mapLink} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="hover:text-orange transition-colors"
                   >
-                    352, Diwan Colony, near Virk Hospital, Urban Estate, Sector 13, Karnal, Haryana 132001
+                    {companyInfo.address.karnal.full}
                   </a>
                 </li>
               </ul>
@@ -77,7 +77,7 @@ const Footer = () => {
             <h4 className="text-xl font-semibold mb-4 font-poppins">Follow Us</h4>
             <div className="flex space-x-4">
               <a 
-                href="https://www.facebook.com/traverseglob" 
+                href={companyInfo.social.facebook} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook" 
@@ -86,7 +86,7 @@ const Footer = () => {
                 <i className="fa-brands fa-facebook"></i>
               </a>
               <a 
-                href="https://www.instagram.com/traverse.glob" 
+                href={companyInfo.social.instagram} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram" 
@@ -95,7 +95,7 @@ const Footer = () => {
                 <i className="fa-brands fa-instagram"></i>
               </a>
               <a 
-                href="https://www.linkedin.com/company/traverse-globe" 
+                href={companyInfo.social.linkedin} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn" 
@@ -108,7 +108,7 @@ const Footer = () => {
         </div>
   <div className="border-t border-white/20 mt-6 pt-6 text-center text-white/70 font-canva-sans">
           <p>
-            &copy; {new Date().getFullYear()} TraverseGlobe. All rights reserved. | Crafted with ❤️ for travelers
+            &copy; {new Date().getFullYear()} {companyInfo.name}. All rights reserved. | Crafted with ❤️ for travelers
           </p>
         </div>
       </div>

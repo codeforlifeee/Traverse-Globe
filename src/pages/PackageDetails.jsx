@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { packageDetails, uaePackages, baliPackages, thailandPackages, singaporePackages, srilankaPackages, vietnamPackages, laosPackages, andamanPackages, jaipurPackages, keralaPackages, kashmirPackages } from '../data/siteData';
+import { packageDetails, uaePackages, baliPackages, thailandPackages, singaporePackages, srilankaPackages, vietnamPackages, laosPackages, andamanPackages, jaipurPackages, keralaPackages, kashmirPackages, companyInfo } from '../data/siteData';
 import { slugify } from '../utils/slug';
 import PackageCard from '../components/PackageCard';
 
@@ -375,15 +375,15 @@ export default function PackageDetails() {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <a href="tel:+919997085457" className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap"><i className="fa-solid fa-phone mr-1 sm:mr-2"/>Call</a>
+                <a href={`tel:${companyInfo.phone.primary}`} className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap"><i className="fa-solid fa-phone mr-1 sm:mr-2"/>Call</a>
                 <button onClick={()=>openWhatsApp(detail)} className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}><i className="fa-brands fa-whatsapp mr-1 sm:mr-2"/>WhatsApp</button>
               </div>
 
               <button className="mt-3 w-full custom-btn" onClick={()=>setShowModal(true)}>Book Now</button>
 
               <div className="mt-5 pt-4 border-t text-sm text-gray-600 space-y-2">
-                <div><i className="fa-solid fa-phone text-primary mr-2"/> +91 99970 85457</div>
-                <div><i className="fa-solid fa-envelope text-primary mr-2"/> mail@traverseglobe.com</div>
+                <div><i className="fa-solid fa-phone text-primary mr-2"/> {companyInfo.phone.primary}</div>
+                <div><i className="fa-solid fa-envelope text-primary mr-2"/> {companyInfo.email.primary}</div>
               </div>
             </div>
           </aside>
@@ -502,8 +502,7 @@ export default function PackageDetails() {
 
 function openWhatsApp(detail){
   const message = `Hi, I want to know more about *${detail.name}* package (${detail.priceHTML.replace(/<[^>]+>/g,'')})`;
-  const phone = '919997085457';
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+  window.open(`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 function handleBookingSubmit(e, detail, counts, close){

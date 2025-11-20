@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy, memo } from 'react';
 
 // Critical components - loaded immediately
@@ -15,20 +15,13 @@ const About = lazy(() => import(/* webpackChunkName: "about" */ './pages/About')
 const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
 const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
 
-// Package pages
-const UAEPackages = lazy(() => import(/* webpackChunkName: "uae" */ './pages/UAEPackages'));
-const BaliPackages = lazy(() => import(/* webpackChunkName: "bali" */ './pages/BaliPackages'));
-const ThailandPackages = lazy(() => import(/* webpackChunkName: "thailand" */ './pages/ThailandPackages'));
-const SingaporePackages = lazy(() => import(/* webpackChunkName: "singapore" */ './pages/SingaporePackages'));
-const SriLankaPackages = lazy(() => import(/* webpackChunkName: "srilanka" */ './pages/SriLankaPackages'));
-const VietnamPackages = lazy(() => import(/* webpackChunkName: "vietnam" */ './pages/VietnamPackages'));
-const LaosPackages = lazy(() => import(/* webpackChunkName: "laos" */ './pages/LaosPackages'));
-const AndamanPackages = lazy(() => import(/* webpackChunkName: "andaman" */ './pages/AndamanPackages'));
-const JaipurPackages = lazy(() => import(/* webpackChunkName: "jaipur" */ './pages/JaipurPackages'));
-const KeralaPackages = lazy(() => import(/* webpackChunkName: "kerala" */ './pages/KeralaPackages'));
-const KashmirPackages = lazy(() => import(/* webpackChunkName: "kashmir" */ './pages/KashmirPackages'));
-const PackageDetails = lazy(() => import(/* webpackChunkName: "package-details" */ './pages/PackageDetails'));
-const PackageRedirect = lazy(() => import(/* webpackChunkName: "redirect" */ './pages/PackageRedirect'));
+// NEW: Dynamic destination routing components
+const DestinationOverview = lazy(() => import(/* webpackChunkName: "destination-overview" */ './pages/destinations/DestinationOverview'));
+const InternationalDestinations = lazy(() => import(/* webpackChunkName: "international" */ './pages/destinations/InternationalDestinations'));
+const DomesticDestinations = lazy(() => import(/* webpackChunkName: "domestic" */ './pages/destinations/DomesticDestinations'));
+const DestinationList = lazy(() => import(/* webpackChunkName: "destination-list" */ './pages/destinations/DestinationList'));
+const DestinationDetail = lazy(() => import(/* webpackChunkName: "destination-detail" */ './pages/destinations/DestinationDetail'));
+const LegacyRedirect = lazy(() => import(/* webpackChunkName: "legacy-redirect" */ './pages/destinations/LegacyRedirect'));
 
 // Optimized loading fallback
 const LoadingFallback = memo(() => (
@@ -53,38 +46,47 @@ function App() {
         <main role="main">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
+              {/* Static Pages */}
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               
-              {/* Package Routes */}
-              <Route path="/uae-packages" element={<UAEPackages />} />
-              <Route path="/uae-packages/:slug" element={<PackageDetails />} />
-              <Route path="/bali-packages" element={<BaliPackages />} />
-              <Route path="/bali-packages/:slug" element={<PackageDetails />} />
-              <Route path="/thailand-packages" element={<ThailandPackages />} />
-              <Route path="/thailand-packages/:slug" element={<PackageDetails />} />
-              <Route path="/singapore-packages" element={<SingaporePackages />} />
-              <Route path="/singapore-packages/:slug" element={<PackageDetails />} />
-              <Route path="/srilanka-packages" element={<SriLankaPackages />} />
-              <Route path="/srilanka-packages/:slug" element={<PackageDetails />} />
-              <Route path="/vietnam-packages" element={<VietnamPackages />} />
-              <Route path="/vietnam-packages/:slug" element={<PackageDetails />} />
-              <Route path="/laos-packages" element={<LaosPackages />} />
-              <Route path="/laos-packages/:slug" element={<PackageDetails />} />
-              <Route path="/andaman-packages" element={<AndamanPackages />} />
-              <Route path="/andaman-packages/:slug" element={<PackageDetails />} />
-              <Route path="/jaipur-packages" element={<JaipurPackages />} />
-              <Route path="/jaipur-packages/:slug" element={<PackageDetails />} />
-              <Route path="/kerala-packages" element={<KeralaPackages />} />
-              <Route path="/kerala-packages/:slug" element={<PackageDetails />} />
-              <Route path="/kashmir-packages" element={<KashmirPackages />} />
-              <Route path="/kashmir-packages/:slug" element={<PackageDetails />} />
+              {/* NEW: Dynamic Destination Routes */}
+              <Route path="/destinations" element={<DestinationOverview />} />
+              <Route path="/destinations/international" element={<InternationalDestinations />} />
+              <Route path="/destinations/domestic" element={<DomesticDestinations />} />
+              <Route path="/destinations/:type/:category" element={<DestinationList />} />
+              <Route path="/destinations/:type/:category/:slug" element={<DestinationDetail />} />
               
-              {/* Backward compatibility */}
-              <Route path="/package/:slug" element={<PackageRedirect />} />
+              {/* Backward Compatibility - Redirects old URLs to new structure */}
+              <Route path="/uae-packages" element={<LegacyRedirect />} />
+              <Route path="/uae-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/thailand-packages" element={<LegacyRedirect />} />
+              <Route path="/thailand-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/bali-packages" element={<LegacyRedirect />} />
+              <Route path="/bali-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/singapore-packages" element={<LegacyRedirect />} />
+              <Route path="/singapore-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/srilanka-packages" element={<LegacyRedirect />} />
+              <Route path="/srilanka-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/vietnam-packages" element={<LegacyRedirect />} />
+              <Route path="/vietnam-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/laos-packages" element={<LegacyRedirect />} />
+              <Route path="/laos-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/andaman-packages" element={<LegacyRedirect />} />
+              <Route path="/andaman-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/jaipur-packages" element={<LegacyRedirect />} />
+              <Route path="/jaipur-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/kerala-packages" element={<LegacyRedirect />} />
+              <Route path="/kerala-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/kashmir-packages" element={<LegacyRedirect />} />
+              <Route path="/kashmir-packages/:slug" element={<LegacyRedirect />} />
+              <Route path="/package/:slug" element={<LegacyRedirect />} />
+              
+              {/* 404 Fallback */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </main>

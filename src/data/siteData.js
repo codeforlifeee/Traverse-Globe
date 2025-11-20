@@ -99,20 +99,20 @@ export const kashmirBanners = [
 ];
 
 export const internationalDestinations = [
-  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/uae-packages' },
-  { title: 'Bali', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/bali-packages' },
-  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/thailand-packages' },
-  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/singapore-packages' },
-  { title: 'Sri Lanka', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/srilanka-packages' },
-  { title: 'Vietnam', image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/vietnam-packages' },
-  { title: 'Laos', image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/laos-packages' },
+  { title: 'UAE', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/uae' },
+  { title: 'Bali', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/bali' },
+  { title: 'Thailand', image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/thailand' },
+  { title: 'Singapore', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/singapore' },
+  { title: 'Sri Lanka', image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/srilanka' },
+  { title: 'Vietnam', image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/vietnam' },
+  { title: 'Laos', image: 'https://images.unsplash.com/photo-1540611025311-01df3cef54b5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/international/laos' },
 ];
 
 export const domesticDestinations = [
-  { title: 'Andaman', image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/andaman-packages' },
-  { title: 'Jaipur', image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/jaipur-packages' },
-  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/kerala-packages' },
-  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/kashmir-packages' },
+  { title: 'Andaman', image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/domestic/andaman' },
+  { title: 'Jaipur', image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/domestic/jaipur' },
+  { title: 'Kerala', image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/domestic/kerala' },
+  { title: 'Kashmir', image: 'https://images.unsplash.com/photo-1605649487212-47b9f5c1e813?auto=format&fit=crop&w=400&q=35&fm=webp', link: '/destinations/domestic/kashmir' },
 ];
 
 // UAE package listing data (mirrors UAEcard.html)
@@ -2349,6 +2349,47 @@ export const packageDetails = {
   128: { name: '4-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;37,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=35&fm=webp'] },
   129: { name: '5-Star Kashmir Honeymoon - 6N/7D', priceHTML: '&#8377;48,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=600&q=35&fm=webp'] },
   130: { name: 'Kashmir Complete Tour - 7N/8D', priceHTML: '&#8377;42,999', destination: 'Srinagar, Kashmir', images: ['https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=35&fm=webp'] },
+};
+
+// Company and Contact Information
+export const companyInfo = {
+  name: 'Traverse Globe',
+  tagline: 'Travel the world, the right way',
+  description: 'Your trusted travel partner for unforgettable journeys across the world. We specialize in creating unique travel experiences that you\'ll cherish forever.',
+  email: {
+    primary: 'mail@traverseglobe.com',
+    info: 'info@traverseglobe.com',
+    holidays: 'holidays@traverseglobe.com',
+    marketing: 'marketing@traverseglobe.com',
+    care: 'care@traverseglobe.com',
+    sponsorship: 'sponsorship@traverseglobe.com',
+  },
+  phone: {
+    primary: '+91 9997085457',
+    whatsapp: '919997085457',
+    noida: '+91 9520232324',
+  },
+  address: {
+    karnal: {
+      full: '352, Diwan Colony, near Virk Hospital, Urban Estate, Sector 13, Karnal, Haryana 132001',
+      city: 'Karnal, Haryana',
+      mapLink: 'https://maps.app.goo.gl/oPShVDMztyVRTR42F',
+    },
+    noida: {
+      full: 'H - 173, Sector -63 Noida Uttar Pradesh, Near Noida Electronic City metro station - 201301',
+      city: 'Noida',
+    },
+    dubai: {
+      corporate: 'Traverse Globe Middleeast DMCC, 1103, Fortune tower Cluster C, JLT, Dubai, UAE',
+      branch: '42-02 Opal Tower, Business Bay, Near: Burj Khalifa, Dubai, UAE',
+    },
+  },
+  social: {
+    facebook: 'https://www.facebook.com/traverseglob',
+    instagram: 'https://www.instagram.com/traverse.glob',
+    linkedin: 'https://www.linkedin.com/company/traverse-globe',
+  },
+  website: 'https://traverseglobe.com/',
 };
 
 export const services = [

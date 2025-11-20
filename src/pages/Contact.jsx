@@ -1,4 +1,13 @@
+import { companyInfo } from '../data/siteData';
+
 export default function Contact() {
+  const connectWith = [
+    { title: 'Holidays Enquiry', email: companyInfo.email.holidays, img: 'https://images.emtcontent.com/contact/holidays.svg' },
+    { title: 'Partnership', email: companyInfo.email.marketing, img: 'https://images.emtcontent.com/contact/partnership.svg' },
+    { title: 'Booking Status', email: companyInfo.email.care, img: 'https://images.emtcontent.com/contact/booking-status.svg' },
+    { title: 'Event Sponsorships', email: companyInfo.email.sponsorship, img: 'https://images.emtcontent.com/contact/event-sportship.svg' },
+  ];
+
   return (
     <div className="min-h-screen pt-20 pb-10">
       {/* Top banner */}
@@ -25,28 +34,28 @@ export default function Contact() {
             <article className="bg-white rounded-2xl shadow p-6 flex gap-4 items-start">
               <img src="https://images.emtcontent.com/contact/delhi.svg" alt="" className="w-16 h-16" aria-hidden="true" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Karnal, Haryana</h3>
+                <h3 className="text-xl font-bold text-gray-900">{companyInfo.address.karnal.city}</h3>
                 <address className="not-italic text-gray-700 mt-1">
-                  352, Diwan Colony, near Virk Hospital, Urban Estate, Sector 13, Karnal, Haryana 132001
+                  {companyInfo.address.karnal.full}
                 </address>
                 <div className="mt-2 space-y-1 text-sm text-gray-700">
                   <div>
-                    <a href="mailto:mail@traverseglobe.com" className="text-blue-700 hover:underline font-medium">
-                      Email us: mail@traverseglobe.com
+                    <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
+                      Email us: {companyInfo.email.primary}
                     </a>
                   </div>
                   <div>
-                    Call us: <a href="tel:+919997085457" className="text-blue-700 hover:underline font-medium">+91 9997085457</a>
+                    Call us: <a href={`tel:${companyInfo.phone.primary}`} className="text-blue-700 hover:underline font-medium">{companyInfo.phone.primary}</a>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>WhatsApp:</span>
                     <img className="w-4 h-4" src="https://images.emtcontent.com/contact/whatsapp-lp.png" alt="" aria-hidden="true" />
-                    <a className="text-green-700 hover:underline font-medium" href="https://wa.me/919997085457?text=Traverse%20Globe">
-                      +91 99970 85457
+                    <a className="text-green-700 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(companyInfo.name)}`}>
+                      {companyInfo.phone.primary}
                     </a>
                   </div>
                   <div className="mt-2">
-                    <a href="https://maps.app.goo.gl/oPShVDMztyVRTR42F" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium flex items-center gap-1">
+                    <a href={companyInfo.address.karnal.mapLink} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium flex items-center gap-1">
                       <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i> View on Google Maps
                     </a>
                   </div>
@@ -58,21 +67,21 @@ export default function Contact() {
             <article className="bg-white rounded-2xl shadow p-6 flex gap-4 items-start">
               <img src="https://images.emtcontent.com/contact/noida.svg" alt="" className="w-16 h-16" aria-hidden="true" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Noida</h3>
+                <h3 className="text-xl font-bold text-gray-900">{companyInfo.address.noida.city}</h3>
                 <address className="not-italic text-gray-700 mt-1">
-                  H - 173, Sector -63 Noida Uttar Pradesh, Near Noida Electronic City metro station - 201301
+                  {companyInfo.address.noida.full}
                 </address>
                 <div className="mt-2 space-y-1 text-sm text-gray-700">
                   <div>
-                    <a href="mailto:mail@traverseglobe.com" className="text-blue-700 hover:underline font-medium">
-                      Email us: mail@traverseglobe.com
+                    <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
+                      Email us: {companyInfo.email.primary}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>WhatsApp:</span>
                     <img className="w-4 h-4" src="https://images.emtcontent.com/contact/whatsapp-lp.png" alt="" aria-hidden="true" />
-                    <a className="text-green-700 hover:underline font-medium" href="https://wa.me/919520232324?text=Traverse%20Globe">
-                      +91 9520232324
+                    <a className="text-green-700 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.noida.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(companyInfo.name)}`}>
+                      {companyInfo.phone.noida}
                     </a>
                   </div>
                 </div>
@@ -95,29 +104,27 @@ export default function Contact() {
               <address className="not-italic text-gray-700 mt-2 space-y-3">
                 <div>
                   <strong className="font-semibold">Corporate Office:</strong><br />
-                  Traverse Globe Middleeast DMCC<br />
-                  1103 , Fortune tower Cluster C, JLT, Dubai, UAE
+                  {companyInfo.address.dubai.corporate}
                 </div>
                 <div className="text-sm">
-                  <a href="mailto:mail@traverseglobe.com" className="text-blue-700 hover:underline font-medium">
-                    Email: mail@traverseglobe.com
+                  <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
+                    Email: {companyInfo.email.primary}
                   </a><br />
-                  <a href="https://traverseglobe.com/" target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
-                    Website: www.traverseglobe.com
+                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
+                    Website: {companyInfo.website.replace('https://', 'www.')}
                   </a>
                 </div>
                 <hr className="border-gray-300" />
                 <div>
                   <strong className="font-semibold">Retail Office:</strong><br />
-                  Traverse Globe Tours LLC<br />
-                  2113, Al manara Tower, Business Bay Dubai - UAE
+                  {companyInfo.address.dubai.branch}
                 </div>
                 <div className="text-sm">
-                  <a href="mailto:mail@traverseglobe.com" className="text-blue-700 hover:underline font-medium">
-                    Email: mail@traverseglobe.com
+                  <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
+                    Email: {companyInfo.email.primary}
                   </a><br />
-                  <a href="https://traverseglobe.com/" target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
-                    Website: www.traverseglobe.com/
+                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
+                    Website: {companyInfo.website.replace('https://', 'www.')}
                   </a><br />
                   <a href="tel:043035888" className="text-blue-700 hover:underline font-medium">
                     Call Us: 043035888
@@ -149,7 +156,7 @@ export default function Contact() {
           </div>
           <div className="mt-4 text-center">
             <a 
-              href="https://maps.app.goo.gl/oPShVDMztyVRTR42F" 
+              href={companyInfo.address.karnal.mapLink} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-primary/90 transition-all font-medium"
@@ -168,12 +175,7 @@ export default function Contact() {
             Connect With <em>Us At</em>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Holidays Enquiry', email: 'holidays@traverseglobe.com', img: 'https://images.emtcontent.com/contact/holidays.svg' },
-              { title: 'Partnership', email: 'marketing@traverseglobe.com', img: 'https://images.emtcontent.com/contact/partnership.svg' },
-              { title: 'Booking Status', email: 'care@traverseglobe.com', img: 'https://images.emtcontent.com/contact/booking-status.svg' },
-              { title: 'Event Sponsorships', email: 'sponsorship@traverseglobe.com', img: 'https://images.emtcontent.com/contact/event-sportship.svg' },
-            ].map((c, i) => (
+            {connectWith.map((c, i) => (
               <article key={i} className="rounded-2xl p-6 shadow bg-white">
                 <img src={c.img} alt="" className="w-14 h-14" aria-hidden="true" loading="lazy" />
                 <h3 className="mt-3 text-lg font-semibold text-gray-900">{c.title}</h3>

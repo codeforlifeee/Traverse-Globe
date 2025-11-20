@@ -57,11 +57,18 @@ const ExplorePrices = () => {
 
   const resolveCategoryFromDetailId = (id) => {
     const num = Number(id);
-    if ((num >= 1 && num <= 10)) return 'uae';
-    if ((num >= 11 && num <= 15) || (num >= 26 && num <= 30)) return 'bali';
-    if ((num >= 16 && num <= 20) || (num >= 36 && num <= 39)) return 'thailand';
-    if ((num >= 21 && num <= 25) || (num >= 31 && num <= 35)) return 'singapore';
-    return 'uae';
+    if ((num >= 1 && num <= 10)) return { type: 'international', category: 'uae' };
+    if ((num >= 11 && num <= 15) || (num >= 26 && num <= 30)) return { type: 'international', category: 'bali' };
+    if ((num >= 16 && num <= 20) || (num >= 36 && num <= 39)) return { type: 'international', category: 'thailand' };
+    if ((num >= 21 && num <= 25) || (num >= 31 && num <= 35)) return { type: 'international', category: 'singapore' };
+    if ((num >= 40 && num <= 54)) return { type: 'international', category: 'srilanka' };
+    if ((num >= 55 && num <= 70)) return { type: 'international', category: 'vietnam' };
+    if ((num >= 71 && num <= 90)) return { type: 'international', category: 'laos' };
+    if ((num >= 91 && num <= 100)) return { type: 'domestic', category: 'andaman' };
+    if ((num >= 101 && num <= 110)) return { type: 'domestic', category: 'jaipur' };
+    if ((num >= 111 && num <= 120)) return { type: 'domestic', category: 'kerala' };
+    if ((num >= 121 && num <= 130)) return { type: 'domestic', category: 'kashmir' };
+    return { type: 'international', category: 'uae' };
   };
 
   const handleCardClick = (pkg) => {
@@ -69,8 +76,8 @@ const ExplorePrices = () => {
     if (pkg.detailId) {
       const detail = packageDetails?.[pkg.detailId];
       const slug = slugify(detail?.name || pkg.title);
-      const category = resolveCategoryFromDetailId(pkg.detailId);
-      window.open(`/${category}-packages/${slug}`, '_blank', 'noopener,noreferrer');
+      const { type, category } = resolveCategoryFromDetailId(pkg.detailId);
+      window.open(`/destinations/${type}/${category}/${slug}`, '_blank', 'noopener,noreferrer');
       return;
     }
     setSelectedTitle(pkg.title);

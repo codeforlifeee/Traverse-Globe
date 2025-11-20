@@ -1,3 +1,5 @@
+import { companyInfo } from '../data/siteData';
+
 const About = () => {
   return (
   <div className="min-h-screen pt-20 pb-10">
@@ -6,14 +8,14 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">About Traverse Globe</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">About {companyInfo.name}</h1>
               <p className="text-base text-gray-700 mb-3">
-                Founded with a passion for travel and a mission to simplify exploring the world, Traverse Globe offers
+                Founded with a passion for travel and a mission to simplify exploring the world, {companyInfo.name} offers
                 customized tour packages across the globe — crafted to suit every traveler's dream and budget.
               </p>
               <p className="text-gray-700 mb-3">Let's make your next journey truly unforgettable.</p>
-              <p className="font-semibold text-primary mb-5 text-base">Traverse Globe – Travel the world, the right way.</p>
-              <a href="https://wa.me/919997085457" className="custom-btn inline-flex items-center gap-2 text-sm">
+              <p className="font-semibold text-primary mb-5 text-base">{companyInfo.name} – {companyInfo.tagline}.</p>
+              <a href={`https://wa.me/${companyInfo.phone.whatsapp}`} className="custom-btn inline-flex items-center gap-2 text-sm">
                 <i className="fa-brands fa-whatsapp"></i>
                 Plan Your Journey
               </a>
@@ -61,10 +63,10 @@ const About = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-2 text-amber-900">Ready to Start Your Adventure?</h2>
           <p className="text-amber-800 mb-5">So, why wait? Message us today and let's plan your unforgettable Dubai experience.</p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="https://wa.me/919997085457" className="px-5 py-2.5 rounded-full text-white text-sm" style={{ background: '#25D366' }}>
+            <a href={`https://wa.me/${companyInfo.phone.whatsapp}`} className="px-5 py-2.5 rounded-full text-white text-sm" style={{ background: '#25D366' }}>
               <i className="fa-brands fa-whatsapp mr-2"></i>Message Us on WhatsApp
             </a>
-            <a href="tel:+919997085457" className="px-5 py-2.5 rounded-full border-2 text-sm" style={{ borderColor: '#8b4513', color: '#8b4513' }}>
+            <a href={`tel:${companyInfo.phone.primary}`} className="px-5 py-2.5 rounded-full border-2 text-sm" style={{ borderColor: '#8b4513', color: '#8b4513' }}>
               <i className="fa-solid fa-phone mr-2"></i>Call Now
             </a>
           </div>

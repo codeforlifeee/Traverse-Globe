@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { services } from '../data/siteData';
+import { services, companyInfo } from '../data/siteData';
 
 const ServiceCard = ({ icon, title, description }) => {
   return (
@@ -24,16 +24,16 @@ const WhyChooseUs = () => {
           {/* Left Column - Title and Description */}
           <div>
             <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-darkBlue mb-4 font-poppins">
-              Why Choose Traverse Globe?
+              Why Choose {companyInfo.name}?
             </h2>
             <p className="text-darkBlue/80 leading-relaxed text-sm md:text-base font-canva-sans mb-4">
-              At Traverse Globe, we specialize exclusively in Dubai, offering you a journey through
+              At {companyInfo.name}, we specialize exclusively in Dubai, offering you a journey through
               its most unique and unexplored destinations. Our deep focus on this vibrant city allows
               us to craft unparalleled experiences that go beyond the ordinary.
             </p>
             <p className="text-darkBlue/80 leading-relaxed text-sm md:text-base font-canva-sans">
               Discover hidden gems, enjoy exclusive access, and immerse yourself in Dubai like never before. 
-              Choose Traverse Globe for a travel adventure that's as unique as the city itself!
+              Choose {companyInfo.name} for a travel adventure that's as unique as the city itself!
             </p>
           </div>
 

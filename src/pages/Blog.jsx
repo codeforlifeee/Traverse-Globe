@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { blogPosts as postsData } from '../data/siteData';
+import { blogPosts as postsData, companyInfo } from '../data/siteData';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -36,8 +36,8 @@ export default function Blog() {
   const blogJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Traverse Globe Travel Blog',
-    url: typeof window !== 'undefined' ? window.location.href : 'https://example.com/blog',
+    name: `${companyInfo.name} Travel Blog`,
+    url: typeof window !== 'undefined' ? window.location.href : `${companyInfo.website}blog`,
   };
 
   const featuredJsonLd = featured
