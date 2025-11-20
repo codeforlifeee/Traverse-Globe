@@ -2504,6 +2504,112 @@ export const blogPosts = [
   },
 ];
 
+// Hotel Categories
+export const hotelCategories = [
+  {
+    slug: 'domestic',
+    title: 'Domestic Hotels',
+    blurb: 'Discover comfortable stays across India',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/domestic',
+  },
+  {
+    slug: 'international',
+    title: 'International Hotels',
+    blurb: 'Experience luxury accommodations worldwide',
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/international',
+  },
+];
+
+// Hotel Listings
+export const hotelListings = {
+  domestic: [
+    {
+      id: 1,
+      name: 'Taj Palace, New Delhi',
+      location: 'New Delhi',
+      rating: '4.8',
+      price: 8500,
+      originalPrice: 12000,
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=60',
+      amenities: ['WiFi', 'Pool', 'Spa'],
+    },
+    {
+      id: 2,
+      name: 'Leela Palace, Bangalore',
+      location: 'Bangalore',
+      rating: '4.9',
+      price: 9500,
+      originalPrice: 13000,
+      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=60',
+      amenities: ['WiFi', 'Restaurant', 'Gym'],
+    },
+    {
+      id: 3,
+      name: 'ITC Grand Chola, Chennai',
+      location: 'Chennai',
+      rating: '4.7',
+      price: 7500,
+      originalPrice: 10000,
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=60',
+      amenities: ['WiFi', 'Pool', 'Bar'],
+    },
+    {
+      id: 4,
+      name: 'Oberoi Udaivilas, Udaipur',
+      location: 'Udaipur',
+      rating: '5.0',
+      price: 15000,
+      originalPrice: 20000,
+      image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=600&q=60',
+      amenities: ['Lake View', 'Spa', 'Pool'],
+    },
+  ],
+  international: [
+    {
+      id: 11,
+      name: 'Burj Al Arab, Dubai',
+      location: 'Dubai, UAE',
+      rating: '5.0',
+      price: 25000,
+      originalPrice: 35000,
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=60',
+      amenities: ['Beach', 'Spa', 'Helipad'],
+    },
+    {
+      id: 12,
+      name: 'Marina Bay Sands, Singapore',
+      location: 'Singapore',
+      rating: '4.9',
+      price: 18000,
+      originalPrice: 25000,
+      image: 'https://images.unsplash.com/photo-1495365200479-c4ed1d35e1aa?auto=format&fit=crop&w=600&q=60',
+      amenities: ['Infinity Pool', 'Casino', 'Shopping'],
+    },
+    {
+      id: 13,
+      name: 'The Ritz Bangkok',
+      location: 'Bangkok, Thailand',
+      rating: '4.8',
+      price: 12000,
+      originalPrice: 16000,
+      image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=600&q=60',
+      amenities: ['River View', 'Spa', 'Restaurant'],
+    },
+    {
+      id: 14,
+      name: 'Alila Ubud, Bali',
+      location: 'Bali, Indonesia',
+      rating: '4.9',
+      price: 14000,
+      originalPrice: 19000,
+      image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=60',
+      amenities: ['Valley View', 'Pool', 'Yoga'],
+    },
+  ],
+};
+
 export const feedback = {
   Dubai: {
     country: 'Dubai',

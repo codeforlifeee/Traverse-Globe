@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { slugify } from '../utils/slug';
-import { packageDetails } from '../data/siteData';
+import { packageDetails, companyInfo } from '../data/siteData';
 
 // Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
@@ -158,7 +158,7 @@ export default function PackageCard({
                 </div>
                 <div className="py-1.5">
                   <a
-                    href="tel:+919997085457"
+                    href={`tel:${companyInfo.phone.primary}`}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-orange/5 transition-all duration-200 group/item"
                     onClick={() => setShowExpertMenu(false)}
                   >
@@ -172,7 +172,7 @@ export default function PackageCard({
                     <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-orange transition-colors"></i>
                   </a>
                   <a
-                    href="https://wa.me/919997085457"
+                    href={`https://wa.me/${companyInfo.phone.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-3 py-2 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"

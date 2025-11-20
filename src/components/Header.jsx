@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getInternationalCategories, getDomesticCategories } from '../data/categoryConfig';
+import { companyInfo } from '../data/siteData';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,12 +15,12 @@ const Header = () => {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between py-3">
           {/* Logo */}
-          <Link to="/" className="transition-transform hover:scale-105" aria-label="Traverse Globe Home">
+          <Link to="/" className="transition-transform hover:scale-105" aria-label={`${companyInfo.name} Home`}>
             <picture>
               <source srcSet="/logo.webp" type="image/webp" />
               <img
                 src="/logo.webp"
-                alt="Traverse Globe"
+                alt={companyInfo.name}
                 className="h-12 md:h-14 object-contain"
                 width="151"
                 height="60"

@@ -5,6 +5,7 @@ import FeedbackSection from '../components/FeedbackSection';
 import ExplorePrices from '../components/ExplorePrices';
 import WhyChooseUs from '../components/WhyChooseUs';
 import PackageCategories from '../components/PackageCategories';
+import HotelCategories from '../components/HotelCategories';
 
 const Home = () => {
   return (
@@ -19,6 +20,9 @@ const Home = () => {
       </div>
       <div className="[content-visibility:auto] [contain-intrinsic-size:1200px]">
         <TopDestinations />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:800px]">
+        <HotelCategories />
       </div>
       <div className="[content-visibility:auto] [contain-intrinsic-size:1000px]">
         <FeedbackSection />

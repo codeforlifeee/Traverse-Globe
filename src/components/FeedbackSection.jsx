@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { feedback as feedbackData } from '../data/siteData';
+import { feedback as feedbackData, companyInfo } from '../data/siteData';
 
 // Simple star icon component (no external icon deps)
 const Star = ({ filled = false, className = '' }) => (
@@ -67,8 +67,8 @@ const FeedbackSection = () => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Traverse Globe',
-    url: typeof window !== 'undefined' ? window.location.origin : 'https://example.com',
+    name: companyInfo.name,
+    url: typeof window !== 'undefined' ? window.location.origin : companyInfo.website,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: avgRating ? avgRating.toFixed(1) : '0',

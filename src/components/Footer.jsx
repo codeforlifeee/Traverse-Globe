@@ -51,11 +51,21 @@ const Footer = () => {
               <ul className="space-y-2 text-white/70 font-canva-sans text-sm">
                 <li className="flex items-start">
                   <i className="fa-solid fa-phone mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
-                  <span>{companyInfo.phone.primary}</span>
+                  <a 
+                    href={`tel:${companyInfo.phone.primary}`}
+                    className="hover:text-orange transition-colors"
+                  >
+                    {companyInfo.phone.primary}
+                  </a>
                 </li>
                 <li className="flex items-start">
                   <i className="fa-solid fa-envelope mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
-                  <span className="break-words">{companyInfo.email.primary}</span>
+                  <a 
+                    href={`mailto:${companyInfo.email.primary}`}
+                    className="break-words hover:text-orange transition-colors"
+                  >
+                    {companyInfo.email.primary}
+                  </a>
                 </li>
                 <li className="flex items-start">
                   <i className="fa-solid fa-map-marker-alt mr-2 md:mr-3 text-orange mt-1 flex-shrink-0"></i>
@@ -75,33 +85,33 @@ const Footer = () => {
           {/* Social Media Links - Full width on mobile, 1 column on desktop */}
           <div className="md:col-span-1">
             <h4 className="text-xl font-semibold mb-4 font-poppins">Follow Us</h4>
-            <div className="flex space-x-4">
+            <div className="flex gap-4">
               <a 
                 href={companyInfo.social.facebook} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook" 
-                className="text-white/70 hover:text-orange transition-colors text-xl"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-orange text-white transition-all duration-300 hover:scale-110"
               >
-                <i className="fa-brands fa-facebook"></i>
+                <i className="fa-brands fa-facebook text-xl"></i>
               </a>
               <a 
                 href={companyInfo.social.instagram} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram" 
-                className="text-white/70 hover:text-orange transition-colors text-xl"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-orange text-white transition-all duration-300 hover:scale-110"
               >
-                <i className="fa-brands fa-instagram"></i>
+                <i className="fa-brands fa-instagram text-xl"></i>
               </a>
               <a 
                 href={companyInfo.social.linkedin} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn" 
-                className="text-white/70 hover:text-orange transition-colors text-xl"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-orange text-white transition-all duration-300 hover:scale-110"
               >
-                <i className="fa-brands fa-linkedin"></i>
+                <i className="fa-brands fa-linkedin text-xl"></i>
               </a>
             </div>
           </div>
