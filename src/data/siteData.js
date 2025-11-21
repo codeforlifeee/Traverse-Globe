@@ -10094,6 +10094,12 @@ export const hotelCategories = [
 ];
 
 // ============================================
+// HOTEL LISTINGS (imported for Hotels page)
+// ============================================
+import { hotelListings } from "./hotelListings";
+export { hotelListings };
+
+// ============================================
 // HELPER FUNCTIONS
 // ============================================
 
