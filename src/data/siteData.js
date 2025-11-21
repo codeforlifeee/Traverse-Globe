@@ -9997,7 +9997,7 @@ export const platformReviews = [
     rating: 4.9,
     totalReviews: 2847,
     icon: "fa-brands fa-google",
-    color: "text-blue-600"
+    color: "text-orange-600"
   },
   {
     platform: "Tripadvisor",
@@ -10011,7 +10011,7 @@ export const platformReviews = [
     rating: 4.9,
     totalReviews: 3156,
     icon: "fa-brands fa-facebook",
-    color: "text-blue-700"
+    color: "text-orange-600"
   }
 ];
 
