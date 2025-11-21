@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { slugify } from '../utils/slug';
-import { packageDetails, companyInfo } from '../data/siteData';
+import { companyInfo, packageDetails } from '../data/siteData';
 
 // Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
@@ -44,13 +44,31 @@ export default function PackageCard({
   const menuRef = useRef(null);
 
   // Support both pkg object and individual props
-  const packageData = pkg || {
+  const basePackage = pkg || {
     id,
     title,
     nights: duration,
     price,
     strikePrice: originalPrice,
     image
+  };
+
+  // Fetch detailed data from packageDetails if available
+  const details = packageDetails[basePackage.id];
+  
+  // Merge base package with details from packageDetails (details take priority)
+  const packageData = {
+    ...basePackage,
+    ...(details && {
+      price: details.price,
+      strikePrice: details.strikePrice,
+      nights: details.duration,
+      bannerImage: details.bannerImage
+    }),
+    // Ensure image field exists for backward compatibility
+    get image() {
+      return this.bannerImage || basePackage.image || basePackage.bannerImage;
+    }
   };
 
   // Compute a stable slug for the package details page
@@ -96,12 +114,15 @@ export default function PackageCard({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Ensure image exists
+  const imageUrl = packageData.image || packageData.bannerImage || '';
+  
   return (
     <div className="custom-card group bg-white h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-2xl">
         <img
-          src={packageData.image.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
-          srcSet={`${packageData.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${packageData.image.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
+          src={imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
+          srcSet={`${imageUrl.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
           alt={packageData.title}
           loading="lazy"

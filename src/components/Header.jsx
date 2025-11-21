@@ -74,7 +74,7 @@ const Header = () => {
             </li>
             <li className="relative group">
               <Link 
-                to="/destinations"
+                to="/"
                 className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
               >
                 Destinations
@@ -83,18 +83,18 @@ const Header = () => {
                 {/* International Column */}
                 <div>
                   <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
-                    <span className="text-lg">✈️</span>
-                    <Link to="/destinations/international" className="font-poppins font-semibold text-darkBlue hover:text-orange transition-colors">
+                    <i className="fa-solid fa-plane text-orange"></i>
+                    <span className="font-poppins font-semibold text-darkBlue">
                       International
-                    </Link>
+                    </span>
                   </div>
                   {internationalDestinations.map((dest) => (
                     <Link 
                       key={dest.slug}
                       to={`/destinations/international/${dest.slug}`} 
-                      className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                      className="block px-3 py-2 rounded-lg hover:bg-lightGray text-darkBlue hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
                     >
-                      <span>{dest.icon}</span>
+                      <i className="fa-solid fa-location-dot text-orange text-xs"></i>
                       <span>{dest.name}</span>
                     </Link>
                   ))}
@@ -103,18 +103,18 @@ const Header = () => {
                 {/* Domestic Column */}
                 <div>
                   <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
-                    <span className="text-lg">🇮🇳</span>
-                    <Link to="/destinations/domestic" className="font-poppins font-semibold text-darkBlue hover:text-orange transition-colors">
+                    <i className="fa-solid fa-map-location-dot text-orange"></i>
+                    <span className="font-poppins font-semibold text-darkBlue">
                       Domestic
-                    </Link>
+                    </span>
                   </div>
                   {domesticDestinations.map((dest) => (
                     <Link 
                       key={dest.slug}
                       to={`/destinations/domestic/${dest.slug}`} 
-                      className="block px-3 py-2 rounded-lg hover:bg-lightGray hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                      className="block px-3 py-2 rounded-lg hover:bg-lightGray text-darkBlue hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
                     >
-                      <span>{dest.icon}</span>
+                      <i className="fa-solid fa-location-dot text-orange text-xs"></i>
                       <span>{dest.name}</span>
                     </Link>
                   ))}
@@ -190,20 +190,20 @@ const Header = () => {
                 <div className="pl-4 space-y-2 mt-2">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span>✈️</span>
-                      <Link to="/destinations/international" className="font-poppins font-semibold text-darkBlue hover:text-orange" onClick={() => setIsOpen(false)}>
+                      <i className="fa-solid fa-plane text-orange"></i>
+                      <span className="font-poppins font-semibold text-darkBlue">
                         International
-                      </Link>
+                      </span>
                     </div>
                     <ul className="pl-6 space-y-1">
                       {internationalDestinations.map((dest) => (
                         <li key={dest.slug}>
                           <Link 
                             to={`/destinations/international/${dest.slug}`} 
-                            className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
+                            className="block text-darkBlue hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
                             onClick={() => setIsOpen(false)}
                           >
-                            <span>{dest.icon}</span>
+                            <i className="fa-solid fa-location-dot text-orange text-xs"></i>
                             <span>{dest.name}</span>
                           </Link>
                         </li>
@@ -212,20 +212,20 @@ const Header = () => {
                   </div>
                   <div className="mt-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <span>🇮🇳</span>
-                      <Link to="/destinations/domestic" className="font-poppins font-semibold text-darkBlue hover:text-orange" onClick={() => setIsOpen(false)}>
+                      <i className="fa-solid fa-map-location-dot text-orange"></i>
+                      <span className="font-poppins font-semibold text-darkBlue">
                         Domestic
-                      </Link>
+                      </span>
                     </div>
                     <ul className="pl-6 space-y-1">
                       {domesticDestinations.map((dest) => (
                         <li key={dest.slug}>
                           <Link 
                             to={`/destinations/domestic/${dest.slug}`} 
-                            className="block text-darkBlue/70 hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
+                            className="block text-darkBlue hover:text-orange py-1 font-canva-sans text-sm flex items-center gap-2" 
                             onClick={() => setIsOpen(false)}
                           >
-                            <span>{dest.icon}</span>
+                            <i className="fa-solid fa-location-dot text-orange text-xs"></i>
                             <span>{dest.name}</span>
                           </Link>
                         </li>

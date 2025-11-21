@@ -1,12 +1,12 @@
-import { companyInfo } from '../data/siteData';
+import { companyInfo, contactCategories } from '../data/siteData';
 
 export default function Contact() {
-  const connectWith = [
-    { title: 'Holidays Enquiry', email: companyInfo.email.holidays, img: 'https://images.emtcontent.com/contact/holidays.svg' },
-    { title: 'Partnership', email: companyInfo.email.marketing, img: 'https://images.emtcontent.com/contact/partnership.svg' },
-    { title: 'Booking Status', email: companyInfo.email.care, img: 'https://images.emtcontent.com/contact/booking-status.svg' },
-    { title: 'Event Sponsorships', email: companyInfo.email.sponsorship, img: 'https://images.emtcontent.com/contact/event-sportship.svg' },
-  ];
+  // Map contactCategories from siteData to component format
+  const connectWith = contactCategories.map(cat => ({
+    title: cat.title,
+    email: companyInfo.email[cat.emailKey],
+    img: cat.image
+  }));
 
   return (
     <div className="min-h-screen pt-20 pb-10">

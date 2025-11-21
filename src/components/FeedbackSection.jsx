@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { feedback as feedbackData, companyInfo } from '../data/siteData';
+import { feedback as feedbackData, companyInfo, platformReviews } from '../data/siteData';
 
 // Simple star icon component (no external icon deps)
 const Star = ({ filled = false, className = '' }) => (
@@ -19,13 +19,23 @@ const Star = ({ filled = false, className = '' }) => (
   </svg>
 );
 
-const platformBadges = [
-  { name: 'Google', color: 'bg-[#EA4335]', bg: 'bg-white', text: 'text-darkBlue', rating: 4.9, urlEnv: 'VITE_GOOGLE_REVIEWS_URL' },
-  { name: 'Tripadvisor', color: 'bg-[#34E0A1]', bg: 'bg-white', text: 'text-darkBlue', rating: 4.8, urlEnv: 'VITE_TRIPADVISOR_REVIEWS_URL' },
-  { name: 'Facebook', color: 'bg-[#1877F2]', bg: 'bg-white', text: 'text-darkBlue', rating: 4.9, urlEnv: 'VITE_FACEBOOK_REVIEWS_URL' },
-];
-
 const FeedbackSection = () => {
+  // Map platformReviews to badge format for UI
+  const platformBadges = platformReviews.map(review => {
+    const colorMap = {
+      'Google': { color: 'bg-[#EA4335]', urlEnv: 'VITE_GOOGLE_REVIEWS_URL' },
+      'Tripadvisor': { color: 'bg-[#34E0A1]', urlEnv: 'VITE_TRIPADVISOR_REVIEWS_URL' },
+      'Facebook': { color: 'bg-[#1877F2]', urlEnv: 'VITE_FACEBOOK_REVIEWS_URL' }
+    };
+    return {
+      name: review.platform,
+      color: colorMap[review.platform]?.color || 'bg-gray-500',
+      bg: 'bg-white',
+      text: 'text-darkBlue',
+      rating: review.rating,
+      urlEnv: colorMap[review.platform]?.urlEnv || '#'
+    };
+  });
   const feedbacks = feedbackData;
   const countries = ['All', ...Object.keys(feedbacks)];
   const [filter, setFilter] = useState('All');
@@ -183,7 +193,7 @@ const FeedbackSection = () => {
                   {/* Author */}
                   <div className="mt-4 flex items-center gap-3">
                     <img
-                      src={`https://i.pravatar.cc/80?u=${encodeURIComponent(t.author)}`}
+                      src={t.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop'}
                       alt={t.author}
                       className="w-10 h-10 rounded-full border border-lightGray object-cover"
                       loading="lazy"

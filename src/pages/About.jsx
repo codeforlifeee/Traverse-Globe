@@ -1,4 +1,4 @@
-import { companyInfo } from '../data/siteData';
+import { companyInfo, companyFeatures } from '../data/siteData';
 
 const About = () => {
   return (
@@ -38,19 +38,13 @@ const About = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">What Sets Us Apart</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: 'fa-solid fa-route', title: 'Personalized Itinerary', desc: "We don't just book your trip – we assist you personally from the moment you plan till you fly back home. Our dedicated team ensures you experience seamless travel, every step of the way." },
-              { icon: 'fa-solid fa-hotel', title: 'Luxury Stays, Unluxury Prices', desc: "Luxury stay without the luxury price tag. Whether you want it included or plan your own – we've got you covered, offering comfort and class that fit your budget." },
-              { icon: 'fa-solid fa-car', title: 'Ride Easy, Always Ready', desc: 'Enjoy hassle-free cab & rental car service in Dubai – no waiting, no confusion, just smooth travel wherever you go. We make sure your rides are as effortless as your vacation.' },
-              { icon: 'fa-solid fa-users', title: 'Trusted Local Expertise', desc: "We're backed by on-ground specialists who know each destination inside out, offering authentic experiences you won't find elsewhere." },
-              { icon: 'fa-solid fa-shield-alt', title: '100% In-House Service', desc: 'And the best part? We handle everything in-house! No third-party runarounds – just reliable, transparent, and well-coordinated service from start to finish.' },
-            ].map((f, i) => (
+            {companyFeatures.map((f, i) => (
               <div key={i} className="bg-white border-2 border-slate-200 rounded-2xl p-5 shadow-sm feature-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent">
                 <div className="feature-icon text-primary text-4xl mb-4">
                   <i className={f.icon}></i>
                 </div>
                 <h4 className="font-bold text-lg mb-2">{f.title}</h4>
-                <p className="text-gray-600">{f.desc}</p>
+                <p className="text-gray-600">{f.description}</p>
               </div>
             ))}
           </div>
