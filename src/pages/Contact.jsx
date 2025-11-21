@@ -1,12 +1,12 @@
-import { companyInfo, contactCategories } from '../data/siteData';
+import { companyInfo } from '../data/siteData';
 
 export default function Contact() {
-  // Map contactCategories from siteData to component format
-  const connectWith = contactCategories.map(cat => ({
-    title: cat.title,
-    email: companyInfo.email[cat.emailKey],
-    img: cat.image
-  }));
+  const connectWith = [
+    { title: 'Holidays Enquiry', email: companyInfo.email.holidays, img: 'https://images.emtcontent.com/contact/holidays.svg' },
+    { title: 'Partnership', email: companyInfo.email.marketing, img: 'https://images.emtcontent.com/contact/partnership.svg' },
+    { title: 'Booking Status', email: companyInfo.email.care, img: 'https://images.emtcontent.com/contact/booking-status.svg' },
+    { title: 'Event Sponsorships', email: companyInfo.email.sponsorship, img: 'https://images.emtcontent.com/contact/event-sportship.svg' },
+  ];
 
   return (
     <div className="min-h-screen pt-20 pb-10">
@@ -40,20 +40,22 @@ export default function Contact() {
                 </address>
                 <div className="mt-2 space-y-1 text-sm text-gray-700">
                   <div>
-                    <a href={`mailto:${companyInfo.email.primary}`} className="text-orange-600 hover:underline font-medium">
+                    <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
                       Email us: {companyInfo.email.primary}
                     </a>
                   </div>
                   <div>
-                    Call us: <a href={`tel:${companyInfo.phone.primary}`} className="text-orange-600 hover:underline font-medium">{companyInfo.phone.primary}</a>
+                    Call us: <a href={`tel:${companyInfo.phone.primary}`} className="text-blue-700 hover:underline font-medium">{companyInfo.phone.primary}</a>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>WhatsApp:</span>
                     <img className="w-4 h-4" src="https://images.emtcontent.com/contact/whatsapp-lp.png" alt="" aria-hidden="true" />
-                    <a className="text-orange-600 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(companyInfo.name)}`}>{companyInfo.phone.primary}</a>
+                    <a className="text-green-700 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(companyInfo.name)}`}>
+                      {companyInfo.phone.primary}
+                    </a>
                   </div>
                   <div className="mt-2">
-                    <a href={companyInfo.address.karnal.mapLink} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline font-medium flex items-center gap-1">
+                    <a href={companyInfo.address.karnal.mapLink} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium flex items-center gap-1">
                       <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i> View on Google Maps
                     </a>
                   </div>
@@ -71,14 +73,16 @@ export default function Contact() {
                 </address>
                 <div className="mt-2 space-y-1 text-sm text-gray-700">
                   <div>
-                    <a href={`mailto:${companyInfo.email.primary}`} className="text-orange-600 hover:underline font-medium">
+                    <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
                       Email us: {companyInfo.email.primary}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>WhatsApp:</span>
                     <img className="w-4 h-4" src="https://images.emtcontent.com/contact/whatsapp-lp.png" alt="" aria-hidden="true" />
-                    <a className="text-orange-600 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.noida.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(companyInfo.name)}`}>{companyInfo.phone.noida}</a>
+                    <a className="text-green-700 hover:underline font-medium" href={`https://wa.me/${companyInfo.phone.noida.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(companyInfo.name)}`}>
+                      {companyInfo.phone.noida}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -103,10 +107,10 @@ export default function Contact() {
                   {companyInfo.address.dubai.corporate}
                 </div>
                 <div className="text-sm">
-                  <a href={`mailto:${companyInfo.email.primary}`} className="text-orange-600 hover:underline font-medium">
+                  <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
                     Email: {companyInfo.email.primary}
                   </a><br />
-                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-orange-600 hover:underline font-medium">
+                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
                     Website: {companyInfo.website.replace('https://', 'www.')}
                   </a>
                 </div>
@@ -116,13 +120,13 @@ export default function Contact() {
                   {companyInfo.address.dubai.branch}
                 </div>
                 <div className="text-sm">
-                  <a href={`mailto:${companyInfo.email.primary}`} className="text-orange-600 hover:underline font-medium">
+                  <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-700 hover:underline font-medium">
                     Email: {companyInfo.email.primary}
                   </a><br />
-                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-orange-600 hover:underline font-medium">
+                  <a href={companyInfo.website} target="_blank" rel="noreferrer" className="text-blue-700 hover:underline font-medium">
                     Website: {companyInfo.website.replace('https://', 'www.')}
                   </a><br />
-                  <a href="tel:043035888" className="text-orange-600 hover:underline font-medium">
+                  <a href="tel:043035888" className="text-blue-700 hover:underline font-medium">
                     Call Us: 043035888
                   </a>
                 </div>
@@ -175,7 +179,7 @@ export default function Contact() {
               <article key={i} className="rounded-2xl p-6 shadow bg-white">
                 <img src={c.img} alt="" className="w-14 h-14" aria-hidden="true" loading="lazy" />
                 <h3 className="mt-3 text-lg font-semibold text-gray-900">{c.title}</h3>
-                <a href={`mailto:${c.email}`} className="text-orange-600 hover:underline font-medium text-sm">
+                <a href={`mailto:${c.email}`} className="text-blue-700 hover:underline font-medium text-sm">
                   {c.email}
                 </a>
               </article>
