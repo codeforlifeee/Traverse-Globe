@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { slugify } from '../utils/slug';
 import { companyInfo, packageDetails } from '../data/siteData';
+import { IoShare } from 'react-icons/io5';
 
 // Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
@@ -122,12 +123,32 @@ export default function PackageCard({
   // Get details data for quick view
   const itineraryDays = details?.itinerary ? Object.entries(details.itinerary) : [];
   const inclusions = details?.inclusions || [];
-  const exclusions = details?.exclusions || [];
   const accommodations = details?.hotels?.options || [];
 
   // Handle navigation to full package page
   const handleViewPackage = () => {
     navigate(packageLink);
+  };
+
+  // Handle share functionality
+  const handleShare = async () => {
+    const shareData = {
+      title: packageData.title,
+      text: `Check out this amazing package: ${packageData.title}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Share cancelled');
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   };
   
   return (
@@ -224,117 +245,122 @@ export default function PackageCard({
 
         {/* BACK SIDE (Quick View) */}
         <div className="flip-card-back overflow-hidden">
-          <div className="p-4 flex flex-col h-full overflow-y-auto bg-white">
+          <div className="p-4 flex flex-col h-full bg-white">
             
-            {/* Header with Close Button */}
-            <div className="flex justify-between items-center mb-3 pb-3 border-b border-gray-200">
+            {/* Header with Share and Close Button */}
+            <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-200">
               <h4 className="font-bold text-darkBlue text-sm font-poppins">Quick View</h4>
-              <button
-                onClick={() => setIsFlipped(false)}
-                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-orange/20 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
-              >
-                <i className="fa-solid fa-xmark text-sm"></i>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleShare}
+                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-orange/20 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
+                  title="Share"
+                >
+                  <i className="fa-solid fa-share-nodes text-sm"></i>
+                </button>
+                <button
+                  onClick={() => setIsFlipped(false)}
+                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-100 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-red-600 flex-shrink-0"
+                  title="Close"
+                >
+                  <i className="fa-solid fa-xmark text-sm"></i>
+                </button>
+              </div>
             </div>
 
-            {/* Itinerary Section */}
-            {itineraryDays.length > 0 && (
-              <div className="mb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <i className="fa-solid fa-map-location-dot text-orange text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">ITINERARY</h5>
+            {/* Content - Icon-based minimal text */}
+            <div className="flex-1 overflow-y-auto space-y-3">
+              
+              {/* Itinerary Section */}
+              {itineraryDays.length > 0 && (
+                <div className="mb-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <i className="fa-solid fa-map-location-dot text-orange text-base"></i>
+                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Itinerary</h5>
+                    <span className="text-xs bg-orange/20 text-orange rounded px-2 py-0.5 font-medium ml-auto">{itineraryDays.length} Days</span>
+                  </div>
+                  <div className="space-y-1">
+                    {itineraryDays.slice(0, 2).map(([day, content]) => (
+                      <div key={day} className="text-xs text-gray-700 flex gap-2 items-start">
+                        <span className="font-semibold text-orange min-w-fit">{day}</span>
+                        <span className="line-clamp-1">{content.title}</span>
+                      </div>
+                    ))}
+                    {itineraryDays.length > 2 && (
+                      <p className="text-xs text-orange font-medium">+{itineraryDays.length - 2} more days</p>
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-1 max-h-20 overflow-y-auto">
-                  {itineraryDays.slice(0, 3).map(([day, content]) => (
-                    <div key={day} className="text-xs bg-gray-50 p-2 rounded border-l-2 border-orange">
-                      <p className="font-semibold text-darkBlue">{day}: {content.title}</p>
-                    </div>
-                  ))}
-                  {itineraryDays.length > 3 && (
-                    <p className="text-xs text-orange font-medium">+{itineraryDays.length - 3} more days</p>
+              )}
+
+              {/* Inclusions Section - Symbol Based */}
+              {inclusions.length > 0 && (
+                <div className="mb-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <i className="fa-solid fa-check-circle text-green-500 text-base"></i>
+                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Included</h5>
+                    <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-0.5 font-medium ml-auto">{inclusions.length}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {inclusions.slice(0, 4).map((item, idx) => {
+                      // Determine icon based on item content
+                      let icon = 'fa-check';
+                      if (item.toLowerCase().includes('meal') || item.toLowerCase().includes('food') || item.toLowerCase().includes('breakfast') || item.toLowerCase().includes('lunch') || item.toLowerCase().includes('dinner')) icon = 'fa-utensils';
+                      if (item.toLowerCase().includes('hotel') || item.toLowerCase().includes('accommodation') || item.toLowerCase().includes('stay')) icon = 'fa-bed';
+                      if (item.toLowerCase().includes('flight') || item.toLowerCase().includes('transport') || item.toLowerCase().includes('airport') || item.toLowerCase().includes('transfer')) icon = 'fa-plane';
+                      if (item.toLowerCase().includes('guide') || item.toLowerCase().includes('tour') || item.toLowerCase().includes('visit')) icon = 'fa-person-hiking';
+                      if (item.toLowerCase().includes('visa') || item.toLowerCase().includes('insurance') || item.toLowerCase().includes('permit')) icon = 'fa-shield';
+                      if (item.toLowerCase().includes('activity') || item.toLowerCase().includes('adventure') || item.toLowerCase().includes('water') || item.toLowerCase().includes('sport')) icon = 'fa-person-skiing';
+
+                      return (
+                        <div key={idx} className="text-xs text-gray-700 flex flex-col items-center gap-1 p-1.5 bg-green-50 rounded border border-green-200">
+                          <i className={`fa-solid ${icon} text-green-500 text-lg`}></i>
+                          <span className="text-center line-clamp-2 text-xs font-medium">{item}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {inclusions.length > 4 && (
+                    <p className="text-xs text-green-600 font-medium mt-1.5">+{inclusions.length - 4} more included</p>
                   )}
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Inclusions Section */}
-            {inclusions.length > 0 && (
-              <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-check-circle text-green-500 text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">INCLUSIONS</h5>
-                </div>
-                <ul className="space-y-0.5 max-h-16 overflow-y-auto">
-                  {inclusions.slice(0, 3).map((item, idx) => (
-                    <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
-                      <i className="fa-solid fa-check text-orange text-xs mt-0.5 flex-shrink-0"></i>
-                      <span className="line-clamp-1">{item}</span>
-                    </li>
-                  ))}
-                  {inclusions.length > 3 && (
-                    <p className="text-xs text-orange font-medium">+{inclusions.length - 3} more</p>
-                  )}
-                </ul>
-              </div>
-            )}
-
-            {/* Exclusions Section */}
-            {exclusions.length > 0 && (
-              <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-circle-xmark text-red-500 text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">EXCLUSIONS</h5>
-                </div>
-                <ul className="space-y-0.5 max-h-16 overflow-y-auto">
-                  {exclusions.slice(0, 2).map((item, idx) => (
-                    <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
-                      <i className="fa-solid fa-times text-red-500 text-xs mt-0.5 flex-shrink-0"></i>
-                      <span className="line-clamp-1">{item}</span>
-                    </li>
-                  ))}
-                  {exclusions.length > 2 && (
-                    <p className="text-xs text-orange font-medium">+{exclusions.length - 2} more</p>
-                  )}
-                </ul>
-              </div>
-            )}
-
-            {/* Accommodations Section */}
-            {accommodations.length > 0 && (
-              <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-hotel text-teal text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">HOTELS</h5>
-                </div>
-                <ul className="space-y-0.5 max-h-16 overflow-y-auto">
-                  {accommodations.slice(0, 2).map((hotel, idx) => (
-                    <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
-                      <i className="fa-solid fa-star text-yellow-400 text-xs mt-0.5 flex-shrink-0"></i>
-                      <span className="line-clamp-1">{hotel}</span>
-                    </li>
-                  ))}
+              {/* Accommodations Section */}
+              {accommodations.length > 0 && (
+                <div className="mb-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <i className="fa-solid fa-hotel text-teal text-base"></i>
+                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Hotels</h5>
+                    <span className="text-xs bg-teal/20 text-teal rounded px-2 py-0.5 font-medium ml-auto">{accommodations.length}</span>
+                  </div>
+                  <div className="space-y-1">
+                    {accommodations.slice(0, 2).map((hotel, idx) => (
+                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-center">
+                        <span className="flex gap-1 min-w-fit">
+                          {[1, 2, 3].map((star) => (
+                            <i key={star} className={`fa-solid fa-star text-xs ${star <= 4 ? 'text-yellow-400' : 'text-gray-300'}`}></i>
+                          ))}
+                        </span>
+                        <span className="line-clamp-1">{hotel}</span>
+                      </div>
+                    ))}
+                  </div>
                   {accommodations.length > 2 && (
-                    <p className="text-xs text-orange font-medium">+{accommodations.length - 2} more</p>
+                    <p className="text-xs text-teal font-medium mt-1">+{accommodations.length - 2} more hotels</p>
                   )}
-                </ul>
-              </div>
-            )}
+                </div>
+              )}
+            </div>
 
-            {/* Action Buttons */}
-            <div className="mt-auto pt-3 flex flex-col gap-2 border-t border-gray-200">
-              <button 
-                onClick={() => setIsFlipped(false)}
-                className="custom-btn w-full text-xs px-3 py-2 font-medium hover:scale-[1.02] transition-all duration-200"
-              >
-                <i className="fa-solid fa-arrow-left mr-1 text-xs"></i>
-                Close
-              </button>
+            {/* Action Buttons - Bottom Aligned */}
+            <div className="mt-4 pt-3 flex flex-col gap-2 border-t border-gray-200">
               <button 
                 onClick={handleViewPackage}
-                className="custom-btn w-full text-xs px-3 py-2 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+                className="custom-btn w-full text-xs px-3 py-2.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
               >
-                <i className="fa-solid fa-eye mr-1 text-xs"></i>
-                View Package
+                <i className="fa-solid fa-eye mr-1.5 text-xs"></i>
+                View Full Package
               </button>
             </div>
           </div>
