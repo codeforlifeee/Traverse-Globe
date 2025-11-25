@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { slugify } from '../utils/slug';
-import { companyInfo, packageDetails } from '../data/siteData';
+import { packageDetails } from '../data/siteData';
 
 // Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
@@ -21,13 +21,13 @@ export const PriceTag = ({ strike, price }) => (
     <div className="flex items-baseline justify-between gap-2">
       <p className="text-lg md:text-xl font-bold text-orange font-poppins">
         ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
-  <span className="block text-xs font-normal text-darkBlue/80 font-canva-sans mt-0.5">Per Person on twin sharing</span>
+        <span className="block text-xs font-normal text-darkBlue/80 font-canva-sans mt-0.5">Per Person on twin sharing</span>
       </p>
     </div>
   </div>
 );
 
-export default function PackageCard({ 
+export default function QuickViewCard({ 
   pkg, 
   id, 
   title, 
@@ -36,13 +36,10 @@ export default function PackageCard({
   originalPrice, 
   image, 
   destination, 
-  onView, 
   buttonLabel = 'View Package', 
   category 
 }) {
-  const [showExpertMenu, setShowExpertMenu] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
-  const menuRef = useRef(null);
   const navigate = useNavigate();
 
   // Support both pkg object and individual props
@@ -74,7 +71,6 @@ export default function PackageCard({
   };
 
   // Compute a stable slug for the package details page
-  // Always use the package title for consistent URL generation
   const computedSlug = useMemo(() => {
     return slugify(packageData.title);
   }, [packageData.title]);
@@ -105,38 +101,44 @@ export default function PackageCard({
   // Use destination prop if provided (new routing), otherwise construct from category
   const packageLink = destination || `/destinations/${destinationType}/${resolvedCategory}/${computedSlug}`;
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowExpertMenu(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   // Ensure image exists
   const imageUrl = packageData.image || packageData.bannerImage || '';
-
-  // Get details data for quick view
-  const itineraryDays = details?.itinerary ? Object.entries(details.itinerary) : [];
-  const inclusions = details?.inclusions || [];
-  const exclusions = details?.exclusions || [];
-  const accommodations = details?.hotels?.options || [];
 
   // Handle navigation to full package page
   const handleViewPackage = () => {
     navigate(packageLink);
   };
-  
+
+  // Handle share button click
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: packageData.title,
+        text: `Check out this amazing package: ${packageData.title}`,
+        url: window.location.href
+      }).catch(err => console.log('Share failed:', err));
+    } else {
+      // Fallback: copy to clipboard
+      const url = `${window.location.origin}${packageLink}`;
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Package link copied to clipboard!');
+      });
+    }
+  };
+
+  const itineraryDays = details?.itinerary ? Object.entries(details.itinerary) : [];
+  const inclusions = details?.inclusions || [];
+  const exclusions = details?.exclusions || [];
+  const accommodations = details?.hotels?.options || [];
+
   return (
-    <div className="custom-card group bg-white h-full flex flex-col flip-card-container">
+    <div className="custom-card group bg-white flex flex-col flip-card-container">
       <div className="flip-card" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
         
         {/* FRONT SIDE */}
-        <div className="flip-card-front">
-          <div className="relative overflow-hidden rounded-t-2xl h-44 md:h-48">
+        <div className="flip-card-front flex flex-col w-full">
+          {/* Image Section */}
+          <div className="relative overflow-hidden rounded-t-2xl">
             <img
               src={imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
               srcSet={`${imageUrl.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
@@ -144,7 +146,7 @@ export default function PackageCard({
               alt={packageData.title}
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-44 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
             />
             {packageData.nights && (
               <div className="absolute left-3 bottom-3 bg-darkBlue text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90 whitespace-nowrap min-w-fit">
@@ -152,9 +154,12 @@ export default function PackageCard({
               </div>
             )}
           </div>
-          
+
+          {/* Content Section */}
           <div className="p-4 flex flex-col flex-grow">
-            <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins mb-2 line-clamp-2 min-h-[2.5rem]">{packageData.title}</h3>
+            <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins mb-2 line-clamp-2 min-h-[2.5rem]">
+              {packageData.title}
+            </h3>
             <PriceTag strike={packageData.strikePrice} price={packageData.price} />
             
             {/* Buttons Section - Pushed to bottom */}
@@ -166,72 +171,28 @@ export default function PackageCard({
                 <i className="fa-solid fa-bolt mr-1 text-xs"></i>
                 Quick View
               </button>
-              
-              {/* Connect with Expert Button */}
-              <div className="relative flex-1" ref={menuRef}>
-                <button
-                  onClick={() => setShowExpertMenu(!showExpertMenu)}
-                  className="custom-btn w-full text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
-                >
-                  <i className="fa-solid fa-headset mr-1 text-xs"></i>
-                  Expert
-                </button>
-                
-                {/* Dropdown Menu */}
-                {showExpertMenu && (
-                  <div className="absolute right-0 bottom-full mb-2 bg-white shadow-2xl rounded-xl overflow-hidden border border-gray-200 w-56 z-20 animate-fadeIn">
-                    <div className="bg-gradient-to-r from-teal to-primary py-2 px-3">
-                      <p className="text-white font-semibold text-xs">Connect</p>
-                    </div>
-                    <div className="py-1.5">
-                      <a
-                        href={`tel:${companyInfo.phone.primary}`}
-                        className="flex items-center gap-2 px-3 py-2 hover:bg-orange/5 transition-all duration-200 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-9 h-9 rounded-full bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                          <i className="fa-solid fa-phone text-orange text-sm"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Request a Call Back</p>
-                          <p className="text-xs text-gray-500">We'll call you shortly</p>
-                        </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-orange transition-colors"></i>
-                      </a>
-                      <a
-                        href={`https://wa.me/${companyInfo.phone.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-9 h-9 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                          <i className="fa-brands fa-whatsapp text-[#25D366] text-base"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp Chat</p>
-                          <p className="text-xs text-gray-500">Chat with us now</p>
-                        </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-[#25D366] transition-colors"></i>
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <button 
+                onClick={handleViewPackage}
+                className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+              >
+                <i className="fa-solid fa-arrow-right mr-1 text-xs"></i>
+                {buttonLabel}
+              </button>
             </div>
           </div>
         </div>
 
         {/* BACK SIDE (Quick View) */}
-        <div className="flip-card-back overflow-hidden">
-          <div className="p-4 flex flex-col h-full overflow-y-auto bg-white">
+        <div className="flip-card-back flex flex-col w-full">
+          {/* Back content starts immediately */}
+          <div className="p-4 flex flex-col min-h-full overflow-y-auto bg-white">
             
             {/* Header with Close Button */}
             <div className="flex justify-between items-center mb-3 pb-3 border-b border-gray-200">
               <h4 className="font-bold text-darkBlue text-sm font-poppins">Quick View</h4>
               <button
                 onClick={() => setIsFlipped(false)}
-                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-orange/20 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
+                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-orange/20 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange"
               >
                 <i className="fa-solid fa-xmark text-sm"></i>
               </button>
@@ -240,18 +201,16 @@ export default function PackageCard({
             {/* Itinerary Section */}
             {itineraryDays.length > 0 && (
               <div className="mb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <i className="fa-solid fa-map-location-dot text-orange text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">ITINERARY</h5>
-                </div>
-                <div className="space-y-1 max-h-20 overflow-y-auto">
-                  {itineraryDays.slice(0, 3).map(([day, content]) => (
+                <h5 className="font-semibold text-xs text-darkBlue mb-2 text-orange">ITINERARY</h5>
+                <div className="space-y-1.5 max-h-24 overflow-y-auto">
+                  {itineraryDays.slice(0, 4).map(([day, content]) => (
                     <div key={day} className="text-xs bg-gray-50 p-2 rounded border-l-2 border-orange">
                       <p className="font-semibold text-darkBlue">{day}: {content.title}</p>
+                      <p className="text-gray-600 text-xs line-clamp-1">{content.description}</p>
                     </div>
                   ))}
-                  {itineraryDays.length > 3 && (
-                    <p className="text-xs text-orange font-medium">+{itineraryDays.length - 3} more days</p>
+                  {itineraryDays.length > 4 && (
+                    <p className="text-xs text-orange font-medium">+{itineraryDays.length - 4} more days</p>
                   )}
                 </div>
               </div>
@@ -260,10 +219,7 @@ export default function PackageCard({
             {/* Inclusions Section */}
             {inclusions.length > 0 && (
               <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-check-circle text-green-500 text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">INCLUSIONS</h5>
-                </div>
+                <h5 className="font-semibold text-xs text-darkBlue mb-1.5 text-orange">INCLUSIONS</h5>
                 <ul className="space-y-0.5 max-h-16 overflow-y-auto">
                   {inclusions.slice(0, 3).map((item, idx) => (
                     <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
@@ -281,19 +237,16 @@ export default function PackageCard({
             {/* Exclusions Section */}
             {exclusions.length > 0 && (
               <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-circle-xmark text-red-500 text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">EXCLUSIONS</h5>
-                </div>
+                <h5 className="font-semibold text-xs text-darkBlue mb-1.5 text-orange">EXCLUSIONS</h5>
                 <ul className="space-y-0.5 max-h-16 overflow-y-auto">
-                  {exclusions.slice(0, 2).map((item, idx) => (
+                  {exclusions.slice(0, 3).map((item, idx) => (
                     <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
-                      <i className="fa-solid fa-times text-red-500 text-xs mt-0.5 flex-shrink-0"></i>
+                      <i className="fa-solid fa-circle-xmark text-red-500 text-xs mt-0.5 flex-shrink-0"></i>
                       <span className="line-clamp-1">{item}</span>
                     </li>
                   ))}
-                  {exclusions.length > 2 && (
-                    <p className="text-xs text-orange font-medium">+{exclusions.length - 2} more</p>
+                  {exclusions.length > 3 && (
+                    <p className="text-xs text-orange font-medium">+{exclusions.length - 3} more</p>
                   )}
                 </ul>
               </div>
@@ -302,19 +255,16 @@ export default function PackageCard({
             {/* Accommodations Section */}
             {accommodations.length > 0 && (
               <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <i className="fa-solid fa-hotel text-teal text-sm"></i>
-                  <h5 className="font-semibold text-xs text-darkBlue">HOTELS</h5>
-                </div>
+                <h5 className="font-semibold text-xs text-darkBlue mb-1.5 text-orange">ACCOMMODATIONS</h5>
                 <ul className="space-y-0.5 max-h-16 overflow-y-auto">
-                  {accommodations.slice(0, 2).map((hotel, idx) => (
+                  {accommodations.slice(0, 3).map((hotel, idx) => (
                     <li key={idx} className="text-xs text-gray-700 flex gap-1.5">
-                      <i className="fa-solid fa-star text-yellow-400 text-xs mt-0.5 flex-shrink-0"></i>
+                      <i className="fa-solid fa-building text-teal text-xs mt-0.5 flex-shrink-0"></i>
                       <span className="line-clamp-1">{hotel}</span>
                     </li>
                   ))}
-                  {accommodations.length > 2 && (
-                    <p className="text-xs text-orange font-medium">+{accommodations.length - 2} more</p>
+                  {accommodations.length > 3 && (
+                    <p className="text-xs text-orange font-medium">+{accommodations.length - 3} more</p>
                   )}
                 </ul>
               </div>
@@ -323,18 +273,18 @@ export default function PackageCard({
             {/* Action Buttons */}
             <div className="mt-auto pt-3 flex flex-col gap-2 border-t border-gray-200">
               <button 
-                onClick={() => setIsFlipped(false)}
+                onClick={handleViewPackage}
                 className="custom-btn w-full text-xs px-3 py-2 font-medium hover:scale-[1.02] transition-all duration-200"
               >
-                <i className="fa-solid fa-arrow-left mr-1 text-xs"></i>
-                Close
+                <i className="fa-solid fa-eye mr-1 text-xs"></i>
+                View Full Package
               </button>
               <button 
-                onClick={handleViewPackage}
+                onClick={handleShare}
                 className="custom-btn w-full text-xs px-3 py-2 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
               >
-                <i className="fa-solid fa-eye mr-1 text-xs"></i>
-                View Package
+                <i className="fa-solid fa-share-nodes mr-1 text-xs"></i>
+                Share Package
               </button>
             </div>
           </div>
