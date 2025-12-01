@@ -59,7 +59,15 @@ const ExplorePrices = () => {
   useEffect(() => {
     const loadPackages = async () => {
       try {
-        const data = await fetchFeaturedPackages(20); // Get 20 featured packages
+        // Fetch featured packages, but fallback to all packages if no featured ones exist
+        let data = await fetchFeaturedPackages(20);
+        
+        // If no featured packages, fetch regular packages
+        if (data.length === 0) {
+          const { fetchPackages } = await import('../services/sanityClient');
+          data = await fetchPackages({ limit: 20 });
+        }
+        
         setPackages(data);
       } catch (error) {
         console.error('Failed to load packages:', error);
@@ -68,6 +76,13 @@ const ExplorePrices = () => {
       }
     };
     loadPackages();
+
+    // Refetch on window focus to ensure fresh data
+    const handleFocus = () => {
+      loadPackages();
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   const resolveCategoryFromDetailId = (id) => {

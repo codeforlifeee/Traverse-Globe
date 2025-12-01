@@ -68,6 +68,13 @@ const TrendingDestinations = () => {
       }
     };
     loadDestinations();
+
+    // Refetch on window focus to ensure fresh data
+    const handleFocus = () => {
+      loadDestinations();
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   if (loading) {

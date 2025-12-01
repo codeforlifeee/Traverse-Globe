@@ -5,13 +5,16 @@
 
 import { createClient } from '@sanity/client';
 
-// Create Sanity client instance
+// Create Sanity client instance with real-time updates
 export const sanityClient = createClient({
   projectId: 'xe1685rk',
   dataset: 'production',
   useCdn: false, // Set to false to always get fresh data (no CDN caching)
   apiVersion: '2024-01-01',
   perspective: 'published', // Only fetch published documents
+  stega: {
+    enabled: false,
+  },
   // Token is not needed for public read operations
   // token: 'YOUR_TOKEN_HERE' // Only needed for write operations
 });
