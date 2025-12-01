@@ -1,13 +1,11 @@
 // Package Content Generators
-// Reads package details from siteData.js
+// Works with both Sanity data and fallback data
 
-import { packageDetails } from '../data/siteData';
-
-export function getOverviewList(id, name) {
-  const idNum = Number(id);
-  const detail = packageDetails[idNum];
+export function getOverviewList(packageData, name) {
+  // Accept either a package object or ID
+  const detail = typeof packageData === 'object' ? packageData : null;
   
-  // Use highlights from siteData.js if available
+  // Use highlights from Sanity data if available
   if (detail && detail.highlights && Array.isArray(detail.highlights)) {
     return detail.highlights;
   }
@@ -21,15 +19,15 @@ export function getOverviewList(id, name) {
   ];
 }
 
-export function getItinerary(id, destination) {
-  const idNum = Number(id);
-  const detail = packageDetails[idNum];
+export function getItinerary(packageData, destination) {
+  // Accept either a package object or ID
+  const detail = typeof packageData === 'object' ? packageData : null;
   
-  // Use actual itinerary from siteData.js if available
-  if (detail && detail.itinerary) {
-    return Object.entries(detail.itinerary).map(([day, info]) => ({
-      title: `${day}: ${info.title}`,
-      paragraphs: [info.description]
+  // Use actual itinerary from Sanity data if available
+  if (detail && detail.itinerary && detail.itinerary.days) {
+    return detail.itinerary.days.map((day) => ({
+      title: `${day.dayKey || 'Day'}: ${day.title}`,
+      paragraphs: [day.description]
     }));
   }
   
@@ -55,11 +53,11 @@ export function getItinerary(id, destination) {
   return [commonDay1, day2, day3, dayFinal];
 }
 
-export function getInclusions(id) {
-  const idNum = Number(id);
-  const detail = packageDetails[idNum];
+export function getInclusions(packageData) {
+  // Accept either a package object or ID
+  const detail = typeof packageData === 'object' ? packageData : null;
   
-  // Use actual inclusions from siteData.js if available
+  // Use actual inclusions from Sanity data if available
   if (detail && detail.inclusions) {
     return detail.inclusions;
   }
@@ -73,11 +71,11 @@ export function getInclusions(id) {
   ];
 }
 
-export function getExclusions(id) {
-  const idNum = Number(id);
-  const detail = packageDetails[idNum];
+export function getExclusions(packageData) {
+  // Accept either a package object or ID
+  const detail = typeof packageData === 'object' ? packageData : null;
   
-  // Use actual exclusions from siteData.js if available
+  // Use actual exclusions from Sanity data if available
   if (detail && detail.exclusions) {
     return detail.exclusions;
   }
@@ -92,11 +90,11 @@ export function getExclusions(id) {
   ];
 }
 
-export function getHotels(id, destination) {
-  const idNum = Number(id);
-  const detail = packageDetails[idNum];
+export function getHotels(packageData, destination) {
+  // Accept either a package object or ID
+  const detail = typeof packageData === 'object' ? packageData : null;
   
-  // Use actual hotels from siteData.js if available
+  // Use actual hotels from Sanity data if available
   if (detail && detail.hotels) {
     // If hotels is an object with options array
     if (detail.hotels.options && Array.isArray(detail.hotels.options)) {

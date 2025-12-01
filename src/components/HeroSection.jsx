@@ -1,7 +1,35 @@
-import { banners } from '../data/siteData';
+import { useState, useEffect } from 'react';
+import { fetchBanners } from '../services/sanityClient';
 import HeroSlider from './HeroSlider';
 
 const HeroSection = () => {
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadBanners = async () => {
+      try {
+        const data = await fetchBanners('general');
+        setBanners(data);
+      } catch (error) {
+        console.error('Failed to load banners:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadBanners();
+  }, []);
+
+  if (loading || banners.length === 0) {
+    return (
+      <section className="relative mt-16 md:mt-[68px] h-[320px] md:h-[420px] lg:h-[500px] bg-gray-200 animate-pulse">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative mt-16 md:mt-[68px]">
       <HeroSlider 

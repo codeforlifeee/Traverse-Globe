@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { slugify } from '../utils/slug';
-import { companyInfo, packageDetails } from '../data/siteData';
+import { companyInfo } from '../data/siteData';
 import { IoShare } from 'react-icons/io5';
 
 // Utility function to extract days from nights format
@@ -56,32 +56,26 @@ export default function PackageCard({
     image
   };
 
-  // Fetch detailed data from packageDetails if available
-  const details = packageDetails[basePackage.id];
-  
-  // Merge base package with details from packageDetails (details take priority)
+  // Use Sanity data structure directly from pkg
   const packageData = {
     ...basePackage,
-    ...(details && {
-      price: details.price,
-      strikePrice: details.strikePrice,
-      nights: details.duration,
-      bannerImage: details.bannerImage
-    }),
-    // Ensure image field exists for backward compatibility
-    get image() {
-      return this.bannerImage || basePackage.image || basePackage.bannerImage;
-    }
+    // Sanity packages already have all fields
+    image: basePackage.image || basePackage.bannerImage,
+    nights: basePackage.nights || basePackage.duration
   };
 
   // Compute a stable slug for the package details page
-  // Always use the package title for consistent URL generation
+  // Use Sanity slug if available, otherwise generate from title
   const computedSlug = useMemo(() => {
-    return slugify(packageData.title);
-  }, [packageData.title]);
+    return packageData.slug?.current || slugify(packageData.title);
+  }, [packageData.slug, packageData.title]);
 
   const resolvedCategory = useMemo(() => {
+    // Use category from props, or Sanity category, or fall back to ID-based logic
     if (category) return category;
+    if (packageData.category) return packageData.category;
+    
+    // Fallback to ID-based category resolution for legacy data
     const id = Number(packageData.id);
     if ((id >= 1 && id <= 10)) return 'uae';
     if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
@@ -95,7 +89,7 @@ export default function PackageCard({
     if ((id >= 111 && id <= 120)) return 'kerala';
     if ((id >= 121 && id <= 130)) return 'kashmir';
     return 'uae';
-  }, [category, packageData.id]);
+  }, [category, packageData.category, packageData.id]);
 
   // Determine destination type (international/domestic) based on category
   const destinationType = useMemo(() => {
@@ -120,10 +114,10 @@ export default function PackageCard({
   // Ensure image exists
   const imageUrl = packageData.image || packageData.bannerImage || '';
 
-  // Get details data for quick view
-  const itineraryDays = details?.itinerary ? Object.entries(details.itinerary) : [];
-  const inclusions = details?.inclusions || [];
-  const accommodations = details?.hotels?.options || [];
+  // Get details data for quick view from Sanity structure
+  const itineraryDays = packageData.itinerary?.days || [];
+  const inclusions = packageData.inclusions || [];
+  const accommodations = packageData.hotels?.options || packageData.hotels || [];
 
   // Handle navigation to full package page
   const handleViewPackage = () => {
@@ -285,10 +279,10 @@ export default function PackageCard({
                     <span className="text-xs bg-orange/20 text-orange rounded px-2 py-0.5 font-medium ml-auto">{itineraryDays.length} Days</span>
                   </div>
                   <div className="space-y-1">
-                    {itineraryDays.slice(0, 2).map(([day, content]) => (
-                      <div key={day} className="text-xs text-gray-700 flex gap-2 items-start">
-                        <span className="font-semibold text-orange min-w-fit">{day}</span>
-                        <span className="line-clamp-1">{content.title}</span>
+                    {itineraryDays.slice(0, 2).map((day, idx) => (
+                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-start">
+                        <span className="font-semibold text-orange min-w-fit">{day.dayKey || `Day ${idx + 1}`}</span>
+                        <span className="line-clamp-1">{day.title}</span>
                       </div>
                     ))}
                     {itineraryDays.length > 2 && (

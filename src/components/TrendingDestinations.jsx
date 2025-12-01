@@ -1,8 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { internationalDestinations } from '../data/siteData';
+import { fetchInternationalDestinations } from '../services/sanityClient';
 import { useNavigate } from 'react-router-dom';
 
 const DestinationCard = ({ image, title, onClick }) => {
@@ -51,8 +52,37 @@ const DestinationCard = ({ image, title, onClick }) => {
 };
 
 const TrendingDestinations = () => {
-  const destinations = internationalDestinations;
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadDestinations = async () => {
+      try {
+        const data = await fetchInternationalDestinations();
+        setDestinations(data);
+      } catch (error) {
+        console.error('Failed to load destinations:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadDestinations();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-10 md:py-12 lg:py-14 bg-white">
+        <div className="container-custom">
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (destinations.length === 0) return null;
 
   const handleDestinationClick = (link) => {
     // Direct navigation to the destination

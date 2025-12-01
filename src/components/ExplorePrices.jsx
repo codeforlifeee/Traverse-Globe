@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import { packages as sitePackages, packageDetails } from '../data/siteData';
+import { fetchFeaturedPackages } from '../services/sanityClient';
 import BookingModal from './BookingModal';
 import { slugify } from '../utils/slug';
 
@@ -50,10 +50,25 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
 };
 
 const ExplorePrices = () => {
-  const packages = sitePackages;
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showBooking, setShowBooking] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState('');
   // const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadPackages = async () => {
+      try {
+        const data = await fetchFeaturedPackages(20); // Get 20 featured packages
+        setPackages(data);
+      } catch (error) {
+        console.error('Failed to load packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPackages();
+  }, []);
 
   const resolveCategoryFromDetailId = (id) => {
     const num = Number(id);
@@ -72,10 +87,14 @@ const ExplorePrices = () => {
   };
 
   const handleCardClick = (pkg) => {
-    // If a detailId is provided, open the package details page in a new tab with a name-based slug
+    // Use slug from Sanity or detailId if available
+    if (pkg.slug?.current) {
+      const destinationType = pkg.category === 'kashmir' || pkg.category === 'kerala' || pkg.category === 'jaipur' || pkg.category === 'andaman' ? 'domestic' : 'international';
+      window.open(`/destinations/${destinationType}/${pkg.category}/${pkg.slug.current}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
     if (pkg.detailId) {
-      const detail = packageDetails?.[pkg.detailId];
-      const slug = slugify(detail?.name || pkg.title);
+      const slug = slugify(pkg.title);
       const { type, category } = resolveCategoryFromDetailId(pkg.detailId);
       window.open(`/destinations/${type}/${category}/${slug}`, '_blank', 'noopener,noreferrer');
       return;
@@ -83,6 +102,20 @@ const ExplorePrices = () => {
     setSelectedTitle(pkg.title);
     setShowBooking(true);
   };
+
+  if (loading) {
+    return (
+      <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
+        <div className="container-custom">
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (packages.length === 0) return null;
 
   return (
     <section className="py-10 md:py-12 lg:py-14 bg-lightGray">

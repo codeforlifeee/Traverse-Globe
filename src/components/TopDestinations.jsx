@@ -1,10 +1,40 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import { domesticDestinations } from '../data/siteData';
+import { fetchDomesticDestinations } from '../services/sanityClient';
 
 const TopDestinations = () => {
-  const destinations = domesticDestinations;
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDestinations = async () => {
+      try {
+        const data = await fetchDomesticDestinations();
+        setDestinations(data);
+      } catch (error) {
+        console.error('Failed to load destinations:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadDestinations();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-10 md:py-12 lg:py-14 bg-white">
+        <div className="container-custom">
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (destinations.length === 0) return null;
 
   return (
     <section className="py-10 md:py-12 lg:py-14 bg-white">

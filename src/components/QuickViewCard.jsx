@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { slugify } from '../utils/slug';
-import { packageDetails } from '../data/siteData';
 
 // Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
@@ -52,31 +51,24 @@ export default function QuickViewCard({
     image
   };
 
-  // Fetch detailed data from packageDetails if available
-  const details = packageDetails[basePackage.id];
-  
-  // Merge base package with details from packageDetails (details take priority)
+  // Use Sanity data structure directly from pkg
   const packageData = {
     ...basePackage,
-    ...(details && {
-      price: details.price,
-      strikePrice: details.strikePrice,
-      nights: details.duration,
-      bannerImage: details.bannerImage
-    }),
-    // Ensure image field exists for backward compatibility
-    get image() {
-      return this.bannerImage || basePackage.image || basePackage.bannerImage;
-    }
+    image: basePackage.image || basePackage.bannerImage,
+    nights: basePackage.nights || basePackage.duration
   };
 
-  // Compute a stable slug for the package details page
+  // Compute a stable slug - use Sanity slug if available
   const computedSlug = useMemo(() => {
-    return slugify(packageData.title);
-  }, [packageData.title]);
+    return packageData.slug?.current || slugify(packageData.title);
+  }, [packageData.slug, packageData.title]);
 
   const resolvedCategory = useMemo(() => {
+    // Use category from props, or Sanity category, or fall back to ID-based logic
     if (category) return category;
+    if (packageData.category) return packageData.category;
+    
+    // Fallback to ID-based category resolution
     const id = Number(packageData.id);
     if ((id >= 1 && id <= 10)) return 'uae';
     if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
@@ -90,7 +82,7 @@ export default function QuickViewCard({
     if ((id >= 111 && id <= 120)) return 'kerala';
     if ((id >= 121 && id <= 130)) return 'kashmir';
     return 'uae';
-  }, [category, packageData.id]);
+  }, [category, packageData.category, packageData.id]);
 
   // Determine destination type (international/domestic) based on category
   const destinationType = useMemo(() => {
@@ -126,10 +118,10 @@ export default function QuickViewCard({
     }
   };
 
-  const itineraryDays = details?.itinerary ? Object.entries(details.itinerary) : [];
-  const inclusions = details?.inclusions || [];
-  const exclusions = details?.exclusions || [];
-  const accommodations = details?.hotels?.options || [];
+  const itineraryDays = packageData.itinerary?.days || [];
+  const inclusions = packageData.inclusions || [];
+  const exclusions = packageData.exclusions || [];
+  const accommodations = packageData.hotels?.options || packageData.hotels || [];
 
   return (
     <div className="custom-card group bg-white flex flex-col flip-card-container">
@@ -203,10 +195,10 @@ export default function QuickViewCard({
               <div className="mb-3">
                 <h5 className="font-semibold text-xs text-darkBlue mb-2 text-orange">ITINERARY</h5>
                 <div className="space-y-1.5 max-h-24 overflow-y-auto">
-                  {itineraryDays.slice(0, 4).map(([day, content]) => (
-                    <div key={day} className="text-xs bg-gray-50 p-2 rounded border-l-2 border-orange">
-                      <p className="font-semibold text-darkBlue">{day}: {content.title}</p>
-                      <p className="text-gray-600 text-xs line-clamp-1">{content.description}</p>
+                  {itineraryDays.slice(0, 4).map((day, idx) => (
+                    <div key={idx} className="text-xs bg-gray-50 p-2 rounded border-l-2 border-orange">
+                      <p className="font-semibold text-darkBlue">{day.dayKey || `Day ${idx + 1}`}: {day.title}</p>
+                      <p className="text-gray-600 text-xs line-clamp-1">{day.description}</p>
                     </div>
                   ))}
                   {itineraryDays.length > 4 && (

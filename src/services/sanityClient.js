@@ -9,8 +9,9 @@ import { createClient } from '@sanity/client';
 export const sanityClient = createClient({
   projectId: 'xe1685rk',
   dataset: 'production',
-  useCdn: true, // Set to true for production, false for development
+  useCdn: false, // Set to false to always get fresh data (no CDN caching)
   apiVersion: '2024-01-01',
+  perspective: 'published', // Only fetch published documents
   // Token is not needed for public read operations
   // token: 'YOUR_TOKEN_HERE' // Only needed for write operations
 });
