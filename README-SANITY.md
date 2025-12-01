@@ -192,3 +192,24 @@ Start with the [Quick Start Guide](./SANITY-QUICK-START.md) to begin integration
 
 *Migration completed: December 1, 2025*  
 *Status: ✅ Production Ready*
+
+## 🔧 Deploy Sanity Studio to Vercel
+
+Follow these steps to deploy the `sanity-studio` folder as a standalone Vercel project:
+
+1. On Vercel dashboard, click **New Project** and connect your GitHub repository.
+2. Under **Root Directory**, select `sanity-studio`.
+3. Configure Build & Output settings:
+	- **Install Command**: `npm install`
+	- **Build Command**: `npm run vercel-build`
+	- **Output Directory**: `dist`
+	- Set **Node Version** to **20.x** in Project Settings (or ensure `engines.node` in `sanity-studio/package.json` is set to `20.x`).
+4. Set these Environment Variables in the Vercel project settings (secrets on Production):
+	- `SANITY_STUDIO_API_PROJECT_ID` = `xe1685rk`
+	- `SANITY_STUDIO_API_DATASET` = `production`
+	- `SANITY_STUDIO_API_VERSION` = `2023-08-01`
+	- Optional: `SANITY_STUDIO_PREVIEW_SECRET` (for preview), `SANITY_STUDIO_API_TOKEN` (only if your build requires read/write token)
+5. Deploy the project and check the live URL Vercel provides to confirm Studio is active.
+
+Tip: If you'd like Studio on a sub-path such as `/studio`, deploy it as a separate Vercel project and configure rewrites in your main `vercel.json`.
+

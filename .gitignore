@@ -23,6 +23,7 @@ dist-ssr
 .env.local
 .env.production
 .env.development
+sanity-studio/.env
 
 # Editor directories and files
 .vscode/*

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
@@ -7,8 +8,8 @@ export default defineConfig({
   name: 'default',
   title: 'Traverse Globe CMS',
 
-  projectId: 'xe1685rk',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_API_PROJECT_ID || 'xe1685rk',
+  dataset: process.env.SANITY_STUDIO_API_DATASET || 'production',
 
   plugins: [
     structureTool(),
