@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "sanity:cors:list": "node ./scripts/sanity-cors.js list",
+    "sanity:cors:add": "node ./scripts/sanity-cors.js add",
+    "sanity:cors:remove": "node ./scripts/sanity-cors.js remove",
     "build": "vite build",
     "build:analyze": "ANALYZE=true vite build",
     "preview": "vite preview",
