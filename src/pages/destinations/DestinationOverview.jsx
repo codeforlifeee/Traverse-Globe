@@ -2,7 +2,9 @@
 // Main hub showing all destinations (both international and domestic)
 
 import { Link } from 'react-router-dom';
-import { internationalDestinations, domesticDestinations } from '../../data/siteData';
+import { useState, useEffect } from 'react';
+import { fetchDestinations } from '../../services/sanityClient';
+import { DESTINATION_TYPES } from '../../data/categoryConfig';
 import HeroSlider from '../../components/HeroSlider';
 
 const destinationHeroImages = [
@@ -12,6 +14,38 @@ const destinationHeroImages = [
 ];
 
 export default function DestinationOverview() {
+  const [internationalDestinations, setInternationalDestinations] = useState([]);
+  const [domesticDestinations, setDomesticDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [international, domestic] = await Promise.all([
+          fetchDestinations('international'),
+          fetchDestinations('domestic')
+        ]);
+        setInternationalDestinations(international);
+        setDomesticDestinations(domestic);
+      } catch (error) {
+        console.error('Failed to load destinations:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-20 pb-10 bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
+          <p className="text-darkBlue font-canva-sans">Loading destinations...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-20 pb-10 bg-gray-50">

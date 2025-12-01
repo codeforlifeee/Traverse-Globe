@@ -1,23 +1,56 @@
-import { useMemo, useState } from 'react';
-import { uaePackages, uaeBanners } from '../data/siteData';
+import { useMemo, useState, useEffect } from 'react';
+import { fetchPackagesByCategory, fetchBanners } from '../services/sanityClient';
 import PackageCard from '../components/PackageCard';
 import HeroSlider from '../components/HeroSlider';
 
 export default function UAEPackages() {
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [packages, setPackages] = useState([]);
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [packagesData, bannersData] = await Promise.all([
+          fetchPackagesByCategory('uae'),
+          fetchBanners('uae')
+        ]);
+        setPackages(packagesData);
+        setBanners(bannersData);
+      } catch (error) {
+        console.error('Failed to load UAE packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
   const filtered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-    if (!q) return uaePackages;
-    return uaePackages.filter(p => p.title.toLowerCase().includes(q));
-  }, [searchTerm]);
+    if (!q) return packages;
+    return packages.filter(p => p.title.toLowerCase().includes(q));
+  }, [searchTerm, packages]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-20 pb-10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
+          <p className="text-darkBlue font-canva-sans">Loading UAE packages...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-20 pb-10">
       {/* Hero Slider */}
       <section className="relative">
         <HeroSlider 
-          images={uaeBanners} 
+          images={banners} 
           className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
         >
           <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-3xl">
@@ -58,7 +91,7 @@ export default function UAEPackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} category="uae" />
+                <PackageCard key={pkg._id} pkg={pkg} category="uae" />
               ))}
             </div>
           ) : (

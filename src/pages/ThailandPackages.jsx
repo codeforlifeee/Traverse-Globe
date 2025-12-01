@@ -1,21 +1,54 @@
-import { useMemo, useState } from 'react';
-import { thailandPackages, thailandBanners } from '../data/siteData';
+import { useMemo, useState, useEffect } from 'react';
+import { fetchPackagesByCategory, fetchBanners } from '../services/sanityClient';
 import PackageCard from '../components/PackageCard';
 import HeroSlider from '../components/HeroSlider';
 
 export default function ThailandPackages() {
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [packages, setPackages] = useState([]);
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [packagesData, bannersData] = await Promise.all([
+          fetchPackagesByCategory('thailand'),
+          fetchBanners('thailand')
+        ]);
+        setPackages(packagesData);
+        setBanners(bannersData);
+      } catch (error) {
+        console.error('Failed to load Thailand packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
   const filtered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-    if (!q) return thailandPackages;
-    return thailandPackages.filter(p => p.title.toLowerCase().includes(q));
-  }, [searchTerm]);
+    if (!q) return packages;
+    return packages.filter(p => p.title.toLowerCase().includes(q));
+  }, [searchTerm, packages]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-20 pb-10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
+          <p className="text-darkBlue font-canva-sans">Loading Thailand packages...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-20 pb-10">
       <HeroSlider
-        images={thailandBanners}
+        images={banners}
         className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
       >
         <h1 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg">Thailand Holiday Packages</h1>
@@ -50,7 +83,7 @@ export default function ThailandPackages() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((pkg) => (
-                <PackageCard key={pkg.id} pkg={pkg} category="thailand" />
+                <PackageCard key={pkg._id} pkg={pkg} category="thailand" />
               ))}
             </div>
           ) : (
