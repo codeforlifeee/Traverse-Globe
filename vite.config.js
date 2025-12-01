@@ -4,25 +4,26 @@ import { VitePWA } from 'vite-plugin-pwa'
 import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 
-// Custom plugin to inject CSP meta tag
-function injectCSPMetaTag() {
-  return {
-    name: 'inject-csp-meta',
-    transformIndexHtml(html) {
-      // Add CSP meta tag for additional security
-      return html.replace(
-        '<meta charset="UTF-8" />',
-        `<meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">`
-      );
-    }
-  }
-}
+// Custom plugin to inject CSP meta tag - DISABLED
+// CSP is now handled by .htaccess to avoid conflicts
+// function injectCSPMetaTag() {
+//   return {
+//     name: 'inject-csp-meta',
+//     transformIndexHtml(html) {
+//       // Add CSP meta tag for additional security
+//       return html.replace(
+//         '<meta charset="UTF-8" />',
+//         `<meta charset="UTF-8" />
+//     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">`
+//       );
+//     }
+//   }
+// }
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    injectCSPMetaTag(),
+    // injectCSPMetaTag(), // Disabled - CSP handled by .htaccess
     react({
       babel: {
         plugins: [
@@ -32,23 +33,25 @@ export default defineConfig({
       }
     }),
     
-    // Gzip compression for text assets
-    viteCompression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 1024,
-      deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|html|svg)$/i
-    }),
+    // Gzip compression DISABLED - FTP servers have issues with pre-compressed files
+    // Use server-side compression (mod_deflate) instead
+    // viteCompression({
+    //   algorithm: 'gzip',
+    //   ext: '.gz',
+    //   threshold: 1024,
+    //   deleteOriginFile: false,
+    //   filter: /\.(js|mjs|json|css|html|svg)$/i
+    // }),
     
-    // Brotli compression for better compression
-    viteCompression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 1024,
-      deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|html|svg)$/i
-    }),
+    // Brotli compression DISABLED - FTP servers have issues with pre-compressed files
+    // Use server-side compression (mod_deflate) instead
+    // viteCompression({
+    //   algorithm: 'brotliCompress',
+    //   ext: '.br',
+    //   threshold: 1024,
+    //   deleteOriginFile: false,
+    //   filter: /\.(js|mjs|json|css|html|svg)$/i
+    // }),
     
     // Bundle analyzer (only in analyze mode)
     process.env.ANALYZE && visualizer({
