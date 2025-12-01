@@ -1,15 +1,15 @@
-// Package Schema for Sanity CMS
+// Package Schema for Sanity CMS - Updated to match siteData.js structure
 export default {
   name: 'package',
   title: 'Travel Package',
   type: 'document',
   fields: [
     {
-      name: 'packageId',
+      name: 'id',
       title: 'Package ID',
       type: 'number',
       validation: (Rule) => Rule.required().integer().positive(),
-      description: 'Unique numeric ID for the package'
+      description: 'Unique numeric ID for the package (matches siteData.js id)'
     },
     {
       name: 'slug',
@@ -21,7 +21,7 @@ export default {
         slugify: input => input
           .toLowerCase()
           .trim()
-          .replace(/&/g, ' and ')
+          .replace(/&/g, '-and-')
           .replace(/[`"''`]/g, '')
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/-+/g, '-')
@@ -30,14 +30,8 @@ export default {
       validation: (Rule) => Rule.required()
     },
     {
-      name: 'title',
-      title: 'Package Title',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(100)
-    },
-    {
-      name: 'destination',
-      title: 'Destination',
+      name: 'category',
+      title: 'Category',
       type: 'string',
       options: {
         list: [
@@ -55,105 +49,119 @@ export default {
         ],
         layout: 'dropdown'
       },
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      description: 'Package category/destination'
+    },
+    {
+      name: 'title',
+      title: 'Package Title',
+      type: 'string',
+      validation: (Rule) => Rule.required().max(150),
+      description: 'Full package title as shown on the website'
     },
     {
       name: 'price',
       title: 'Price (INR)',
       type: 'number',
-      validation: (Rule) => Rule.required().min(0)
+      validation: (Rule) => Rule.required().min(0),
+      description: 'Current package price'
+    },
+    {
+      name: 'strikePrice',
+      title: 'Strike Price (INR)',
+      type: 'number',
+      validation: (Rule) => Rule.min(0),
+      description: 'Original/discounted price (optional)'
+    },
+    {
+      name: 'destination',
+      title: 'Destination',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+      description: 'Full destination name (e.g., "Dubai, UAE")'
     },
     {
       name: 'duration',
       title: 'Duration',
       type: 'string',
-      placeholder: 'e.g., 5 Days / 4 Nights'
-    },
-    {
-      name: 'location',
-      title: 'Location',
-      type: 'string',
-      description: 'Full location name (e.g., Dubai, UAE)'
-    },
-    {
-      name: 'image',
-      title: 'Main Image URL',
-      type: 'url',
-      validation: (Rule) => Rule.required()
-    },
-    {
-      name: 'gallery',
-      title: 'Gallery Images',
-      type: 'array',
-      of: [{ type: 'url' }],
-      description: 'Array of image URLs for the gallery'
-    },
-    {
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 5,
-      validation: (Rule) => Rule.required().min(50).max(1000)
-    },
-    {
-      name: 'highlights',
-      title: 'Package Highlights',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Key highlights of the package'
-    },
-    {
-      name: 'included',
-      title: 'What\'s Included',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Items included in the package'
-    },
-    {
-      name: 'excluded',
-      title: 'What\'s Excluded',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Items not included in the package'
-    },
-    {
-      name: 'itinerary',
-      title: 'Daily Itinerary',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'day', type: 'number', title: 'Day Number' },
-            { name: 'title', type: 'string', title: 'Day Title' },
-            { name: 'description', type: 'text', title: 'Activities', rows: 3 }
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              day: 'day'
-            },
-            prepare({ title, day }) {
-              return {
-                title: `Day ${day}: ${title}`
-              }
-            }
-          }
-        }
-      ]
+      validation: (Rule) => Rule.required(),
+      placeholder: 'e.g., 4N/5D or 5 Days / 4 Nights',
+      description: 'Package duration'
     },
     {
       name: 'rating',
       title: 'Rating',
       type: 'number',
       validation: (Rule) => Rule.min(0).max(5),
-      description: 'Package rating (0-5)'
+      description: 'Package rating (0-5)',
+      initialValue: 4.5
     },
     {
       name: 'reviews',
       title: 'Number of Reviews',
       type: 'number',
-      validation: (Rule) => Rule.min(0).integer()
+      validation: (Rule) => Rule.min(0).integer(),
+      description: 'Total number of reviews',
+      initialValue: 0
+    },
+    {
+      name: 'overview',
+      title: 'Overview',
+      type: 'text',
+      rows: 4,
+      validation: (Rule) => Rule.required().min(50).max(1000),
+      description: 'Detailed package overview/description'
+    },
+    {
+      name: 'highlights',
+      title: 'Package Highlights',
+      type: 'array',
+      of: [{ type: 'string' }],
+      validation: (Rule) => Rule.required().min(3),
+      description: 'Key highlights of the package (3-7 points)'
+    },
+    {
+      name: 'itinerary',
+      title: 'Daily Itinerary',
+      type: 'itineraryObject',
+      description: 'Day-by-day itinerary with title and description'
+    },
+    {
+      name: 'inclusions',
+      title: 'Inclusions',
+      type: 'array',
+      of: [{ type: 'string' }],
+      validation: (Rule) => Rule.required().min(3),
+      description: 'What is included in the package'
+    },
+    {
+      name: 'exclusions',
+      title: 'Exclusions',
+      type: 'array',
+      of: [{ type: 'string' }],
+      validation: (Rule) => Rule.required().min(3),
+      description: 'What is NOT included in the package'
+    },
+    {
+      name: 'hotels',
+      title: 'Hotel Information',
+      type: 'hotelInfo',
+      description: 'Hotel options and information'
+    },
+    {
+      name: 'bannerImage',
+      title: 'Banner Image URL',
+      type: 'url',
+      validation: (Rule) => Rule.required(),
+      description: 'Main banner/hero image for the package'
+    },
+    {
+      name: 'images',
+      title: 'Gallery Images',
+      type: 'array',
+      of: [{ type: 'url' }],
+      validation: (Rule) => Rule.required().min(3).max(10),
+      description: 'Array of additional gallery image URLs (3-10 images)'
     },
     {
       name: 'featured',
@@ -168,19 +176,27 @@ export default {
       type: 'boolean',
       description: 'Package is available for booking',
       initialValue: true
+    },
+    {
+      name: 'publishedAt',
+      title: 'Published At',
+      type: 'datetime',
+      initialValue: () => new Date().toISOString(),
+      description: 'When this package was published'
     }
   ],
   preview: {
     select: {
       title: 'title',
-      destination: 'destination',
+      category: 'category',
       price: 'price',
-      media: 'image'
+      rating: 'rating',
+      media: 'bannerImage'
     },
-    prepare({ title, destination, price }) {
+    prepare({ title, category, price, rating }) {
       return {
         title: title,
-        subtitle: `${destination.toUpperCase()} - ₹${price.toLocaleString()}`
+        subtitle: `${category ? category.toUpperCase() : ''} - ₹${price?.toLocaleString() || 'N/A'} | ⭐${rating || 'N/A'}`
       }
     }
   }

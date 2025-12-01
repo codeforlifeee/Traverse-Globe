@@ -10096,7 +10096,7 @@ export const hotelCategories = [
 // ============================================
 // HOTEL LISTINGS (imported for Hotels page)
 // ============================================
-import { hotelListings } from "./hotelListings";
+import { hotelListings } from "./hotelListings.js";
 export { hotelListings };
 
 // ============================================

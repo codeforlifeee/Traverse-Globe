@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Traverse Globe CMS',
 
-  projectId: 'YOUR_PROJECT_ID', // Replace with your project ID
+  projectId: 'xe1685rk',
   dataset: 'production',
 
   plugins: [
