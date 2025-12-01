@@ -13,17 +13,27 @@ const categories = [
 
 const CategoryCard = ({ category }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full">
-      <div className="relative overflow-hidden h-44 md:h-52">
-        <img src={category.image} alt={category.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-        <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
-      </div>
-      <div className="p-3 bg-white">
-        <h3 className="text-lg font-bold text-darkBlue mb-1.5 font-season">{category.title}</h3>
-        <p className="text-xs text-darkBlue/70 mb-2.5 font-canva-sans">{category.blurb}</p>
-        <div className="flex justify-end">
-          <Link to={category.link} className="bg-orange text-white py-1.5 px-4 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg">View Packages</Link>
+    <div className="relative overflow-hidden rounded-2xl group transition-all duration-300 bg-white h-full border border-gray-100 max-w-[360px] mx-auto"
+      style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04)' }}
+    >
+      {/* Use aspect-ratio for consistent sizing across screen sizes instead of fixed heights */}
+      <div className="relative overflow-hidden aspect-[3/2] md:aspect-[4/3] lg:aspect-[5/3]">
+        <img src={category.image} alt={category.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-darkBlue/80 via-darkBlue/30 to-transparent" />
+        <div className="absolute top-4 right-4 bg-orange text-white px-4 py-1.5 rounded-full text-xs font-semibold"
+          style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+        >
+          <i className="fa-solid fa-fire mr-1.5"></i>
+          Popular
         </div>
+      </div>
+      <div className="p-5 bg-white">
+        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue mb-2 font-season">{category.title}</h3>
+        <p className="text-sm md:text-base text-darkBlue/70 mb-5 font-canva-sans line-clamp-2 leading-relaxed">{category.blurb}</p>
+        <Link to={category.link} className="inline-flex items-center gap-2 text-orange hover:text-teal font-semibold font-poppins text-base transition-colors group/link">
+          <span>Explore Packages</span>
+          <i className="fa-solid fa-arrow-right text-sm transition-transform group-hover/link:translate-x-1"></i>
+        </Link>
       </div>
     </div>
   );
@@ -31,12 +41,12 @@ const CategoryCard = ({ category }) => {
 
 export default function PackageCategories(){
   return (
-    <section className="section-padding bg-lightGray">
+    <section className="py-16 md:py-20 bg-gray-50">
       <div className="container-custom">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-xl md:text-2xl font-bold text-darkBlue font-poppins">Explore by Category</h2>
+        <div className="mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-darkBlue font-poppins mb-3">Explore by Category</h2>
+          <p className="text-base md:text-lg text-darkBlue/70 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
         </div>
-  <p className="text-sm text-darkBlue/80 mb-6 font-canva-sans">Find your perfect getaway, tailored to your interests</p>
         
         <Swiper
           slidesPerView={1}
@@ -53,6 +63,10 @@ export default function PackageCategories(){
               spaceBetween: 12,
             },
             1024: {
+              slidesPerView: 3,
+              spaceBetween: 18,
+            },
+            1280: {
               slidesPerView: 4,
               spaceBetween: 20,
             },
@@ -60,7 +74,7 @@ export default function PackageCategories(){
           className="categorySwiper"
         >
           {categories.map((c, idx) => (
-            <SwiperSlide key={idx}>
+            <SwiperSlide key={idx} className="flex justify-center items-stretch">
               <CategoryCard category={c} />
             </SwiperSlide>
           ))}

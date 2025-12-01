@@ -11,17 +11,17 @@ const Header = () => {
   const domesticDestinations = getDomesticCategories();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-lightGray">
-      <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-3">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+      <nav className="container mx-auto px-5 lg:px-12 max-w-7xl">
+        <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to="/" className="transition-transform hover:scale-105" aria-label={`${companyInfo.name} Home`}>
+          <Link to="/" className="transition-opacity hover:opacity-80 duration-200" aria-label={`${companyInfo.name} Home`}>
             <picture>
               <source srcSet="/logo.webp" type="image/webp" />
               <img
                 src="/logo.webp"
                 alt={companyInfo.name}
-                className="h-12 md:h-14 object-contain"
+                className="h-11 md:h-12 object-contain"
                 width="151"
                 height="60"
                 decoding="async"
@@ -47,11 +47,11 @@ const Header = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <ul className="hidden lg:flex items-center space-x-6">
+          <ul className="hidden lg:flex items-center space-x-1">
             <li>
               <Link 
                 to="/" 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 Home
               </Link>
@@ -59,7 +59,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/about" 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 About
               </Link>
@@ -67,7 +67,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/services" 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 Services
               </Link>
@@ -75,16 +75,18 @@ const Header = () => {
             <li className="relative group">
               <Link 
                 to="/"
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all group-hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 Destinations
               </Link>
-              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute top-full left-0 mt-2 bg-white shadow-xl rounded-xl p-4 min-w-[500px] border border-lightGray grid grid-cols-2 gap-4">
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute top-full left-0 mt-2 bg-white rounded-2xl p-6 min-w-[520px] border border-gray-100 grid grid-cols-2 gap-6"
+                style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+              >
                 {/* International Column */}
                 <div>
-                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
-                    <i className="fa-solid fa-plane text-orange"></i>
-                    <span className="font-poppins font-semibold text-darkBlue">
+                  <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200">
+                    <i className="fa-solid fa-plane text-orange text-base"></i>
+                    <span className="font-poppins font-semibold text-darkBlue text-base">
                       International
                     </span>
                   </div>
@@ -92,9 +94,9 @@ const Header = () => {
                     <Link 
                       key={dest.slug}
                       to={`/destinations/international/${dest.slug}`} 
-                      className="block px-3 py-2 rounded-lg hover:bg-lightGray text-darkBlue hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                      className="block px-3 py-2.5 rounded-lg hover:bg-orange/5 text-darkBlue hover:text-orange transition-all duration-200 font-canva-sans text-sm flex items-center gap-2.5"
                     >
-                      <i className="fa-solid fa-location-dot text-orange text-xs"></i>
+                      <i className="fa-solid fa-location-dot text-orange/60 text-xs"></i>
                       <span>{dest.name}</span>
                     </Link>
                   ))}
@@ -102,9 +104,9 @@ const Header = () => {
                 
                 {/* Domestic Column */}
                 <div>
-                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-lightGray">
-                    <i className="fa-solid fa-map-location-dot text-orange"></i>
-                    <span className="font-poppins font-semibold text-darkBlue">
+                  <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200">
+                    <i className="fa-solid fa-map-location-dot text-orange text-base"></i>
+                    <span className="font-poppins font-semibold text-darkBlue text-base">
                       Domestic
                     </span>
                   </div>
@@ -112,9 +114,9 @@ const Header = () => {
                     <Link 
                       key={dest.slug}
                       to={`/destinations/domestic/${dest.slug}`} 
-                      className="block px-3 py-2 rounded-lg hover:bg-lightGray text-darkBlue hover:text-orange transition-colors font-canva-sans text-sm flex items-center gap-2"
+                      className="block px-3 py-2.5 rounded-lg hover:bg-orange/5 text-darkBlue hover:text-orange transition-all duration-200 font-canva-sans text-sm flex items-center gap-2.5"
                     >
-                      <i className="fa-solid fa-location-dot text-orange text-xs"></i>
+                      <i className="fa-solid fa-location-dot text-orange/60 text-xs"></i>
                       <span>{dest.name}</span>
                     </Link>
                   ))}
@@ -124,7 +126,7 @@ const Header = () => {
             <li>
               <Link 
                 to="/blog" 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 Blog
               </Link>
@@ -132,15 +134,15 @@ const Header = () => {
             <li>
               <Link 
                 to="/contact" 
-                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-orange after:transition-all hover:after:w-full"
+                className="nav-link font-poppins text-sm text-darkBlue font-medium hover:text-orange transition-colors px-4 py-2 rounded-lg hover:bg-orange/5"
               >
                 Contact
               </Link>
             </li>
-            <li>
+            <li className="ml-2">
               <Link 
                 to="/contact" 
-                className="bg-orange text-white px-4 py-1.5 text-sm rounded-full font-poppins font-semibold hover:bg-teal transition-all hover:shadow-md"
+                className="bg-orange hover:bg-teal text-white px-6 py-2.5 text-sm rounded-lg font-poppins font-semibold transition-all duration-200"
               >
                 Book Now
               </Link>

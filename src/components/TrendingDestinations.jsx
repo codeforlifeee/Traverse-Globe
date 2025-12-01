@@ -21,11 +21,11 @@ const DestinationCard = ({ image, title, onClick }) => {
   const srcSet = `${buildUrl(400)} 400w, ${buildUrl(600)} 600w, ${buildUrl(800)} 800w`;
   return (
     <div 
-      className="destination-box group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+      className="destination-box group cursor-pointer rounded-2xl overflow-hidden transition-all duration-300 bg-white"
       onClick={onClick}
       style={{ animationDelay: '0.1s' }}
     >
-  <div className="relative overflow-hidden h-48 md:h-56">
+  <div className="relative overflow-hidden aspect-[4/3] md:aspect-[5/4] lg:aspect-[4/3]">
         <img
           src={buildUrl(600)}
           srcSet={srcSet}
@@ -33,12 +33,16 @@ const DestinationCard = ({ image, title, onClick }) => {
           alt={title}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-darkBlue/40 group-hover:bg-teal/40 transition-colors duration-300"></div>
-  <div className="absolute bottom-0 left-0 right-0 p-3">
+        <div className="absolute inset-0 bg-gradient-to-t from-darkBlue/90 via-darkBlue/40 to-transparent group-hover:from-orange/90 transition-colors duration-200"></div>
+  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
           <div className="text-white">
-            <strong className="text-lg md:text-xl font-season drop-shadow-lg">{title}</strong>
+            <strong className="text-xl md:text-2xl font-season drop-shadow-lg block mb-1">{title}</strong>
+            <p className="text-sm text-white/90 font-canva-sans flex items-center gap-2">
+              <span>Explore packages</span>
+              <i className="fa-solid fa-arrow-right text-xs"></i>
+            </p>
           </div>
         </div>
       </div>
@@ -56,12 +60,14 @@ const TrendingDestinations = () => {
   };
 
   return (
-    <section className="section-padding bg-lightGray">
+    <section className="py-10 md:py-12 lg:py-14 bg-white">
       <div className="container-custom">
-        <h2 className="text-xl md:text-2xl font-bold mb-2 text-darkBlue font-poppins">
-          Trending Destinations | International
-        </h2>
-  <p className="text-sm text-darkBlue/80 mb-6 font-canva-sans">Explore the hottest travel spots around the globe</p>
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-2 text-darkBlue font-poppins">
+            Trending International Destinations
+          </h2>
+          <p className="text-sm md:text-base text-darkBlue/70 font-canva-sans">Discover the hottest travel spots around the globe</p>
+        </div>
         
         <Swiper
           slidesPerView={1}
@@ -79,11 +85,15 @@ const TrendingDestinations = () => {
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 16,
+              spaceBetween: 14,
             },
             1024: {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            1280: {
               slidesPerView: 4,
-              spaceBetween: 20,
+              spaceBetween: 18,
             },
           }}
           className="destinationSwiper"

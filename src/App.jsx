@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy, memo } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Critical components - loaded immediately
 import Header from './components/Header';
@@ -41,6 +42,7 @@ LoadingFallback.displayName = 'LoadingFallback';
 function App() {
   return (
     <Router>
+      <ErrorBoundary>
       <ScrollToTop />
       <div className="min-h-screen bg-white overflow-x-hidden">
         <Header />
@@ -99,7 +101,8 @@ function App() {
           <FloatingButtons />
         </Suspense>
       </div>
-    </Router>
+      </ErrorBoundary>
+      </Router>
   );
 }
 

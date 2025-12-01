@@ -12,7 +12,7 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
   const src800 = addWebp(image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50'));
   const src1200 = addWebp(image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=50'));
   return (
-    <div className="custom-card bg-white">
+    <div className="custom-card bg-white max-w-[320px] mx-auto">
       <div className="overflow-hidden">
         <img
           src={src800}
@@ -21,11 +21,11 @@ const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick })
           alt={title}
           loading="lazy"
           decoding="async"
-          className="w-full h-40 md:h-44 object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full aspect-[4/3] object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-4">
-        <div className="text-orange text-lg md:text-xl font-bold mb-1.5 font-poppins">
+      <div className="p-3">
+        <div className="text-orange text-base md:text-lg font-bold mb-1.5 font-poppins">
           ₹ {price.toLocaleString()}
         </div>
         <div className="text-darkBlue font-semibold text-sm md:text-base mb-2 text-center font-poppins">
@@ -85,13 +85,13 @@ const ExplorePrices = () => {
   };
 
   return (
-    <section className="section-padding bg-lightGray">
+    <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
       <div className="container-custom">
-        <div className="mb-6">
-          <h2 className="text-xl md:text-2xl font-bold text-darkBlue mb-2 font-poppins">
+        <div className="mb-5 md:mb-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue mb-2 font-poppins">
             Explore Prices
           </h2>
-          <p className="text-sm text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
+          <p className="text-xs md:text-sm text-darkBlue/80 font-canva-sans">Explore the hottest travel spots around the globe</p>
         </div>
 
         <Swiper
@@ -111,11 +111,15 @@ const ExplorePrices = () => {
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 16,
+              spaceBetween: 14,
             },
             1024: {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            1280: {
               slidesPerView: 4,
-              spaceBetween: 20,
+              spaceBetween: 18,
             },
           }}
           className="prizeSwiper py-4"

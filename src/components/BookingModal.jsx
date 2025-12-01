@@ -40,24 +40,23 @@ export default function BookingModal({ open, onClose, packageName }) {
 
   return (
     <div 
-      className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 animate-fadeIn" 
+      className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4 animate-fadeIn" 
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl transform transition-all animate-slideUp max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl transform transition-all animate-slideUp max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header with gradient */}
-  <div className="px-4 py-3 bg-gradient-to-r from-orange via-orange to-amber-500 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iYSIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTAgMGgyMHYyMEgwem0yMCAyMGgyMHYyMEgyMHoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjYSkiLz48L3N2Zz4=')] opacity-30"></div>
+  <div className="px-5 py-4 bg-gradient-to-r from-orange to-orange/90 text-white relative overflow-hidden">
           <div className="relative flex items-center justify-between">
             <div className="flex-1">
-              <h5 className="font-bold font-poppins text-base md:text-lg mb-0.5">Plan Your Dream Holiday ✈️</h5>
-              <p className="text-white/90 text-xs font-canva-sans">Fill in the details and we'll get back to you shortly</p>
+              <h5 className="font-bold font-poppins text-lg md:text-xl mb-1">Plan Your Dream Holiday</h5>
+              <p className="text-white/90 text-sm font-canva-sans">Fill in your details and our travel experts will contact you</p>
             </div>
             <button 
               onClick={onClose} 
-              className="text-white text-2xl leading-none hover:rotate-90 transition-transform duration-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20"
+              className="text-white text-3xl leading-none hover:rotate-90 transition-transform duration-300 w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/20 ml-4"
               aria-label="Close modal"
             >
               ×
@@ -66,56 +65,66 @@ export default function BookingModal({ open, onClose, packageName }) {
         </div>
 
         {/* Form Content */}
-  <div className="p-4 md:p-5">
-          <form onSubmit={handleSubmit} className="space-y-3" id="bookingForm">
+  <div className="p-5 md:p-6">
+          <form onSubmit={handleSubmit} className="space-y-5" id="bookingForm">
             {/* Package Name - Highlighted */}
-            <div className="bg-gradient-to-r from-orange/10 to-amber-50 rounded-xl p-2.5 border-l-4 border-orange">
-              <label className="text-xs uppercase tracking-wide font-semibold text-orange font-poppins mb-1.5 block">
+            <div className="bg-orange/5 rounded-xl p-4 border border-orange/20">
+              <label className="text-xs uppercase tracking-wider font-semibold text-orange/80 font-poppins mb-2 block">
                 Selected Package
               </label>
-              <div className="flex items-center gap-2">
-                <span className="text-lg">📦</span>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-orange/10 flex items-center justify-center text-orange text-xl">
+                  <i className="fa-solid fa-suitcase"></i>
+                </div>
                 <input
                   readOnly
                   value={packageName || ''}
-                  className="flex-1 bg-transparent text-darkBlue font-semibold text-sm font-poppins outline-none"
+                  className="flex-1 bg-transparent text-darkBlue font-semibold text-base font-poppins outline-none"
                 />
               </div>
             </div>
 
             {/* Personal Details Section */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 pb-1.5 border-b-2 border-orange/20">
-                <span className="text-lg">👤</span>
-                <h6 className="font-bold text-darkBlue font-poppins text-sm">Personal Details</h6>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-lg bg-darkBlue/10 flex items-center justify-center">
+                  <i className="fa-solid fa-user text-darkBlue"></i>
+                </div>
+                <h6 className="font-bold text-darkBlue font-poppins text-base">Personal Details</h6>
               </div>
 
               {/* Name Field */}
               <div className="group">
-                <label className="text-xs font-medium text-darkBlue font-canva-sans mb-1.5 block">
+                <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
                   Full Name <span className="text-red-500">*</span>
                 </label>
-                <input
-                  required
-                  placeholder="Enter your full name"
-                  className="w-full border-2 border-gray-300 rounded-xl px-3 py-2 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/20 transition-all font-canva-sans group-hover:border-gray-400"
-                />
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-darkBlue/40">
+                    <i className="fa-solid fa-user text-sm"></i>
+                  </div>
+                  <input
+                    required
+                    placeholder="Enter your full name"
+                    className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
+                  />
+                </div>
               </div>
 
               {/* Mobile Number Field */}
               <div className="group">
-                <label className="text-xs font-medium text-darkBlue font-canva-sans mb-1.5 block">
+                <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
                   Mobile Number <span className="text-red-500">*</span>
                 </label>
-                <div className="flex items-stretch border-2 border-gray-300 rounded-xl overflow-hidden focus-within:border-orange focus-within:ring-2 focus-within:ring-orange/20 transition-all group-hover:border-gray-400">
-                  <span className="px-2.5 py-2 bg-gray-100 border-r-2 border-gray-300 font-semibold text-darkBlue font-canva-sans flex items-center text-sm">
-                    🇮🇳 +91
+                <div className="flex items-stretch border-2 border-gray-200 rounded-lg overflow-hidden focus-within:border-orange focus-within:ring-2 focus-within:ring-orange/10 transition-all">
+                  <span className="px-4 py-3 bg-gray-50 border-r-2 border-gray-200 font-semibold text-darkBlue font-canva-sans flex items-center text-sm gap-1">
+                    <i className="fa-solid fa-phone text-xs"></i>
+                    +91
                   </span>
                   <input
                     required
                     pattern="[0-9]{10}"
                     placeholder="Enter 10-digit mobile number"
-                    className="flex-1 px-3 py-2 outline-none font-canva-sans text-sm"
+                    className="flex-1 px-4 py-3 outline-none font-canva-sans text-sm"
                     title="Please enter a valid 10-digit mobile number"
                   />
                 </div>
@@ -123,123 +132,139 @@ export default function BookingModal({ open, onClose, packageName }) {
 
               {/* Email Field */}
               <div className="group">
-                <label className="text-xs font-medium text-darkBlue font-canva-sans mb-1.5 block">
+                <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
                   Email Address <span className="text-red-500">*</span>
                 </label>
-                <input
-                  required
-                  type="email"
-                  placeholder="your.email@example.com"
-                  className="w-full border-2 border-gray-300 rounded-xl px-3 py-2 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/20 transition-all font-canva-sans group-hover:border-gray-400"
-                />
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-darkBlue/40">
+                    <i className="fa-solid fa-envelope text-sm"></i>
+                  </div>
+                  <input
+                    required
+                    type="email"
+                    placeholder="your.email@example.com"
+                    className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Travelers Section */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between pb-1.5 border-b-2 border-orange/20">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-base">👥</span>
-                  <h6 className="font-bold text-darkBlue font-poppins text-sm">Number of Travelers</h6>
+                  <div className="w-8 h-8 rounded-lg bg-darkBlue/10 flex items-center justify-center">
+                    <i className="fa-solid fa-users text-darkBlue"></i>
+                  </div>
+                  <h6 className="font-bold text-darkBlue font-poppins text-base">Number of Travelers</h6>
                 </div>
-                <span className="bg-orange text-white px-2.5 py-0.5 rounded-full text-xs font-semibold">
-                  Total: {totalTravelers}
+                <span className="bg-orange text-white px-3 py-1 rounded-lg text-sm font-semibold">
+                  {totalTravelers}
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Adult Counter */}
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-2.5">
-                  <label className="text-xs font-semibold text-darkBlue font-canva-sans mb-2 flex items-center gap-1.5">
-                    <span className="text-base">👨</span>
-                    Adult (12+ years)
+                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                  <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-user text-blue-600"></i>
+                    <div>
+                      <div>Adult</div>
+                      <div className="text-xs font-normal text-darkBlue/60">12+ years</div>
+                    </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-blue-300 rounded-xl overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-blue-200 rounded-lg overflow-hidden bg-white">
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-blue-100 active:bg-blue-200 transition-colors font-bold text-sm text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-blue-50 active:bg-blue-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setAdult((a) => Math.max(1, a - 1))}
                       disabled={adult <= 1}
                     >
-                      −
+                      <i className="fa-solid fa-minus text-xs"></i>
                     </button>
                     <div className="flex-1 text-center">
                       <input 
                         readOnly 
                         value={adult}
-                        className="w-full text-center font-bold text-base text-darkBlue bg-transparent outline-none font-poppins" 
+                        className="w-full text-center font-bold text-lg text-darkBlue bg-transparent outline-none font-poppins" 
                       />
                     </div>
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-blue-100 active:bg-blue-200 transition-colors font-bold text-sm text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-blue-50 active:bg-blue-100 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setAdult((a) => a + 1)}
                     >
-                      +
+                      <i className="fa-solid fa-plus text-xs"></i>
                     </button>
                   </div>
                 </div>
 
                 {/* Child Counter */}
-                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-2.5">
-                  <label className="text-xs font-semibold text-darkBlue font-canva-sans mb-2 flex items-center gap-1.5">
-                    <span className="text-base">👦</span>
-                    Child (2-12 years)
+                <div className="bg-green-50 rounded-xl p-4 border border-green-100">
+                  <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-child text-green-600"></i>
+                    <div>
+                      <div>Child</div>
+                      <div className="text-xs font-normal text-darkBlue/60">2-12 years</div>
+                    </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-green-300 rounded-xl overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-green-200 rounded-lg overflow-hidden bg-white">
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-green-100 active:bg-green-200 transition-colors font-bold text-sm text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-green-50 active:bg-green-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setChild((c) => Math.max(0, c - 1))}
                       disabled={child <= 0}
                     >
-                      −
+                      <i className="fa-solid fa-minus text-xs"></i>
                     </button>
                     <div className="flex-1 text-center">
                       <input 
                         readOnly 
                         value={child}
-                        className="w-full text-center font-bold text-base text-darkBlue bg-transparent outline-none font-poppins" 
+                        className="w-full text-center font-bold text-lg text-darkBlue bg-transparent outline-none font-poppins" 
                       />
                     </div>
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-green-100 active:bg-green-200 transition-colors font-bold text-sm text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-green-50 active:bg-green-100 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setChild((c) => c + 1)}
                     >
-                      +
+                      <i className="fa-solid fa-plus text-xs"></i>
                     </button>
                   </div>
                 </div>
 
                 {/* Infant Counter */}
-                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-2.5">
-                  <label className="text-xs font-semibold text-darkBlue font-canva-sans mb-2 flex items-center gap-1.5">
-                    <span className="text-base">👶</span>
-                    Infant (0-2 years)
+                <div className="bg-pink-50 rounded-xl p-4 border border-pink-100">
+                  <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-baby text-pink-600"></i>
+                    <div>
+                      <div>Infant</div>
+                      <div className="text-xs font-normal text-darkBlue/60">0-2 years</div>
+                    </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-pink-300 rounded-xl overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-pink-200 rounded-lg overflow-hidden bg-white">
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-pink-100 active:bg-pink-200 transition-colors font-bold text-sm text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-pink-50 active:bg-pink-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setInfant((i) => Math.max(0, i - 1))}
                       disabled={infant <= 0}
                     >
-                      −
+                      <i className="fa-solid fa-minus text-xs"></i>
                     </button>
                     <div className="flex-1 text-center">
                       <input 
                         readOnly 
                         value={infant}
-                        className="w-full text-center font-bold text-base text-darkBlue bg-transparent outline-none font-poppins" 
+                        className="w-full text-center font-bold text-lg text-darkBlue bg-transparent outline-none font-poppins" 
                       />
                     </div>
                     <button 
                       type="button" 
-                      className="px-2.5 py-2 hover:bg-pink-100 active:bg-pink-200 transition-colors font-bold text-sm text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-pink-50 active:bg-pink-100 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setInfant((i) => i + 1)}
                     >
-                      +
+                      <i className="fa-solid fa-plus text-xs"></i>
                     </button>
                   </div>
                 </div>
@@ -250,28 +275,31 @@ export default function BookingModal({ open, onClose, packageName }) {
             <button 
               type="submit" 
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-orange to-amber-500 text-white font-bold py-2.5 px-4 rounded-xl hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 font-poppins text-sm disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-orange to-orange/90 hover:from-teal hover:to-teal/90 text-white font-bold py-4 px-6 rounded-lg hover:shadow-lg transition-all duration-300 font-poppins text-base disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6"
             >
               {isSubmitting ? (
                 <>
-                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Processing...
+                  Processing Request...
                 </>
               ) : (
                 <>
-                  Submit Booking Request
-                  <span>🚀</span>
+                  <i className="fa-solid fa-paper-plane"></i>
+                  <span>Submit Booking Request</span>
                 </>
               )}
             </button>
 
             {/* Privacy Note */}
-            <p className="text-xs text-gray-500 text-center font-canva-sans">
-              🔒 Your information is secure and will only be used to process your booking request
-            </p>
+            <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <i className="fa-solid fa-shield-halved text-green-600 text-lg mt-0.5"></i>
+              <p className="text-xs text-darkBlue/70 font-canva-sans leading-relaxed">
+                <span className="font-semibold text-darkBlue">Secure Booking:</span> Your information is protected and will only be used to process your travel request. Our team will contact you within 24 hours.
+              </p>
+            </div>
           </form>
         </div>
       </div>

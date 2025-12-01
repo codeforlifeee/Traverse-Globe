@@ -3,27 +3,53 @@ import HeroSlider from './HeroSlider';
 
 const HeroSection = () => {
   return (
-    <section className="relative mt-16 md:mt-20">
+    <section className="relative mt-16 md:mt-[68px]">
       <HeroSlider 
         images={banners} 
-        className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
+        className="w-full h-[320px] md:h-[420px] lg:h-[500px]"
       >
-        {/* Search Overlay */}
-        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-3xl">
-          <div className="bg-white rounded-2xl p-4 md:p-5 shadow-2xl border border-lightGray">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-season font-bold text-center mb-4 text-darkBlue">
-              Holiday Packages
-            </h1>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-0">
-              <input
-                type="text"
-                placeholder="Enter Your Dream Destination!"
-                className="flex-1 px-4 py-2.5 md:rounded-l-full rounded-full md:rounded-r-none border-2 border-lightGray focus:outline-none focus:border-orange text-darkBlue text-sm font-canva-sans placeholder:text-darkBlue/50"
-              />
-              <button className="bg-orange hover:bg-teal text-white px-5 py-2.5 text-sm md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl">
-                <i className="fa-solid fa-search mr-2"></i>
-                Search
+        {/* Enhanced Search Overlay with MakeMyTrip style */}
+        <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-4xl">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl md:rounded-3xl p-5 md:p-7"
+            style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
+          >
+            <div className="mb-5">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-season font-bold text-darkBlue mb-2">
+                Find Your Perfect Holiday
+              </h1>
+              <p className="text-xs md:text-sm text-darkBlue/70 font-canva-sans">
+                Explore amazing destinations worldwide
+              </p>
+            </div>
+            
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 relative">
+                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-orange">
+                  <i className="fa-solid fa-location-dot text-xl"></i>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Where do you want to go?"
+                  className="w-full pl-12 pr-4 py-3 md:py-4 rounded-xl border border-gray-200 focus:outline-none focus:border-orange focus:ring-2 focus:ring-orange/20 text-darkBlue text-sm md:text-base font-canva-sans placeholder:text-darkBlue/40 transition-all duration-200"
+                />
+              </div>
+              <button className="bg-orange hover:bg-teal text-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base rounded-xl transition-all duration-200 font-poppins font-semibold flex items-center justify-center gap-2 whitespace-nowrap">
+                <i className="fa-solid fa-search text-lg"></i>
+                <span>Search Packages</span>
               </button>
+            </div>
+
+            {/* Quick Links */}
+            <div className="mt-4 flex flex-wrap gap-2 items-center">
+              <span className="text-xs text-darkBlue/60 font-canva-sans font-medium">Popular:</span>
+              {['Dubai', 'Bali', 'Thailand', 'Kashmir'].map((dest) => (
+                <button 
+                  key={dest}
+                  className="px-3 py-1.5 bg-gray-50 hover:bg-orange/10 border border-gray-200 hover:border-orange/30 text-darkBlue hover:text-orange text-xs rounded-lg transition-all duration-200 font-canva-sans font-medium"
+                >
+                  {dest}
+                </button>
+              ))}
             </div>
           </div>
         </div>

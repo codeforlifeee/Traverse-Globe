@@ -7,8 +7,8 @@ import 'swiper/css/navigation';
 
 const HotelCard = ({ hotel }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full">
-      <div className="relative overflow-hidden h-44 md:h-52">
+    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full max-w-[320px] mx-auto">
+      <div className="relative overflow-hidden aspect-[4/3]">
         <img 
           src={hotel.image} 
           alt={hotel.title} 
@@ -18,7 +18,7 @@ const HotelCard = ({ hotel }) => {
       </div>
       <div className="p-3 bg-white">
         <div className="flex items-center justify-between gap-2 mb-1.5">
-          <h3 className="text-lg font-bold text-darkBlue font-season">{hotel.title}</h3>
+          <h3 className="text-base md:text-lg font-bold text-darkBlue font-season">{hotel.title}</h3>
           <Link 
             to={hotel.link} 
             className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0"
@@ -34,12 +34,12 @@ const HotelCard = ({ hotel }) => {
 
 export default function HotelCategories() {
   return (
-    <section className="section-padding bg-lightGray">
+    <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
       <div className="container-custom">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-xl md:text-2xl font-bold text-darkBlue font-poppins">Explore Hotels</h2>
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue font-poppins">Explore Hotels</h2>
         </div>
-        <p className="text-sm text-darkBlue/80 mb-6 font-canva-sans">Discover the perfect accommodation for your stay</p>
+        <p className="text-xs md:text-sm text-darkBlue/80 mb-5 font-canva-sans">Discover the perfect accommodation for your stay</p>
         
         <Swiper
           slidesPerView={1}
@@ -55,9 +55,17 @@ export default function HotelCategories() {
               slidesPerView: 2,
               spaceBetween: 12,
             },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 14,
+            },
             1024: {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            1280: {
               slidesPerView: 4,
-              spaceBetween: 20,
+              spaceBetween: 18,
             },
           }}
           className="categorySwiper"

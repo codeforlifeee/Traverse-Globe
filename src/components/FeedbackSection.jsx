@@ -96,10 +96,10 @@ const FeedbackSection = () => {
       <div className="container-custom">
         {/* Heading + Rating Summary */}
   <div className="mb-5 md:mb-6 text-center">
-          <h2 className="text-xl md:text-2xl font-bold text-darkBlue mb-2 font-poppins">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue mb-2 font-poppins">
             What travelers say about us
           </h2>
-          <p className="text-sm text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
+          <p className="text-xs md:text-sm text-darkBlue/80 font-canva-sans max-w-2xl mx-auto">
             Real stories from our customers around the world — curated, verified and showcased.
           </p>
 

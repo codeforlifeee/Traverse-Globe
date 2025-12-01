@@ -15,14 +15,14 @@ const getDaysFromNights = (nights) => {
 };
 
 export const PriceTag = ({ strike, price }) => (
-  <div className="mt-2">
+  <div className="mt-3">
     {typeof strike === 'number' && (
-      <p className="text-xs text-darkBlue/40 line-through font-canva-sans">₹{strike.toLocaleString('en-IN')}</p>
+      <p className="text-sm text-darkBlue/40 line-through font-canva-sans mb-1">₹{strike.toLocaleString('en-IN')}</p>
     )}
     <div className="flex items-baseline justify-between gap-2">
-      <p className="text-lg md:text-xl font-bold text-orange font-poppins">
+      <p className="text-xl md:text-2xl font-bold text-orange font-poppins">
         ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
-  <span className="block text-xs font-normal text-darkBlue/80 font-canva-sans mt-0.5">Per Person on twin sharing</span>
+  <span className="block text-sm font-normal text-darkBlue/70 font-canva-sans mt-1">Per Person on twin sharing</span>
       </p>
     </div>
   </div>
@@ -157,7 +157,7 @@ export default function PackageCard({
         
         {/* FRONT SIDE */}
         <div className="flip-card-front">
-          <div className="relative overflow-hidden rounded-t-2xl h-44 md:h-48">
+          <div className="relative overflow-hidden rounded-t-2xl h-48 md:h-52">
             <img
               src={imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
               srcSet={`${imageUrl.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
@@ -168,23 +168,26 @@ export default function PackageCard({
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             {packageData.nights && (
-              <div className="absolute left-3 bottom-3 bg-darkBlue text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90 whitespace-nowrap min-w-fit">
+              <div className="absolute left-4 bottom-4 bg-white/95 backdrop-blur-sm text-darkBlue text-xs font-semibold px-4 py-2 rounded-xl font-poppins whitespace-nowrap border border-gray-100"
+                style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+              >
+                <i className="fa-regular fa-calendar text-orange mr-1.5"></i>
                 <span className="inline-block">{getDaysFromNights(packageData.nights)}</span>
               </div>
             )}
           </div>
           
-          <div className="p-4 flex flex-col flex-grow">
-            <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins mb-2 line-clamp-2 min-h-[2.5rem]">{packageData.title}</h3>
+          <div className="p-5 flex flex-col flex-grow">
+            <h3 className="font-semibold text-darkBlue text-lg md:text-xl font-poppins mb-3 line-clamp-2 min-h-[2.8rem] leading-snug">{packageData.title}</h3>
             <PriceTag strike={packageData.strikePrice} price={packageData.price} />
             
             {/* Buttons Section - Pushed to bottom */}
-            <div className="mt-auto pt-3 flex flex-col sm:flex-row gap-2">
+            <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-2.5">
               <button 
                 onClick={() => setIsFlipped(true)}
-                className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 hover:scale-[1.02] transition-all duration-200"
+                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 transition-all duration-200"
               >
-                <i className="fa-solid fa-bolt mr-1 text-xs"></i>
+                <i className="fa-solid fa-bolt mr-1.5 text-sm"></i>
                 Quick View
               </button>
               
@@ -192,48 +195,50 @@ export default function PackageCard({
               <div className="relative flex-1" ref={menuRef}>
                 <button
                   onClick={() => setShowExpertMenu(!showExpertMenu)}
-                  className="custom-btn w-full text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+                  className="custom-btn w-full text-sm px-4 py-2.5 font-medium bg-teal hover:bg-teal/90 transition-all duration-200"
                 >
-                  <i className="fa-solid fa-headset mr-1 text-xs"></i>
+                  <i className="fa-solid fa-headset mr-1.5 text-sm"></i>
                   Expert
                 </button>
                 
                 {/* Dropdown Menu */}
                 {showExpertMenu && (
-                  <div className="absolute right-0 bottom-full mb-2 bg-white shadow-2xl rounded-xl overflow-hidden border border-gray-200 w-56 z-20 animate-fadeIn">
-                    <div className="bg-gradient-to-r from-teal to-primary py-2 px-3">
-                      <p className="text-white font-semibold text-xs">Connect</p>
+                  <div className="absolute right-0 bottom-full mb-2 bg-white rounded-2xl overflow-hidden border border-gray-100 w-64 z-20 animate-fadeIn"
+                    style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                  >
+                    <div className="bg-gradient-to-r from-teal to-primary py-3 px-4">
+                      <p className="text-white font-semibold text-sm">Connect with Expert</p>
                     </div>
-                    <div className="py-1.5">
+                    <div className="py-2">
                       <a
                         href={`tel:${companyInfo.phone.primary}`}
-                        className="flex items-center gap-2 px-3 py-2 hover:bg-orange/5 transition-all duration-200 group/item"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-orange/5 transition-all duration-200 group/item"
                         onClick={() => setShowExpertMenu(false)}
                       >
-                        <div className="w-9 h-9 rounded-full bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                          <i className="fa-solid fa-phone text-orange text-sm"></i>
+                        <div className="w-11 h-11 rounded-xl bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
+                          <i className="fa-solid fa-phone text-orange text-base"></i>
                         </div>
                         <div className="flex-1">
-                          <p className="text-xs font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Request a Call Back</p>
-                          <p className="text-xs text-gray-500">We'll call you shortly</p>
+                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Request a Call Back</p>
+                          <p className="text-xs text-gray-500 mt-0.5">We'll call you shortly</p>
                         </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-orange transition-colors"></i>
+                        <i className="fa-solid fa-chevron-right text-gray-400 text-sm group-hover/item:text-orange transition-colors"></i>
                       </a>
                       <a
                         href={`https://wa.me/${companyInfo.phone.whatsapp}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
                         onClick={() => setShowExpertMenu(false)}
                       >
-                        <div className="w-9 h-9 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                          <i className="fa-brands fa-whatsapp text-[#25D366] text-base"></i>
+                        <div className="w-11 h-11 rounded-xl bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
+                          <i className="fa-brands fa-whatsapp text-[#25D366] text-lg"></i>
                         </div>
                         <div className="flex-1">
-                          <p className="text-xs font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp Chat</p>
-                          <p className="text-xs text-gray-500">Chat with us now</p>
+                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp Chat</p>
+                          <p className="text-xs text-gray-500 mt-0.5">Chat with us now</p>
                         </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-xs group-hover/item:text-[#25D366] transition-colors"></i>
+                        <i className="fa-solid fa-chevron-right text-gray-400 text-sm group-hover/item:text-[#25D366] transition-colors"></i>
                       </a>
                     </div>
                   </div>
@@ -245,25 +250,25 @@ export default function PackageCard({
 
         {/* BACK SIDE (Quick View) */}
         <div className="flip-card-back overflow-hidden">
-          <div className="p-4 flex flex-col h-full bg-white">
+          <div className="p-5 flex flex-col h-full bg-white">
             
             {/* Header with Share and Close Button */}
-            <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-200">
-              <h4 className="font-bold text-darkBlue text-sm font-poppins">Quick View</h4>
+            <div className="flex justify-between items-center mb-5 pb-4 border-b border-gray-200">
+              <h4 className="font-bold text-darkBlue text-base font-poppins">Quick View</h4>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleShare}
-                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-orange/20 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
+                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-orange/10 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
                   title="Share"
                 >
                   <i className="fa-solid fa-share-nodes text-sm"></i>
                 </button>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-100 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-red-600 flex-shrink-0"
+                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-red-50 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-red-600 flex-shrink-0"
                   title="Close"
                 >
-                  <i className="fa-solid fa-xmark text-sm"></i>
+                  <i className="fa-solid fa-xmark text-base"></i>
                 </button>
               </div>
             </div>
@@ -354,12 +359,12 @@ export default function PackageCard({
             </div>
 
             {/* Action Buttons - Bottom Aligned */}
-            <div className="mt-4 pt-3 flex flex-col gap-2 border-t border-gray-200">
+            <div className="mt-4 pt-4 flex flex-col gap-2 border-t border-gray-200">
               <button 
                 onClick={handleViewPackage}
-                className="custom-btn w-full text-xs px-3 py-2.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+                className="custom-btn w-full text-sm px-4 py-3 font-medium bg-teal hover:bg-teal/90 transition-all duration-200"
               >
-                <i className="fa-solid fa-eye mr-1.5 text-xs"></i>
+                <i className="fa-solid fa-eye mr-2 text-sm"></i>
                 View Full Package
               </button>
             </div>
