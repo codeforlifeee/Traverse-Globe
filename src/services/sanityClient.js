@@ -3,21 +3,9 @@
  * This file sets up the Sanity client for fetching data from Sanity CMS
  */
 
-import { createClient } from '@sanity/client';
-
-// Create Sanity client instance with real-time updates
-export const sanityClient = createClient({
-  projectId: 'xe1685rk',
-  dataset: 'production',
-  useCdn: false, // Set to false to always get fresh data (no CDN caching)
-  apiVersion: '2024-01-01',
-  perspective: 'published', // Only fetch published documents
-  stega: {
-    enabled: false,
-  },
-  // Token is not needed for public read operations
-  // token: 'YOUR_TOKEN_HERE' // Only needed for write operations
-});
+// Client-side service now uses same-origin API routes to avoid CORS.
+// If you need direct Sanity access, prefer server-side via /api endpoints.
+export const sanityClient = null;
 
 /**
  * Fetch all packages from Sanity
@@ -30,25 +18,14 @@ export const sanityClient = createClient({
 export async function fetchPackages(options = {}) {
   const { category, limit, featured } = options;
   
-  let query = '*[_type == "package" && active == true';
-  
-  if (category) {
-    query += ` && category == "${category}"`;
-  }
-  
-  if (featured) {
-    query += ' && featured == true';
-  }
-  
-  query += '] | order(publishedAt desc)';
-  
-  if (limit) {
-    query += `[0...${limit}]`;
-  }
-  
   try {
-    const packages = await sanityClient.fetch(query);
-    return packages;
+    const params = new URLSearchParams();
+    if (category) params.set('category', category);
+    if (featured) params.set('featured', 'true');
+    if (limit) params.set('limit', String(limit));
+    const res = await fetch(`/api/packages?${params.toString()}`);
+    if (!res.ok) throw new Error('Failed to fetch packages');
+    return await res.json();
   } catch (error) {
     console.error('Error fetching packages from Sanity:', error);
     return [];
@@ -61,11 +38,10 @@ export async function fetchPackages(options = {}) {
  * @returns {Promise<Object|null>} Package object or null
  */
 export async function fetchPackageById(id) {
-  const query = `*[_type == "package" && id == ${id} && active == true][0]`;
-  
   try {
-    const packageData = await sanityClient.fetch(query);
-    return packageData;
+    const res = await fetch(`/api/packages?id=${encodeURIComponent(id)}`);
+    if (!res.ok) throw new Error('Failed to fetch package by id');
+    return await res.json();
   } catch (error) {
     console.error(`Error fetching package with ID ${id}:`, error);
     return null;
@@ -78,11 +54,10 @@ export async function fetchPackageById(id) {
  * @returns {Promise<Object|null>} Package object or null
  */
 export async function fetchPackageBySlug(slug) {
-  const query = `*[_type == "package" && slug.current == "${slug}" && active == true][0]`;
-  
   try {
-    const packageData = await sanityClient.fetch(query);
-    return packageData;
+    const res = await fetch(`/api/packages?slug=${encodeURIComponent(slug)}`);
+    if (!res.ok) throw new Error('Failed to fetch package by slug');
+    return await res.json();
   } catch (error) {
     console.error(`Error fetching package with slug ${slug}:`, error);
     return null;
@@ -104,17 +79,12 @@ export async function fetchPackagesByCategory(category) {
  * @returns {Promise<Array>} Array of destination objects
  */
 export async function fetchDestinations(type = null) {
-  let query = '*[_type == "destination" && active == true';
-  
-  if (type) {
-    query += ` && type == "${type}"`;
-  }
-  
-  query += '] | order(order asc)';
-  
   try {
-    const destinations = await sanityClient.fetch(query);
-    return destinations;
+    const params = new URLSearchParams();
+    if (type) params.set('type', type);
+    const res = await fetch(`/api/destinations?${params.toString()}`);
+    if (!res.ok) throw new Error('Failed to fetch destinations');
+    return await res.json();
   } catch (error) {
     console.error('Error fetching destinations from Sanity:', error);
     return [];
@@ -143,11 +113,12 @@ export async function fetchDomesticDestinations() {
  * @returns {Promise<Array>} Array of banner image URLs
  */
 export async function fetchBanners(category = 'general') {
-  const query = `*[_type == "banner" && category == "${category}" && active == true][0].images`;
-  
   try {
-    const banners = await sanityClient.fetch(query);
-    return banners || [];
+    const params = new URLSearchParams({ category });
+    const res = await fetch(`/api/banners?${params.toString()}`);
+    if (!res.ok) throw new Error('Failed to fetch banners');
+    const data = await res.json();
+    return data || [];
   } catch (error) {
     console.error(`Error fetching banners for category ${category}:`, error);
     return [];
@@ -159,17 +130,10 @@ export async function fetchBanners(category = 'general') {
  * @returns {Promise<Object>} Object with categories as keys and banner arrays as values
  */
 export async function fetchAllBanners() {
-  const query = '*[_type == "banner" && active == true]';
-  
   try {
-    const bannersData = await sanityClient.fetch(query);
-    const bannersByCategory = {};
-    
-    bannersData.forEach(banner => {
-      bannersByCategory[banner.category] = banner.images || [];
-    });
-    
-    return bannersByCategory;
+    const res = await fetch('/api/banners?all=true');
+    if (!res.ok) throw new Error('Failed to fetch all banners');
+    return await res.json();
   } catch (error) {
     console.error('Error fetching all banners:', error);
     return {};
@@ -219,30 +183,15 @@ export async function fetchFeaturedPackages(limit = 6) {
 export async function fetchPackagesWithFilters(filters = {}) {
   const { categories, minPrice, maxPrice, minRating } = filters;
   
-  let conditions = ['_type == "package"', 'active == true'];
-  
-  if (categories && categories.length > 0) {
-    const categoryCondition = categories.map(cat => `category == "${cat}"`).join(' || ');
-    conditions.push(`(${categoryCondition})`);
-  }
-  
-  if (minPrice !== undefined) {
-    conditions.push(`price >= ${minPrice}`);
-  }
-  
-  if (maxPrice !== undefined) {
-    conditions.push(`price <= ${maxPrice}`);
-  }
-  
-  if (minRating !== undefined) {
-    conditions.push(`rating >= ${minRating}`);
-  }
-  
-  const query = `*[${conditions.join(' && ')}] | order(rating desc, price asc)`;
-  
   try {
-    const packages = await sanityClient.fetch(query);
-    return packages;
+    const params = new URLSearchParams();
+    if (categories?.length) params.set('categories', categories.join(','));
+    if (minPrice !== undefined) params.set('minPrice', String(minPrice));
+    if (maxPrice !== undefined) params.set('maxPrice', String(maxPrice));
+    if (minRating !== undefined) params.set('minRating', String(minRating));
+    const res = await fetch(`/api/packages?${params.toString()}`);
+    if (!res.ok) throw new Error('Failed to fetch filtered packages');
+    return await res.json();
   } catch (error) {
     console.error('Error fetching packages with filters:', error);
     return [];
@@ -255,14 +204,18 @@ export async function fetchPackagesWithFilters(filters = {}) {
  */
 export async function getPackageStats() {
   try {
-    const totalPackages = await sanityClient.fetch('count(*[_type == "package" && active == true])');
-    const totalDestinations = await sanityClient.fetch('count(*[_type == "destination" && active == true])');
-    const avgRating = await sanityClient.fetch('math::avg(*[_type == "package" && active == true].rating)');
-    
+    const [packagesRes, destinationsRes, avgRes] = await Promise.all([
+      fetch('/api/packages?count=true'),
+      fetch('/api/destinations?count=true'),
+      fetch('/api/packages?avgRating=true'),
+    ]);
+    const totalPackages = packagesRes.ok ? await packagesRes.json() : 0;
+    const totalDestinations = destinationsRes.ok ? await destinationsRes.json() : 0;
+    const avgRating = avgRes.ok ? await avgRes.json() : 0;
     return {
       totalPackages,
       totalDestinations,
-      avgRating: avgRating?.toFixed(1) || 0
+      avgRating: Number(avgRating)?.toFixed(1) || 0,
     };
   } catch (error) {
     console.error('Error fetching package stats:', error);
