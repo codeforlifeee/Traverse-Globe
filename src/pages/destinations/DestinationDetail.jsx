@@ -39,18 +39,21 @@ export default function DestinationDetail() {
   const images = useMemo(() => {
     if (!detail) return [];
     
-    // Combine bannerImage and galleryImages
-    const allImages = [];
+    // Use the 'images' field directly from Sanity
+    if (detail.images && Array.isArray(detail.images)) {
+      return detail.images;
+    }
     
+    // Fallback: combine bannerImage and galleryImages if using old structure
+    const allImages = [];
     if (detail.bannerImage) {
       allImages.push(detail.bannerImage);
     }
-    
     if (detail.galleryImages && Array.isArray(detail.galleryImages)) {
       allImages.push(...detail.galleryImages);
     }
     
-    return allImages;
+    return allImages.length > 0 ? allImages : [];
   }, [detail]);
   
   // State management - ALL hooks must come before any conditional returns
@@ -167,13 +170,13 @@ export default function DestinationDetail() {
     <div className="min-h-screen pt-20 pb-10">
       {/* Package Header */}
       <div className="container mx-auto px-4 mt-6">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail?.title || detail?.packageTitle || ''}</h1>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail?.title || ''}</h1>
         <p className="text-gray-600 mt-1">
           <i className="fa-solid fa-map-marker-alt" /> {destination}
           {' | '}
           <i className="fa-solid fa-calendar" /> {detail?.duration || ''}
           {' | '}
-          <i className="fa-solid fa-star text-yellow-400" /> {detail?.rating || 0} ({detail?.reviews || detail?.numberOfReviews || 0} Reviews)
+          <i className="fa-solid fa-star text-yellow-400" /> {detail?.rating || 0} ({detail?.reviews || 0} Reviews)
         </p>
       </div>
 
@@ -238,13 +241,13 @@ export default function DestinationDetail() {
               <p className="text-darkBlue/80 leading-relaxed mb-4">
                 {detail?.overview || ''}
               </p>
-              {detail?.packageHighlights && detail.packageHighlights.length > 0 && (
+              {detail?.highlights && detail.highlights.length > 0 && (
                 <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-lg p-5 border-l-4 border-teal">
                   <h6 className="text-darkBlue font-bold mb-3 flex items-center gap-2 text-lg">
-                    <i className="fa-solid fa-star text-orange"/> {detail?.title || detail?.packageTitle || ''}
+                    <i className="fa-solid fa-star text-orange"/> {detail?.title || ''}
                   </h6>
                   <ul className="list-disc pl-5 space-y-2 text-darkBlue/80">
-                    {detail.packageHighlights.map((highlight, i) => (
+                    {detail.highlights.map((highlight, i) => (
                       <li key={i}>{highlight}</li>
                     ))}
                   </ul>
@@ -256,9 +259,9 @@ export default function DestinationDetail() {
             <div id="itinerary" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-season font-bold text-darkBlue mb-4">Day-wise Itinerary</h2>
               <div className="space-y-4">
-                {detail?.dailyItinerary && detail.dailyItinerary.length > 0 ? (
-                  detail.dailyItinerary.map((day, idx) => (
-                    <div key={idx} className="bg-gradient-to-r from-sky-50 to-blue-50 p-5 rounded-lg border-l-4 border-orange">
+                {detail?.itinerary?.days && detail.itinerary.days.length > 0 ? (
+                  detail.itinerary.days.map((day, idx) => (
+                    <div key={day._key || idx} className="bg-gradient-to-r from-sky-50 to-blue-50 p-5 rounded-lg border-l-4 border-orange">
                       <h5 className="text-darkBlue font-bold text-lg flex items-center gap-2 mb-2">
                         <span className="flex items-center justify-center w-8 h-8 bg-orange text-white rounded-full text-sm font-bold shadow-md">{idx + 1}</span>
                         {day.title || `Day ${idx + 1}`}
@@ -319,11 +322,11 @@ export default function DestinationDetail() {
             <div id="hotels" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-season font-bold text-darkBlue mb-4">Accommodation Details</h2>
               <p className="mb-4 font-semibold text-lg text-darkBlue">
-                {detail?.hotelInformation?.hotelsTitle || `${destination?.split(',')[0] || ''} Hotel Options:`}
+                {detail?.hotels?.title || `${destination?.split(',')[0] || ''} Hotel Options:`}
               </p>
               <ul className="space-y-3">
-                {detail?.hotelInformation?.hotelOptions && detail.hotelInformation.hotelOptions.length > 0 ? (
-                  detail.hotelInformation.hotelOptions.map((hotel, i) => (
+                {detail?.hotels?.options && detail.hotels.options.length > 0 ? (
+                  detail.hotels.options.map((hotel, i) => (
                     <li key={i} className="flex items-start gap-3 bg-gradient-to-r from-sky-50 to-blue-50 p-4 rounded-lg border-l-4 border-teal">
                       <i className="fa-solid fa-building text-teal mt-1 flex-shrink-0 text-xl"/> 
                       <span>{hotel}</span>
@@ -336,7 +339,7 @@ export default function DestinationDetail() {
               <div className="mt-5 bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border-l-4 border-orange">
                 <p className="text-sm text-darkBlue font-medium">
                   <i className="fa-solid fa-info-circle mr-2 text-orange"></i>
-                  {detail?.hotelInformation?.hotelNote || '*Hotels subject to availability. Similar category accommodation guaranteed.'}
+                  {detail?.hotels?.note || '*Hotels subject to availability. Similar category accommodation guaranteed.'}
                 </p>
               </div>
             </div>
@@ -385,7 +388,7 @@ export default function DestinationDetail() {
                 <a href={`tel:${companyInfo?.phone?.primary || ''}`} className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap">
                   <i className="fa-solid fa-phone mr-1 sm:mr-2"/>Call
                 </a>
-                <a href={`https://wa.me/${companyInfo?.phone?.whatsapp || ''}?text=${encodeURIComponent(`Hi, I want to know more about *${detail?.title || detail?.packageTitle || ''}* package`)}`} target="_blank" rel="noopener noreferrer" className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}>
+                <a href={`https://wa.me/${companyInfo?.phone?.whatsapp || ''}?text=${encodeURIComponent(`Hi, I want to know more about *${detail?.title || ''}* package`)}`} target="_blank" rel="noopener noreferrer" className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}>
                   <i className="fa-brands fa-whatsapp mr-1 sm:mr-2"/>WhatsApp
                 </a>
               </div>
