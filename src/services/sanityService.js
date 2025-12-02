@@ -2,9 +2,8 @@
 // Handles all Sanity API interactions
 // This file is ready for when you set up Sanity
 
-// Uncomment when Sanity is installed:
-// import { createClient } from '@sanity/client';
-// import imageUrlBuilder from '@sanity/image-url';
+import { createClient } from '@sanity/client';
+import { createImageUrlBuilder } from '@sanity/image-url';
 
 // Sanity client configuration
 let sanityClient = null;
@@ -17,17 +16,15 @@ let builder = null;
 export const initSanityClient = () => {
   if (sanityClient) return sanityClient;
   
-  // Uncomment when Sanity is installed:
-  /*
   sanityClient = createClient({
-    projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
-    dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
-    apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2024-01-01',
-    useCdn: true, // Use CDN for faster, cached responses
+    projectId: import.meta.env?.VITE_SANITY_PROJECT_ID || process.env.VITE_SANITY_PROJECT_ID,
+    dataset: import.meta.env?.VITE_SANITY_DATASET || process.env.VITE_SANITY_DATASET || 'production',
+    apiVersion: import.meta.env?.VITE_SANITY_API_VERSION || process.env.VITE_SANITY_API_VERSION || '2024-01-01',
+    useCdn: true, // Use CDN for public read-only data
+    // Note: token is intentionally omitted for browser security (read-only access)
   });
   
-  builder = imageUrlBuilder(sanityClient);
-  */
+  builder = createImageUrlBuilder(sanityClient);
   
   return sanityClient;
 };
@@ -39,16 +36,7 @@ export const initSanityClient = () => {
  */
 export const urlFor = (source) => {
   if (!builder) initSanityClient();
-  // Uncomment when Sanity is installed:
-  // return builder.image(source);
-  
-  // Fallback: return source as-is
-  return {
-    url: () => source,
-    width: () => ({ url: () => source }),
-    height: () => ({ url: () => source }),
-    auto: () => ({ url: () => source })
-  };
+  return builder.image(source);
 };
 
 // GROQ Queries

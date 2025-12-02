@@ -3,9 +3,32 @@
  * This file sets up the Sanity client for fetching data from Sanity CMS
  */
 
-// Client-side service now uses same-origin API routes to avoid CORS.
-// If you need direct Sanity access, prefer server-side via /api endpoints.
-export const sanityClient = null;
+import { createClient } from '@sanity/client';
+import { createImageUrlBuilder } from '@sanity/image-url';
+
+// Initialize Sanity client
+const sanityClient = createClient({
+  projectId: import.meta.env?.VITE_SANITY_PROJECT_ID || process.env.VITE_SANITY_PROJECT_ID,
+  dataset: import.meta.env?.VITE_SANITY_DATASET || process.env.VITE_SANITY_DATASET || 'production',
+  apiVersion: import.meta.env?.VITE_SANITY_API_VERSION || process.env.VITE_SANITY_API_VERSION || '2024-01-01',
+  useCdn: true, // Use CDN for public read-only data
+  // Note: token is intentionally omitted for browser security (read-only access)
+  // If you need write access, use a server-side endpoint instead
+});
+
+// Initialize image URL builder
+const builder = createImageUrlBuilder(sanityClient);
+
+/**
+ * Helper function to generate optimized image URLs
+ * @param {Object} source - Image reference from Sanity
+ * @returns {Object} Image URL builder
+ */
+export const urlFor = (source) => {
+  return builder.image(source);
+};
+
+export { sanityClient };
 
 /**
  * Fetch all packages from Sanity
@@ -19,13 +42,24 @@ export async function fetchPackages(options = {}) {
   const { category, limit, featured } = options;
   
   try {
-    const params = new URLSearchParams();
-    if (category) params.set('category', category);
-    if (featured) params.set('featured', 'true');
-    if (limit) params.set('limit', String(limit));
-    const res = await fetch(`/api/packages?${params.toString()}`);
-    if (!res.ok) throw new Error('Failed to fetch packages');
-    return await res.json();
+    let query = '*[_type == "package" && active == true';
+    
+    if (category) {
+      query += ` && category == "${category}"`;
+    }
+    
+    if (featured) {
+      query += ' && featured == true';
+    }
+    
+    query += '] | order(publishedAt desc)';
+    
+    if (limit) {
+      query += `[0...${limit}]`;
+    }
+    
+    const data = await sanityClient.fetch(query);
+    return data || [];
   } catch (error) {
     console.error('Error fetching packages from Sanity:', error);
     return [];
@@ -39,9 +73,9 @@ export async function fetchPackages(options = {}) {
  */
 export async function fetchPackageById(id) {
   try {
-    const res = await fetch(`/api/packages?id=${encodeURIComponent(id)}`);
-    if (!res.ok) throw new Error('Failed to fetch package by id');
-    return await res.json();
+    const query = `*[_type == "package" && active == true && id == ${Number(id)}][0]`;
+    const data = await sanityClient.fetch(query);
+    return data || null;
   } catch (error) {
     console.error(`Error fetching package with ID ${id}:`, error);
     return null;
@@ -55,9 +89,9 @@ export async function fetchPackageById(id) {
  */
 export async function fetchPackageBySlug(slug) {
   try {
-    const res = await fetch(`/api/packages?slug=${encodeURIComponent(slug)}`);
-    if (!res.ok) throw new Error('Failed to fetch package by slug');
-    return await res.json();
+    const query = `*[_type == "package" && active == true && slug.current == "${slug}"][0]`;
+    const data = await sanityClient.fetch(query);
+    return data || null;
   } catch (error) {
     console.error(`Error fetching package with slug ${slug}:`, error);
     return null;
@@ -80,11 +114,14 @@ export async function fetchPackagesByCategory(category) {
  */
 export async function fetchDestinations(type = null) {
   try {
-    const params = new URLSearchParams();
-    if (type) params.set('type', type);
-    const res = await fetch(`/api/destinations?${params.toString()}`);
-    if (!res.ok) throw new Error('Failed to fetch destinations');
-    return await res.json();
+    let query = '*[_type == "destination" && active == true';
+    if (type) {
+      query += ` && type == "${type}"`;
+    }
+    query += '] | order(order asc)';
+    
+    const data = await sanityClient.fetch(query);
+    return data || [];
   } catch (error) {
     console.error('Error fetching destinations from Sanity:', error);
     return [];
@@ -114,11 +151,9 @@ export async function fetchDomesticDestinations() {
  */
 export async function fetchBanners(category = 'general') {
   try {
-    const params = new URLSearchParams({ category });
-    const res = await fetch(`/api/banners?${params.toString()}`);
-    if (!res.ok) throw new Error('Failed to fetch banners');
-    const data = await res.json();
-    return data || [];
+    const query = `*[_type == "banner" && category == "${category}" && active == true][0].images`;
+    const images = await sanityClient.fetch(query);
+    return images || [];
   } catch (error) {
     console.error(`Error fetching banners for category ${category}:`, error);
     return [];
@@ -131,9 +166,13 @@ export async function fetchBanners(category = 'general') {
  */
 export async function fetchAllBanners() {
   try {
-    const res = await fetch('/api/banners?all=true');
-    if (!res.ok) throw new Error('Failed to fetch all banners');
-    return await res.json();
+    const query = '*[_type == "banner" && active == true]';
+    const bannersData = await sanityClient.fetch(query);
+    const bannersByCategory = {};
+    bannersData.forEach(banner => {
+      bannersByCategory[banner.category] = banner.images || [];
+    });
+    return bannersByCategory;
   } catch (error) {
     console.error('Error fetching all banners:', error);
     return {};
@@ -155,7 +194,7 @@ export async function searchPackages(keyword) {
   
   try {
     const results = await sanityClient.fetch(query);
-    return results;
+    return results || [];
   } catch (error) {
     console.error('Error searching packages:', error);
     return [];
@@ -184,14 +223,29 @@ export async function fetchPackagesWithFilters(filters = {}) {
   const { categories, minPrice, maxPrice, minRating } = filters;
   
   try {
-    const params = new URLSearchParams();
-    if (categories?.length) params.set('categories', categories.join(','));
-    if (minPrice !== undefined) params.set('minPrice', String(minPrice));
-    if (maxPrice !== undefined) params.set('maxPrice', String(maxPrice));
-    if (minRating !== undefined) params.set('minRating', String(minRating));
-    const res = await fetch(`/api/packages?${params.toString()}`);
-    if (!res.ok) throw new Error('Failed to fetch filtered packages');
-    return await res.json();
+    let query = '*[_type == "package" && active == true';
+    
+    if (categories?.length) {
+      const categoryConditions = categories.map(cat => `category == "${cat}"`).join(' || ');
+      query += ` && (${categoryConditions})`;
+    }
+    
+    if (minPrice !== undefined) {
+      query += ` && price >= ${Number(minPrice)}`;
+    }
+    
+    if (maxPrice !== undefined) {
+      query += ` && price <= ${Number(maxPrice)}`;
+    }
+    
+    if (minRating !== undefined) {
+      query += ` && rating >= ${Number(minRating)}`;
+    }
+    
+    query += '] | order(publishedAt desc)';
+    
+    const data = await sanityClient.fetch(query);
+    return data || [];
   } catch (error) {
     console.error('Error fetching packages with filters:', error);
     return [];
@@ -204,17 +258,14 @@ export async function fetchPackagesWithFilters(filters = {}) {
  */
 export async function getPackageStats() {
   try {
-    const [packagesRes, destinationsRes, avgRes] = await Promise.all([
-      fetch('/api/packages?count=true'),
-      fetch('/api/destinations?count=true'),
-      fetch('/api/packages?avgRating=true'),
+    const [totalPackages, totalDestinations, avgRating] = await Promise.all([
+      sanityClient.fetch('count(*[_type == "package" && active == true])'),
+      sanityClient.fetch('count(*[_type == "destination" && active == true])'),
+      sanityClient.fetch('math::avg(*[_type == "package" && active == true].rating)'),
     ]);
-    const totalPackages = packagesRes.ok ? await packagesRes.json() : 0;
-    const totalDestinations = destinationsRes.ok ? await destinationsRes.json() : 0;
-    const avgRating = avgRes.ok ? await avgRes.json() : 0;
     return {
-      totalPackages,
-      totalDestinations,
+      totalPackages: totalPackages || 0,
+      totalDestinations: totalDestinations || 0,
       avgRating: Number(avgRating)?.toFixed(1) || 0,
     };
   } catch (error) {

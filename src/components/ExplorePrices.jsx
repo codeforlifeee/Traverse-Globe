@@ -7,10 +7,14 @@ import BookingModal from './BookingModal';
 import { slugify } from '../utils/slug';
 
 const PackageCard = ({ image, price, title, buttonLabel = 'Book Now', onClick }) => {
+  // Fallback image if none provided
+  const defaultImage = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=50';
+  const imageUrl = image || defaultImage;
+  
   const addWebp = (u) => u.includes('images.unsplash.com') && !/fm=/.test(u) ? `${u}${u.includes('?') ? '&' : '?'}fm=webp` : u;
-  const src480 = addWebp(image.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=50'));
-  const src800 = addWebp(image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50'));
-  const src1200 = addWebp(image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=50'));
+  const src480 = addWebp(imageUrl.replace(/w=\d+/, 'w=480').replace(/q=\d+/, 'q=50'));
+  const src800 = addWebp(imageUrl.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50'));
+  const src1200 = addWebp(imageUrl.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=50'));
   return (
     <div className="custom-card bg-white max-w-[320px] mx-auto">
       <div className="overflow-hidden">
@@ -175,10 +179,10 @@ const ExplorePrices = () => {
           {packages.map((pkg, index) => (
             <SwiperSlide key={index}>
               <PackageCard
-                image={pkg.image}
-                price={pkg.price}
-                title={pkg.title}
-                buttonLabel={pkg.buttonLabel}
+                image={pkg.bannerImage || pkg.image}
+                price={pkg.price || 0}
+                title={pkg.title || 'Package'}
+                buttonLabel={pkg.buttonLabel || 'Book Now'}
                 onClick={() => handleCardClick(pkg)}
               />
             </SwiperSlide>

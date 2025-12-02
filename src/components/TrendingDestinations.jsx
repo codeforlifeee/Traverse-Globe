@@ -7,9 +7,13 @@ import { fetchInternationalDestinations } from '../services/sanityClient';
 import { useNavigate } from 'react-router-dom';
 
 const DestinationCard = ({ image, title, onClick }) => {
+  // Fallback for missing images
+  const defaultImage = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=50';
+  const imageUrl = image || defaultImage;
+  
   // Build responsive sets with optimized quality for faster loading
   const buildUrl = (w) => {
-    let u = image;
+    let u = imageUrl;
     u = u.replace(/w=\d+/, `w=${w}`);
     u = /q=\d+/.test(u) ? u.replace(/q=\d+/, 'q=50') : `${u}&q=50`;
     if (!/auto=/.test(u)) u += `${u.includes('?') ? '&' : '?'}auto=format`;

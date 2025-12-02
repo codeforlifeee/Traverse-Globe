@@ -10,6 +10,11 @@ const client = createClient({
 
 module.exports = async (req, res) => {
   try {
+    // Always serve fresh data; prevent CDN/browser caching
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
     const { category, limit, featured, id, slug, count, avgRating, categories, minPrice, maxPrice, minRating } = req.query;
 
     // Stats endpoints

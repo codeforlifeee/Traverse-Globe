@@ -84,18 +84,24 @@ const TopDestinations = () => {
         >
           {destinations.map((destination, index) => (
             <SwiperSlide key={index}>
-              <Link to={destination.link} className="block">
+              <Link to={destination.link || '#'} className="block">
                 <div className="destination-box group cursor-pointer rounded-2xl overflow-hidden transition-all duration-300 bg-white">
                   <div className="relative overflow-hidden aspect-[4/3] md:aspect-[5/4] lg:aspect-[4/3]">
-                    <img
-                      src={destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')}
-                      srcSet={`${destination.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 400w, ${destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 600w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 800w`}
-                      sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      alt={destination.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    {destination.image ? (
+                      <img
+                        src={destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')}
+                        srcSet={`${destination.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 400w, ${destination.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 600w, ${destination.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50') + (destination.image.includes('images.unsplash.com') ? (destination.image.includes('?') ? '&' : '?') + 'fm=webp' : '')} 800w`}
+                        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        alt={destination.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-lightGray flex items-center justify-center">
+                        <span className="text-darkBlue/50">No Image</span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-darkBlue/90 via-darkBlue/40 to-transparent group-hover:from-orange/90 transition-colors duration-200"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
                       <div className="text-white">

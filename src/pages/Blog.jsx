@@ -128,7 +128,7 @@ export default function Blog() {
       </section>
 
       {/* Featured article */}
-      {featured && (
+      {featured && featured.image && (
         <section className="py-8">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
@@ -178,15 +178,17 @@ export default function Blog() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {others.map((p) => (
               <article key={p.id} className="bg-white rounded-2xl shadow-sm hover:shadow-md border border-lightGray overflow-hidden transition">
-                <img 
-                  src={(p.image.includes('images.unsplash.com') ? p.image.replace(/q=\d+/, 'q=50') + (p.image.includes('fm=') ? '' : '&fm=webp') : p.image)} 
-                  srcSet={`${p.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50')} 400w, ${p.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50')} 600w, ${p.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50')} 800w`}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  alt={p.title} 
-                  className="w-full h-44 object-cover" 
-                  loading="lazy"
-                  decoding="async"
-                />
+                {p.image && (
+                  <img 
+                    src={(p.image.includes('images.unsplash.com') ? p.image.replace(/q=\d+/, 'q=50') + (p.image.includes('fm=') ? '' : '&fm=webp') : p.image)} 
+                    srcSet={`${p.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50')} 400w, ${p.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50')} 600w, ${p.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50')} 800w`}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    alt={p.title} 
+                    className="w-full h-44 object-cover" 
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <div className="p-5">
                   <div className="flex items-center gap-2 text-xs text-darkBlue/80">
                     <span className="inline-block bg-lightGray text-darkBlue px-2 py-0.5 rounded-full font-semibold">{p.category}</span>

@@ -1,48 +1,9 @@
 // Destination Service Layer
 // Handles data fetching for destinations and packages
-// This abstraction allows easy switching from hardcoded data to CMS (Sanity)
+// Now fully integrated with Sanity CMS
 
-import { 
-  uaePackages, 
-  baliPackages, 
-  thailandPackages, 
-  singaporePackages, 
-  srilankaPackages, 
-  vietnamPackages, 
-  laosPackages, 
-  andamanPackages, 
-  jaipurPackages, 
-  keralaPackages, 
-  kashmirPackages,
-  packageDetails,
-  uaeBanners,
-  baliBanners,
-  thailandBanners,
-  singaporeBanners,
-  srilankaBanners,
-  vietnamBanners,
-  laosBanners,
-  andamanBanners,
-  jaipurBanners,
-  keralaBanners,
-  kashmirBanners
-} from '../data/siteData';
+import { fetchPackagesByCategory, fetchBanners, fetchPackages, searchPackages as searchSanityPackages } from './sanityClient';
 import { getCategoryBySlug, getCategoryType } from '../data/categoryConfig';
-
-// Map category slugs to their data
-const PACKAGE_DATA_MAP = {
-  uae: { packages: uaePackages, banners: uaeBanners },
-  bali: { packages: baliPackages, banners: baliBanners },
-  thailand: { packages: thailandPackages, banners: thailandBanners },
-  singapore: { packages: singaporePackages, banners: singaporeBanners },
-  srilanka: { packages: srilankaPackages, banners: srilankaBanners },
-  vietnam: { packages: vietnamPackages, banners: vietnamBanners },
-  laos: { packages: laosPackages, banners: laosBanners },
-  andaman: { packages: andamanPackages, banners: andamanBanners },
-  jaipur: { packages: jaipurPackages, banners: jaipurBanners },
-  kerala: { packages: keralaPackages, banners: keralaBanners },
-  kashmir: { packages: kashmirPackages, banners: kashmirBanners }
-};
 
 /**
  * Get packages for a specific destination category
@@ -50,17 +11,13 @@ const PACKAGE_DATA_MAP = {
  * @returns {Promise<Array>} Array of packages
  */
 export async function getDestinationPackages(categorySlug) {
-  // Simulate async API call (ready for CMS migration)
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = PACKAGE_DATA_MAP[categorySlug];
-      if (data) {
-        resolve(data.packages || []);
-      } else {
-        reject(new Error(`No packages found for category: ${categorySlug}`));
-      }
-    }, 100); // Small delay to simulate API
-  });
+  try {
+    const packages = await fetchPackagesByCategory(categorySlug);
+    return packages || [];
+  } catch (error) {
+    console.error(`Error fetching packages for ${categorySlug}:`, error);
+    return [];
+  }
 }
 
 /**
@@ -69,16 +26,13 @@ export async function getDestinationPackages(categorySlug) {
  * @returns {Promise<Array>} Array of banner image URLs
  */
 export async function getDestinationBanners(categorySlug) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = PACKAGE_DATA_MAP[categorySlug];
-      if (data) {
-        resolve(data.banners || []);
-      } else {
-        reject(new Error(`No banners found for category: ${categorySlug}`));
-      }
-    }, 100);
-  });
+  try {
+    const banners = await fetchBanners(categorySlug);
+    return banners || [];
+  } catch (error) {
+    console.error(`Error fetching banners for ${categorySlug}:`, error);
+    return [];
+  }
 }
 
 /**
@@ -87,16 +41,14 @@ export async function getDestinationBanners(categorySlug) {
  * @returns {Promise<Object>} Package details
  */
 export async function getPackageById(packageId) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const detail = packageDetails[packageId];
-      if (detail) {
-        resolve(detail);
-      } else {
-        reject(new Error(`Package not found: ${packageId}`));
-      }
-    }, 100);
-  });
+  try {
+    const { fetchPackageById } = await import('./sanityClient');
+    const packageData = await fetchPackageById(packageId);
+    return packageData || null;
+  } catch (error) {
+    console.error(`Error fetching package ${packageId}:`, error);
+    return null;
+  }
 }
 
 /**
@@ -106,35 +58,19 @@ export async function getPackageById(packageId) {
  * @returns {Promise<Object>} Package with details
  */
 export async function getPackageBySlug(categorySlug, packageSlug) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = PACKAGE_DATA_MAP[categorySlug];
-      if (!data) {
-        reject(new Error(`Category not found: ${categorySlug}`));
-        return;
-      }
-
-      // Find package in list by slug
-      const pkg = data.packages.find(p => {
-        const pkgSlug = p.title.toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-+|-+$/g, '');
-        return pkgSlug === packageSlug;
-      });
-
-      if (pkg) {
-        // Get full details if available
-        const details = packageDetails[pkg.id];
-        resolve({
-          ...pkg,
-          details: details || null,
-          category: categorySlug
-        });
-      } else {
-        reject(new Error(`Package not found: ${packageSlug} in ${categorySlug}`));
-      }
-    }, 100);
-  });
+  try {
+    const { fetchPackageBySlug } = await import('./sanityClient');
+    const packageData = await fetchPackageBySlug(packageSlug);
+    
+    if (packageData && packageData.category === categorySlug) {
+      return packageData;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error(`Error fetching package ${packageSlug} in ${categorySlug}:`, error);
+    return null;
+  }
 }
 
 /**
@@ -143,32 +79,38 @@ export async function getPackageBySlug(categorySlug, packageSlug) {
  * @returns {Promise<Array>} Array of all packages with category info
  */
 export async function getAllPackages(type = null) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const allPackages = [];
-      
-      Object.entries(PACKAGE_DATA_MAP).forEach(([categorySlug, data]) => {
-        const categoryType = getCategoryType(categorySlug);
-        
-        // Filter by type if specified
-        if (type && categoryType !== type) {
-          return;
-        }
-
-        const categoryConfig = getCategoryBySlug(categorySlug);
-        data.packages.forEach(pkg => {
-          allPackages.push({
-            ...pkg,
-            category: categorySlug,
-            categoryName: categoryConfig?.name || categorySlug,
-            categoryType: categoryType
-          });
-        });
+  try {
+    const packages = await fetchPackages({});
+    
+    // Filter by destination type if specified
+    if (type) {
+      const filteredPackages = packages.filter(pkg => {
+        const categoryType = getCategoryType(pkg.category);
+        return categoryType === type;
       });
-
-      resolve(allPackages);
-    }, 100);
-  });
+      
+      return filteredPackages.map(pkg => {
+        const categoryConfig = getCategoryBySlug(pkg.category);
+        return {
+          ...pkg,
+          categoryName: categoryConfig?.name || pkg.category,
+          categoryType: getCategoryType(pkg.category)
+        };
+      });
+    }
+    
+    return packages.map(pkg => {
+      const categoryConfig = getCategoryBySlug(pkg.category);
+      return {
+        ...pkg,
+        categoryName: categoryConfig?.name || pkg.category,
+        categoryType: getCategoryType(pkg.category)
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching all packages:', error);
+    return [];
+  }
 }
 
 /**
@@ -178,14 +120,23 @@ export async function getAllPackages(type = null) {
  * @returns {Promise<Array>} Matching packages
  */
 export async function searchPackages(query, type = null) {
-  const allPackages = await getAllPackages(type);
-  const searchTerm = query.toLowerCase().trim();
-  
-  return allPackages.filter(pkg => 
-    pkg.title.toLowerCase().includes(searchTerm) ||
-    pkg.description?.toLowerCase().includes(searchTerm) ||
-    pkg.categoryName.toLowerCase().includes(searchTerm)
-  );
+  try {
+    // Use Sanity's search capabilities
+    const results = await searchSanityPackages(query);
+    
+    // Filter by type if specified
+    if (type) {
+      return results.filter(pkg => {
+        const categoryType = getCategoryType(pkg.category);
+        return categoryType === type;
+      });
+    }
+    
+    return results;
+  } catch (error) {
+    console.error('Error searching packages:', error);
+    return [];
+  }
 }
 
 /**
@@ -193,30 +144,11 @@ export async function searchPackages(query, type = null) {
  * @returns {Promise<Array>} Featured packages
  */
 export async function getFeaturedPackages() {
-  const allPackages = await getAllPackages();
-  // For now, return first 6 packages
-  // In CMS, this would query packages marked as featured
-  return allPackages.slice(0, 6);
+  try {
+    const { fetchFeaturedPackages } = await import('./sanityClient');
+    return await fetchFeaturedPackages();
+  } catch (error) {
+    console.error('Error fetching featured packages:', error);
+    return [];
+  }
 }
-
-// CMS Migration Ready: 
-// When migrating to Sanity CMS, replace the implementations above with:
-/*
-import { sanityClient } from '../services/sanityClient';
-
-export async function getDestinationPackages(categorySlug) {
-  return await sanityClient.fetch(
-    `*[_type == "package" && category->slug.current == $categorySlug] | order(publishedAt desc)`,
-    { categorySlug }
-  );
-}
-
-export async function getPackageBySlug(categorySlug, packageSlug) {
-  return await sanityClient.fetch(
-    `*[_type == "package" && slug.current == $packageSlug && category->slug.current == $categorySlug][0]`,
-    { categorySlug, packageSlug }
-  );
-}
-
-// ... etc
-*/
