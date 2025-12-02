@@ -4,12 +4,12 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { packageDetails, companyInfo } from '../../data/siteData';
+import { companyInfo } from '../../data/siteData';
 import { getCategoryBySlug } from '../../data/categoryConfig';
 import { useDestinations } from '../../hooks/useDestinations';
+import { usePackageDetail } from '../../hooks/usePackageDetail';
 import { slugify } from '../../utils/slug';
 import PackageCard from '../../components/PackageCard';
-import { getOverviewList, getItinerary, getInclusions, getExclusions, getHotels } from '../../utils/packageContent';
 
 export default function DestinationDetail() {
   const { type, category, slug } = useParams();
@@ -17,25 +17,41 @@ export default function DestinationDetail() {
   // Get category configuration
   const config = getCategoryBySlug(category);
 
-  // Fetch all packages for this category (to find matching slug and similar packages)
-  const { packages, isLoading } = useDestinations(category);
+  // Fetch all packages for this category (for similar packages)
+  const { packages, isLoading: packagesLoading } = useDestinations(category);
 
-  // Find the package by slug
-  const currentPackage = useMemo(() => {
-    return packages.find(p => slugify(p.title) === slug);
-  }, [packages, slug]);
+  // Fetch the specific package details from Sanity CMS
+  const { packageData: currentPackage, isLoading: packageLoading, error: packageError } = usePackageDetail(category, slug);
 
-  // Get full package details
-  const detail = currentPackage ? packageDetails[currentPackage.id] : null;
+  // Combine loading states
+  const isLoading = packagesLoading || packageLoading;
+
+  // The detail is now the currentPackage from Sanity (no need for separate packageDetails)
+  const detail = currentPackage;
 
   // Get similar packages (exclude current)
   const similarPackages = useMemo(() => {
     if (!currentPackage) return [];
-    return packages.filter(p => p.id !== currentPackage.id).slice(0, 3);
-  }, [packages, currentPackage]);
+    return packages.filter(p => p.id !== currentPackage.id || p.slug?.current !== slug).slice(0, 3);
+  }, [packages, currentPackage, slug]);
 
-  // Get full package details - must be defined before any useState hooks
-  const images = detail?.images || [];
+  // Get gallery images from Sanity data
+  const images = useMemo(() => {
+    if (!detail) return [];
+    
+    // Combine bannerImage and galleryImages
+    const allImages = [];
+    
+    if (detail.bannerImage) {
+      allImages.push(detail.bannerImage);
+    }
+    
+    if (detail.galleryImages && Array.isArray(detail.galleryImages)) {
+      allImages.push(...detail.galleryImages);
+    }
+    
+    return allImages;
+  }, [detail]);
   
   // State management - ALL hooks must come before any conditional returns
   const [active, setActive] = useState('');
@@ -144,20 +160,20 @@ export default function DestinationDetail() {
     return <Navigate to={`/destinations/${type}/${category}`} replace />;
   }
 
-  const destination = detail?.destination || config.name;
+  const destination = detail?.destination || config?.name || '';
   const typeLabel = type === 'international' ? 'International' : 'Domestic';
 
   return (
     <div className="min-h-screen pt-20 pb-10">
       {/* Package Header */}
       <div className="container mx-auto px-4 mt-6">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail.title}</h1>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail?.title || detail?.packageTitle || ''}</h1>
         <p className="text-gray-600 mt-1">
           <i className="fa-solid fa-map-marker-alt" /> {destination}
           {' | '}
-          <i className="fa-solid fa-calendar" /> {detail.duration || currentPackage.nights}
+          <i className="fa-solid fa-calendar" /> {detail?.duration || ''}
           {' | '}
-          <i className="fa-solid fa-star text-yellow-400" /> {detail.rating} ({detail.reviews} Reviews)
+          <i className="fa-solid fa-star text-yellow-400" /> {detail?.rating || 0} ({detail?.reviews || detail?.numberOfReviews || 0} Reviews)
         </p>
       </div>
 
@@ -220,33 +236,41 @@ export default function DestinationDetail() {
             <div id="overview" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-season font-bold text-darkBlue mb-4">Overview</h2>
               <p className="text-darkBlue/80 leading-relaxed mb-4">
-                {detail.overview}
+                {detail?.overview || ''}
               </p>
-              <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-lg p-5 border-l-4 border-teal">
-                <h6 className="text-darkBlue font-bold mb-3 flex items-center gap-2 text-lg">
-                  <i className="fa-solid fa-star text-orange"/> {detail.title}
-                </h6>
-                <ul className="list-disc pl-5 space-y-2 text-darkBlue/80">
-                  {getOverviewList(currentPackage.id, detail.title).map((li,i)=>(<li key={i}>{li}</li>))}
-                </ul>
-              </div>
+              {detail?.packageHighlights && detail.packageHighlights.length > 0 && (
+                <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-lg p-5 border-l-4 border-teal">
+                  <h6 className="text-darkBlue font-bold mb-3 flex items-center gap-2 text-lg">
+                    <i className="fa-solid fa-star text-orange"/> {detail?.title || detail?.packageTitle || ''}
+                  </h6>
+                  <ul className="list-disc pl-5 space-y-2 text-darkBlue/80">
+                    {detail.packageHighlights.map((highlight, i) => (
+                      <li key={i}>{highlight}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Itinerary Section */}
             <div id="itinerary" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-season font-bold text-darkBlue mb-4">Day-wise Itinerary</h2>
               <div className="space-y-4">
-                {getItinerary(currentPackage.id, destination).map((day, idx) => (
-                  <div key={idx} className="bg-gradient-to-r from-sky-50 to-blue-50 p-5 rounded-lg border-l-4 border-orange">
-                    <h5 className="text-darkBlue font-bold text-lg flex items-center gap-2 mb-2">
-                      <span className="flex items-center justify-center w-8 h-8 bg-orange text-white rounded-full text-sm font-bold shadow-md">{idx + 1}</span>
-                      {day.title}
-                    </h5>
-                    <div className="text-darkBlue/80 ml-10 space-y-2">
-                      {day.paragraphs.map((p, i)=>(<p key={i}>{p}</p>))}
+                {detail?.dailyItinerary && detail.dailyItinerary.length > 0 ? (
+                  detail.dailyItinerary.map((day, idx) => (
+                    <div key={idx} className="bg-gradient-to-r from-sky-50 to-blue-50 p-5 rounded-lg border-l-4 border-orange">
+                      <h5 className="text-darkBlue font-bold text-lg flex items-center gap-2 mb-2">
+                        <span className="flex items-center justify-center w-8 h-8 bg-orange text-white rounded-full text-sm font-bold shadow-md">{idx + 1}</span>
+                        {day.title || `Day ${idx + 1}`}
+                      </h5>
+                      <div className="text-darkBlue/80 ml-10 space-y-2">
+                        <p>{day.description || ''}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-gray-500">Itinerary details coming soon...</p>
+                )}
               </div>
             </div>
 
@@ -259,12 +283,16 @@ export default function DestinationDetail() {
                     <i className="fa-solid fa-check-circle text-teal"/>What's Included
                   </h5>
                   <ul className="space-y-3">
-                    {getInclusions(currentPackage.id).map((item,i)=>(
-                      <li key={i} className="flex items-start gap-3 text-darkBlue">
-                        <i className="fa-solid fa-check-circle text-teal mt-1 flex-shrink-0"/> 
-                        <span>{item}</span>
-                      </li>
-                    ))}
+                    {detail?.inclusions && detail.inclusions.length > 0 ? (
+                      detail.inclusions.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-darkBlue">
+                          <i className="fa-solid fa-check-circle text-teal mt-1 flex-shrink-0"/> 
+                          <span>{item}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-gray-500">Inclusion details coming soon...</li>
+                    )}
                   </ul>
                 </div>
                 <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-5 border-l-4 border-red-400">
@@ -272,12 +300,16 @@ export default function DestinationDetail() {
                     <i className="fa-solid fa-times-circle"/>What's Not Included
                   </h5>
                   <ul className="space-y-3">
-                    {getExclusions(currentPackage.id).map((item,i)=>(
-                      <li key={i} className="flex items-start gap-3 text-red-800">
-                        <i className="fa-solid fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
-                        <span>{item}</span>
-                      </li>
-                    ))}
+                    {detail?.exclusions && detail.exclusions.length > 0 ? (
+                      detail.exclusions.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-red-800">
+                          <i className="fa-solid fa-times-circle text-red-600 mt-1 flex-shrink-0"/> 
+                          <span>{item}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-gray-500">Exclusion details coming soon...</li>
+                    )}
                   </ul>
                 </div>
               </div>
@@ -286,19 +318,25 @@ export default function DestinationDetail() {
             {/* Hotels Section */}
             <div id="hotels" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-season font-bold text-darkBlue mb-4">Accommodation Details</h2>
-              <p className="mb-4 font-semibold text-lg text-darkBlue">{detail.hotels?.title || `${destination.split(',')[0]} Hotel Options:`}</p>
+              <p className="mb-4 font-semibold text-lg text-darkBlue">
+                {detail?.hotelInformation?.hotelsTitle || `${destination?.split(',')[0] || ''} Hotel Options:`}
+              </p>
               <ul className="space-y-3">
-                {getHotels(currentPackage.id, destination).map((h,i)=>(
-                  <li key={i} className="flex items-start gap-3 bg-gradient-to-r from-sky-50 to-blue-50 p-4 rounded-lg border-l-4 border-teal">
-                    <i className="fa-solid fa-building text-teal mt-1 flex-shrink-0 text-xl"/> 
-                    <span>{h}</span>
-                  </li>
-                ))}
+                {detail?.hotelInformation?.hotelOptions && detail.hotelInformation.hotelOptions.length > 0 ? (
+                  detail.hotelInformation.hotelOptions.map((hotel, i) => (
+                    <li key={i} className="flex items-start gap-3 bg-gradient-to-r from-sky-50 to-blue-50 p-4 rounded-lg border-l-4 border-teal">
+                      <i className="fa-solid fa-building text-teal mt-1 flex-shrink-0 text-xl"/> 
+                      <span>{hotel}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500">Hotel details coming soon...</li>
+                )}
               </ul>
               <div className="mt-5 bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border-l-4 border-orange">
                 <p className="text-sm text-darkBlue font-medium">
                   <i className="fa-solid fa-info-circle mr-2 text-orange"></i>
-                  {detail.hotels?.note || '*Hotel subject to availability at the time of booking. Similar category hotel will be provided.'}
+                  {detail?.hotelInformation?.hotelNote || '*Hotels subject to availability. Similar category accommodation guaranteed.'}
                 </p>
               </div>
             </div>
@@ -310,10 +348,12 @@ export default function DestinationDetail() {
             <div className="bg-white rounded-2xl shadow p-5 lg:sticky lg:top-24">
               <div className="text-center rounded-xl p-6 bg-gradient-to-br from-[#E4EEF0] via-[#d4f1f4] to-[#bde5e8] shadow-lg border-2 border-[#075056]/10">
                 <div className="text-xs text-[#075056] font-semibold mb-2 uppercase tracking-widest">Starting from</div>
-                {detail.strikePrice && (
-                  <div className="text-lg text-red-400 line-through mb-1">₹{detail.strikePrice.toLocaleString('en-IN')}</div>
+                {detail?.strikePrice && (
+                  <div className="text-lg text-red-400 line-through mb-1">₹{Number(detail.strikePrice).toLocaleString('en-IN')}</div>
                 )}
-                <div className="text-5xl font-extrabold text-[#075056] mb-1 drop-shadow-md">₹{detail.price?.toLocaleString('en-IN')}</div>
+                <div className="text-5xl font-extrabold text-[#075056] mb-1 drop-shadow-md">
+                  ₹{(detail?.price ? Number(detail.price) : 0).toLocaleString('en-IN')}
+                </div>
                 <div className="text-xs text-[#075056]/80 font-semibold mt-2">Per Person on twin sharing</div>
               </div>
 
@@ -342,10 +382,10 @@ export default function DestinationDetail() {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <a href={`tel:${companyInfo.phone.primary}`} className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap">
+                <a href={`tel:${companyInfo?.phone?.primary || ''}`} className="flex-1 bg-orange text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-teal text-center whitespace-nowrap">
                   <i className="fa-solid fa-phone mr-1 sm:mr-2"/>Call
                 </a>
-                <a href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(`Hi, I want to know more about *${detail.title}* package`)}`} target="_blank" rel="noopener noreferrer" className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}>
+                <a href={`https://wa.me/${companyInfo?.phone?.whatsapp || ''}?text=${encodeURIComponent(`Hi, I want to know more about *${detail?.title || detail?.packageTitle || ''}* package`)}`} target="_blank" rel="noopener noreferrer" className="flex-1 text-white border-none py-3 px-2 sm:px-4 rounded-full font-poppins font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-center whitespace-nowrap" style={{background:'#25D366'}}>
                   <i className="fa-brands fa-whatsapp mr-1 sm:mr-2"/>WhatsApp
                 </a>
               </div>
@@ -355,11 +395,15 @@ export default function DestinationDetail() {
               <div className="mt-5 pt-4 border-t text-sm text-gray-600 space-y-2">
                 <div>
                   <i className="fa-solid fa-phone text-primary mr-2"/>
-                  <a href={`tel:${companyInfo.phone.primary}`} className="text-blue-600 hover:underline">{companyInfo.phone.primary}</a>
+                  <a href={`tel:${companyInfo?.phone?.primary || ''}`} className="text-blue-600 hover:underline">
+                    {companyInfo?.phone?.primary || ''}
+                  </a>
                 </div>
                 <div>
                   <i className="fa-solid fa-envelope text-primary mr-2"/>
-                  <a href={`mailto:${companyInfo.email.primary}`} className="text-blue-600 hover:underline">{companyInfo.email.primary}</a>
+                  <a href={`mailto:${companyInfo?.email?.primary || ''}`} className="text-blue-600 hover:underline">
+                    {companyInfo?.email?.primary || ''}
+                  </a>
                 </div>
               </div>
             </div>
@@ -410,11 +454,11 @@ export default function DestinationDetail() {
             <div className="space-y-3 mb-6">
               <p className="flex items-center gap-2">
                 <i className="fa-solid fa-phone text-orange"></i>
-                <span>{companyInfo.phone.primary}</span>
+                <span>{companyInfo?.phone?.primary || ''}</span>
               </p>
               <p className="flex items-center gap-2">
                 <i className="fa-solid fa-envelope text-orange"></i>
-                <span>{companyInfo.email.primary}</span>
+                <span>{companyInfo?.email?.primary || ''}</span>
               </p>
             </div>
             <button

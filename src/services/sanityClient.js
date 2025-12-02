@@ -11,7 +11,8 @@ const sanityClient = createClient({
   projectId: import.meta.env?.VITE_SANITY_PROJECT_ID || process.env.VITE_SANITY_PROJECT_ID,
   dataset: import.meta.env?.VITE_SANITY_DATASET || process.env.VITE_SANITY_DATASET || 'production',
   apiVersion: import.meta.env?.VITE_SANITY_API_VERSION || process.env.VITE_SANITY_API_VERSION || '2024-01-01',
-  useCdn: true, // Use CDN for public read-only data
+  useCdn: false, // Disable CDN to get fresh data immediately from Sanity
+  perspective: 'published', // Only fetch published documents
   // Note: token is intentionally omitted for browser security (read-only access)
   // If you need write access, use a server-side endpoint instead
 });
