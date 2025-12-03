@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen pt-20 pb-10">
       {/* Top banner */}
-      <section className="bg-gradient-to-br from-primary/10 to-secondary/10 py-10" aria-labelledby="contact-heading">
+      <section className="bg-gradient-to-br from-primary/10 to-secondary/10 py-6" aria-labelledby="contact-heading">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold">Contact Us</p>
@@ -24,7 +24,7 @@ export default function Contact() {
       </section>
 
       {/* India Offices */}
-      <section className="py-10" aria-labelledby="india-offices">
+      <section className="py-6" aria-labelledby="india-offices">
         <div className="container mx-auto px-4">
           <h2 id="india-offices" className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
             Our Offices Within <em>India</em>
@@ -179,7 +179,7 @@ export default function Contact() {
               <article key={i} className="rounded-2xl p-6 shadow bg-white">
                 <img src={c.img} alt="" className="w-14 h-14" aria-hidden="true" loading="lazy" />
                 <h3 className="mt-3 text-lg font-semibold text-gray-900">{c.title}</h3>
-                <a href={`mailto:${c.email}`} className="hover:text-orange hover:underline font-medium text-sm">
+                <a href={`mailto:${c.email}`} className="text-orange hover:text-orange/80 hover:underline font-medium text-sm">
                   {c.email}
                 </a>
               </article>

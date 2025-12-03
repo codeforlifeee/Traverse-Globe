@@ -20,7 +20,7 @@ const WhyChooseUs = () => {
   // services imported from siteData
 
   return (
-    <section className="py-10 md:py-12 lg:py-14 bg-gray-50">
+    <section className="py-8 md:py-10 lg:py-12 bg-gray-50">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Title and Description */}

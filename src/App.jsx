@@ -16,6 +16,7 @@ const About = lazy(() => import(/* webpackChunkName: "about" */ './pages/About')
 const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
 const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
 const Hotels = lazy(() => import(/* webpackChunkName: "hotels" */ './pages/Hotels'));
+const HotelDetail = lazy(() => import(/* webpackChunkName: "hotel-detail" */ './pages/HotelDetail'));
 
 // NEW: Dynamic destination routing components
 const DestinationOverview = lazy(() => import(/* webpackChunkName: "destination-overview" */ './pages/destinations/DestinationOverview'));
@@ -58,6 +59,7 @@ function App() {
               
               {/* Hotel Routes */}
               <Route path="/hotels/:category" element={<Hotels />} />
+              <Route path="/hotels/:category/:slug" element={<HotelDetail />} />
               
               {/* NEW: Dynamic Destination Routes */}
               <Route path="/destinations" element={<DestinationOverview />} />

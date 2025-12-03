@@ -48,7 +48,7 @@ export default function DestinationList() {
   const typeLabel = type === 'international' ? 'International' : 'Domestic';
 
   return (
-    <div className="min-h-screen pt-20 pb-10">
+    <div className="min-h-screen pt-20 pb-8">
       {/* Hero Slider with Search */}
       <section className="relative">
         <HeroSlider 

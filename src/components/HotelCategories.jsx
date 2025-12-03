@@ -34,7 +34,7 @@ const HotelCard = ({ hotel }) => {
 
 export default function HotelCategories() {
   return (
-    <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
+    <section className="py-8 md:py-10 lg:py-12 bg-lightGray">
       <div className="container-custom">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue font-poppins">Explore Hotels</h2>

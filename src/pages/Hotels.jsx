@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { hotelListings, hotelCategories } from '../data/siteData';
 import HeroSlider from '../components/HeroSlider';
 
@@ -30,7 +30,13 @@ const HotelCategoryCard = ({ category }) => {
   );
 };
 
-const HotelCard = ({ hotel }) => {
+const HotelCard = ({ hotel, category }) => {
+  const navigate = useNavigate();
+
+  const handleBookClick = () => {
+    navigate(`/hotels/${category}/${hotel.slug}`);
+  };
+
   return (
     <div className="custom-card group bg-white h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-2xl">
@@ -56,7 +62,10 @@ const HotelCard = ({ hotel }) => {
               {hotel.location}
             </p>
           </div>
-          <button className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0">
+          <button 
+            onClick={handleBookClick}
+            className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0"
+          >
             <i className="fas fa-bed mr-1 text-xs"></i>
             Book Now
           </button>
@@ -122,7 +131,7 @@ export default function Hotels() {
 
   if (!categoryData) {
     return (
-      <div className="min-h-screen pt-20 pb-10 flex items-center justify-center">
+      <div className="min-h-screen pt-20 pb-8 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-darkBlue mb-2">Category Not Found</h1>
           <p className="text-darkBlue/70">The hotel category you're looking for doesn't exist.</p>
@@ -132,7 +141,7 @@ export default function Hotels() {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-10">
+    <div className="min-h-screen pt-20 pb-8">
       {/* Hero slider */}
       <HeroSlider
         images={[
@@ -187,7 +196,7 @@ export default function Hotels() {
           {filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} />
+                <HotelCard key={hotel.id} hotel={hotel} category={category} />
               ))}
             </div>
           ) : (

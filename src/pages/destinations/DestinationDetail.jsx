@@ -167,7 +167,7 @@ export default function DestinationDetail() {
   const typeLabel = type === 'international' ? 'International' : 'Domestic';
 
   return (
-    <div className="min-h-screen pt-20 pb-10">
+    <div className="min-h-screen pt-20 pb-8">
       {/* Package Header */}
       <div className="container mx-auto px-4 mt-6">
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">{detail?.title || ''}</h1>

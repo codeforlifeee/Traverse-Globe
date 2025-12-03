@@ -13,7 +13,7 @@ export default function SingaporePackages() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen pt-20 pb-10">
+    <div className="min-h-screen pt-20 pb-8">
       <HeroSlider
         images={singaporeBanners}
         className="w-full h-[280px] md:h-[420px] lg:h-[520px]"

@@ -38,7 +38,7 @@ export default function DestinationOverview() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-20 pb-10 bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen pt-20 pb-8 bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
           <p className="text-darkBlue font-canva-sans">Loading destinations...</p>
@@ -48,7 +48,7 @@ export default function DestinationOverview() {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-gray-50">
+    <div className="min-h-screen pt-20 pb-8 bg-gray-50">
       {/* Hero Slider Section */}
       <section className="relative">
         <HeroSlider 

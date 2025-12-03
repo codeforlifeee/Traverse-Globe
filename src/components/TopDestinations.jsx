@@ -31,9 +31,9 @@ const TopDestinations = () => {
 
   if (loading) {
     return (
-      <section className="py-10 md:py-12 lg:py-14 bg-white">
+      <section className="py-8 md:py-10 lg:py-12 bg-white">
         <div className="container-custom">
-          <div className="flex items-center justify-center py-20">
+          <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
           </div>
         </div>
@@ -44,9 +44,9 @@ const TopDestinations = () => {
   if (destinations.length === 0) return null;
 
   return (
-    <section className="py-10 md:py-12 lg:py-14 bg-white">
+    <section className="py-8 md:py-10 lg:py-12 bg-white">
       <div className="container-custom">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-5 md:mb-6">
           <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold mb-2 text-darkBlue font-poppins">
             Trending Domestic Destinations
           </h2>

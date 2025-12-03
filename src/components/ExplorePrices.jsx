@@ -124,9 +124,9 @@ const ExplorePrices = () => {
 
   if (loading) {
     return (
-      <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
+      <section className="py-8 md:py-10 lg:py-12 bg-lightGray">
         <div className="container-custom">
-          <div className="flex items-center justify-center py-20">
+          <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
           </div>
         </div>
@@ -137,7 +137,7 @@ const ExplorePrices = () => {
   if (packages.length === 0) return null;
 
   return (
-    <section className="py-10 md:py-12 lg:py-14 bg-lightGray">
+    <section className="py-8 md:py-10 lg:py-12 bg-lightGray">
       <div className="container-custom">
         <div className="mb-5 md:mb-6">
           <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue mb-2 font-poppins">

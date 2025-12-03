@@ -15,7 +15,7 @@ export default function DomesticDestinations() {
   const destinations = domesticDestinations;
 
   return (
-    <div className="min-h-screen pt-20 pb-16 bg-gray-50">
+    <div className="min-h-screen pt-20 pb-10 bg-gray-50">
       {/* Hero Slider Section */}
       <section className="relative">
         <HeroSlider 

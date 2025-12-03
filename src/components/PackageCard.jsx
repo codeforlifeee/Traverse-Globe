@@ -185,59 +185,15 @@ export default function PackageCard({
                 Quick View
               </button>
               
-              {/* Connect with Expert Button */}
-              <div className="relative flex-1" ref={menuRef}>
-                <button
-                  onClick={() => setShowExpertMenu(!showExpertMenu)}
-                  className="custom-btn w-full text-sm px-4 py-2.5 font-medium bg-teal hover:bg-teal/90 transition-all duration-200"
-                >
-                  <i className="fa-solid fa-headset mr-1.5 text-sm"></i>
-                  Expert
-                </button>
-                
-                {/* Dropdown Menu */}
-                {showExpertMenu && (
-                  <div className="absolute right-0 bottom-full mb-2 bg-white rounded-2xl overflow-hidden border border-gray-100 w-64 z-20 animate-fadeIn"
-                    style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
-                  >
-                    <div className="bg-gradient-to-r from-teal to-primary py-3 px-4">
-                      <p className="text-white font-semibold text-sm">Connect with Expert</p>
-                    </div>
-                    <div className="py-2">
-                      <a
-                        href={`tel:${companyInfo.phone.primary}`}
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-orange/5 transition-all duration-200 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                          <i className="fa-solid fa-phone text-orange text-base"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Request a Call Back</p>
-                          <p className="text-xs text-gray-500 mt-0.5">We'll call you shortly</p>
-                        </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-sm group-hover/item:text-orange transition-colors"></i>
-                      </a>
-                      <a
-                        href={`https://wa.me/${companyInfo.phone.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                          <i className="fa-brands fa-whatsapp text-[#25D366] text-lg"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp Chat</p>
-                          <p className="text-xs text-gray-500 mt-0.5">Chat with us now</p>
-                        </div>
-                        <i className="fa-solid fa-chevron-right text-gray-400 text-sm group-hover/item:text-[#25D366] transition-colors"></i>
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
+              {/* View Full Package Button */}
+              <button
+                onClick={handleViewPackage}
+                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 bg-teal hover:bg-teal/90 transition-all duration-200"
+              >
+                <i className="fa-solid fa-eye mr-1.5 text-sm"></i>
+                View Full Package
+              </button>
+
             </div>
           </div>
         </div>
@@ -354,13 +310,57 @@ export default function PackageCard({
 
             {/* Action Buttons - Bottom Aligned */}
             <div className="mt-4 pt-4 flex flex-col gap-2 border-t border-gray-200">
-              <button 
-                onClick={handleViewPackage}
-                className="custom-btn w-full text-sm px-4 py-3 font-medium bg-teal hover:bg-teal/90 transition-all duration-200"
-              >
-                <i className="fa-solid fa-eye mr-2 text-sm"></i>
-                View Full Package
-              </button>
+              {/* Expert Button with Dropdown */}
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={() => setShowExpertMenu(!showExpertMenu)}
+                  className="custom-btn w-full text-sm px-4 py-3 font-medium transition-all duration-200"
+                >
+                  <i className="fa-solid fa-headset mr-2 text-sm"></i>
+                  Connect with Expert
+                </button>
+                
+                {/* Dropdown Menu */}
+                {showExpertMenu && (
+                  <div className="absolute left-0 bottom-full mb-2 bg-white rounded-2xl overflow-hidden border border-gray-100 w-full z-20 animate-fadeIn"
+                    style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                  >
+                    <div className="bg-gradient-to-r from-teal to-primary py-3 px-4">
+                      <p className="text-white font-semibold text-sm">Contact Options</p>
+                    </div>
+                    <div className="py-2">
+                      <a
+                        href={`tel:${companyInfo.phone.primary}`}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-orange/5 transition-all duration-200 group/item"
+                        onClick={() => setShowExpertMenu(false)}
+                      >
+                        <div className="w-11 h-11 rounded-xl bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
+                          <i className="fa-solid fa-phone text-orange text-base"></i>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Call Us</p>
+                          <p className="text-xs text-gray-500 mt-0.5">{companyInfo.phone.primary}</p>
+                        </div>
+                      </a>
+                      <a
+                        href={`https://wa.me/${companyInfo.phone.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
+                        onClick={() => setShowExpertMenu(false)}
+                      >
+                        <div className="w-11 h-11 rounded-xl bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
+                          <i className="fa-brands fa-whatsapp text-[#25D366] text-lg"></i>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp</p>
+                          <p className="text-xs text-gray-500 mt-0.5">Chat with us now</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

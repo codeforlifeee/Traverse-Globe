@@ -167,8 +167,8 @@ export default function QuickViewCard({
                 onClick={handleViewPackage}
                 className="custom-btn text-xs px-3 py-1.5 font-medium flex-1 bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
               >
-                <i className="fa-solid fa-arrow-right mr-1 text-xs"></i>
-                {buttonLabel}
+                <i className="fa-solid fa-eye mr-1 text-xs"></i>
+                View Full Package
               </button>
             </div>
           </div>
@@ -264,20 +264,22 @@ export default function QuickViewCard({
 
             {/* Action Buttons */}
             <div className="mt-auto pt-3 flex flex-col gap-2 border-t border-gray-200">
-              <button 
-                onClick={handleViewPackage}
-                className="custom-btn w-full text-xs px-3 py-2 font-medium hover:scale-[1.02] transition-all duration-200"
+              <a
+                href={`tel:+919997085457`}
+                className="custom-btn w-full text-xs px-3 py-2 font-medium hover:scale-[1.02] transition-all duration-200 text-center"
               >
-                <i className="fa-solid fa-eye mr-1 text-xs"></i>
-                View Full Package
-              </button>
-              <button 
-                onClick={handleShare}
-                className="custom-btn w-full text-xs px-3 py-2 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200"
+                <i className="fa-solid fa-phone mr-1 text-xs"></i>
+                Call Expert
+              </a>
+              <a
+                href={`https://wa.me/919997085457`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="custom-btn w-full text-xs px-3 py-2 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 text-center"
               >
-                <i className="fa-solid fa-share-nodes mr-1 text-xs"></i>
-                Share Package
-              </button>
+                <i className="fa-brands fa-whatsapp mr-1 text-xs"></i>
+                WhatsApp Expert
+              </a>
             </div>
           </div>
         </div>

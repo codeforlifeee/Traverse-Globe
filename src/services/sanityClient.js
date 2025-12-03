@@ -279,5 +279,100 @@ export async function getPackageStats() {
   }
 }
 
+/**
+ * Fetch all hotels from Sanity
+ * @param {Object} options - Query options
+ * @param {string} options.category - Filter by category (optional)
+ * @param {number} options.limit - Limit results (optional)
+ * @param {boolean} options.featured - Filter featured hotels (optional)
+ * @returns {Promise<Array>} Array of hotel objects
+ */
+export async function fetchHotels(options = {}) {
+  const { category, limit, featured } = options;
+  
+  try {
+    let query = '*[_type == "hotel" && active == true';
+    
+    if (category) {
+      query += ` && category == "${category}"`;
+    }
+    
+    if (featured) {
+      query += ' && featured == true';
+    }
+    
+    query += '] | order(_createdAt desc)';
+    
+    if (limit) {
+      query += `[0...${limit}]`;
+    }
+    
+    const data = await sanityClient.fetch(query);
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching hotels from Sanity:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetch hotels by category
+ * @param {string} category - Category name (domestic/international/budget/luxury/business/resort)
+ * @returns {Promise<Array>} Array of hotel objects
+ */
+export async function fetchHotelsByCategory(category) {
+  return fetchHotels({ category });
+}
+
+/**
+ * Fetch a single hotel by slug
+ * @param {string} category - Hotel category
+ * @param {string} slug - Hotel slug
+ * @returns {Promise<Object|null>} Hotel object or null
+ */
+export async function fetchHotelBySlug(category, slug) {
+  try {
+    const query = `*[_type == "hotel" && active == true && category == "${category}" && slug.current == "${slug}"][0]`;
+    const data = await sanityClient.fetch(query);
+    return data || null;
+  } catch (error) {
+    console.error(`Error fetching hotel with slug ${slug}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch featured hotels
+ * @param {number} limit - Number of hotels to fetch
+ * @returns {Promise<Array>} Array of featured hotel objects
+ */
+export async function fetchFeaturedHotels(limit = 6) {
+  return fetchHotels({ featured: true, limit });
+}
+
+/**
+ * Search hotels by keyword
+ * @param {string} keyword - Search keyword
+ * @returns {Promise<Array>} Array of matching hotel objects
+ */
+export async function searchHotels(keyword) {
+  const query = `*[_type == "hotel" && active == true && (
+    name match "${keyword}*" ||
+    location match "${keyword}*" ||
+    city match "${keyword}*" ||
+    country match "${keyword}*" ||
+    category match "${keyword}*" ||
+    description match "${keyword}*"
+  )] | order(rating desc)`;
+  
+  try {
+    const results = await sanityClient.fetch(query);
+    return results || [];
+  } catch (error) {
+    console.error('Error searching hotels:', error);
+    return [];
+  }
+}
+
 // Export default client for custom queries
 export default sanityClient;
