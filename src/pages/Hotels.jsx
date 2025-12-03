@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { hotelListings, hotelCategories } from '../data/siteData';
+import { hotelCategories } from '../data/siteData';
+import { fetchHotelsByCategory } from '../services/sanityClient';
 import HeroSlider from '../components/HeroSlider';
 
 const HotelCategoryCard = ({ category }) => {
@@ -34,7 +35,8 @@ const HotelCard = ({ hotel, category }) => {
   const navigate = useNavigate();
 
   const handleBookClick = () => {
-    navigate(`/hotels/${category}/${hotel.slug}`);
+    const slug = hotel.slug?.current || hotel.slug;
+    navigate(`/hotels/${category}/${slug}`);
   };
 
   return (
@@ -104,13 +106,31 @@ export default function Hotels() {
   const { category } = useParams();
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [hotels, setHotels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const categoryData = useMemo(() => {
     return hotelCategories.find(cat => cat.slug === category);
   }, [category]);
 
-  const hotels = useMemo(() => {
-    return hotelListings[category] || [];
+  // Fetch hotels from Sanity
+  useEffect(() => {
+    async function loadHotels() {
+      if (!category) return;
+      
+      try {
+        setLoading(true);
+        const data = await fetchHotelsByCategory(category);
+        setHotels(data || []);
+      } catch (error) {
+        console.error('Error fetching hotels:', error);
+        setHotels([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    loadHotels();
   }, [category]);
 
   const filtered = useMemo(() => {
@@ -193,15 +213,19 @@ export default function Hotels() {
             </p>
           </div>
           
-          {filtered.length ? (
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+            </div>
+          ) : filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} category={category} />
+                <HotelCard key={hotel._id || hotel.id} hotel={hotel} category={category} />
               ))}
             </div>
           ) : (
             <div className="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl p-4">
-              No hotels found. Try adjusting your search.
+              {searchTerm ? 'No hotels found matching your search. Try adjusting your search.' : 'No hotels available in this category.'}
             </div>
           )}
         </div>
