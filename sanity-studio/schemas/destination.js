@@ -76,7 +76,6 @@ export default {
     select: {
       title: 'title',
       type: 'type',
-      media: 'image',
       order: 'order'
     },
     prepare({ title, type, order }) {

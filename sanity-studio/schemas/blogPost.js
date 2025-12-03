@@ -74,8 +74,7 @@ export default {
   preview: {
     select: {
       title: 'title',
-      author: 'author',
-      media: 'image'
+      author: 'author'
     },
     prepare({ title, author }) {
       return {

@@ -241,8 +241,7 @@ export default {
   preview: {
     select: {
       title: 'name',
-      subtitle: 'location',
-      media: 'image'
+      subtitle: 'location'
     }
   }
 }

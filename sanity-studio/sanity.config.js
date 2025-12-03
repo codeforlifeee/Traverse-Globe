@@ -18,4 +18,7 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  // Disable auto-updates to prevent version conflicts
+  autoUpdates: false,
 })

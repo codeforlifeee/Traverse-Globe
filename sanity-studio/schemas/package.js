@@ -190,8 +190,7 @@ export default {
       title: 'title',
       category: 'category',
       price: 'price',
-      rating: 'rating',
-      media: 'bannerImage'
+      rating: 'rating'
     },
     prepare({ title, category, price, rating }) {
       return {
