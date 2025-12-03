@@ -87,6 +87,9 @@ const HotelDetail = () => {
                   src={img}
                   alt={`${hotel.name} - Image ${idx + 1}`}
                   className="w-full h-full object-cover"
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchpriority={idx === 0 ? "high" : "auto"}
                 />
               </SwiperSlide>
             ))
@@ -96,6 +99,9 @@ const HotelDetail = () => {
                 src={hotel.image}
                 alt={hotel.name}
                 className="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
               />
             </SwiperSlide>
           )}
@@ -206,6 +212,8 @@ const HotelDetail = () => {
                               src={room.image}
                               alt={room.type}
                               className="w-full sm:w-32 h-24 object-cover rounded-lg"
+                              loading="lazy"
+                              decoding="async"
                             />
                           )}
                           <div className="flex-1">

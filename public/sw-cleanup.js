@@ -29,7 +29,43 @@ self.addEventListener('activate', (event) => {
 
 // Handle fetch errors gracefully
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('images.unsplash.com')) {
+  const url = event.request.url;
+  
+  // Handle Font Awesome CSS and fonts
+  if (url.includes('cdnjs.cloudflare.com/ajax/libs/font-awesome') || 
+      url.includes('font-awesome')) {
+    event.respondWith(
+      fetch(event.request, {
+        mode: 'cors',
+        credentials: 'omit'
+      })
+        .then((response) => {
+          // Only cache successful responses
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open('font-awesome-cache-v1').then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch((error) => {
+          // Try to serve from cache if network fails
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            console.warn('Failed to fetch Font Awesome:', event.request.url, error);
+            // Return empty response for fonts to prevent errors
+            return new Response('', { status: 200, statusText: 'OK' });
+          });
+        })
+    );
+    return;
+  }
+  
+  // Handle Unsplash images
+  if (url.includes('images.unsplash.com')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {

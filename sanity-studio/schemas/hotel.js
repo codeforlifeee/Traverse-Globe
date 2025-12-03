@@ -84,23 +84,16 @@ export default {
     {
       name: 'image',
       title: 'Main Image',
-      type: 'image',
-      options: {
-        hotspot: true
-      },
+      type: 'url',
+      description: 'Image URL or upload',
       validation: Rule => Rule.required()
     },
     {
       name: 'gallery',
       title: 'Gallery Images',
       type: 'array',
-      of: [{
-        type: 'image',
-        options: {
-          hotspot: true
-        }
-      }],
-      validation: Rule => Rule.min(3)
+      of: [{type: 'url'}],
+      description: 'Array of image URLs'
     },
     {
       name: 'amenities',
@@ -166,7 +159,8 @@ export default {
           {
             name: 'image',
             title: 'Room Image',
-            type: 'image'
+            type: 'url',
+            description: 'Room image URL'
           }
         ]
       }]
