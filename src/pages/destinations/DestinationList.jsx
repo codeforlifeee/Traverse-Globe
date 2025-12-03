@@ -147,13 +147,9 @@ export default function DestinationList() {
               {filtered.map((pkg) => (
                 <PackageCard
                   key={pkg.id}
-                  id={pkg.id}
-                  title={pkg.title}
-                  duration={pkg.duration}
-                  price={pkg.price}
-                  originalPrice={pkg.originalPrice}
-                  image={pkg.image}
-                  destination={`/destinations/${type}/${category}/${slugify(pkg.title)}`}
+                  pkg={pkg}
+                  destination={`/destinations/${type}/${category}/${pkg.slug?.current || slugify(pkg.title)}`}
+                  category={category}
                 />
               ))}
             </div>

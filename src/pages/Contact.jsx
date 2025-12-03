@@ -8,6 +8,9 @@ export default function Contact() {
     { title: 'Event Sponsorships', email: companyInfo.email.sponsorship, img: 'https://images.emtcontent.com/contact/event-sportship.svg' },
   ];
 
+  // Identify which emails need orange styling (Holidays Enquiry and Booking Status)
+  const orangeEmails = [companyInfo.email.holidays, companyInfo.email.care];
+
   return (
     <div className="min-h-screen pt-20 pb-10">
       {/* Top banner */}
@@ -179,7 +182,10 @@ export default function Contact() {
               <article key={i} className="rounded-2xl p-6 shadow bg-white">
                 <img src={c.img} alt="" className="w-14 h-14" aria-hidden="true" loading="lazy" />
                 <h3 className="mt-3 text-lg font-semibold text-gray-900">{c.title}</h3>
-                <a href={`mailto:${c.email}`} className="text-orange hover:text-orange/80 hover:underline font-medium text-sm">
+                <a 
+                  href={`mailto:${c.email}`} 
+                  className={`${orangeEmails.includes(c.email) ? 'text-orange hover:text-orange/80' : 'text-orange hover:text-orange/80'} hover:underline font-medium text-sm`}
+                >
                   {c.email}
                 </a>
               </article>
