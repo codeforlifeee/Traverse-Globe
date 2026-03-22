@@ -153,6 +153,18 @@ export const CATEGORIES = {
     icon: '🏖️',
     featured: true,
     displayOrder: 4
+  },
+  chardhamyatra: {
+    name: 'Chardham Yatra',
+    type: 'domestic',
+    slug: 'chardhamyatra',
+    title: 'Chardham Yatra Packages',
+    description: 'Sacred Himalayan pilgrimage to Yamunotri, Gangotri, Kedarnath, and Badrinath',
+    metaDescription: 'Explore Chardham Yatra packages with guided darshan, transfers, and comfortable stays across all four dhams.',
+    color: '#F97316',
+    icon: '🛕',
+    featured: false,
+    displayOrder: 5
   }
 };
 

@@ -93,7 +93,7 @@ export default function PackageCard({
 
   // Determine destination type (international/domestic) based on category
   const destinationType = useMemo(() => {
-    const domesticCategories = ['andaman', 'jaipur', 'kerala', 'kashmir'];
+    const domesticCategories = ['andaman', 'jaipur', 'kerala', 'kashmir', 'chardhamyatra'];
     return domesticCategories.includes(resolvedCategory) ? 'domestic' : 'international';
   }, [resolvedCategory]);
   

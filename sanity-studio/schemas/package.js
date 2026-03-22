@@ -45,7 +45,8 @@ export default {
           { title: 'Andaman', value: 'andaman' },
           { title: 'Jaipur', value: 'jaipur' },
           { title: 'Kerala', value: 'kerala' },
-          { title: 'Kashmir', value: 'kashmir' }
+          { title: 'Kashmir', value: 'kashmir' },
+          { title: 'Chardham Yatra', value: 'chardhamyatra' }
         ],
         layout: 'dropdown'
       },
