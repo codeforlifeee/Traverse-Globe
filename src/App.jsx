@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense, lazy, memo } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Suspense, lazy, memo, useEffect, useState } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Critical components - loaded immediately
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import BookingModal from './components/BookingModal';
 import Home from './pages/Home';
 
 // Lazy load non-critical components
@@ -39,6 +40,31 @@ const LoadingFallback = memo(() => (
   </div>
 ));
 LoadingFallback.displayName = 'LoadingFallback';
+
+function TimedSitewideFormPopup() {
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+
+    const timerId = window.setTimeout(() => {
+      setIsOpen(true);
+    }, 10000);
+
+    return () => {
+      window.clearTimeout(timerId);
+    };
+  }, [location.pathname]);
+
+  return (
+    <BookingModal
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+      packageName="General Travel Enquiry"
+    />
+  );
+}
 
 function App() {
   return (
@@ -102,6 +128,7 @@ function App() {
         <Suspense fallback={null}>
           <FloatingButtons />
         </Suspense>
+        <TimedSitewideFormPopup />
       </div>
       </ErrorBoundary>
       </Router>

@@ -1,10 +1,30 @@
 import { useEffect, useState } from 'react';
+import { companyInfo } from '../data/siteData';
+
+const DEFAULT_LEAD_API_PATH = '/api/lead-webhook';
+
+function buildLeadMessage(leadPayload) {
+  return [
+    'New booking enquiry',
+    `Package: ${leadPayload.packageName}`,
+    `Name: ${leadPayload.fullName}`,
+    `Mobile: ${leadPayload.mobile}`,
+    `Email: ${leadPayload.email}`,
+    `Travelers: ${leadPayload.travelers.total} (Adult: ${leadPayload.travelers.adult}, Child: ${leadPayload.travelers.child}, Infant: ${leadPayload.travelers.infant})`,
+    `Page: ${leadPayload.page.url}`,
+  ].join('\n');
+}
 
 export default function BookingModal({ open, onClose, packageName }) {
   const [adult, setAdult] = useState(2);
   const [child, setChild] = useState(0);
   const [infant, setInfant] = useState(0);
+  const [fullName, setFullName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     // Reset counters each time the modal opens
@@ -12,6 +32,11 @@ export default function BookingModal({ open, onClose, packageName }) {
       setAdult(2);
       setChild(0);
       setInfant(0);
+      setFullName('');
+      setMobile('');
+      setEmail('');
+      setSubmitMessage('');
+      setSubmitError('');
       // Prevent body scroll when modal is open
       document.body.style.overflow = 'hidden';
     } else {
@@ -26,14 +51,91 @@ export default function BookingModal({ open, onClose, packageName }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitMessage('');
+    setSubmitError('');
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    alert('🎉 Booking submitted successfully! We will contact you soon.');
-    setIsSubmitting(false);
-    onClose?.();
+
+    try {
+      const leadEndpoint = (import.meta.env.VITE_LEAD_WEBHOOK_URL || DEFAULT_LEAD_API_PATH).trim();
+      const leadPayload = {
+        fullName,
+        mobile: `+91${mobile}`,
+        email,
+        packageName: packageName || 'General Travel Enquiry',
+        travelers: {
+          adult,
+          child,
+          infant,
+          total: totalTravelers,
+        },
+        page: {
+          path: window.location.pathname,
+          url: window.location.href,
+          title: document.title,
+        },
+      };
+
+      const response = await fetch(leadEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(leadPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit enquiry');
+      }
+
+      setSubmitMessage('Request submitted successfully. Our team will contact you shortly.');
+      setFullName('');
+      setMobile('');
+      setEmail('');
+
+      setTimeout(() => {
+        onClose?.();
+      }, 1200);
+    } catch (error) {
+      const fallbackMessage = buildLeadMessage({
+        fullName,
+        mobile: `+91${mobile}`,
+        email,
+        packageName: packageName || 'General Travel Enquiry',
+        travelers: {
+          adult,
+          child,
+          infant,
+          total: totalTravelers,
+        },
+        page: {
+          path: window.location.pathname,
+          url: window.location.href,
+          title: document.title,
+        },
+      });
+
+      const fallbackWhatsapp = String(import.meta.env.VITE_LEAD_WHATSAPP || companyInfo?.phone?.whatsapp || '').replace(/\D/g, '');
+      const fallbackEmail = String(import.meta.env.VITE_LEAD_EMAIL || companyInfo?.email?.primary || '').trim();
+
+      if (fallbackWhatsapp) {
+        const whatsappUrl = `https://wa.me/${fallbackWhatsapp}?text=${encodeURIComponent(fallbackMessage)}`;
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        setSubmitMessage('Direct submit is unavailable right now. WhatsApp has been opened with your enquiry details.');
+        return;
+      }
+
+      if (fallbackEmail) {
+        const subject = encodeURIComponent(`Booking Enquiry: ${packageName || 'General Travel Enquiry'}`);
+        const body = encodeURIComponent(fallbackMessage);
+        window.location.href = `mailto:${fallbackEmail}?subject=${subject}&body=${body}`;
+        setSubmitMessage('Direct submit is unavailable right now. Your email app has been opened with enquiry details.');
+        return;
+      }
+
+      setSubmitError('Unable to submit right now. Please contact us via phone or WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const totalTravelers = adult + child + infant;
@@ -104,6 +206,8 @@ export default function BookingModal({ open, onClose, packageName }) {
                   </div>
                   <input
                     required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
                     className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
                   />
@@ -123,6 +227,8 @@ export default function BookingModal({ open, onClose, packageName }) {
                   <input
                     required
                     pattern="[0-9]{10}"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     placeholder="Enter 10-digit mobile number"
                     className="flex-1 px-4 py-3 outline-none font-canva-sans text-sm"
                     title="Please enter a valid 10-digit mobile number"
@@ -142,6 +248,8 @@ export default function BookingModal({ open, onClose, packageName }) {
                   <input
                     required
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="your.email@example.com"
                     className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
                   />
@@ -292,6 +400,18 @@ export default function BookingModal({ open, onClose, packageName }) {
                 </>
               )}
             </button>
+
+            {submitError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 font-canva-sans">
+                {submitError}
+              </div>
+            )}
+
+            {submitMessage && (
+              <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 font-canva-sans">
+                {submitMessage}
+              </div>
+            )}
 
             {/* Privacy Note */}
             <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">

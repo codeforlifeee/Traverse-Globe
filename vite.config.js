@@ -3,6 +3,78 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+function localLeadWebhookApi() {
+  return {
+    name: 'local-lead-webhook-api',
+    configureServer(server) {
+      server.middlewares.use('/api/lead-webhook', async (req, res, next) => {
+        if (req.method !== 'POST') {
+          return next();
+        }
+
+        try {
+          const webhookUrl = process.env.LEAD_WEBHOOK_URL;
+          if (!webhookUrl) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'LEAD_WEBHOOK_URL is not configured in .env' }));
+            return;
+          }
+
+          let rawBody = '';
+          req.on('data', (chunk) => {
+            rawBody += chunk;
+          });
+
+          await new Promise((resolve, reject) => {
+            req.on('end', resolve);
+            req.on('error', reject);
+          });
+
+          const payload = rawBody ? JSON.parse(rawBody) : {};
+
+          const headers = {
+            'Content-Type': 'application/json'
+          };
+
+          if (process.env.LEAD_WEBHOOK_SECRET) {
+            headers['x-webhook-secret'] = process.env.LEAD_WEBHOOK_SECRET;
+          }
+
+          const webhookResponse = await fetch(webhookUrl, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              source: 'Traverse Globe Website Popup',
+              submittedAt: new Date().toISOString(),
+              ...payload
+            })
+          });
+
+          if (!webhookResponse.ok) {
+            const errorBody = await webhookResponse.text();
+            res.statusCode = 502;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: `Webhook forward failed: ${errorBody || webhookResponse.status}` }));
+            return;
+          }
+
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ success: true }));
+        } catch (error) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: `Failed to process lead webhook request: ${error?.message || 'unknown error'}` }));
+        }
+      });
+    }
+  };
+}
 
 // Custom plugin to inject CSP meta tag - DISABLED
 // CSP is now handled by .htaccess to avoid conflicts
@@ -23,6 +95,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    localLeadWebhookApi(),
     // injectCSPMetaTag(), // Disabled - CSP handled by .htaccess
     react({
       babel: {
