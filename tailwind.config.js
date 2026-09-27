@@ -7,11 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Header: prefers 'The Seasons' if provided, then Playfair Display as open alternative
         'season': ['"The Seasons"', '"Playfair Display"', 'serif'],
-        // Subheading
         'poppins': ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        // Body: prefers 'Canva Sans' if available, falls back to Inter/system
         'canva-sans': ['"Canva Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
@@ -21,6 +18,36 @@ export default {
         teal: '#075056',
         lightGray: '#E4EEF0',
         accent: '#FF5B04',
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       transitionDuration: {
         400: '400ms',
@@ -36,6 +63,8 @@ export default {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
         'bounce-slow': 'bounce 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
         fadeInUp: {
@@ -56,9 +85,16 @@ export default {
             opacity: '1',
           },
         },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 }
-
