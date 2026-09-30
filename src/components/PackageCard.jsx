@@ -1,106 +1,123 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Zap as Bolt, Eye, Headphones, Phone, X, Star, Clock, Flame, Zap, Sparkles } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { cn } from '@/lib/utils';
 import { slugify } from '../utils/slug';
 import { companyInfo } from '../data/siteData';
-import { IoShare } from 'react-icons/io5';
+import HeartIcon from './revamp/HeartIcon';
+import ImageWithFallback from './revamp/ImageWithFallback';
 
-// Utility function to extract days from nights format
 const getDaysFromNights = (nights) => {
   if (!nights) return '';
   const match = nights.match(/(\d+)N\/(\d+)D/);
-  if (match) {
-    return `${match[2]} Days`;
-  }
+  if (match) return `${match[2]} Days`;
   return nights;
 };
 
-export const PriceTag = ({ strike, price }) => (
-  <div className="mt-3">
-    {typeof strike === 'number' && (
-      <p className="text-sm text-darkBlue/40 line-through font-canva-sans mb-1">₹{strike.toLocaleString('en-IN')}</p>
-    )}
-    <div className="flex items-baseline justify-between gap-2">
-      <p className="text-xl md:text-2xl font-bold text-orange font-poppins">
-        ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
-  <span className="block text-sm font-normal text-darkBlue/70 font-canva-sans mt-1">Per Person on twin sharing</span>
-      </p>
-    </div>
-  </div>
-);
+const computeSavings = (price, strike) => {
+  if (!price || !strike || strike <= price) return null;
+  return Math.round(((strike - price) / strike) * 100);
+};
 
-export default function PackageCard({ 
-  pkg, 
-  id, 
-  title, 
-  duration, 
-  price, 
-  originalPrice, 
-  image, 
-  destination, 
-  onView, 
-  buttonLabel = 'View Package', 
-  category 
+const URGENCY_META = {
+  'high-demand': { label: 'High demand', icon: Flame, tone: 'bg-brand-orange/10 text-brand-orange border-brand-orange/20' },
+  'few-seats': { label: 'Only a few left', icon: Zap, tone: 'bg-amber-50 text-amber-700 border-amber-200' },
+  'just-launched': { label: 'Just launched', icon: Sparkles, tone: 'bg-brand-trust/10 text-brand-trust border-brand-trust/20' },
+  'sold-out': { label: 'Sold out', icon: X, tone: 'bg-slate-200 text-slate-600 border-slate-300' },
+};
+
+export const PriceTag = ({ strike, price, size = 'default' }) => {
+  const priceCls = size === 'lg'
+    ? 'text-2xl md:text-3xl'
+    : 'text-xl md:text-2xl';
+  return (
+    <div className="mt-1">
+      <div className="flex items-baseline gap-2 flex-wrap">
+        {typeof strike === 'number' && strike > 0 && strike > (price || 0) && (
+          <span className="text-sm text-brand-muted-ink line-through font-canva-sans">
+            ₹{strike.toLocaleString('en-IN')}
+          </span>
+        )}
+        <span className={cn('font-bold text-brand-orange font-poppins leading-none', priceCls)}>
+          ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
+        </span>
+      </div>
+      <p className="text-xs text-brand-muted-ink font-canva-sans mt-1">Per person on twin sharing</p>
+    </div>
+  );
+};
+
+/**
+ * PackageCard — refactored per REVAMP_PLAN §5.
+ * - `size` variants: 'default' | 'large' (elevated for "Pick the Winner") | 'compact'
+ * - Heart icon on top-right (adds to shortlist)
+ * - Save-% badge on top-left (auto-computed from strike + price, or pkg.savingsPercent)
+ * - Urgency badge below title (pkg.urgency)
+ * - Rating pill on image (pkg.rating)
+ * - Grayscale + "Sold out" treatment when urgency === 'sold-out' or pkg.active === false
+ * - Preserves the flip quick-view mechanic from the previous card
+ */
+export default function PackageCard({
+  pkg,
+  id,
+  title,
+  duration,
+  price,
+  originalPrice,
+  image,
+  destination,
+  onView,
+  buttonLabel = 'View Package',
+  category,
+  size = 'default',
+  showQuickView = true,
 }) {
   const [showExpertMenu, setShowExpertMenu] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  // Support both pkg object and individual props
   const basePackage = pkg || {
-    id,
-    title,
-    nights: duration,
-    price,
-    strikePrice: originalPrice,
-    image
+    id, title, nights: duration, price, strikePrice: originalPrice, image
   };
-
-  // Use Sanity data structure directly from pkg
   const packageData = {
     ...basePackage,
-    // Sanity packages already have all fields
     image: basePackage.image || basePackage.bannerImage,
-    nights: basePackage.nights || basePackage.duration
+    nights: basePackage.nights || basePackage.duration,
   };
 
-  // Compute a stable slug for the package details page
-  // Use Sanity slug if available, otherwise generate from title
-  const computedSlug = useMemo(() => {
-    return packageData.slug?.current || slugify(packageData.title);
-  }, [packageData.slug, packageData.title]);
+  const computedSlug = useMemo(
+    () => packageData.slug?.current || slugify(packageData.title),
+    [packageData.slug, packageData.title]
+  );
 
   const resolvedCategory = useMemo(() => {
-    // Use category from props, or Sanity category, or fall back to ID-based logic
     if (category) return category;
     if (packageData.category) return packageData.category;
-    
-    // Fallback to ID-based category resolution for legacy data
-    const id = Number(packageData.id);
-    if ((id >= 1 && id <= 10)) return 'uae';
-    if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
-    if ((id >= 16 && id <= 20) || (id >= 36 && id <= 39)) return 'thailand';
-    if ((id >= 21 && id <= 25) || (id >= 31 && id <= 35)) return 'singapore';
-    if ((id >= 40 && id <= 54)) return 'srilanka';
-    if ((id >= 55 && id <= 64)) return 'vietnam';
-    if ((id >= 65 && id <= 74)) return 'laos';
-    if ((id >= 91 && id <= 100)) return 'andaman';
-    if ((id >= 101 && id <= 110)) return 'jaipur';
-    if ((id >= 111 && id <= 120)) return 'kerala';
-    if ((id >= 121 && id <= 130)) return 'kashmir';
+    const numId = Number(packageData.id);
+    if (numId >= 1 && numId <= 10) return 'uae';
+    if ((numId >= 11 && numId <= 15) || (numId >= 26 && numId <= 30)) return 'bali';
+    if ((numId >= 16 && numId <= 20) || (numId >= 36 && numId <= 39)) return 'thailand';
+    if ((numId >= 21 && numId <= 25) || (numId >= 31 && numId <= 35)) return 'singapore';
+    if (numId >= 40 && numId <= 54) return 'srilanka';
+    if (numId >= 55 && numId <= 64) return 'vietnam';
+    if (numId >= 65 && numId <= 74) return 'laos';
+    if (numId >= 91 && numId <= 100) return 'andaman';
+    if (numId >= 101 && numId <= 110) return 'jaipur';
+    if (numId >= 111 && numId <= 120) return 'kerala';
+    if (numId >= 121 && numId <= 130) return 'kashmir';
     return 'uae';
   }, [category, packageData.category, packageData.id]);
 
-  // Determine destination type (international/domestic) based on category
   const destinationType = useMemo(() => {
-    const domesticCategories = ['andaman', 'jaipur', 'kerala', 'kashmir', 'chardhamyatra'];
-    return domesticCategories.includes(resolvedCategory) ? 'domestic' : 'international';
+    const domestic = ['andaman', 'jaipur', 'kerala', 'kashmir', 'chardhamyatra'];
+    return domestic.includes(resolvedCategory) ? 'domestic' : 'international';
   }, [resolvedCategory]);
-  
-  // Use destination prop if provided (new routing), otherwise construct from category
+
   const packageLink = destination || `/destinations/${destinationType}/${resolvedCategory}/${computedSlug}`;
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -111,253 +128,278 @@ export default function PackageCard({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Ensure image exists
   const imageUrl = packageData.image || packageData.bannerImage || '';
+  const savingsPercent = packageData.savingsPercent
+    || computeSavings(packageData.price, packageData.strikePrice);
+  const urgency = packageData.urgency || null;
+  const soldOut = urgency === 'sold-out' || packageData.active === false;
 
-  // Get details data for quick view from Sanity structure
+  const urgencyMeta = urgency && URGENCY_META[urgency];
+  const UrgencyIcon = urgencyMeta?.icon;
+
   const itineraryDays = packageData.itinerary?.days || [];
   const inclusions = packageData.inclusions || [];
   const accommodations = packageData.hotels?.options || packageData.hotels || [];
 
-  // Handle navigation to full package page
   const handleViewPackage = () => {
+    if (soldOut) return;
+    if (onView) return onView(packageData);
     navigate(packageLink);
   };
 
-  // Handle share functionality
-  const handleShare = async () => {
-    const shareData = {
-      title: packageData.title,
-      text: `Check out this amazing package: ${packageData.title}`,
-      url: window.location.href
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        console.log('Share cancelled');
-      }
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
-    }
+  const shortlistItem = {
+    id: `pkg:${packageData.id || computedSlug}`,
+    type: 'package',
+    title: packageData.title,
+    price: packageData.price,
+    image: imageUrl,
+    slug: computedSlug,
+    category: resolvedCategory,
+    href: packageLink,
   };
-  
-  return (
-    <div className="custom-card group bg-white h-full flex flex-col flip-card-container">
-      <div className="flip-card" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
-        
-        {/* FRONT SIDE */}
-        <div className="flip-card-front">
-          <div className="relative overflow-hidden rounded-t-2xl h-48 md:h-52">
-            <img
-              src={imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
-              srcSet={`${imageUrl.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-              alt={packageData.title}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            {packageData.nights && (
-              <div className="absolute left-4 bottom-4 bg-white/95 backdrop-blur-sm text-darkBlue text-xs font-semibold px-4 py-2 rounded-xl font-poppins whitespace-nowrap border border-gray-100"
-                style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-              >
-                <i className="fa-regular fa-calendar text-orange mr-1.5"></i>
-                <span className="inline-block">{getDaysFromNights(packageData.nights)}</span>
-              </div>
-            )}
-          </div>
-          
-          <div className="p-5 flex flex-col flex-grow">
-            <h3 className="font-semibold text-darkBlue text-lg md:text-xl font-poppins mb-3 line-clamp-2 min-h-[2.8rem] leading-snug">{packageData.title}</h3>
-            <PriceTag strike={packageData.strikePrice} price={packageData.price} />
-            
-            {/* Buttons Section - Pushed to bottom */}
-            <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-2.5">
-              <button 
-                onClick={() => setIsFlipped(true)}
-                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 transition-all duration-200"
-              >
-                <i className="fa-solid fa-bolt mr-1.5 text-sm"></i>
-                Quick View
-              </button>
-              
-              {/* View Full Package Button */}
-              <button
-                onClick={handleViewPackage}
-                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 bg-teal hover:bg-teal/90 transition-all duration-200"
-              >
-                <i className="fa-solid fa-eye mr-1.5 text-sm"></i>
-                View Full Package
-              </button>
 
+  // Size variants
+  const isLarge = size === 'large';
+  const isCompact = size === 'compact';
+  const imgAspect = isLarge ? 'aspect-[16/10]' : 'aspect-[4/3]';
+  const titleCls = isLarge
+    ? 'text-lg md:text-2xl'
+    : (isCompact ? 'text-base' : 'text-base md:text-lg');
+  const bodyPad = isLarge ? 'p-6' : 'p-5';
+
+  return (
+    <motion.div
+      whileHover={soldOut ? {} : { y: -4 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-white border transition-shadow duration-300',
+        'shadow-soft-sm hover:shadow-soft-xl',
+        isLarge ? 'border-brand-orange/30 ring-1 ring-brand-orange/10' : 'border-brand-hairline',
+        soldOut && 'grayscale opacity-70 pointer-events-none'
+      )}
+    >
+      <div className="flip-card-container" style={{ minHeight: isLarge ? 520 : 460 }}>
+        <div className="flip-card" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+
+          {/* FRONT */}
+          <div className="flip-card-front">
+            {/* Image */}
+            <div className={cn('relative overflow-hidden', imgAspect)}>
+              <ImageWithFallback
+                src={imageUrl}
+                alt={packageData.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Gradient bottom for legibility of chips */}
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+
+              {/* Top-left: Save % */}
+              {savingsPercent > 0 && !soldOut && (
+                <div className="absolute top-3 left-3 bg-brand-trust text-white text-xs font-poppins font-semibold px-2.5 py-1 rounded-md shadow-soft-md">
+                  Save {savingsPercent}%
+                </div>
+              )}
+
+              {/* Top-right: Heart */}
+              <div className="absolute top-3 right-3">
+                <HeartIcon item={shortlistItem} size="md" />
+              </div>
+
+              {/* Featured pick badge (only on large) */}
+              {isLarge && (
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[11px] font-poppins font-semibold uppercase tracking-widest px-3 py-1 rounded-full shadow-glow-orange">
+                  Our pick
+                </div>
+              )}
+
+              {/* Bottom-left: duration */}
+              {packageData.nights && (
+                <div className="absolute left-3 bottom-3 flex items-center gap-1.5 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-medium px-2.5 py-1.5 rounded-lg">
+                  <Clock className="w-3.5 h-3.5 text-brand-orange" />
+                  <span>{getDaysFromNights(packageData.nights)}</span>
+                </div>
+              )}
+
+              {/* Bottom-right: rating */}
+              {packageData.rating > 0 && (
+                <div className="absolute right-3 bottom-3 flex items-center gap-1 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+                  <span>{packageData.rating.toFixed(1)}</span>
+                  {packageData.reviews > 0 && (
+                    <span className="text-brand-muted-ink font-normal">({packageData.reviews})</span>
+                  )}
+                </div>
+              )}
+
+              {/* Sold-out overlay */}
+              {soldOut && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                  <span className="bg-white text-brand-ink text-sm font-poppins font-bold uppercase tracking-widest px-4 py-2 rounded-md">
+                    Sold out
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Body */}
+            <div className={cn('flex flex-col flex-grow', bodyPad)}>
+              {/* Kicker: category */}
+              <span className="text-kicker uppercase text-brand-muted-ink font-poppins mb-2">
+                {destinationType} · {resolvedCategory}
+              </span>
+
+              <h3 className={cn(
+                'font-poppins font-semibold text-brand-ink mb-2 line-clamp-2 leading-snug',
+                titleCls
+              )}>
+                {packageData.title}
+              </h3>
+
+              {/* Urgency badge */}
+              {urgencyMeta && !soldOut && (
+                <div className={cn(
+                  'inline-flex self-start items-center gap-1 text-[11px] font-poppins font-medium px-2 py-1 rounded-md border mb-3',
+                  urgencyMeta.tone
+                )}>
+                  {UrgencyIcon && <UrgencyIcon className="w-3 h-3" />}
+                  {urgencyMeta.label}
+                </div>
+              )}
+
+              <div className="mt-auto pt-3">
+                <PriceTag strike={packageData.strikePrice} price={packageData.price} size={isLarge ? 'lg' : 'default'} />
+
+                <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                  {showQuickView && !isCompact && (
+                    <button
+                      onClick={() => setIsFlipped(true)}
+                      disabled={soldOut}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand-canvas-2 hover:bg-brand-hairline text-brand-ink text-sm font-poppins font-medium transition-colors"
+                    >
+                      <Bolt className="w-4 h-4" />
+                      Quick view
+                    </button>
+                  )}
+                  <button
+                    onClick={handleViewPackage}
+                    disabled={soldOut}
+                    className={cn(
+                      'flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-poppins font-semibold transition-colors',
+                      soldOut
+                        ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
+                        : 'bg-brand-orange hover:bg-brand-orange-hover text-white shadow-soft-md hover:shadow-glow-orange'
+                    )}
+                  >
+                    <Eye className="w-4 h-4" />
+                    {buttonLabel}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* BACK SIDE (Quick View) */}
-        <div className="flip-card-back overflow-hidden">
-          <div className="p-5 flex flex-col h-full bg-white">
-            
-            {/* Header with Share and Close Button */}
-            <div className="flex justify-between items-center mb-5 pb-4 border-b border-gray-200">
-              <h4 className="font-bold text-darkBlue text-base font-poppins">Quick View</h4>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleShare}
-                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-orange/10 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
-                  title="Share"
-                >
-                  <i className="fa-solid fa-share-nodes text-sm"></i>
-                </button>
+          {/* BACK — Quick view (preserved from previous card, restyled) */}
+          <div className="flip-card-back overflow-hidden">
+            <div className="p-5 flex flex-col h-full bg-white">
+              <div className="flex justify-between items-center mb-4 pb-3 border-b border-brand-hairline">
+                <h4 className="font-poppins font-bold text-brand-ink text-base">Quick view</h4>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-red-50 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-red-600 flex-shrink-0"
+                  className="w-8 h-8 rounded-lg bg-brand-canvas-2 hover:bg-brand-hairline flex items-center justify-center text-brand-ink transition-colors"
                   title="Close"
                 >
-                  <i className="fa-solid fa-xmark text-base"></i>
+                  <X className="w-4 h-4" />
                 </button>
               </div>
-            </div>
 
-            {/* Content - Icon-based minimal text */}
-            <div className="flex-1 overflow-y-auto space-y-3">
-              
-              {/* Itinerary Section */}
-              {itineraryDays.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-map-location-dot text-orange text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Itinerary</h5>
-                    <span className="text-xs bg-orange/20 text-orange rounded px-2 py-0.5 font-medium ml-auto">{itineraryDays.length} Days</span>
-                  </div>
-                  <div className="space-y-1">
-                    {itineraryDays.slice(0, 2).map((day, idx) => (
-                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-start">
-                        <span className="font-semibold text-orange min-w-fit">{day.dayKey || `Day ${idx + 1}`}</span>
-                        <span className="line-clamp-1">{day.title}</span>
-                      </div>
-                    ))}
-                    {itineraryDays.length > 2 && (
-                      <p className="text-xs text-orange font-medium">+{itineraryDays.length - 2} more days</p>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Inclusions Section - Symbol Based */}
-              {inclusions.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-check-circle text-green-500 text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Included</h5>
-                    <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-0.5 font-medium ml-auto">{inclusions.length}</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {inclusions.slice(0, 4).map((item, idx) => {
-                      // Determine icon based on item content
-                      let icon = 'fa-check';
-                      if (item.toLowerCase().includes('meal') || item.toLowerCase().includes('food') || item.toLowerCase().includes('breakfast') || item.toLowerCase().includes('lunch') || item.toLowerCase().includes('dinner')) icon = 'fa-utensils';
-                      if (item.toLowerCase().includes('hotel') || item.toLowerCase().includes('accommodation') || item.toLowerCase().includes('stay')) icon = 'fa-bed';
-                      if (item.toLowerCase().includes('flight') || item.toLowerCase().includes('transport') || item.toLowerCase().includes('airport') || item.toLowerCase().includes('transfer')) icon = 'fa-plane';
-                      if (item.toLowerCase().includes('guide') || item.toLowerCase().includes('tour') || item.toLowerCase().includes('visit')) icon = 'fa-person-hiking';
-                      if (item.toLowerCase().includes('visa') || item.toLowerCase().includes('insurance') || item.toLowerCase().includes('permit')) icon = 'fa-shield';
-                      if (item.toLowerCase().includes('activity') || item.toLowerCase().includes('adventure') || item.toLowerCase().includes('water') || item.toLowerCase().includes('sport')) icon = 'fa-person-skiing';
-
-                      return (
-                        <div key={idx} className="text-xs text-gray-700 flex flex-col items-center gap-1 p-1.5 bg-green-50 rounded border border-green-200">
-                          <i className={`fa-solid ${icon} text-green-500 text-lg`}></i>
-                          <span className="text-center line-clamp-2 text-xs font-medium">{item}</span>
+              <div className="flex-1 overflow-y-auto space-y-4">
+                {itineraryDays.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">Itinerary</span>
+                      <span className="text-[11px] bg-brand-orange/10 text-brand-orange rounded px-2 py-0.5 font-poppins font-medium">{itineraryDays.length} days</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {itineraryDays.slice(0, 3).map((day, idx) => (
+                        <div key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <span className="font-poppins font-semibold text-brand-orange min-w-fit">{day.dayKey || `Day ${idx + 1}`}</span>
+                          <span className="line-clamp-1">{day.title}</span>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
-                  {inclusions.length > 4 && (
-                    <p className="text-xs text-green-600 font-medium mt-1.5">+{inclusions.length - 4} more included</p>
-                  )}
-                </div>
-              )}
+                )}
 
-              {/* Accommodations Section */}
-              {accommodations.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-hotel text-teal text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Hotels</h5>
-                    <span className="text-xs bg-teal/20 text-teal rounded px-2 py-0.5 font-medium ml-auto">{accommodations.length}</span>
+                {inclusions.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">Included</span>
+                      <span className="text-[11px] bg-brand-trust/10 text-brand-trust rounded px-2 py-0.5 font-poppins font-medium">{inclusions.length}</span>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {inclusions.slice(0, 4).map((item, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <span className="text-brand-trust mt-0.5">✓</span>
+                          <span className="line-clamp-1">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="space-y-1">
-                    {accommodations.slice(0, 2).map((hotel, idx) => (
-                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-center">
-                        <span className="flex gap-1 min-w-fit">
-                          {[1, 2, 3].map((star) => (
-                            <i key={star} className={`fa-solid fa-star text-xs ${star <= 4 ? 'text-yellow-400' : 'text-gray-300'}`}></i>
-                          ))}
-                        </span>
-                        <span className="line-clamp-1">{hotel}</span>
-                      </div>
-                    ))}
-                  </div>
-                  {accommodations.length > 2 && (
-                    <p className="text-xs text-teal font-medium mt-1">+{accommodations.length - 2} more hotels</p>
-                  )}
-                </div>
-              )}
-            </div>
+                )}
 
-            {/* Action Buttons - Bottom Aligned */}
-            <div className="mt-4 pt-4 flex flex-col gap-2 border-t border-gray-200">
-              {/* Expert Button with Dropdown */}
-              <div className="relative" ref={menuRef}>
+                {accommodations.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">Hotels</span>
+                      <span className="text-[11px] bg-brand-canvas-2 text-brand-ink rounded px-2 py-0.5 font-poppins font-medium">{accommodations.length}</span>
+                    </div>
+                    <ul className="space-y-1">
+                      {accommodations.slice(0, 2).map((hotel, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink line-clamp-1">{hotel}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-brand-hairline" ref={menuRef}>
                 <button
                   onClick={() => setShowExpertMenu(!showExpertMenu)}
-                  className="custom-btn w-full text-sm px-4 py-3 font-medium transition-all duration-200"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-poppins font-semibold transition-colors"
                 >
-                  <i className="fa-solid fa-headset mr-2 text-sm"></i>
-                  Connect with Expert
+                  <Headphones className="w-4 h-4" />
+                  Talk to an expert
                 </button>
-                
-                {/* Dropdown Menu */}
                 {showExpertMenu && (
-                  <div className="absolute left-0 bottom-full mb-2 bg-white rounded-2xl overflow-hidden border border-gray-100 w-full z-20 animate-fadeIn"
-                    style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
-                  >
-                    <div className="bg-gradient-to-r from-teal to-primary py-3 px-4">
-                      <p className="text-white font-semibold text-sm">Contact Options</p>
-                    </div>
-                    <div className="py-2">
-                      <a
-                        href={`tel:${companyInfo.phone.primary}`}
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-orange/5 transition-all duration-200 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                          <i className="fa-solid fa-phone text-orange text-base"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Call Us</p>
-                          <p className="text-xs text-gray-500 mt-0.5">{companyInfo.phone.primary}</p>
-                        </div>
-                      </a>
-                      <a
-                        href={`https://wa.me/${companyInfo.phone.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                          <i className="fa-brands fa-whatsapp text-[#25D366] text-lg"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp</p>
-                          <p className="text-xs text-gray-500 mt-0.5">Chat with us now</p>
-                        </div>
-                      </a>
-                    </div>
+                  <div className="mt-2 rounded-xl border border-brand-hairline overflow-hidden animate-fade-in">
+                    <a
+                      href={`tel:${companyInfo.phone.primary}`}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-orange/5"
+                      onClick={() => setShowExpertMenu(false)}
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-brand-orange/10 flex items-center justify-center">
+                        <Phone className="w-4 h-4 text-brand-orange" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-poppins font-semibold text-brand-ink">Call us</p>
+                        <p className="text-xs text-brand-muted-ink">{companyInfo.phone.primary}</p>
+                      </div>
+                    </a>
+                    <a
+                      href={`https://wa.me/${companyInfo.phone.whatsapp}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#25D366]/5 border-t border-brand-hairline"
+                      onClick={() => setShowExpertMenu(false)}
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center">
+                        <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-poppins font-semibold text-brand-ink">WhatsApp</p>
+                        <p className="text-xs text-brand-muted-ink">Chat with us now</p>
+                      </div>
+                    </a>
                   </div>
                 )}
               </div>
@@ -365,6 +407,6 @@ export default function PackageCard({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

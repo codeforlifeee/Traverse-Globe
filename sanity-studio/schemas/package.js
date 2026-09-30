@@ -165,6 +165,52 @@ export default {
       description: 'Array of additional gallery image URLs (3-10 images)'
     },
     {
+      name: 'themes',
+      title: 'Themes',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Honeymoon', value: 'honeymoon' },
+          { title: 'Family with Kids', value: 'family' },
+          { title: 'Adventure', value: 'adventure' },
+          { title: 'Pilgrimage', value: 'pilgrimage' },
+          { title: 'Beach Escape', value: 'beach' },
+          { title: 'Hill Retreat', value: 'hills' },
+        ],
+      },
+      description: 'One or more themes this package fits. Powers /packages/theme/:theme browse.'
+    },
+    {
+      name: 'urgency',
+      title: 'Urgency Badge',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'None', value: '' },
+          { title: '🔥 High demand', value: 'high-demand' },
+          { title: '⚡ Only a few left', value: 'few-seats' },
+          { title: '🎉 Just launched', value: 'just-launched' },
+          { title: 'Sold out (greys out card)', value: 'sold-out' },
+        ],
+      },
+      description: 'Optional urgency badge shown on the card.'
+    },
+    {
+      name: 'savingsPercent',
+      title: 'Savings % (override)',
+      type: 'number',
+      validation: (Rule) => Rule.min(0).max(90),
+      description: 'Optional. If left blank, computed automatically from strikePrice.'
+    },
+    {
+      name: 'freeCancellationDays',
+      title: 'Free cancellation days',
+      type: 'number',
+      validation: (Rule) => Rule.min(0),
+      description: 'If set, shows "Free cancellation up to X days" chip on the detail page.'
+    },
+    {
       name: 'featured',
       title: 'Featured Package',
       type: 'boolean',

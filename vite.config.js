@@ -350,6 +350,8 @@ export default defineConfig({
 
   // Server configuration
   server: {
+    port: 5173,
+    strictPort: false, // If 5173 taken, Vite auto-bumps to 5174 — remember to whitelist that in Sanity CORS
     hmr: {
       overlay: false
     }

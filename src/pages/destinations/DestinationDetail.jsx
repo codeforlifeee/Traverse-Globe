@@ -14,6 +14,24 @@ import PackageCard from '../../components/PackageCard';
 export default function DestinationDetail() {
   const { type, category, slug } = useParams();
 
+  // Announce the new canonical URL to search engines. In Phase 3 we point at
+  // the new /packages/:slug URL via <link rel="canonical">; a 301 redirect
+  // ships in a later release once we've measured the SEO impact.
+  useEffect(() => {
+    if (!slug) return;
+    const canonical = `${window.location.origin}/packages/${slug}`;
+    let link = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', canonical);
+    return () => {
+      if (link && link.parentNode) link.parentNode.removeChild(link);
+    };
+  }, [slug]);
+
   // Get category configuration
   const config = getCategoryBySlug(category);
 

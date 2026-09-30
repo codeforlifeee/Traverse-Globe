@@ -45,6 +45,13 @@ export default {
       type: 'boolean',
       description: 'Show on home page',
       initialValue: false
+    },
+    {
+      name: 'packageRef',
+      title: 'Package (optional)',
+      type: 'reference',
+      to: [{ type: 'package' }],
+      description: 'Link this review to a specific package to show on its detail page.'
     }
   ],
   preview: {

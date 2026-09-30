@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-09-30T12:57:16.468Z",
+  "base": "http://localhost:5173",
+  "results": [
+    {
+      "url": "/",
+      "viewport": "mobile",
+      "file": "revamp-screenshots\\00-baseline\\home--mobile.png",
+      "bytes": 1476726,
+      "ok": true
+    },
+    {
+      "url": "/",
+      "viewport": "tablet",
+      "file": "revamp-screenshots\\00-baseline\\home--tablet.png",
+      "bytes": 4912196,
+      "ok": true
+    },
+    {
+      "url": "/",
+      "viewport": "desktop",
+      "file": "revamp-screenshots\\00-baseline\\home--desktop.png",
+      "bytes": 2071054,
+      "ok": true
+    },
+    {
+      "url": "/destinations",
+      "viewport": "mobile",
+      "file": "revamp-screenshots\\00-baseline\\destinations--mobile.png",
+      "bytes": 2068989,
+      "ok": true
+    },
+    {
+      "url": "/destinations",
+      "viewport": "tablet",
+      "file": "revamp-screenshots\\00-baseline\\destinations--tablet.png",
+      "bytes": 3913702,
+      "ok": true
+    },
+    {
+      "url": "/destinations",
+      "viewport": "desktop",
+      "file": "revamp-screenshots\\00-baseline\\destinations--desktop.png",
+      "bytes": 1743262,
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "mobile",
+      "file": "revamp-screenshots\\00-baseline\\destinations_international_uae--mobile.png",
+      "bytes": 4677738,
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "tablet",
+      "file": "revamp-screenshots\\00-baseline\\destinations_international_uae--tablet.png",
+      "bytes": 5697859,
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "desktop",
+      "file": "revamp-screenshots\\00-baseline\\destinations_international_uae--desktop.png",
+      "bytes": 2253975,
+      "ok": true
+    }
+  ]
+}

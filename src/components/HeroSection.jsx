@@ -1,96 +1,213 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Search, MapPin, ArrowRight, Star } from 'lucide-react';
 import { fetchBanners } from '../services/sanityClient';
-import HeroSlider from './HeroSlider';
+import { SkeletonHero } from './revamp/Skeletons';
+import ImageWithFallback from './revamp/ImageWithFallback';
+import Kicker from './revamp/Kicker';
+import TrustStrip from './revamp/TrustStrip';
 
+/**
+ * Hero — REVAMP_PLAN §4.1
+ * - Asymmetric 60/40 split on desktop, stacked on mobile
+ * - Single background image with Ken Burns motion (no carousel above the fold)
+ * - Left: kicker + display headline + subhead + destination search + popular chips
+ * - Right: floating highlight card pulled forward to break the grid
+ */
 const HeroSection = () => {
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    const loadBanners = async () => {
+    let cancelled = false;
+    const load = async () => {
       try {
         const data = await fetchBanners('general');
-        setBanners(data);
-      } catch (error) {
-        console.error('Failed to load banners:', error);
+        if (!cancelled) setBanners(data || []);
+      } catch (err) {
+        console.error('Failed to load banners:', err);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
-    loadBanners();
-
-    // Refetch on window focus to ensure fresh data
-    const handleFocus = () => {
-      loadBanners();
-    };
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    load();
+    return () => { cancelled = true; };
   }, []);
 
-  if (loading || banners.length === 0) {
-    return (
-      <section className="relative mt-16 md:mt-[68px] h-[320px] md:h-[420px] lg:h-[500px] bg-gray-200 animate-pulse">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
-        </div>
-      </section>
-    );
+  if (loading) {
+    return <SkeletonHero />;
   }
 
-  return (
-    <section className="relative mt-16 md:mt-[68px]">
-      <HeroSlider 
-        images={banners} 
-        className="w-full h-[320px] md:h-[420px] lg:h-[500px]"
-      >
-        {/* Enhanced Search Overlay with translucent background */}
-        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 w-[95%] sm:w-11/12 max-w-4xl px-2 md:px-0">
-          <div className="bg-white/80 backdrop-blur-md rounded-xl md:rounded-2xl lg:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-7"
-            style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
-          >
-            <div className="mb-3 md:mb-5">
-              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-season font-bold text-darkBlue mb-1 md:mb-2">
-                Find Your Perfect Holiday
-              </h1>
-              <p className="text-xs md:text-sm text-darkBlue/70 font-canva-sans">
-                Explore amazing destinations worldwide
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
-              <div className="flex-1 relative">
-                <div className="absolute left-3 sm:left-4 md:left-5 top-1/2 -translate-y-1/2 text-orange">
-                  <i className="fa-solid fa-location-dot text-base sm:text-lg md:text-xl"></i>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Where do you want to go?"
-                  className="w-full pl-9 sm:pl-11 md:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 md:py-4 rounded-lg md:rounded-xl border border-gray-200 focus:outline-none focus:border-orange focus:ring-2 focus:ring-orange/20 text-darkBlue text-xs sm:text-sm md:text-base font-canva-sans placeholder:text-darkBlue/40 transition-all duration-200 bg-white/90"
-                />
-              </div>
-              <button className="bg-orange hover:bg-teal text-white px-4 sm:px-5 md:px-8 py-2.5 sm:py-3 md:py-4 text-xs sm:text-sm md:text-base rounded-lg md:rounded-xl transition-all duration-200 font-poppins font-semibold flex items-center justify-center gap-2 whitespace-nowrap">
-                <i className="fa-solid fa-search text-sm sm:text-base md:text-lg"></i>
-                <span className="hidden xs:inline">Search Packages</span>
-                <span className="xs:hidden">Search</span>
-              </button>
-            </div>
+  const heroImage = banners[0]?.url
+    || banners[0]
+    || 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1920&q=75';
 
-            {/* Quick Links */}
-            <div className="mt-3 md:mt-4 flex flex-wrap gap-1.5 md:gap-2 items-center">
-              <span className="text-xs text-darkBlue/60 font-canva-sans font-medium">Popular:</span>
-              {['Dubai', 'Bali', 'Thailand', 'Kashmir'].map((dest) => (
-                <button 
-                  key={dest}
-                  className="px-2 md:px-3 py-1 md:py-1.5 bg-white/70 hover:bg-orange/10 border border-gray-200 hover:border-orange/30 text-darkBlue hover:text-orange text-xs rounded-lg transition-all duration-200 font-canva-sans font-medium"
+  const onSearch = (e) => {
+    e.preventDefault();
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      window.location.href = '/destinations';
+      return;
+    }
+    // Simple keyword → destination match
+    const map = ['uae','dubai','bali','thailand','singapore','vietnam','srilanka','sri lanka','laos','kerala','kashmir','jaipur','andaman','chardham'];
+    const hit = map.find((k) => q.includes(k));
+    if (hit) {
+      const norm = hit.replace(/\s/g, '').replace('srilanka','srilanka').replace('dubai','uae');
+      const dom = ['kerala','kashmir','jaipur','andaman','chardham'];
+      const type = dom.some((d) => norm.startsWith(d)) ? 'domestic' : 'international';
+      const cat = norm === 'chardham' ? 'chardhamyatra' : norm;
+      window.location.href = `/destinations/${type}/${cat}`;
+      return;
+    }
+    window.location.href = `/destinations?q=${encodeURIComponent(q)}`;
+  };
+
+  return (
+    <>
+      <section className="relative overflow-hidden">
+        {/* Background image with Ken Burns */}
+        <div className="absolute inset-0">
+          <div className="w-full h-full animate-ken-burns">
+            <ImageWithFallback
+              src={heroImage}
+              alt="Traverse Globe hero"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+          {/* Dark left gradient for text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/85 via-brand-ink/50 to-transparent" />
+          {/* Bottom fade for TrustStrip transition */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-ink/60 to-transparent" />
+        </div>
+
+        {/* Content */}
+        <div className="relative container-custom pt-24 pb-12 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+            {/* LEFT: copy + search — 7/12 */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7"
+            >
+              <Kicker tone="orange" size="lg" className="text-white/90 mb-3 md:mb-4">
+                Curated family trips · India + UAE
+              </Kicker>
+
+              <h1 className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
+                Your genuine, affordable, <span className="text-brand-orange">first-to-go</span> travel partner.
+              </h1>
+
+              <p className="text-sm md:text-body-lg text-white/85 font-canva-sans max-w-xl mb-6 md:mb-8">
+                Handpicked trips for real families. Fixed prices, no hidden fees, one WhatsApp away — from Karnal to Sharjah.
+              </p>
+
+              {/* Search */}
+              <form
+                onSubmit={onSearch}
+                className="bg-white/95 backdrop-blur-md rounded-2xl p-2 flex flex-col sm:flex-row gap-2 shadow-soft-xl border border-white/40 max-w-2xl"
+              >
+                <div className="flex-1 relative">
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted-ink w-5 h-5" />
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Where to? Dubai, Bali, Kerala…"
+                    className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-transparent text-brand-ink font-poppins font-medium placeholder:text-brand-muted-ink focus:outline-none text-sm md:text-base"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-3.5 rounded-xl font-poppins font-semibold transition-colors shadow-glow-orange"
                 >
-                  {dest}
+                  <Search className="w-4 h-4" />
+                  Search
                 </button>
-              ))}
-            </div>
+              </form>
+
+              {/* Popular chips */}
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                <span className="text-white/80 text-xs md:text-sm font-poppins uppercase tracking-widest mr-1">Popular</span>
+                {[
+                  { label: 'Dubai', href: '/destinations/international/uae' },
+                  { label: 'Bali', href: '/destinations/international/bali' },
+                  { label: 'Thailand', href: '/destinations/international/thailand' },
+                  { label: 'Kashmir', href: '/destinations/domestic/kashmir' },
+                  { label: 'Chardham', href: '/destinations/domestic/chardhamyatra' },
+                ].map((chip) => (
+                  <a
+                    key={chip.label}
+                    href={chip.href}
+                    className="px-3 py-1.5 bg-white/15 hover:bg-white/25 border border-white/25 rounded-full text-xs font-poppins font-medium text-white backdrop-blur transition-colors"
+                  >
+                    {chip.label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* RIGHT: highlight card — 5/12, hidden on small */}
+            <motion.div
+              initial={{ opacity: 0, y: 24, rotate: 3 }}
+              animate={{ opacity: 1, y: 0, rotate: 2 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ rotate: 0, y: -6 }}
+              className="hidden md:block lg:col-span-5"
+            >
+              <div className="relative max-w-md ml-auto bg-white rounded-2xl shadow-soft-xl border border-white/60 overflow-hidden">
+                <div className="relative aspect-[4/3]">
+                  <ImageWithFallback
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+                    alt="Featured trip"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 left-3 bg-brand-orange text-white text-[11px] font-poppins font-semibold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Featured
+                  </div>
+                  <div className="absolute top-3 right-3 bg-brand-trust text-white text-xs font-poppins font-semibold px-2.5 py-1 rounded-md">
+                    Save 20%
+                  </div>
+                </div>
+                <div className="p-5">
+                  <span className="text-kicker uppercase text-brand-muted-ink font-poppins">Family · Bali</span>
+                  <h3 className="text-lg font-poppins font-semibold text-brand-ink mt-2 leading-snug">
+                    Bali Wellness Retreat for Families
+                  </h3>
+                  <div className="flex items-center gap-3 mt-2 text-xs text-brand-muted-ink font-canva-sans">
+                    <span className="inline-flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+                      4.7 (128)
+                    </span>
+                    <span>·</span>
+                    <span>7 nights</span>
+                  </div>
+                  <div className="mt-4 flex items-end justify-between pt-4 border-t border-brand-hairline">
+                    <div>
+                      <span className="text-xs text-brand-muted-ink line-through font-canva-sans block">₹35,000</span>
+                      <span className="text-2xl font-poppins font-bold text-brand-ink leading-none">₹28,000</span>
+                    </div>
+                    <a
+                      href="/destinations/international/bali"
+                      className="inline-flex items-center gap-1 text-sm font-poppins font-semibold text-brand-orange hover:gap-2 transition-all"
+                    >
+                      Explore <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </HeroSlider>
-    </section>
+      </section>
+
+      {/* Trust strip immediately below hero */}
+      <TrustStrip variant="ink" />
+    </>
   );
 };
 

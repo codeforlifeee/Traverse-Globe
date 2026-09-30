@@ -15,6 +15,15 @@ function buildLeadMessage(leadPayload) {
   ].join('\n');
 }
 
+function isSameOriginUrl(url) {
+  try {
+    const resolved = new URL(url, window.location.origin);
+    return resolved.origin === window.location.origin;
+  } catch {
+    return false;
+  }
+}
+
 export default function BookingModal({ open, onClose, packageName }) {
   const [adult, setAdult] = useState(2);
   const [child, setChild] = useState(0);
@@ -75,13 +84,23 @@ export default function BookingModal({ open, onClose, packageName }) {
         },
       };
 
-      const response = await fetch(leadEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(leadPayload),
-      });
+      const sameOrigin = isSameOriginUrl(leadEndpoint);
+      const response = await fetch(leadEndpoint, sameOrigin
+        ? {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(leadPayload),
+          }
+        : {
+            method: 'POST',
+            // Use a CORS-safelisted content type to skip preflight on webhook endpoints.
+            headers: {
+              'Content-Type': 'text/plain;charset=UTF-8',
+            },
+            body: JSON.stringify(leadPayload),
+          });
 
       if (!response.ok) {
         throw new Error('Failed to submit enquiry');

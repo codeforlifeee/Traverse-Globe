@@ -1,12 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Suspense, lazy, memo, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy, memo } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Critical components - loaded immediately
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import BookingModal from './components/BookingModal';
 import Home from './pages/Home';
 
 // Lazy load non-critical components
@@ -27,6 +26,17 @@ const DestinationList = lazy(() => import(/* webpackChunkName: "destination-list
 const DestinationDetail = lazy(() => import(/* webpackChunkName: "destination-detail" */ './pages/destinations/DestinationDetail'));
 const LegacyRedirect = lazy(() => import(/* webpackChunkName: "legacy-redirect" */ './pages/destinations/LegacyRedirect'));
 
+// Revamp — Phase 2 canonical routes
+const PackageDetail = lazy(() => import(/* webpackChunkName: "package-detail" */ './pages/PackageDetail'));
+const PackagesListing = lazy(() => import(/* webpackChunkName: "packages-listing" */ './pages/PackagesListing'));
+const PackagesTheme = lazy(() => import(/* webpackChunkName: "packages-theme" */ './pages/PackagesTheme'));
+const SearchResults = lazy(() => import(/* webpackChunkName: "search" */ './pages/SearchResults'));
+const Shortlist = lazy(() => import(/* webpackChunkName: "shortlist" */ './pages/Shortlist'));
+const Trust = lazy(() => import(/* webpackChunkName: "trust" */ './pages/Trust'));
+const Chardham = lazy(() => import(/* webpackChunkName: "chardham" */ './pages/Chardham'));
+const HotelsListing = lazy(() => import(/* webpackChunkName: "hotels-listing" */ './pages/HotelsListing'));
+const NotFound = lazy(() => import(/* webpackChunkName: "not-found" */ './pages/NotFound'));
+
 // Optimized loading fallback
 const LoadingFallback = memo(() => (
   <div className="min-h-[calc(100vh-80px)] flex items-center justify-center" role="status" aria-live="polite">
@@ -41,30 +51,9 @@ const LoadingFallback = memo(() => (
 ));
 LoadingFallback.displayName = 'LoadingFallback';
 
-function TimedSitewideFormPopup() {
-  const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setIsOpen(false);
-
-    const timerId = window.setTimeout(() => {
-      setIsOpen(true);
-    }, 10000);
-
-    return () => {
-      window.clearTimeout(timerId);
-    };
-  }, [location.pathname]);
-
-  return (
-    <BookingModal
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      packageName="General Travel Enquiry"
-    />
-  );
-}
+// TimedSitewideFormPopup removed per REVAMP_PLAN §4.6 — the global 10-second
+// interruption trained users to dismiss before they knew what we sell. Replaced
+// by a scroll-triggered soft toast on detail pages only (added in Phase 2).
 
 function App() {
   return (
@@ -93,6 +82,21 @@ function App() {
               <Route path="/destinations/domestic" element={<DomesticDestinations />} />
               <Route path="/destinations/:type/:category" element={<DestinationList />} />
               <Route path="/destinations/:type/:category/:slug" element={<DestinationDetail />} />
+
+              {/* Revamp Phase 2 — canonical URLs */}
+              <Route path="/packages" element={<PackagesListing />} />
+              <Route path="/packages/theme/:theme" element={<PackagesTheme />} />
+              <Route path="/packages/:slug" element={<PackageDetail />} />
+              <Route path="/search" element={<SearchResults />} />
+
+              {/* Revamp Phase 3 — new surfaces */}
+              <Route path="/shortlist" element={<Shortlist />} />
+              <Route path="/trust" element={<Trust />} />
+              <Route path="/chardham" element={<Chardham />} />
+              <Route path="/hotels" element={<HotelsListing />} />
+              <Route path="/hotels/city/:city" element={<HotelsListing />} />
+              <Route path="/guides" element={<Blog />} />
+              <Route path="/guides/:slug" element={<Blog />} />
               
               {/* Backward Compatibility - Redirects old URLs to new structure */}
               <Route path="/uae-packages" element={<LegacyRedirect />} />
@@ -120,7 +124,7 @@ function App() {
               <Route path="/package/:slug" element={<LegacyRedirect />} />
               
               {/* 404 Fallback */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
@@ -128,7 +132,6 @@ function App() {
         <Suspense fallback={null}>
           <FloatingButtons />
         </Suspense>
-        <TimedSitewideFormPopup />
       </div>
       </ErrorBoundary>
       </Router>

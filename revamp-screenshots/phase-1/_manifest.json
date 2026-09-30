@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-09-30T13:13:40.208Z",
+  "base": "http://localhost:5173",
+  "results": [
+    {
+      "url": "/",
+      "viewport": "mobile",
+      "file": "revamp-screenshots\\phase-1\\home--mobile.png",
+      "bytes": 2215556,
+      "consoleErrors": [],
+      "ok": true
+    },
+    {
+      "url": "/",
+      "viewport": "tablet",
+      "file": "revamp-screenshots\\phase-1\\home--tablet.png",
+      "bytes": 6359162,
+      "consoleErrors": [],
+      "ok": true
+    },
+    {
+      "url": "/",
+      "viewport": "desktop",
+      "file": "revamp-screenshots\\phase-1\\home--desktop.png",
+      "bytes": 2502978,
+      "consoleErrors": [],
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "mobile",
+      "file": "revamp-screenshots\\phase-1\\destinations_international_uae--mobile.png",
+      "bytes": 5080403,
+      "consoleErrors": [],
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "tablet",
+      "file": "revamp-screenshots\\phase-1\\destinations_international_uae--tablet.png",
+      "bytes": 5462454,
+      "consoleErrors": [],
+      "ok": true
+    },
+    {
+      "url": "/destinations/international/uae",
+      "viewport": "desktop",
+      "file": "revamp-screenshots\\phase-1\\destinations_international_uae--desktop.png",
+      "bytes": 2307651,
+      "consoleErrors": [],
+      "ok": true
+    }
+  ]
+}
