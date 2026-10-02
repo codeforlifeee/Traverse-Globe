@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchHotels } from '../services/sanityClient';
+import { useHotels } from '../hooks/queries';
 import HotelCard from '../components/revamp/HotelCard';
 import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
 import Kicker from '../components/revamp/Kicker';
@@ -32,22 +32,13 @@ const SORTS = [
 
 export default function HotelsListing() {
   const { city } = useParams();
-  const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: hotels = [], isPending: loading } = useHotels();
   const [sortBy, setSortBy] = useState('popular');
   const [filters, setFilters] = useState({
     priceRange: [0, 50000],
     categories: [],
     stars: [],
   });
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchHotels()
-      .then((data) => !cancelled && setHotels(data || []))
-      .finally(() => !cancelled && setLoading(false));
-    return () => { cancelled = true; };
-  }, []);
 
   const facets = useMemo(() => {
     const prices = hotels.map((h) => h.price).filter(Boolean);
@@ -161,7 +152,7 @@ export default function HotelsListing() {
       <div className="container-custom mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <aside className="hidden lg:block">
-            <div className="sticky top-24 rounded-2xl border border-brand-hairline bg-white p-5">
+            <div className="sticky top-24 rounded-2xl border border-brand-hairline bg-surface p-5">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-h3 font-poppins font-semibold text-brand-ink">Filters</span>
                 {activeCount > 0 && <Badge variant="orange">{activeCount}</Badge>}
@@ -192,7 +183,7 @@ export default function HotelsListing() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none pl-3 pr-9 py-2 rounded-lg border border-brand-hairline bg-white text-sm font-poppins text-brand-ink focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                  className="appearance-none pl-3 pr-9 py-2 rounded-lg border border-brand-hairline bg-surface text-sm font-poppins text-brand-ink focus:outline-none focus:ring-2 focus:ring-brand-orange"
                 >
                   {SORTS.map((s) => <option key={s.value} value={s.value}>Sort: {s.label}</option>)}
                 </select>
@@ -203,7 +194,7 @@ export default function HotelsListing() {
             {loading ? (
               <SkeletonList count={9} columns={3} />
             ) : sorted.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-brand-hairline p-10 text-center bg-white">
+              <div className="rounded-2xl border border-dashed border-brand-hairline p-10 text-center bg-surface">
                 <Kicker>No matches</Kicker>
                 <h3 className="text-h3 font-poppins font-semibold text-brand-ink mt-2">Try widening your filters</h3>
               </div>

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Check, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Section from './Section';
 import ImageWithFallback from './ImageWithFallback';
-import { sanityClient } from '../../services/sanityClient';
+import { useOffers } from '../../hooks/queries';
 
 /**
  * Live Offers strip — Cleartrip-style, copyable codes.
@@ -23,19 +23,10 @@ const FALLBACK_OFFERS = [
 ];
 
 export default function LiveOffersStrip() {
-  const [offers, setOffers] = useState(FALLBACK_OFFERS);
   const [copiedCode, setCopiedCode] = useState('');
-
-  useEffect(() => {
-    let cancelled = false;
-    // Try to load from Sanity; if none, keep fallback
-    sanityClient.fetch('*[_type == "offer" && active == true] | order(displayOrder asc)[0..3]')
-      .then((data) => {
-        if (!cancelled && Array.isArray(data) && data.length > 0) setOffers(data);
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, []);
+  const { data: cmsOffers } = useOffers(4);
+  // No published offers yet - keep the hardcoded copy rather than an empty strip.
+  const offers = cmsOffers?.length ? cmsOffers : FALLBACK_OFFERS;
 
   const copy = (code) => {
     try { navigator.clipboard.writeText(code); setCopiedCode(code); setTimeout(() => setCopiedCode(''), 1800); } catch {}
@@ -51,11 +42,11 @@ export default function LiveOffersStrip() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.06 }}
-            className="group relative rounded-2xl overflow-hidden bg-white border border-brand-hairline shadow-soft-sm hover:shadow-soft-lg transition-shadow"
+            className="group relative rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-lg transition-shadow"
           >
             <div className="relative aspect-[16/9]">
               <ImageWithFallback src={o.image} alt={o.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/70 via-brand-ink/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/70 via-brand-scrim/20 to-transparent" />
               <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-brand-orange text-white text-[11px] font-poppins font-semibold">
                 <Sparkles className="w-3 h-3" /> {o.discount}
               </div>

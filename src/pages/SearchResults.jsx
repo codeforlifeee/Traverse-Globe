@@ -111,7 +111,7 @@ export default function SearchResults() {
                         <Link
                           key={c.slug}
                           to={`/destinations/${c.type}/${c.slug}`}
-                          className="p-4 rounded-xl border border-brand-hairline bg-white hover:shadow-soft-md hover:border-brand-orange/30 transition"
+                          className="p-4 rounded-xl border border-brand-hairline bg-surface hover:shadow-soft-md hover:border-brand-orange/30 transition"
                         >
                           <span className="text-lg">{c.icon}</span>
                           <p className="mt-1 font-poppins font-semibold text-brand-ink">{c.name}</p>
@@ -129,7 +129,7 @@ export default function SearchResults() {
                         <Link
                           key={t.slug}
                           to={`/packages/theme/${t.slug}`}
-                          className="p-4 rounded-xl border border-brand-hairline bg-white hover:shadow-soft-md hover:border-brand-orange/30 transition"
+                          className="p-4 rounded-xl border border-brand-hairline bg-surface hover:shadow-soft-md hover:border-brand-orange/30 transition"
                         >
                           <p className="font-poppins font-semibold text-brand-ink">{t.name}</p>
                           <p className="text-sm text-brand-muted-ink font-canva-sans">{t.kicker}</p>

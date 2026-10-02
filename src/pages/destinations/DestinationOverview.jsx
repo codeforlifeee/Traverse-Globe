@@ -1,6 +1,7 @@
 // DestinationOverview Component
 // Main hub showing all destinations (both international and domestic)
 
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchDestinations } from '../../services/sanityClient';
@@ -38,7 +39,7 @@ export default function DestinationOverview() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-20 pb-8 bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen pt-20 pb-8 bg-brand-canvas flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
           <p className="text-darkBlue font-canva-sans">Loading destinations...</p>
@@ -48,7 +49,7 @@ export default function DestinationOverview() {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-8 bg-gray-50">
+    <div className="min-h-screen pt-20 pb-8 bg-brand-canvas">
       {/* Hero Slider Section */}
       <section className="relative">
         <HeroSlider 
@@ -71,7 +72,7 @@ export default function DestinationOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
           <Link
             to="/destinations/international"
-            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
+            className="group bg-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
           >
             <div className="p-8 text-center">
               <div className="text-6xl mb-4">{DESTINATION_TYPES.international.icon}</div>
@@ -81,7 +82,7 @@ export default function DestinationOverview() {
               <p className="text-darkBlue/70 mb-4">{DESTINATION_TYPES.international.description}</p>
               <div className="text-orange font-semibold flex items-center justify-center gap-2">
                 View Destinations
-                <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
               <div className="mt-4 text-sm text-darkBlue/50">
                 {internationalDestinations.length} Destinations
@@ -91,7 +92,7 @@ export default function DestinationOverview() {
 
           <Link
             to="/destinations/domestic"
-            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
+            className="group bg-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
           >
             <div className="p-8 text-center">
               <div className="text-6xl mb-4">{DESTINATION_TYPES.domestic.icon}</div>
@@ -101,7 +102,7 @@ export default function DestinationOverview() {
               <p className="text-darkBlue/70 mb-4">{DESTINATION_TYPES.domestic.description}</p>
               <div className="text-orange font-semibold flex items-center justify-center gap-2">
                 View Destinations
-                <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
               <div className="mt-4 text-sm text-darkBlue/50">
                 {domesticDestinations.length} Destinations
@@ -130,7 +131,7 @@ export default function DestinationOverview() {
                 className="text-orange hover:text-teal font-bold flex items-center gap-2 transition-colors"
               >
                 View All
-                <i className="fa-solid fa-arrow-right"></i>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -138,7 +139,7 @@ export default function DestinationOverview() {
                 <Link
                   key={idx}
                   to={dest.link}
-                  className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
+                  className="group bg-surface rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -166,7 +167,7 @@ export default function DestinationOverview() {
                 className="text-teal hover:text-orange font-bold flex items-center gap-2 transition-colors"
               >
                 View All
-                <i className="fa-solid fa-arrow-right"></i>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -174,7 +175,7 @@ export default function DestinationOverview() {
                 <Link
                   key={idx}
                   to={dest.link}
-                  className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
+                  className="group bg-surface rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

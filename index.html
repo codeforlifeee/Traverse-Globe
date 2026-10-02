@@ -9,6 +9,24 @@
     <meta name="title" content="Traverse Globe - Your Travel Partner" />
     <meta name="description" content="Traverse Globe is your trusted travel partner for curated holiday packages, seamless bookings, and unforgettable experiences across UAE, Bali, Thailand, Singapore, and more." />
     <meta name="theme-color" content="#FF5B04" />
+
+    <!-- Resolve the theme before the first paint. Runs synchronously and deliberately
+         ahead of the stylesheet so there is no flash of the wrong theme.
+         Keep the storage key and values in sync with src/components/revamp/ThemeToggle.jsx. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('tg_theme') || 'system';
+          var dark = stored === 'dark' || (stored !== 'light' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', dark ? '#0c1119' : '#FF5B04');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="/logo.webp" />
@@ -19,15 +37,20 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     
     <!-- Preconnect ONLY to most critical origins (limit to 4) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+    <link rel="preconnect" href="https://xe1685rk.apicdn.sanity.io" crossorigin />
     
+    <!-- LCP hero image - keep in sync with HERO_FALLBACK_IMAGE in src/components/HeroSection.jsx -->
+    <link rel="preload" as="image" fetchpriority="high"
+          href="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1920&q=75" />
+
   <!-- Critical inline CSS for above-the-fold content -->
     <style>
       /* Critical CSS - inline for immediate render */
@@ -35,14 +58,15 @@
       html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
       body{margin:0;font-family:inherit;line-height:inherit}
       #root{min-height:100vh}
-      .loading-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff}
-      .spinner{width:48px;height:48px;border:4px solid #f3f3f3;border-top:4px solid #FF5B04;border-radius:50%;animation:spin 1s linear infinite}
-      @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+      /* Values are inlined rather than read from CSS variables so the skeleton is
+         correct even before the main stylesheet arrives. The hero itself carries a dark
+         scrim in both themes, so boot-hero stays dark either way. */
+      .boot{min-height:100vh;background:#f8fafc}
+      :root[data-theme="dark"] .boot{background:#0c1119}
+      .boot-hero{height:72vh;min-height:420px;background:#16232A;background-image:linear-gradient(100deg,#16232A 0%,#1f333d 50%,#16232A 100%);background-size:200% 100%;animation:bootShimmer 1.4s ease-in-out infinite}
+      @keyframes bootShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+      @media (prefers-reduced-motion:reduce){.boot-hero{animation:none}}
     </style>
-    
-    <!-- Font Awesome - Deferred with font-display swap -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" />
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" /></noscript>
     
     <!-- Optimized fonts with font-display: swap -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
@@ -73,16 +97,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <!-- Meta Pixel is injected by GTM; noscript tracking omitted to prevent duplication -->
     
-    <!-- Loading screen -->
+    <!-- Boot skeleton sized to the hero so first paint does not shift -->
     <div id="root">
-      <div class="loading-screen">
-        <div class="spinner"></div>
+      <div class="boot">
+        <div class="boot-hero"></div>
       </div>
     </div>
     
     <!-- Main app script -->
     <script type="module" src="/src/main.jsx"></script>
-    
-    <!-- Font Awesome is now loaded via @font-face in index.css with font-display: swap -->
   </body>
 </html>

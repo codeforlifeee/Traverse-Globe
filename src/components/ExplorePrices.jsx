@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { fetchFeaturedPackages } from '../services/sanityClient';
+import { useState } from 'react';
+import { useHomepagePackages } from '../hooks/queries';
 import BookingModal from './BookingModal';
 import { slugify } from '../utils/slug';
 import UniversalCarousel from './revamp/UniversalCarousel';
@@ -22,31 +22,9 @@ const resolveCategoryFromDetailId = (id) => {
 };
 
 const ExplorePrices = () => {
-  const [packages, setPackages] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showBooking, setShowBooking] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState('');
-
-  useEffect(() => {
-    const loadPackages = async () => {
-      try {
-        let data = await fetchFeaturedPackages(20);
-        if (data.length === 0) {
-          const { fetchPackages } = await import('../services/sanityClient');
-          data = await fetchPackages({ limit: 20 });
-        }
-        setPackages(data);
-      } catch (err) {
-        console.error('Failed to load packages:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadPackages();
-    const onFocus = () => loadPackages();
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, []);
+  const { data: packages = [], isPending: loading } = useHomepagePackages(20);
 
   const handleCardClick = (pkg) => {
     if (pkg.slug?.current) {

@@ -53,7 +53,7 @@ export default function Chardham() {
             className="w-full h-full object-cover"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/85 via-brand-ink/60 to-brand-ink/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-scrim/85 via-brand-scrim/60 to-brand-scrim/30" />
         </div>
         <div className="relative container-custom pt-32 pb-16 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32">
           <div className="max-w-3xl">
@@ -90,11 +90,11 @@ export default function Chardham() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="rounded-2xl overflow-hidden bg-white border border-brand-hairline shadow-soft-sm"
+              className="rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm"
             >
               <div className="relative aspect-[4/3]">
                 <ImageWithFallback src={d.img} alt={d.name} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/70 to-transparent" />
                 <div className="absolute bottom-3 left-4 text-white">
                   <p className="text-xs uppercase tracking-widest font-poppins opacity-90">{d.deity}</p>
                   <h3 className="text-lg font-poppins font-bold">{d.name}</h3>
@@ -125,7 +125,7 @@ export default function Chardham() {
         {loading ? (
           <SkeletonList count={3} columns={3} />
         ) : packages.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-brand-hairline p-10 text-center bg-white">
+          <div className="rounded-2xl border border-dashed border-brand-hairline p-10 text-center bg-surface">
             <p className="text-brand-muted-ink font-canva-sans">Contact us for the season's yatra packages.</p>
           </div>
         ) : (

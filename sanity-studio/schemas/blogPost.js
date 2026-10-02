@@ -55,14 +55,30 @@ export default {
       name: 'category',
       title: 'Category',
       type: 'string',
+      description: 'Rendered verbatim as a filter chip on /blog.',
       options: {
-        list: [
-          { title: 'Travel Tips', value: 'travel-tips' },
-          { title: 'Destination Guide', value: 'destination-guide' },
-          { title: 'Travel Stories', value: 'travel-stories' },
-          { title: 'News', value: 'news' }
-        ]
-      }
+        list: ['Deals', 'Destinations', 'Family', 'Guides', 'Itineraries', 'Safety', 'Tips']
+      },
+      validation: (Rule) => Rule.required()
+    },
+    {
+      name: 'readTime',
+      title: 'Read Time (minutes)',
+      type: 'number',
+      validation: (Rule) => Rule.min(1).max(60)
+    },
+    {
+      name: 'url',
+      title: 'External Article URL',
+      type: 'url',
+      description: 'Optional. Where "Read more" points until a post detail page exists.'
+    },
+    {
+      name: 'active',
+      title: 'Active',
+      type: 'boolean',
+      description: 'Uncheck to hide without deleting.',
+      initialValue: true
     },
     {
       name: 'tags',

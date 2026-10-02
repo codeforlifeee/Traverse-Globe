@@ -126,13 +126,13 @@ export default function PackageDetail() {
               {/* Prev/Next on mobile */}
               <div className="md:hidden absolute inset-y-0 left-0 flex items-center">
                 <button onClick={() => setGalleryIdx((i) => (i - 1 + images.length) % images.length)}
-                  className="w-9 h-9 rounded-full bg-white/90 backdrop-blur ml-2 flex items-center justify-center shadow-soft-md">
+                  className="w-9 h-9 rounded-full bg-surface/90 backdrop-blur ml-2 flex items-center justify-center shadow-soft-md">
                   <ChevronLeft className="w-5 h-5" />
                 </button>
               </div>
               <div className="md:hidden absolute inset-y-0 right-0 flex items-center">
                 <button onClick={() => setGalleryIdx((i) => (i + 1) % images.length)}
-                  className="w-9 h-9 rounded-full bg-white/90 backdrop-blur mr-2 flex items-center justify-center shadow-soft-md">
+                  className="w-9 h-9 rounded-full bg-surface/90 backdrop-blur mr-2 flex items-center justify-center shadow-soft-md">
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
@@ -204,7 +204,7 @@ export default function PackageDetail() {
                 if (navigator.share) navigator.share({ title: pkg.title, url: window.location.href }).catch(() => {});
                 else { navigator.clipboard?.writeText(window.location.href); }
               }}
-              className="w-10 h-10 rounded-full bg-white border border-brand-hairline shadow-soft-md flex items-center justify-center text-brand-ink hover:text-brand-orange"
+              className="w-10 h-10 rounded-full bg-surface border border-brand-hairline shadow-soft-md flex items-center justify-center text-brand-ink hover:text-brand-orange"
               aria-label="Share"
             >
               <Share2 className="w-4 h-4" />
@@ -265,7 +265,7 @@ export default function PackageDetail() {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {pkg.hotels.options.map((h, i) => (
-                  <div key={i} className="rounded-xl border border-brand-hairline bg-white p-4 flex items-start gap-3">
+                  <div key={i} className="rounded-xl border border-brand-hairline bg-surface p-4 flex items-start gap-3">
                     <span className="w-10 h-10 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-4 h-4" />
                     </span>

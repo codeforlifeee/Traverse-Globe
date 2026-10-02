@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { blogPosts as postsData, companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
+import { useBlogPosts } from '../hooks/queries';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -14,10 +15,11 @@ const heroImages = [
 export default function Blog() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
+  const { data: postsData = [], isPending } = useBlogPosts();
 
   const categories = useMemo(
     () => ['All', ...Array.from(new Set(postsData.map((p) => p.category)))],
-    []
+    [postsData]
   );
 
   const filtered = useMemo(() => {
@@ -28,10 +30,45 @@ export default function Blog() {
       const hay = `${p.title} ${p.excerpt} ${p.category}`.toLowerCase();
       return matchesCat && hay.includes(q);
     });
-  }, [query, category]);
+  }, [query, category, postsData]);
 
   const featured = filtered[0] || postsData[0];
-  const others = filtered.filter((p) => p.id !== featured.id);
+  const others = featured ? filtered.filter((p) => p.id !== featured.id) : [];
+
+  // Everything below dereferences `featured`, so bail out before it is read.
+  if (isPending) {
+    return (
+      <div className="container-custom py-10 md:py-14" aria-busy="true">
+        <span className="sr-only">Loading articles</span>
+        <div className="animate-pulse space-y-6" aria-hidden="true">
+          <div className="h-8 w-2/3 max-w-md rounded-lg bg-brand-canvas-2" />
+          <div className="aspect-[16/9] rounded-2xl bg-brand-canvas-2" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="rounded-2xl overflow-hidden border border-brand-hairline">
+                <div className="aspect-[4/3] bg-brand-canvas-2" />
+                <div className="p-4 space-y-2">
+                  <div className="h-4 w-3/4 rounded bg-brand-canvas-2" />
+                  <div className="h-3 w-1/2 rounded bg-brand-canvas-2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!featured) {
+    return (
+      <div className="container-custom py-16 text-center">
+        <h1 className="text-h2 font-poppins font-bold text-brand-ink">Travel Guides</h1>
+        <p className="mt-3 text-brand-muted-ink font-canva-sans">
+          No articles published yet. Check back soon.
+        </p>
+      </div>
+    );
+  }
 
   const blogJsonLd = {
     '@context': 'https://schema.org',
@@ -91,7 +128,7 @@ export default function Blog() {
 
         {/* Overlay heading + search */}
         <div className="absolute inset-x-0 bottom-6 md:bottom-10 flex justify-center">
-          <div className="w-11/12 max-w-3xl bg-white/95 backdrop-blur rounded-full shadow-xl flex overflow-hidden">
+          <div className="w-11/12 max-w-3xl bg-surface/95 backdrop-blur rounded-full shadow-xl flex overflow-hidden">
             <div className="px-5 py-3 text-darkBlue font-poppins whitespace-nowrap hidden md:block">Search</div>
             <input
               type="text"
@@ -118,7 +155,7 @@ export default function Blog() {
               key={c}
               onClick={() => setCategory(c)}
               className={`px-4 py-1.5 rounded-full text-sm font-poppins border transition ${
-                category === c ? 'bg-orange text-white border-orange' : 'bg-white text-darkBlue border-lightGray hover:border-orange/50'
+                category === c ? 'bg-orange text-white border-orange' : 'bg-surface text-darkBlue border-lightGray hover:border-orange/50'
               }`}
             >
               {c}
@@ -144,7 +181,7 @@ export default function Blog() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-block bg-white/90 text-darkBlue text-xs font-semibold px-2 py-1 rounded-full">
+                  <span className="inline-block bg-surface/90 text-darkBlue text-xs font-semibold px-2 py-1 rounded-full">
                     {featured.category}
                   </span>
                   <h2 className="mt-2 text-white text-2xl md:text-3xl font-bold font-poppins drop-shadow-sm">
@@ -152,7 +189,7 @@ export default function Blog() {
                   </h2>
                 </div>
               </div>
-              <div className="bg-white rounded-2xl border border-lightGray p-6 flex flex-col">
+              <div className="bg-surface rounded-2xl border border-lightGray p-6 flex flex-col">
                 <div className="text-darkBlue/70 text-sm mb-2">
                   By {featured.author} • {new Date(featured.date).toLocaleDateString()} • {featured.readTime} min read
                 </div>
@@ -177,7 +214,7 @@ export default function Blog() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {others.map((p) => (
-              <article key={p.id} className="bg-white rounded-2xl shadow-sm hover:shadow-md border border-lightGray overflow-hidden transition">
+              <article key={p.id} className="bg-surface rounded-2xl shadow-sm hover:shadow-md border border-lightGray overflow-hidden transition">
                 {p.image && (
                   <img 
                     src={(p.image.includes('images.unsplash.com') ? p.image.replace(/q=\d+/, 'q=50') + (p.image.includes('fm=') ? '' : '&fm=webp') : p.image)} 

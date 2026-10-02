@@ -36,7 +36,7 @@ export default function HotelCard({ hotel, size = 'default' }) {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        'group h-full flex flex-col rounded-2xl overflow-hidden bg-white border transition-shadow duration-300',
+        'group h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-shadow duration-300',
         'shadow-soft-sm hover:shadow-soft-xl',
         isLarge ? 'border-brand-orange/30 ring-1 ring-brand-orange/10' : 'border-brand-hairline'
       )}
@@ -60,7 +60,7 @@ export default function HotelCard({ hotel, size = 'default' }) {
         </div>
 
         {hotel.rating > 0 && (
-          <div className="absolute left-3 bottom-3 flex items-center gap-1 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
+          <div className="absolute left-3 bottom-3 flex items-center gap-1 bg-surface/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
             {Array.from({ length: hotel.rating }).map((_, i) => (
               <Star key={i} className="w-3 h-3 fill-amber-400 stroke-amber-400" />
             ))}
@@ -68,7 +68,7 @@ export default function HotelCard({ hotel, size = 'default' }) {
         )}
 
         {hotel.reviewRating > 0 && (
-          <div className="absolute right-3 bottom-3 flex items-center gap-1 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
+          <div className="absolute right-3 bottom-3 flex items-center gap-1 bg-surface/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
             {hotel.reviewRating.toFixed(1)}
             {hotel.reviewCount > 0 && <span className="text-brand-muted-ink font-normal">({hotel.reviewCount})</span>}
           </div>

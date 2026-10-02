@@ -19,7 +19,7 @@ export default function MobileBookingBar({ pkg }) {
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           'lg:hidden fixed bottom-0 left-0 right-0 z-40',
-          'bg-white border-t border-brand-hairline shadow-[0_-8px_24px_rgba(15,23,42,0.08)]',
+          'bg-surface border-t border-brand-hairline shadow-[0_-8px_24px_rgba(15,23,42,0.08)]',
           'pb-[env(safe-area-inset-bottom)]'
         )}
       >

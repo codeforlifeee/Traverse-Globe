@@ -1,53 +1,54 @@
+import { lazy, Suspense } from 'react';
 import HeroSection from '../components/HeroSection';
-import TrendingDestinations from '../components/TrendingDestinations';
-import TopDestinations from '../components/TopDestinations';
-import FeedbackSection from '../components/FeedbackSection';
-import ExplorePrices from '../components/ExplorePrices';
-import WhyChooseUs from '../components/WhyChooseUs';
-import PackageCategories from '../components/PackageCategories';
-import HotelCategories from '../components/HotelCategories';
-import LiveOffersStrip from '../components/revamp/LiveOffersStrip';
-import ThemesShowcase from '../components/revamp/ThemesShowcase';
-import PopularSearchesGrid from '../components/revamp/PopularSearchesGrid';
-import HomeFAQ from '../components/revamp/HomeFAQ';
+
+// Only the hero is eager — it holds the LCP. Everything below the fold is split out so
+// framer-motion, Swiper and the Radix accordion stay off the critical path.
+const TrendingDestinations = lazy(() => import('../components/TrendingDestinations'));
+const ThemesShowcase = lazy(() => import('../components/revamp/ThemesShowcase'));
+const LiveOffersStrip = lazy(() => import('../components/revamp/LiveOffersStrip'));
+const PackageCategories = lazy(() => import('../components/PackageCategories'));
+const TopDestinations = lazy(() => import('../components/TopDestinations'));
+const HotelCategories = lazy(() => import('../components/HotelCategories'));
+const VideoHero = lazy(() => import('../components/revamp/VideoHero'));
+const FeedbackSection = lazy(() => import('../components/FeedbackSection'));
+const CustomerGrid = lazy(() => import('../components/revamp/CustomerGrid'));
+const VideoTestimonialBand = lazy(() => import('../components/revamp/VideoTestimonialBand'));
+const ExplorePrices = lazy(() => import('../components/ExplorePrices'));
+const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
+const PopularSearchesGrid = lazy(() => import('../components/revamp/PopularSearchesGrid'));
+const HomeFAQ = lazy(() => import('../components/revamp/HomeFAQ'));
+
+/**
+ * Defers both layout and JS for a below-fold section. `height` feeds
+ * contain-intrinsic-size and the Suspense placeholder from one value, so the
+ * reserved box always matches and lazy mounting cannot shift the page.
+ */
+const Section = ({ height, children }) => (
+  <div style={{ contentVisibility: 'auto', containIntrinsicSize: `${height}px` }}>
+    <Suspense fallback={<div style={{ minHeight: `${height}px` }} aria-hidden="true" />}>
+      {children}
+    </Suspense>
+  </div>
+);
 
 const Home = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <div className="[content-visibility:auto] [contain-intrinsic-size:1200px]">
-        <TrendingDestinations />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:900px]">
-        <ThemesShowcase />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:800px]">
-        <LiveOffersStrip />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:1400px]">
-        <PackageCategories />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:1200px]">
-        <TopDestinations />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:800px]">
-        <HotelCategories />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:1000px]">
-        <FeedbackSection />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:900px]">
-        <ExplorePrices />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:900px]">
-        <WhyChooseUs />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:600px]">
-        <PopularSearchesGrid />
-      </div>
-      <div className="[content-visibility:auto] [contain-intrinsic-size:700px]">
-        <HomeFAQ />
-      </div>
+      <Section height={1200}><TrendingDestinations /></Section>
+      <Section height={900}><ThemesShowcase /></Section>
+      <Section height={800}><LiveOffersStrip /></Section>
+      <Section height={1400}><PackageCategories /></Section>
+      <Section height={1200}><TopDestinations /></Section>
+      <Section height={800}><HotelCategories /></Section>
+      <Section height={560}><VideoHero /></Section>
+      <Section height={1000}><FeedbackSection /></Section>
+      <Section height={900}><CustomerGrid /></Section>
+      <Section height={700}><VideoTestimonialBand /></Section>
+      <Section height={900}><ExplorePrices /></Section>
+      <Section height={900}><WhyChooseUs /></Section>
+      <Section height={600}><PopularSearchesGrid /></Section>
+      <Section height={700}><HomeFAQ /></Section>
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Zap as Bolt, Eye, Headphones, Phone, X, Star, Clock, Flame, Zap, Sparkles } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 import { cn } from '@/lib/utils';
 import { slugify } from '../utils/slug';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 import HeartIcon from './revamp/HeartIcon';
 import ImageWithFallback from './revamp/ImageWithFallback';
 
@@ -23,9 +23,9 @@ const computeSavings = (price, strike) => {
 
 const URGENCY_META = {
   'high-demand': { label: 'High demand', icon: Flame, tone: 'bg-brand-orange/10 text-brand-orange border-brand-orange/20' },
-  'few-seats': { label: 'Only a few left', icon: Zap, tone: 'bg-amber-50 text-amber-700 border-amber-200' },
+  'few-seats': { label: 'Only a few left', icon: Zap, tone: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/50' },
   'just-launched': { label: 'Just launched', icon: Sparkles, tone: 'bg-brand-trust/10 text-brand-trust border-brand-trust/20' },
-  'sold-out': { label: 'Sold out', icon: X, tone: 'bg-slate-200 text-slate-600 border-slate-300' },
+  'sold-out': { label: 'Sold out', icon: X, tone: 'bg-brand-hairline text-brand-muted-ink border-brand-hairline' },
 };
 
 export const PriceTag = ({ strike, price, size = 'default' }) => {
@@ -172,7 +172,7 @@ export default function PackageCard({
       whileHover={soldOut ? {} : { y: -4 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-white border transition-shadow duration-300',
+        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-shadow duration-300',
         'shadow-soft-sm hover:shadow-soft-xl',
         isLarge ? 'border-brand-orange/30 ring-1 ring-brand-orange/10' : 'border-brand-hairline',
         soldOut && 'grayscale opacity-70 pointer-events-none'
@@ -214,7 +214,7 @@ export default function PackageCard({
 
               {/* Bottom-left: duration */}
               {packageData.nights && (
-                <div className="absolute left-3 bottom-3 flex items-center gap-1.5 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-medium px-2.5 py-1.5 rounded-lg">
+                <div className="absolute left-3 bottom-3 flex items-center gap-1.5 bg-surface/95 backdrop-blur text-brand-ink text-xs font-poppins font-medium px-2.5 py-1.5 rounded-lg">
                   <Clock className="w-3.5 h-3.5 text-brand-orange" />
                   <span>{getDaysFromNights(packageData.nights)}</span>
                 </div>
@@ -222,7 +222,7 @@ export default function PackageCard({
 
               {/* Bottom-right: rating */}
               {packageData.rating > 0 && (
-                <div className="absolute right-3 bottom-3 flex items-center gap-1 bg-white/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
+                <div className="absolute right-3 bottom-3 flex items-center gap-1 bg-surface/95 backdrop-blur text-brand-ink text-xs font-poppins font-semibold px-2 py-1.5 rounded-lg">
                   <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
                   <span>{packageData.rating.toFixed(1)}</span>
                   {packageData.reviews > 0 && (
@@ -234,7 +234,7 @@ export default function PackageCard({
               {/* Sold-out overlay */}
               {soldOut && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                  <span className="bg-white text-brand-ink text-sm font-poppins font-bold uppercase tracking-widest px-4 py-2 rounded-md">
+                  <span className="bg-surface text-brand-ink text-sm font-poppins font-bold uppercase tracking-widest px-4 py-2 rounded-md">
                     Sold out
                   </span>
                 </div>
@@ -286,7 +286,7 @@ export default function PackageCard({
                     className={cn(
                       'flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-poppins font-semibold transition-colors',
                       soldOut
-                        ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
+                        ? 'bg-brand-hairline text-brand-muted-ink cursor-not-allowed'
                         : 'bg-brand-orange hover:bg-brand-orange-hover text-white shadow-soft-md hover:shadow-glow-orange'
                     )}
                   >
@@ -300,7 +300,7 @@ export default function PackageCard({
 
           {/* BACK — Quick view (preserved from previous card, restyled) */}
           <div className="flip-card-back overflow-hidden">
-            <div className="p-5 flex flex-col h-full bg-white">
+            <div className="p-5 flex flex-col h-full bg-surface">
               <div className="flex justify-between items-center mb-4 pb-3 border-b border-brand-hairline">
                 <h4 className="font-poppins font-bold text-brand-ink text-base">Quick view</h4>
                 <button
@@ -393,7 +393,7 @@ export default function PackageCard({
                       onClick={() => setShowExpertMenu(false)}
                     >
                       <div className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center">
-                        <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
+                        <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                       </div>
                       <div className="flex-1">
                         <p className="text-sm font-poppins font-semibold text-brand-ink">WhatsApp</p>

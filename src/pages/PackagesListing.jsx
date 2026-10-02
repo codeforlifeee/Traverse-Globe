@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { fetchPackages } from '../services/sanityClient';
+import { useAllPackages } from '../hooks/queries';
 import { getAllCategories } from '../data/categoryConfig';
 import PackageCard from '../components/PackageCard';
 import FilterRail from '../components/revamp/FilterRail';
@@ -33,8 +33,7 @@ const SORTS = [
 ];
 
 export default function PackagesListing() {
-  const [rawPackages, setRawPackages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: rawPackages = [], isPending: loading } = useAllPackages();
   const [sortBy, setSortBy] = useState('popular');
   const [filters, setFilters] = useState({
     priceRange: [0, 500000],
@@ -44,14 +43,6 @@ export default function PackagesListing() {
     categories: [],
     freeCancellation: false,
   });
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchPackages()
-      .then((data) => !cancelled && setRawPackages(data || []))
-      .finally(() => !cancelled && setLoading(false));
-    return () => { cancelled = true; };
-  }, []);
 
   const facets = useMemo(() => {
     if (!rawPackages.length) return { priceMin: 0, priceMax: 500000 };
@@ -122,7 +113,7 @@ export default function PackagesListing() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters — left rail on lg+ */}
           <aside className="hidden lg:block">
-            <div className="sticky top-24 rounded-2xl border border-brand-hairline bg-white p-5">
+            <div className="sticky top-24 rounded-2xl border border-brand-hairline bg-surface p-5">
               <FilterRail facets={facets} values={filters} onChange={setFilters} categories={allCategories} />
             </div>
           </aside>
@@ -143,7 +134,7 @@ export default function PackagesListing() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none pl-3 pr-9 py-2 rounded-lg border border-brand-hairline bg-white text-sm font-poppins text-brand-ink focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                  className="appearance-none pl-3 pr-9 py-2 rounded-lg border border-brand-hairline bg-surface text-sm font-poppins text-brand-ink focus:outline-none focus:ring-2 focus:ring-brand-orange"
                 >
                   {SORTS.map((s) => <option key={s.value} value={s.value}>Sort: {s.label}</option>)}
                 </select>

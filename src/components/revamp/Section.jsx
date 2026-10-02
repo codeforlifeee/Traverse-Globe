@@ -24,8 +24,8 @@ export default function Section({
   const bgCls = {
     canvas: "bg-brand-canvas",
     "canvas-2": "bg-brand-canvas-2",
-    white: "bg-white",
-    ink: "bg-brand-ink text-white",
+    white: "bg-surface",
+    ink: "bg-brand-scrim text-white",
     none: "",
   }[bg] || "bg-brand-canvas";
 

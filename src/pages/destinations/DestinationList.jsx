@@ -2,6 +2,7 @@
 // Dynamic component that displays packages for any destination category
 // Replaces all individual destination pages (UAEPackages, BaliPackages, etc.)
 
+import { Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { getCategoryBySlug } from '../../data/categoryConfig';
@@ -56,7 +57,7 @@ export default function DestinationList() {
           className="w-full h-[280px] md:h-[420px] lg:h-[520px]"
         >
           <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-3xl">
-            <div className="bg-white rounded-2xl p-4 md:p-5 shadow-2xl border border-lightGray">
+            <div className="bg-surface rounded-2xl p-4 md:p-5 shadow-2xl border border-lightGray">
               {/* Breadcrumb */}
               <div className="text-sm text-darkBlue/60 mb-2 font-canva-sans">
                 <Link to="/" className="hover:text-orange">Home</Link>
@@ -91,7 +92,7 @@ export default function DestinationList() {
                   type="submit" 
                   className="bg-orange hover:bg-teal text-white px-5 py-2.5 text-sm md:rounded-r-full rounded-full md:rounded-l-none transition-all font-poppins font-semibold shadow-lg hover:shadow-xl"
                 >
-                  <i className="fa-solid fa-search mr-2"></i>
+                  <Search className="w-4 h-4 mr-2" />
                   Search
                 </button>
               </form>
@@ -117,7 +118,7 @@ export default function DestinationList() {
           </div>
         ) : error ? (
           <div className="text-center py-20">
-            <p className="text-red-500 text-lg mb-4">Error loading packages</p>
+            <p className="text-red-500 dark:text-red-400 text-lg mb-4">Error loading packages</p>
             <p className="text-darkBlue/60">{error}</p>
           </div>
         ) : filtered.length === 0 ? (

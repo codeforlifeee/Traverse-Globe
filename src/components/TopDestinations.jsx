@@ -1,30 +1,19 @@
-import { useState, useEffect } from 'react';
-import { fetchDomesticDestinations } from '../services/sanityClient';
+import { useDestinationsByType } from '../hooks/queries';
+import { SkeletonList } from './revamp/Skeletons';
 import UniversalCarousel from './revamp/UniversalCarousel';
 import UniversalCard from './revamp/UniversalCard';
 
 const TopDestinations = () => {
-  const [destinations, setDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: destinations = [], isPending } = useDestinationsByType('domestic');
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const data = await fetchDomesticDestinations();
-        setDestinations(data);
-      } catch (err) {
-        console.error('Failed to load destinations:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-    const onFocus = () => load();
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, []);
-
-  if (loading || destinations.length === 0) return null;
+  if (isPending) {
+    return (
+      <div className="container-custom py-10 md:py-14">
+        <SkeletonList count={4} columns={4} />
+      </div>
+    );
+  }
+  if (destinations.length === 0) return null;
 
   return (
     <UniversalCarousel

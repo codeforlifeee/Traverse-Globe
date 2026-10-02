@@ -101,7 +101,7 @@ export default function FilterRail({ facets, values, onChange, categories = [] }
                   'px-3 py-1.5 rounded-full text-sm font-poppins border transition-colors',
                   active
                     ? 'bg-brand-orange text-white border-brand-orange'
-                    : 'bg-white text-brand-ink border-brand-hairline hover:border-brand-orange/40'
+                    : 'bg-surface text-brand-ink border-brand-hairline hover:border-brand-orange/40'
                 )}
               >
                 {d.label}

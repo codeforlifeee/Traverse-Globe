@@ -1,7 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { fetchPackages } from '../services/sanityClient';
+import { useAllPackages } from '../hooks/queries';
 import { getTheme } from '../data/themes';
 import PackageCard from '../components/PackageCard';
 import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
@@ -12,17 +12,7 @@ import { SkeletonList } from '../components/revamp/Skeletons';
 export default function PackagesTheme() {
   const { theme: themeSlug } = useParams();
   const theme = getTheme(themeSlug);
-  const [rawPackages, setRawPackages] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!theme) return;
-    let cancelled = false;
-    fetchPackages()
-      .then((data) => !cancelled && setRawPackages(data || []))
-      .finally(() => !cancelled && setLoading(false));
-    return () => { cancelled = true; };
-  }, [theme]);
+  const { data: rawPackages = [], isPending: loading } = useAllPackages();
 
   const themed = useMemo(
     () => rawPackages.filter((p) => Array.isArray(p.themes) && p.themes.includes(themeSlug)),
@@ -45,7 +35,7 @@ export default function PackagesTheme() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback src={theme.heroImage} alt={theme.name} className="w-full h-full object-cover" loading="eager" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/85 via-brand-ink/50 to-brand-ink/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-scrim/85 via-brand-scrim/50 to-brand-scrim/20" />
         </div>
         <div className="relative container-custom pt-32 pb-16 md:pt-40 md:pb-20 lg:pt-48 lg:pb-24">
           <div className="max-w-3xl">

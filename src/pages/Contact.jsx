@@ -1,4 +1,5 @@
-import { companyInfo } from '../data/siteData';
+import { MapPin } from 'lucide-react';
+import { companyInfo } from '../data/companyInfo';
 
 export default function Contact() {
   const connectWith = [
@@ -18,10 +19,10 @@ export default function Contact() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold">Contact Us</p>
-            <h1 id="contact-heading" className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+            <h1 id="contact-heading" className="text-3xl md:text-4xl font-extrabold mt-2 text-brand-ink">
               What Are You <span className="text-accent">Waiting For</span>
             </h1>
-            <p className="mt-3 text-gray-700">Reach out to us anytime, from anywhere - we're always here to help and look forward to assisting you.</p>
+            <p className="mt-3 text-brand-muted-ink">Reach out to us anytime, from anywhere - we're always here to help and look forward to assisting you.</p>
           </div>
         </div>
       </section>
@@ -29,19 +30,19 @@ export default function Contact() {
       {/* India Offices */}
       <section className="py-6" aria-labelledby="india-offices">
         <div className="container mx-auto px-4">
-          <h2 id="india-offices" className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+          <h2 id="india-offices" className="text-2xl md:text-3xl font-bold mb-6 text-brand-ink">
             Our Offices Within <em>India</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Karnal Office */}
-            <article className="bg-white rounded-2xl shadow p-6 flex gap-4 items-start">
+            <article className="bg-surface rounded-2xl shadow p-6 flex gap-4 items-start">
               <img src="https://images.emtcontent.com/contact/delhi.svg" alt="" className="w-16 h-16" aria-hidden="true" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900">{companyInfo.address.karnal.city}</h3>
-                <address className="not-italic text-gray-700 mt-1">
+                <h3 className="text-xl font-bold text-brand-ink">{companyInfo.address.karnal.city}</h3>
+                <address className="not-italic text-brand-muted-ink mt-1">
                   {companyInfo.address.karnal.full}
                 </address>
-                <div className="mt-2 space-y-1 text-sm text-gray-700">
+                <div className="mt-2 space-y-1 text-sm text-brand-muted-ink">
                   <div>
                     <a href={`mailto:${companyInfo.email.primary}`} className="hover:text-orange hover:underline font-medium">
                       Email us: {companyInfo.email.primary}
@@ -59,7 +60,7 @@ export default function Contact() {
                   </div>
                   <div className="mt-2">
                     <a href={companyInfo.address.karnal.mapLink} target="_blank" rel="noopener noreferrer" className="text-orange hover:underline font-medium flex items-center gap-1">
-                      <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i> View on Google Maps
+                      <MapPin className="w-4 h-4" aria-hidden="true" /> View on Google Maps
                     </a>
                   </div>
                 </div>
@@ -67,14 +68,14 @@ export default function Contact() {
             </article>
 
             {/* Noida Office */}
-            <article className="bg-white rounded-2xl shadow p-6 flex gap-4 items-start">
+            <article className="bg-surface rounded-2xl shadow p-6 flex gap-4 items-start">
               <img src="https://images.emtcontent.com/contact/noida.svg" alt="" className="w-16 h-16" aria-hidden="true" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900">{companyInfo.address.noida.city}</h3>
-                <address className="not-italic text-gray-700 mt-1">
+                <h3 className="text-xl font-bold text-brand-ink">{companyInfo.address.noida.city}</h3>
+                <address className="not-italic text-brand-muted-ink mt-1">
                   {companyInfo.address.noida.full}
                 </address>
-                <div className="mt-2 space-y-1 text-sm text-gray-700">
+                <div className="mt-2 space-y-1 text-sm text-brand-muted-ink">
                   <div>
                     <a href={`mailto:${companyInfo.email.primary}`} className="hover:text-orange hover:underline font-medium">
                       Email us: {companyInfo.email.primary}
@@ -97,14 +98,14 @@ export default function Contact() {
       {/* Overseas Offices */}
       <section className="py-6" aria-labelledby="overseas-offices">
         <div className="container mx-auto px-4">
-          <h2 id="overseas-offices" className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+          <h2 id="overseas-offices" className="text-2xl md:text-3xl font-bold mb-6 text-brand-ink">
             Our Overseas <em>Offices</em>
           </h2>
-          <article className="bg-white rounded-2xl shadow p-6 flex gap-4 items-start">
+          <article className="bg-surface rounded-2xl shadow p-6 flex gap-4 items-start">
             <img src="https://images.emtcontent.com/contact/dubai.svg" alt="" className="w-16 h-16" aria-hidden="true" />
             <div>
-              <h3 className="text-xl font-bold text-gray-900">Dubai</h3>
-              <address className="not-italic text-gray-700 mt-2 space-y-3">
+              <h3 className="text-xl font-bold text-brand-ink">Dubai</h3>
+              <address className="not-italic text-brand-muted-ink mt-2 space-y-3">
                 <div>
                   <strong className="font-semibold">Corporate Office:</strong><br />
                   {companyInfo.address.dubai.corporate}
@@ -117,7 +118,7 @@ export default function Contact() {
                     Website: {companyInfo.website.replace('https://', 'www.')}
                   </a>
                 </div>
-                <hr className="border-gray-300" />
+                <hr className="border-brand-hairline" />
                 <div>
                   <strong className="font-semibold">Retail Office:</strong><br />
                   {companyInfo.address.dubai.branch}
@@ -142,7 +143,7 @@ export default function Contact() {
       {/* Map */}
       <section className="py-8" aria-labelledby="location-map">
         <div className="container mx-auto px-4">
-          <h2 id="location-map" className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+          <h2 id="location-map" className="text-2xl md:text-3xl font-bold mb-4 text-brand-ink">
             Where to Find <em>Us?</em>
           </h2>
           <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow">
@@ -162,9 +163,9 @@ export default function Contact() {
               href={companyInfo.address.karnal.mapLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-primary/90 transition-all font-medium"
+              className="inline-flex items-center gap-2 bg-brand-scrim text-white px-6 py-3 rounded-full hover:bg-brand-scrim/90 transition-all font-medium"
             >
-              <i className="fa-solid fa-map-marker-alt" aria-hidden="true"></i>
+              <MapPin className="w-4 h-4" aria-hidden="true" />
               Open in Google Maps
             </a>
           </div>
@@ -174,14 +175,14 @@ export default function Contact() {
       {/* Connect With Us */}
       <section className="py-8" aria-labelledby="connect-with-us">
         <div className="container mx-auto px-4">
-          <h2 id="connect-with-us" className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+          <h2 id="connect-with-us" className="text-2xl md:text-3xl font-bold mb-6 text-brand-ink">
             Connect With <em>Us At</em>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {connectWith.map((c, i) => (
-              <article key={i} className="rounded-2xl p-6 shadow bg-white">
+              <article key={i} className="rounded-2xl p-6 shadow bg-surface">
                 <img src={c.img} alt="" className="w-14 h-14" aria-hidden="true" loading="lazy" />
-                <h3 className="mt-3 text-lg font-semibold text-gray-900">{c.title}</h3>
+                <h3 className="mt-3 text-lg font-semibold text-brand-ink">{c.title}</h3>
                 <a 
                   href={`mailto:${c.email}`} 
                   className={`${orangeEmails.includes(c.email) ? 'text-orange hover:text-orange/80' : 'text-orange hover:text-orange/80'} hover:underline font-medium text-sm`}

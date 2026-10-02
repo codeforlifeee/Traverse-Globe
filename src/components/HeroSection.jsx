@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, MapPin, ArrowRight, Star } from 'lucide-react';
-import { fetchBanners } from '../services/sanityClient';
-import { SkeletonHero } from './revamp/Skeletons';
+import { useBanners } from '../hooks/queries';
+import { HERO_WIDTHS } from '@/lib/sanityImage';
 import ImageWithFallback from './revamp/ImageWithFallback';
 import Kicker from './revamp/Kicker';
 import TrustStrip from './revamp/TrustStrip';
@@ -14,34 +14,18 @@ import TrustStrip from './revamp/TrustStrip';
  * - Left: kicker + display headline + subhead + destination search + popular chips
  * - Right: floating highlight card pulled forward to break the grid
  */
+// Known at build time so index.html can <link rel=preload> the very same URL.
+const HERO_FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1920&q=75';
+
 const HeroSection = () => {
-  const [banners, setBanners] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
+  const { data: banners = [] } = useBanners('general');
 
-  useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const data = await fetchBanners('general');
-        if (!cancelled) setBanners(data || []);
-      } catch (err) {
-        console.error('Failed to load banners:', err);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    };
-    load();
-    return () => { cancelled = true; };
-  }, []);
-
-  if (loading) {
-    return <SkeletonHero />;
-  }
-
-  const heroImage = banners[0]?.url
-    || banners[0]
-    || 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1920&q=75';
+  // Render the real hero immediately. Gating on the banner fetch would serialize the
+  // LCP image request behind JS parse -> mount -> GROQ round-trip; the CMS banner simply
+  // swaps in when it arrives.
+  const heroImage = banners[0]?.url || banners[0] || HERO_FALLBACK_IMAGE;
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -75,12 +59,15 @@ const HeroSection = () => {
               alt="Traverse Globe hero"
               className="w-full h-full object-cover"
               loading="eager"
+              fetchpriority="high"
+              sizes="100vw"
+              widths={HERO_WIDTHS}
             />
           </div>
           {/* Dark left gradient for text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/85 via-brand-ink/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-scrim/85 via-brand-scrim/50 to-transparent" />
           {/* Bottom fade for TrustStrip transition */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-ink/60 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-scrim/60 to-transparent" />
         </div>
 
         {/* Content */}
@@ -88,12 +75,7 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
             {/* LEFT: copy + search — 7/12 */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:col-span-7"
-            >
+            <div className="lg:col-span-7">
               <Kicker tone="orange" size="lg" className="text-white/90 mb-3 md:mb-4">
                 Curated family trips · India + UAE
               </Kicker>
@@ -109,7 +91,7 @@ const HeroSection = () => {
               {/* Search */}
               <form
                 onSubmit={onSearch}
-                className="bg-white/95 backdrop-blur-md rounded-2xl p-2 flex flex-col sm:flex-row gap-2 shadow-soft-xl border border-white/40 max-w-2xl"
+                className="bg-surface/95 backdrop-blur-md rounded-2xl p-2 flex flex-col sm:flex-row gap-2 shadow-soft-xl border border-brand-hairline max-w-2xl"
               >
                 <div className="flex-1 relative">
                   <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted-ink w-5 h-5" />
@@ -149,7 +131,7 @@ const HeroSection = () => {
                   </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* RIGHT: highlight card — 5/12, hidden on small */}
             <motion.div
@@ -159,12 +141,14 @@ const HeroSection = () => {
               whileHover={{ rotate: 0, y: -6 }}
               className="hidden md:block lg:col-span-5"
             >
-              <div className="relative max-w-md ml-auto bg-white rounded-2xl shadow-soft-xl border border-white/60 overflow-hidden">
+              <div className="relative max-w-md ml-auto bg-surface rounded-2xl shadow-soft-xl border border-white/60 overflow-hidden">
                 <div className="relative aspect-[4/3]">
                   <ImageWithFallback
                     src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
                     alt="Featured trip"
                     className="w-full h-full object-cover"
+                    loading="eager"
+                    sizes="(min-width: 1024px) 28rem, 40vw"
                   />
                   <div className="absolute top-3 left-3 bg-brand-orange text-white text-[11px] font-poppins font-semibold uppercase tracking-widest px-3 py-1 rounded-full">
                     Featured

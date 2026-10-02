@@ -29,10 +29,17 @@ export default {
       validation: (Rule) => Rule.required()
     },
     {
+      name: 'destination',
+      title: 'Destination Visited',
+      type: 'string',
+      description: 'Groups the review under a filter chip on the home page (e.g. Dubai, Japan).',
+      validation: (Rule) => Rule.required()
+    },
+    {
       name: 'date',
       title: 'Date',
       type: 'date',
-      validation: (Rule) => Rule.required()
+      description: 'Optional - shown nowhere yet, but useful for ordering.'
     },
     {
       name: 'avatar',
@@ -45,6 +52,19 @@ export default {
       type: 'boolean',
       description: 'Show on home page',
       initialValue: false
+    },
+    {
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      initialValue: 100
+    },
+    {
+      name: 'active',
+      title: 'Active',
+      type: 'boolean',
+      description: 'Uncheck to hide without deleting.',
+      initialValue: true
     },
     {
       name: 'packageRef',
@@ -63,7 +83,7 @@ export default {
     prepare({ title, rating, text }) {
       return {
         title: title,
-        subtitle: `${'⭐'.repeat(rating)} - ${text.substring(0, 60)}...`
+        subtitle: `${'⭐'.repeat(rating || 0)} ${(text || '').substring(0, 60)}`
       }
     }
   }

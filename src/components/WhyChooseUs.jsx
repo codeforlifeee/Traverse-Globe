@@ -1,10 +1,12 @@
+import { CheckCircle2 } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { services, companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
+import { services } from '../data/siteData';
 
 const ServiceCard = ({ icon, title, description }) => {
   return (
-    <div className="bg-white rounded-2xl p-6 transition-all duration-200 text-center border border-gray-100 h-full flex flex-col"
+    <div className="bg-surface rounded-2xl p-6 transition-all duration-200 text-center border border-brand-hairline h-full flex flex-col"
       style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04)' }}
     >
       <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-orange/10 flex items-center justify-center transition-all duration-200">
@@ -20,7 +22,7 @@ const WhyChooseUs = () => {
   // services imported from siteData
 
   return (
-    <section className="py-8 md:py-10 lg:py-12 bg-gray-50">
+    <section className="py-8 md:py-10 lg:py-12 bg-brand-canvas">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Title and Description */}
@@ -41,16 +43,16 @@ const WhyChooseUs = () => {
               Choose {companyInfo.name} for a travel adventure that's as unique as the city itself!
             </p>
             <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100">
-                <i className="fa-solid fa-check-circle text-green-600 text-base"></i>
+              <div className="flex items-center gap-2 bg-surface px-4 py-2 rounded-xl border border-brand-hairline">
+                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400" />
                 <span className="text-sm font-medium text-darkBlue font-canva-sans">Best Price Guarantee</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100">
-                <i className="fa-solid fa-check-circle text-green-600 text-base"></i>
+              <div className="flex items-center gap-2 bg-surface px-4 py-2 rounded-xl border border-brand-hairline">
+                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400" />
                 <span className="text-sm font-medium text-darkBlue font-canva-sans">24/7 Support</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100">
-                <i className="fa-solid fa-check-circle text-green-600 text-base"></i>
+              <div className="flex items-center gap-2 bg-surface px-4 py-2 rounded-xl border border-brand-hairline">
+                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400" />
                 <span className="text-sm font-medium text-darkBlue font-canva-sans">Expert Guidance</span>
               </div>
             </div>

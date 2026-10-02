@@ -24,7 +24,6 @@ if (typeof window !== 'undefined' && window.trustedTypes) {
         const allowedOrigins = [
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
-          'https://cdnjs.cloudflare.com',
           location.origin
         ];
         

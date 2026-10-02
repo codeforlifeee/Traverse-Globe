@@ -37,15 +37,31 @@ const Chardham = lazy(() => import(/* webpackChunkName: "chardham" */ './pages/C
 const HotelsListing = lazy(() => import(/* webpackChunkName: "hotels-listing" */ './pages/HotelsListing'));
 const NotFound = lazy(() => import(/* webpackChunkName: "not-found" */ './pages/NotFound'));
 
-// Optimized loading fallback
+// Route fallback. A skeleton that roughly matches a page's shape reads as the page
+// arriving rather than as a blocking spinner, and it reserves height so the swap to
+// real content does not shift the layout.
 const LoadingFallback = memo(() => (
-  <div className="min-h-[calc(100vh-80px)] flex items-center justify-center" role="status" aria-live="polite">
-    <div className="text-center">
-      <div 
-        className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange mb-4"
-        aria-hidden="true"
-      ></div>
-      <p className="text-darkBlue/80 font-poppins">Loading...</p>
+  <div
+    className="min-h-[calc(100vh-80px)] container-custom py-10 md:py-14"
+    role="status"
+    aria-live="polite"
+    aria-busy="true"
+  >
+    <span className="sr-only">Loading page</span>
+    <div className="animate-pulse space-y-6" aria-hidden="true">
+      <div className="h-8 w-2/3 max-w-md rounded-lg bg-brand-canvas-2" />
+      <div className="h-4 w-1/2 max-w-sm rounded bg-brand-canvas-2" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pt-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-2xl overflow-hidden border border-brand-hairline">
+            <div className="aspect-[4/3] bg-brand-canvas-2" />
+            <div className="p-4 space-y-2">
+              <div className="h-4 w-3/4 rounded bg-brand-canvas-2" />
+              <div className="h-3 w-1/2 rounded bg-brand-canvas-2" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 ));
@@ -60,7 +76,7 @@ function App() {
     <Router>
       <ErrorBoundary>
       <ScrollToTop />
-      <div className="min-h-screen bg-white overflow-x-hidden">
+      <div className="min-h-screen bg-surface overflow-x-hidden">
         <Header />
         <main role="main">
           <Suspense fallback={<LoadingFallback />}>

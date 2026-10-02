@@ -11,7 +11,7 @@ const badgeVariants = cva(
         orange: "border-brand-orange/20 bg-brand-orange/10 text-brand-orange",
         trust: "border-brand-trust/20 bg-brand-trust/10 text-brand-trust",
         outline: "border-brand-hairline text-brand-ink",
-        ink: "border-transparent bg-brand-ink text-white",
+        ink: "border-transparent bg-brand-scrim text-white",
       },
     },
     defaultVariants: { variant: "default" },

@@ -147,7 +147,10 @@ export default defineConfig({
         enabled: false
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}'],
+        // Precache only the app shell. The previous glob pulled every route chunk and
+        // every image (~1 MB) on first visit, competing with the page being viewed;
+        // runtimeCaching below picks everything else up on demand.
+        globPatterns: ['index.html', 'assets/css/index-*.css', 'assets/js/index-*.js', 'assets/js/vendor-*.js', 'logo.webp'],
         skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
@@ -242,20 +245,6 @@ export default defineConfig({
                 }
               ]
             }
-          },
-          {
-            urlPattern: /^https:\/\/cdnjs\.cloudflare\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'cdnjs-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
           }
         ]
       },
@@ -283,8 +272,12 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['framer-motion', 'swiper', 'lucide-react'],
-          'vendor-utils': ['axios', '@tanstack/react-query', 'clsx']
+          // framer-motion and lucide are needed by the eager Header, so they are
+          // critical. Swiper is not - leaving it unlisted lets it ride along with the
+          // lazy carousel sections instead of being modulepreloaded on every page.
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['lucide-react'],
+          'vendor-utils': ['@tanstack/react-query', 'clsx', 'tailwind-merge', 'class-variance-authority']
         },
         // Optimize chunk naming for better caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -304,7 +297,7 @@ export default defineConfig({
       }
     },
     // Optimize chunk size
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 400,
     // Use terser for better minification
     minify: 'terser',
     terserOptions: {
@@ -328,7 +321,7 @@ export default defineConfig({
     // Report compressed size
     reportCompressedSize: true,
     // Target modern browsers for smaller bundles
-    target: 'es2015'
+    target: 'es2020'
   },
   
   // Optimize dependencies

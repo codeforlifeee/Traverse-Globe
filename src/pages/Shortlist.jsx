@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Trash2, Share2, ArrowRight, Heart } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon';
 import { getShortlist, subscribeShortlist, removeFromShortlist, clearShortlist } from '@/lib/shortlist';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 import ImageWithFallback from '../components/revamp/ImageWithFallback';
 import Kicker from '../components/revamp/Kicker';
 import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
@@ -53,7 +53,7 @@ export default function Shortlist() {
             <div className="flex gap-2">
               <a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
                 <Button className="shadow-glow-orange">
-                  <FaWhatsapp className="w-4 h-4 mr-2" />
+                  <WhatsAppIcon className="w-4 h-4 mr-2" />
                   Send to WhatsApp
                 </Button>
               </a>
@@ -65,7 +65,7 @@ export default function Shortlist() {
         </div>
 
         {items.length === 0 ? (
-          <div className="mt-14 rounded-2xl border border-dashed border-brand-hairline p-12 text-center bg-white">
+          <div className="mt-14 rounded-2xl border border-dashed border-brand-hairline p-12 text-center bg-surface">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-orange/10 mb-4">
               <Heart className="w-7 h-7 text-brand-orange" />
             </div>
@@ -89,14 +89,14 @@ export default function Shortlist() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.04 }}
-                className="rounded-2xl overflow-hidden bg-white border border-brand-hairline shadow-soft-sm hover:shadow-soft-md transition-shadow"
+                className="rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-md transition-shadow"
               >
                 <div className="relative aspect-[4/3]">
                   <ImageWithFallback src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   <button
                     onClick={() => removeFromShortlist(item.id)}
                     aria-label="Remove"
-                    className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 backdrop-blur border border-brand-hairline shadow-soft-md flex items-center justify-center text-brand-ink hover:text-rose-600"
+                    className="absolute top-3 right-3 w-9 h-9 rounded-full bg-surface/95 backdrop-blur border border-brand-hairline shadow-soft-md flex items-center justify-center text-brand-ink hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

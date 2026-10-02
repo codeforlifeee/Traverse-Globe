@@ -1,3 +1,5 @@
+import WhatsAppIcon from '../components/icons/WhatsAppIcon';
+import { BedDouble, Check, Info, Mail, Map, MapPin, Phone, Ruler, Star, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -6,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import BookingModal from '../components/BookingModal';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 
 const HotelDetail = () => {
   const { category, slug } = useParams();
@@ -132,18 +134,18 @@ const HotelDetail = () => {
                     </h1>
                     <div className="flex items-center gap-3 text-sm text-darkBlue/70">
                       <div className="flex items-center gap-1">
-                        <i className="fas fa-map-marker-alt text-orange"></i>
+                        <MapPin className="w-4 h-4 text-orange" />
                         <span>{hotel.location}</span>
                       </div>
                       {hotel.rating && (
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
-                            <i
+                            <Star
                               key={i}
-                              className={`fas fa-star text-xs ${
-                                i < hotel.rating ? 'text-orange' : 'text-gray-300'
+                              className={`w-3 h-3 ${
+                                i < hotel.rating ? 'text-orange fill-orange' : 'text-brand-hairline'
                               }`}
-                            ></i>
+                            />
                           ))}
                         </div>
                       )}
@@ -167,7 +169,7 @@ const HotelDetail = () => {
                         key={idx}
                         className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange/10 text-darkBlue border border-orange/20"
                       >
-                        <i className="fas fa-check text-orange text-xs mr-1"></i>
+                        <Check className="w-3 h-3 text-orange mr-1" />
                         {highlight}
                       </span>
                     ))}
@@ -176,19 +178,19 @@ const HotelDetail = () => {
               </div>
 
               {/* Description */}
-              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+              <div className="bg-surface rounded-2xl p-5 shadow-sm border border-brand-hairline">
                 <h2 className="text-xl font-bold text-darkBlue mb-3 font-poppins">About This Hotel</h2>
                 <p className="text-darkBlue/80 leading-relaxed font-canva-sans">{hotel.description}</p>
               </div>
 
               {/* Amenities */}
               {hotel.amenities && hotel.amenities.length > 0 && (
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="bg-surface rounded-2xl p-5 shadow-sm border border-brand-hairline">
                   <h2 className="text-xl font-bold text-darkBlue mb-4 font-poppins">Amenities</h2>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {hotel.amenities.map((amenity, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-sm text-darkBlue/80">
-                        <i className="fas fa-check text-orange"></i>
+                        <Check className="w-4 h-4 text-orange" />
                         <span>{amenity}</span>
                       </div>
                     ))}
@@ -198,13 +200,13 @@ const HotelDetail = () => {
 
               {/* Room Types */}
               {hotel.roomTypes && hotel.roomTypes.length > 0 && (
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="bg-surface rounded-2xl p-5 shadow-sm border border-brand-hairline">
                   <h2 className="text-xl font-bold text-darkBlue mb-4 font-poppins">Available Rooms</h2>
                   <div className="space-y-4">
                     {hotel.roomTypes.map((room, idx) => (
                       <div
                         key={idx}
-                        className="border border-gray-200 rounded-xl p-4 hover:border-orange/50 transition-colors"
+                        className="border border-brand-hairline rounded-xl p-4 hover:border-orange/50 transition-colors"
                       >
                         <div className="flex flex-col sm:flex-row gap-4">
                           {room.image && (
@@ -221,17 +223,17 @@ const HotelDetail = () => {
                             <div className="flex flex-wrap gap-3 text-xs text-darkBlue/70 mb-2">
                               {room.capacity && (
                                 <span className="flex items-center gap-1">
-                                  <i className="fas fa-user"></i> {room.capacity} Guests
+                                  <User className="w-4 h-4" /> {room.capacity} Guests
                                 </span>
                               )}
                               {room.size && (
                                 <span className="flex items-center gap-1">
-                                  <i className="fas fa-ruler-combined"></i> {room.size} sq ft
+                                  <Ruler className="w-4 h-4" /> {room.size} sq ft
                                 </span>
                               )}
                               {room.bedType && (
                                 <span className="flex items-center gap-1">
-                                  <i className="fas fa-bed"></i> {room.bedType}
+                                  <BedDouble className="w-4 h-4" /> {room.bedType}
                                 </span>
                               )}
                             </div>
@@ -240,7 +242,7 @@ const HotelDetail = () => {
                                 {room.amenities.slice(0, 3).map((amenity, i) => (
                                   <span
                                     key={i}
-                                    className="text-xs bg-gray-100 px-2 py-0.5 rounded"
+                                    className="text-xs bg-brand-canvas-2 px-2 py-0.5 rounded"
                                   >
                                     {amenity}
                                   </span>
@@ -271,12 +273,12 @@ const HotelDetail = () => {
 
               {/* Nearby Attractions */}
               {hotel.nearbyAttractions && hotel.nearbyAttractions.length > 0 && (
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="bg-surface rounded-2xl p-5 shadow-sm border border-brand-hairline">
                   <h2 className="text-xl font-bold text-darkBlue mb-4 font-poppins">Nearby Attractions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {hotel.nearbyAttractions.map((attraction, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-sm text-darkBlue/80">
-                        <i className="fas fa-map-pin text-orange mt-1"></i>
+                        <MapPin className="w-4 h-4 text-orange mt-1" />
                         <div>
                           <p className="font-semibold">{attraction.name}</p>
                           {attraction.distance && (
@@ -291,12 +293,12 @@ const HotelDetail = () => {
 
               {/* Policies */}
               {hotel.policies && hotel.policies.length > 0 && (
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="bg-surface rounded-2xl p-5 shadow-sm border border-brand-hairline">
                   <h2 className="text-xl font-bold text-darkBlue mb-4 font-poppins">Hotel Policies</h2>
                   <ul className="space-y-2">
                     {hotel.policies.map((policy, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-darkBlue/80">
-                        <i className="fas fa-info-circle text-orange mt-1"></i>
+                        <Info className="w-4 h-4 text-orange mt-1" />
                         <span>{policy}</span>
                       </li>
                     ))}
@@ -307,7 +309,7 @@ const HotelDetail = () => {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 sticky top-24">
+              <div className="bg-surface rounded-2xl p-5 shadow-lg border border-brand-hairline sticky top-24">
                 <div className="mb-4">
                   <p className="text-sm text-darkBlue/60 mb-1">Starting from</p>
                   {hotel.originalPrice && (
@@ -325,12 +327,12 @@ const HotelDetail = () => {
                   onClick={() => handleBookRoom()}
                   className="custom-btn w-full mb-4"
                 >
-                  <i className="fas fa-bed mr-2"></i>
+                  <BedDouble className="w-4 h-4 mr-2" />
                   Book This Hotel
                 </button>
 
                 {/* Check-in/Check-out Times */}
-                <div className="border-t border-gray-200 pt-4 mb-4 space-y-2">
+                <div className="border-t border-brand-hairline pt-4 mb-4 space-y-2">
                   {hotel.checkIn && (
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-darkBlue/60">Check-in:</span>
@@ -346,13 +348,13 @@ const HotelDetail = () => {
                 </div>
 
                 {/* Contact Information */}
-                <div className="border-t border-gray-200 pt-4 space-y-3">
+                <div className="border-t border-brand-hairline pt-4 space-y-3">
                   <h3 className="font-bold text-darkBlue mb-2">Need Help?</h3>
                   <a
                     href={`tel:${companyInfo.phone.primary}`}
                     className="flex items-center gap-2 text-sm text-darkBlue hover:text-orange transition-colors"
                   >
-                    <i className="fas fa-phone text-orange"></i>
+                    <Phone className="w-4 h-4 text-orange" />
                     <span>{companyInfo.phone.primary}</span>
                   </a>
                   <a
@@ -361,14 +363,14 @@ const HotelDetail = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm text-darkBlue hover:text-orange transition-colors"
                   >
-                    <i className="fab fa-whatsapp text-orange"></i>
+                    <WhatsAppIcon className="w-4 h-4 text-orange" />
                     <span>WhatsApp Us</span>
                   </a>
                   <a
                     href={`mailto:${companyInfo.email.primary}`}
                     className="flex items-center gap-2 text-sm text-darkBlue hover:text-orange transition-colors"
                   >
-                    <i className="fas fa-envelope text-orange"></i>
+                    <Mail className="w-4 h-4 text-orange" />
                     <span>{companyInfo.email.primary}</span>
                   </a>
                 </div>
@@ -381,7 +383,7 @@ const HotelDetail = () => {
                     rel="noopener noreferrer"
                     className="mt-4 flex items-center justify-center gap-2 text-sm text-teal hover:text-teal/80 transition-colors font-medium"
                   >
-                    <i className="fas fa-map-marked-alt"></i>
+                    <Map className="w-4 h-4" />
                     <span>View on Map</span>
                   </a>
                 )}

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ShieldCheck, Award, Lock } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
-import { companyInfo } from '../data/siteData';
+import WhatsAppIcon from './icons/WhatsAppIcon';
+import { companyInfo } from '../data/companyInfo';
 import { getInternationalCategories, getDomesticCategories } from '../data/categoryConfig';
 import Kicker from './revamp/Kicker';
 
@@ -10,7 +10,7 @@ const Footer = () => {
   const domestic = getDomesticCategories();
 
   return (
-    <footer className="bg-brand-ink text-white/80">
+    <footer className="bg-brand-scrim text-white/80">
       {/* Top border accent */}
       <div className="h-1 bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange" />
 
@@ -47,7 +47,7 @@ const Footer = () => {
                   className="flex items-center gap-3 text-sm text-white/80 hover:text-white transition-colors"
                 >
                   <span className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                    <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
+                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                   </span>
                   WhatsApp us in Hindi or Arabic
                 </a>

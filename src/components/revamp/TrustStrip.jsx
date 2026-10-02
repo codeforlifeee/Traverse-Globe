@@ -13,7 +13,7 @@ const DEFAULT_ITEMS = [
  */
 export default function TrustStrip({ items = DEFAULT_ITEMS, variant = 'canvas' }) {
   const bg = variant === 'ink'
-    ? 'bg-brand-ink text-white border-brand-orange'
+    ? 'bg-brand-scrim text-white border-brand-orange'
     : 'bg-brand-canvas text-brand-ink border-brand-hairline';
   return (
     <div className={`w-full border-y ${bg}`}>

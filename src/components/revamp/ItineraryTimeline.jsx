@@ -24,7 +24,7 @@ export default function ItineraryTimeline({ days = [] }) {
           return (
             <div key={idx} className="relative pl-10">
               <div className={cn(
-                'absolute left-0 top-3.5 w-8 h-8 rounded-full border-2 flex items-center justify-center bg-white transition-colors',
+                'absolute left-0 top-3.5 w-8 h-8 rounded-full border-2 flex items-center justify-center bg-surface transition-colors',
                 isOpen ? 'border-brand-orange text-brand-orange' : 'border-brand-hairline text-brand-muted-ink'
               )}>
                 <span className="text-[11px] font-poppins font-semibold">{idx + 1}</span>
@@ -36,8 +36,8 @@ export default function ItineraryTimeline({ days = [] }) {
                 className={cn(
                   'w-full text-left rounded-2xl border transition-shadow',
                   isOpen
-                    ? 'border-brand-orange/30 shadow-soft-md bg-white'
-                    : 'border-brand-hairline hover:shadow-soft-md bg-white'
+                    ? 'border-brand-orange/30 shadow-soft-md bg-surface'
+                    : 'border-brand-hairline hover:shadow-soft-md bg-surface'
                 )}
               >
                 <div className="flex items-center justify-between gap-3 px-4 py-3.5">

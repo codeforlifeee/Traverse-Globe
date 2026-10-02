@@ -41,10 +41,10 @@ export default function UniversalCarousel({
   }, [children, updateNav]);
 
   const bgClass = {
-    white: 'bg-white',
+    white: 'bg-surface',
     canvas: 'bg-brand-canvas',
     'canvas-2': 'bg-brand-canvas-2',
-  }[bg] || 'bg-white';
+  }[bg] || 'bg-surface';
 
   return (
     <section className={cn('py-12 md:py-16 lg:py-20', bgClass, className)}>
@@ -72,9 +72,9 @@ export default function UniversalCarousel({
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={isBeginning && !loop}
               className={cn(
-                'inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-white text-brand-ink transition-all',
+                'inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all',
                 'hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange',
-                'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none'
+                'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none'
               )}
             >
               <ChevronLeft className="h-5 w-5" />
@@ -85,9 +85,9 @@ export default function UniversalCarousel({
               onClick={() => swiperRef.current?.slideNext()}
               disabled={isEnd && !loop}
               className={cn(
-                'inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-white text-brand-ink transition-all',
+                'inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all',
                 'hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange',
-                'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none'
+                'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none'
               )}
             >
               <ChevronRight className="h-5 w-5" />
@@ -107,6 +107,8 @@ export default function UniversalCarousel({
           onReachEnd={() => setIsEnd(true)}
           spaceBetween={16}
           slidesPerView={1.15}
+          // Mount only the visible slides plus one either side instead of all of them.
+          lazyPreloadPrevNext={1}
           loop={loop}
           autoplay={
             autoplay

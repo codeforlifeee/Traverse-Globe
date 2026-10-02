@@ -4,7 +4,7 @@ import { Menu, X, ChevronDown, Plane, MapPin, Heart, Search } from 'lucide-react
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { getInternationalCategories, getDomesticCategories } from '../data/categoryConfig';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 import { getShortlist, subscribeShortlist } from '@/lib/shortlist';
 import SearchCommand from './revamp/SearchCommand';
 import ThemeToggle from './revamp/ThemeToggle';
@@ -36,10 +36,27 @@ const Header = () => {
   const isDarkHeroPage = location.pathname === '/' || location.pathname === '/destinations';
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    // One rAF per frame, and setScrolled only when the boolean actually flips -
+    // previously every scroll event queued a state update.
+    let frame = 0;
+    let last = null;
+    const apply = () => {
+      frame = 0;
+      const next = window.scrollY > 24;
+      if (next !== last) {
+        last = next;
+        setScrolled(next);
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(apply);
+    };
+    apply();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,7 +78,7 @@ const Header = () => {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         solid
-          ? 'bg-white/95 backdrop-blur-md border-b border-brand-hairline shadow-soft-sm'
+          ? 'bg-surface/95 backdrop-blur-md border-b border-brand-hairline shadow-soft-sm'
           : 'bg-transparent border-b border-transparent'
       )}
     >
@@ -80,6 +97,7 @@ const Header = () => {
                 alt={companyInfo.name}
                 className={cn(
                   'h-10 md:h-11 object-contain transition-all duration-300',
+                  'dark:brightness-0 dark:invert',
                   !solid && 'brightness-0 invert'
                 )}
                 width="151"
@@ -116,7 +134,7 @@ const Header = () => {
                   <div
                     className={cn(
                       'invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute top-full left-0 mt-2',
-                      'bg-white rounded-2xl p-6 min-w-[560px] border border-brand-hairline shadow-soft-xl grid grid-cols-2 gap-6'
+                      'bg-surface rounded-2xl p-6 min-w-[560px] border border-brand-hairline shadow-soft-xl grid grid-cols-2 gap-6'
                     )}
                   >
                     <div>
@@ -209,7 +227,7 @@ const Header = () => {
                 'hidden md:inline-flex items-center px-5 py-2.5 text-sm rounded-lg font-poppins font-semibold transition-colors shadow-soft-md',
                 solid
                   ? 'bg-brand-orange hover:bg-brand-orange-hover text-white hover:shadow-glow-orange'
-                  : 'bg-white text-brand-ink hover:bg-white/90'
+                  : 'bg-surface text-brand-ink hover:bg-surface/90'
               )}
             >
               Get Quote
@@ -287,6 +305,10 @@ const Header = () => {
                 <li><Link to="/about" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">About</Link></li>
                 <li><Link to="/contact" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Contact</Link></li>
                 <li className="pt-3 border-t border-brand-hairline space-y-2">
+                  <div className="flex items-center justify-between px-3 py-1">
+                    <span className="font-poppins font-medium text-brand-ink">Appearance</span>
+                    <ThemeToggle tone="auto" showLabel />
+                  </div>
                   <Link
                     to="/shortlist"
                     className="flex items-center justify-between px-3 py-3 rounded-lg bg-brand-canvas font-poppins font-medium text-brand-ink"

@@ -30,7 +30,7 @@ export default function ThemesShowcase() {
                 alt={t.name}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/85 via-brand-scrim/30 to-transparent" />
               <div className="absolute inset-0 p-4 md:p-5 flex flex-col justify-end text-white">
                 <span className="text-kicker uppercase font-poppins text-white/70">{t.kicker}</span>
                 <div className="mt-1 flex items-center justify-between">

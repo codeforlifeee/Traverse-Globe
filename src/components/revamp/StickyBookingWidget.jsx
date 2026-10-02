@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Download, ShieldCheck, Calendar, Users } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import BookingModal from '../BookingModal';
-import { companyInfo } from '../../data/siteData';
+import { companyInfo } from '../../data/companyInfo';
 
 /**
  * Desktop-only sticky right-rail widget for detail pages.
@@ -31,7 +31,7 @@ export default function StickyBookingWidget({ pkg, className }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className={cn(
-          'hidden lg:block sticky top-24 rounded-2xl border border-brand-hairline bg-white shadow-soft-lg overflow-hidden',
+          'hidden lg:block sticky top-24 rounded-2xl border border-brand-hairline bg-surface shadow-soft-lg overflow-hidden',
           className
         )}
       >
@@ -93,7 +93,7 @@ export default function StickyBookingWidget({ pkg, className }) {
               size="lg"
               className="w-full border-[#25D366]/40 text-[#128C7E] hover:bg-[#25D366]/5"
             >
-              <FaWhatsapp className="w-4 h-4 mr-2" />
+              <WhatsAppIcon className="w-4 h-4 mr-2" />
               Chat on WhatsApp
             </Button>
           </a>

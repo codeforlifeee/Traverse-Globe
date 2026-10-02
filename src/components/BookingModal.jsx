@@ -1,5 +1,6 @@
+import { Baby, Luggage, Mail, Minus, PersonStanding, Phone, Plus, Send, ShieldCheck, User, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 
 const DEFAULT_LEAD_API_PATH = '/api/lead-webhook';
 
@@ -165,7 +166,7 @@ export default function BookingModal({ open, onClose, packageName }) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl transform transition-all animate-slideUp max-h-[90vh] overflow-y-auto"
+        className="bg-surface rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl transform transition-all animate-slideUp max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header with gradient */}
@@ -195,7 +196,7 @@ export default function BookingModal({ open, onClose, packageName }) {
               </label>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-orange/10 flex items-center justify-center text-orange text-xl">
-                  <i className="fa-solid fa-suitcase"></i>
+                  <Luggage className="w-4 h-4" />
                 </div>
                 <input
                   readOnly
@@ -209,7 +210,7 @@ export default function BookingModal({ open, onClose, packageName }) {
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-lg bg-darkBlue/10 flex items-center justify-center">
-                  <i className="fa-solid fa-user text-darkBlue"></i>
+                  <User className="w-4 h-4 text-darkBlue" />
                 </div>
                 <h6 className="font-bold text-darkBlue font-poppins text-base">Personal Details</h6>
               </div>
@@ -217,18 +218,18 @@ export default function BookingModal({ open, onClose, packageName }) {
               {/* Name Field */}
               <div className="group">
                 <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
-                  Full Name <span className="text-red-500">*</span>
+                  Full Name <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-darkBlue/40">
-                    <i className="fa-solid fa-user text-sm"></i>
+                    <User className="w-3.5 h-3.5" />
                   </div>
                   <input
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
+                    className="w-full border-2 border-brand-hairline rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
                   />
                 </div>
               </div>
@@ -236,11 +237,11 @@ export default function BookingModal({ open, onClose, packageName }) {
               {/* Mobile Number Field */}
               <div className="group">
                 <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
-                  Mobile Number <span className="text-red-500">*</span>
+                  Mobile Number <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
-                <div className="flex items-stretch border-2 border-gray-200 rounded-lg overflow-hidden focus-within:border-orange focus-within:ring-2 focus-within:ring-orange/10 transition-all">
-                  <span className="px-4 py-3 bg-gray-50 border-r-2 border-gray-200 font-semibold text-darkBlue font-canva-sans flex items-center text-sm gap-1">
-                    <i className="fa-solid fa-phone text-xs"></i>
+                <div className="flex items-stretch border-2 border-brand-hairline rounded-lg overflow-hidden focus-within:border-orange focus-within:ring-2 focus-within:ring-orange/10 transition-all">
+                  <span className="px-4 py-3 bg-brand-canvas border-r-2 border-brand-hairline font-semibold text-darkBlue font-canva-sans flex items-center text-sm gap-1">
+                    <Phone className="w-3 h-3" />
                     +91
                   </span>
                   <input
@@ -258,11 +259,11 @@ export default function BookingModal({ open, onClose, packageName }) {
               {/* Email Field */}
               <div className="group">
                 <label className="text-sm font-medium text-darkBlue font-canva-sans mb-2 block">
-                  Email Address <span className="text-red-500">*</span>
+                  Email Address <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-darkBlue/40">
-                    <i className="fa-solid fa-envelope text-sm"></i>
+                    <Mail className="w-3.5 h-3.5" />
                   </div>
                   <input
                     required
@@ -270,7 +271,7 @@ export default function BookingModal({ open, onClose, packageName }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your.email@example.com"
-                    className="w-full border-2 border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
+                    className="w-full border-2 border-brand-hairline rounded-lg pl-10 pr-4 py-3 text-sm focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/10 transition-all font-canva-sans"
                   />
                 </div>
               </div>
@@ -281,7 +282,7 @@ export default function BookingModal({ open, onClose, packageName }) {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-darkBlue/10 flex items-center justify-center">
-                    <i className="fa-solid fa-users text-darkBlue"></i>
+                    <Users className="w-4 h-4 text-darkBlue" />
                   </div>
                   <h6 className="font-bold text-darkBlue font-poppins text-base">Number of Travelers</h6>
                 </div>
@@ -292,22 +293,22 @@ export default function BookingModal({ open, onClose, packageName }) {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Adult Counter */}
-                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                <div className="bg-blue-50 dark:bg-blue-950/30 rounded-xl p-4 border border-blue-100 dark:border-blue-900/50">
                   <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
-                    <i className="fa-solid fa-user text-blue-600"></i>
+                    <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                     <div>
                       <div>Adult</div>
                       <div className="text-xs font-normal text-darkBlue/60">12+ years</div>
                     </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-blue-200 rounded-lg overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-blue-200 dark:border-blue-800/50 rounded-lg overflow-hidden bg-surface">
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-blue-50 active:bg-blue-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/40 active:bg-blue-100 dark:active:bg-blue-900/50 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setAdult((a) => Math.max(1, a - 1))}
                       disabled={adult <= 1}
                     >
-                      <i className="fa-solid fa-minus text-xs"></i>
+                      <Minus className="w-3 h-3" />
                     </button>
                     <div className="flex-1 text-center">
                       <input 
@@ -318,31 +319,31 @@ export default function BookingModal({ open, onClose, packageName }) {
                     </div>
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-blue-50 active:bg-blue-100 transition-colors font-bold text-base text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/40 active:bg-blue-100 dark:active:bg-blue-900/50 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setAdult((a) => a + 1)}
                     >
-                      <i className="fa-solid fa-plus text-xs"></i>
+                      <Plus className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Child Counter */}
-                <div className="bg-green-50 rounded-xl p-4 border border-green-100">
+                <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 border border-green-100 dark:border-green-900/50">
                   <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
-                    <i className="fa-solid fa-child text-green-600"></i>
+                    <PersonStanding className="w-4 h-4 text-green-600 dark:text-green-400" />
                     <div>
                       <div>Child</div>
                       <div className="text-xs font-normal text-darkBlue/60">2-12 years</div>
                     </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-green-200 rounded-lg overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-green-200 dark:border-green-800/50 rounded-lg overflow-hidden bg-surface">
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-green-50 active:bg-green-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-green-50 dark:hover:bg-green-900/40 active:bg-green-100 dark:active:bg-green-900/50 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setChild((c) => Math.max(0, c - 1))}
                       disabled={child <= 0}
                     >
-                      <i className="fa-solid fa-minus text-xs"></i>
+                      <Minus className="w-3 h-3" />
                     </button>
                     <div className="flex-1 text-center">
                       <input 
@@ -353,31 +354,31 @@ export default function BookingModal({ open, onClose, packageName }) {
                     </div>
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-green-50 active:bg-green-100 transition-colors font-bold text-base text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-green-50 dark:hover:bg-green-900/40 active:bg-green-100 dark:active:bg-green-900/50 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setChild((c) => c + 1)}
                     >
-                      <i className="fa-solid fa-plus text-xs"></i>
+                      <Plus className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Infant Counter */}
-                <div className="bg-pink-50 rounded-xl p-4 border border-pink-100">
+                <div className="bg-pink-50 dark:bg-pink-950/30 rounded-xl p-4 border border-pink-100 dark:border-pink-900/50">
                   <label className="text-sm font-semibold text-darkBlue font-canva-sans mb-3 flex items-center gap-2">
-                    <i className="fa-solid fa-baby text-pink-600"></i>
+                    <Baby className="w-4 h-4 text-pink-600 dark:text-pink-400" />
                     <div>
                       <div>Infant</div>
                       <div className="text-xs font-normal text-darkBlue/60">0-2 years</div>
                     </div>
                   </label>
-                  <div className="flex items-center justify-between border-2 border-pink-200 rounded-lg overflow-hidden bg-white">
+                  <div className="flex items-center justify-between border-2 border-pink-200 dark:border-pink-800/50 rounded-lg overflow-hidden bg-surface">
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-pink-50 active:bg-pink-100 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="px-4 py-2.5 hover:bg-pink-50 dark:hover:bg-pink-900/40 active:bg-pink-100 dark:active:bg-pink-900/50 transition-colors font-bold text-base text-darkBlue disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => setInfant((i) => Math.max(0, i - 1))}
                       disabled={infant <= 0}
                     >
-                      <i className="fa-solid fa-minus text-xs"></i>
+                      <Minus className="w-3 h-3" />
                     </button>
                     <div className="flex-1 text-center">
                       <input 
@@ -388,10 +389,10 @@ export default function BookingModal({ open, onClose, packageName }) {
                     </div>
                     <button 
                       type="button" 
-                      className="px-4 py-2.5 hover:bg-pink-50 active:bg-pink-100 transition-colors font-bold text-base text-darkBlue" 
+                      className="px-4 py-2.5 hover:bg-pink-50 dark:hover:bg-pink-900/40 active:bg-pink-100 dark:active:bg-pink-900/50 transition-colors font-bold text-base text-darkBlue" 
                       onClick={() => setInfant((i) => i + 1)}
                     >
-                      <i className="fa-solid fa-plus text-xs"></i>
+                      <Plus className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -414,27 +415,27 @@ export default function BookingModal({ open, onClose, packageName }) {
                 </>
               ) : (
                 <>
-                  <i className="fa-solid fa-paper-plane"></i>
+                  <Send className="w-4 h-4" />
                   <span>Submit Booking Request</span>
                 </>
               )}
             </button>
 
             {submitError && (
-              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 font-canva-sans">
+              <div className="rounded-lg border border-red-200 dark:border-red-800/50 bg-red-50 dark:bg-red-950/30 px-4 py-3 text-sm text-red-700 dark:text-red-300 font-canva-sans">
                 {submitError}
               </div>
             )}
 
             {submitMessage && (
-              <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 font-canva-sans">
+              <div className="rounded-lg border border-green-200 dark:border-green-800/50 bg-green-50 dark:bg-green-950/30 px-4 py-3 text-sm text-green-700 dark:text-green-300 font-canva-sans">
                 {submitMessage}
               </div>
             )}
 
             {/* Privacy Note */}
-            <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <i className="fa-solid fa-shield-halved text-green-600 text-lg mt-0.5"></i>
+            <div className="flex items-start gap-2 p-3 bg-brand-canvas rounded-lg border border-brand-hairline">
+              <ShieldCheck className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
               <p className="text-xs text-darkBlue/70 font-canva-sans leading-relaxed">
                 <span className="font-semibold text-darkBlue">Secure Booking:</span> Your information is protected and will only be used to process your travel request. Our team will contact you within 24 hours.
               </p>

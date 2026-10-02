@@ -1,5 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
-import { feedback as feedbackData, companyInfo, platformReviews } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
+import { useHomeReviews } from '../hooks/queries';
+import { SkeletonList } from './revamp/Skeletons';
 
 // Simple star icon component (no external icon deps)
 const Star = ({ filled = false, className = '' }) => (
@@ -20,6 +22,10 @@ const Star = ({ filled = false, className = '' }) => (
 );
 
 const FeedbackSection = () => {
+  const { data, isPending } = useHomeReviews();
+  const testimonials = data?.testimonials ?? [];
+  const platformReviews = data?.platforms ?? [];
+
   // Map platformReviews to badge format for UI
   const platformBadges = platformReviews.map(review => {
     const colorMap = {
@@ -29,26 +35,35 @@ const FeedbackSection = () => {
     };
     return {
       name: review.platform,
-      color: colorMap[review.platform]?.color || 'bg-gray-500',
-      bg: 'bg-white',
+      color: colorMap[review.platform]?.color || 'bg-brand-muted-ink',
+      bg: 'bg-surface',
       text: 'text-darkBlue',
       rating: review.rating,
       urlEnv: colorMap[review.platform]?.urlEnv || '#'
     };
   });
-  const feedbacks = feedbackData;
-  const countries = ['All', ...Object.keys(feedbacks)];
   const [filter, setFilter] = useState('All');
   const scrollerRef = useRef(null);
 
-  // Flatten testimonials with country context
-  const allTestimonials = useMemo(() => {
-    const list = Object.entries(feedbacks).flatMap(([country, data]) =>
-      data.testimonials.map((t, idx) => ({ ...t, country, key: `${country}-${idx}` }))
-    );
-    // Most recent feel first: keep original order, rating desc as secondary
-    return list.sort((a, b) => b.rating - a.rating);
-  }, [feedbacks]);
+  // Documents are flat and carry `destination`; the UI wants a country chip per
+  // destination and a single display name per review.
+  const countries = useMemo(
+    () => ['All', ...Array.from(new Set(testimonials.map((t) => t.destination).filter(Boolean)))],
+    [testimonials]
+  );
+
+  const allTestimonials = useMemo(
+    () =>
+      testimonials
+        .map((t, idx) => ({
+          ...t,
+          country: t.destination,
+          author: [t.name, t.location].filter(Boolean).join(', '),
+          key: t._id || `${t.destination}-${idx}`,
+        }))
+        .sort((a, b) => b.rating - a.rating),
+    [testimonials]
+  );
 
   const filteredTestimonials = useMemo(() => {
     if (filter === 'All') return allTestimonials;
@@ -86,8 +101,18 @@ const FeedbackSection = () => {
     },
   };
 
+  if (isPending) {
+    return (
+      <section className="section-padding bg-surface">
+        <div className="container-custom">
+          <SkeletonList count={3} columns={3} />
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-surface">
       {/* JSON-LD for SEO */}
       <script
         type="application/ld+json"
@@ -105,7 +130,7 @@ const FeedbackSection = () => {
 
           <div className="mt-4 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
             {/* Aggregate rating */}
-            <div className="flex items-center gap-2 rounded-full border border-lightGray bg-white px-3 py-1.5 shadow-sm">
+            <div className="flex items-center gap-2 rounded-full border border-lightGray bg-surface px-3 py-1.5 shadow-sm">
               <div className="flex items-center text-orange">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <Star key={i} filled={i < Math.round(avgRating)} className="w-4 h-4" />
@@ -129,7 +154,7 @@ const FeedbackSection = () => {
                   href={getEnv(p.urlEnv)}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-lightGray bg-white px-2.5 py-1 hover:-translate-y-0.5 hover:shadow-md transition"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-lightGray bg-surface px-2.5 py-1 hover:-translate-y-0.5 hover:shadow-md transition"
                 >
                   <span className={`inline-block w-2 h-2 rounded-full ${p.color}`} />
                   <span className="text-xs font-poppins text-darkBlue">{p.name}</span>
@@ -149,7 +174,7 @@ const FeedbackSection = () => {
               className={`px-3 py-1 rounded-full text-xs font-poppins border transition shadow-sm ${
                 filter === c
                   ? 'bg-orange text-white border-orange'
-                  : 'bg-white text-darkBlue border-lightGray hover:border-orange/50'
+                  : 'bg-surface text-darkBlue border-lightGray hover:border-orange/50'
               }`}
             >
               {c}
@@ -162,7 +187,7 @@ const FeedbackSection = () => {
           <button
             aria-label="Previous reviews"
             onClick={() => scrollBy(-1)}
-            className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
+            className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-surface border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/></svg>
           </button>
@@ -175,7 +200,7 @@ const FeedbackSection = () => {
             {filteredTestimonials.map((t) => (
               <article
                 key={t.key}
-                className="snap-center shrink-0 w-[280px] md:w-[320px] bg-white border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
+                className="snap-center shrink-0 w-[280px] md:w-[320px] bg-surface border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
               >
                 <div className="p-3">
                   {/* Rating */}
@@ -211,7 +236,7 @@ const FeedbackSection = () => {
           <button
             aria-label="Next reviews"
             onClick={() => scrollBy(1)}
-            className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
+            className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface border border-lightGray shadow hover:shadow-md items-center justify-center text-darkBlue"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"/></svg>
           </button>

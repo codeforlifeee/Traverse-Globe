@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck, Award, Users, Lock, Star, Phone, RefreshCw, HeartHandshake } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon';
 import { Link } from 'react-router-dom';
-import { companyInfo } from '../data/siteData';
+import { companyInfo } from '../data/companyInfo';
 import Kicker from '../components/revamp/Kicker';
 import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
 import Section from '../components/revamp/Section';
@@ -34,7 +34,7 @@ export default function Trust() {
   return (
     <div className="pb-20">
       {/* Hero */}
-      <div className="bg-brand-ink text-white pt-28 md:pt-32 pb-16">
+      <div className="bg-brand-scrim text-white pt-28 md:pt-32 pb-16">
         <div className="container-custom">
           <BreadcrumbTrail items={[{ label: 'Trust' }]} tone="light" />
           <div className="mt-4 max-w-3xl">
@@ -59,7 +59,7 @@ export default function Trust() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="rounded-2xl bg-white border border-brand-hairline p-4 md:p-6 shadow-soft-md"
+              className="rounded-2xl bg-surface border border-brand-hairline p-4 md:p-6 shadow-soft-md"
             >
               <s.icon className="w-5 h-5 text-brand-orange mb-3" />
               <div className="text-h2 font-poppins font-bold text-brand-ink leading-none">{s.num}</div>
@@ -79,7 +79,7 @@ export default function Trust() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="rounded-2xl bg-white border border-brand-hairline p-5 md:p-6"
+              className="rounded-2xl bg-surface border border-brand-hairline p-5 md:p-6"
             >
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-brand-orange/10 text-brand-orange">
                 <p.icon className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default function Trust() {
 
       {/* Contact CTA */}
       <div className="container-custom mt-8">
-        <div className="rounded-2xl bg-gradient-to-br from-brand-ink to-slate-800 text-white p-8 md:p-12 text-center">
+        <div className="rounded-2xl bg-gradient-to-br from-brand-scrim to-brand-scrim/80 text-white p-8 md:p-12 text-center">
           <Kicker tone="orange">Still not sure?</Kicker>
           <h3 className="text-h2 font-poppins font-bold mt-3">Talk to a person, not a form.</h3>
           <p className="mt-3 text-white/80 font-canva-sans max-w-lg mx-auto">
@@ -138,7 +138,7 @@ export default function Trust() {
           <div className="mt-6 flex flex-col sm:flex-row gap-2 justify-center">
             <a href={`https://wa.me/${String(companyInfo.phone.whatsapp).replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="w-full sm:w-auto shadow-glow-orange">
-                <FaWhatsapp className="w-4 h-4 mr-2" /> WhatsApp us
+                <WhatsAppIcon className="w-4 h-4 mr-2" /> WhatsApp us
               </Button>
             </a>
             <Link to="/contact">

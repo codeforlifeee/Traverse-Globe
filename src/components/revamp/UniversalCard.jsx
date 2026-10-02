@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { buildSrcSet } from '@/lib/sanityImage';
 
 /**
  * UniversalCard — one card design for every carousel/grid on the site.
@@ -21,25 +22,7 @@ import { cn } from '@/lib/utils';
  *   └─────────────────────────┘
  */
 
-const buildResponsiveSrc = (url) => {
-  if (!url) return { src: '', srcSet: '' };
-  const addWebp = (u) =>
-    u.includes('images.unsplash.com') && !/fm=/.test(u)
-      ? `${u}${u.includes('?') ? '&' : '?'}fm=webp`
-      : u;
-  const withWidth = (u, w) => {
-    let out = u;
-    out = /w=\d+/.test(out) ? out.replace(/w=\d+/, `w=${w}`) : `${out}${out.includes('?') ? '&' : '?'}w=${w}`;
-    out = /q=\d+/.test(out) ? out.replace(/q=\d+/, 'q=60') : `${out}&q=60`;
-    if (!/auto=/.test(out)) out += '&auto=format';
-    if (!/fit=/.test(out)) out += '&fit=crop';
-    return addWebp(out);
-  };
-  return {
-    src: withWidth(url, 640),
-    srcSet: `${withWidth(url, 400)} 400w, ${withWidth(url, 640)} 640w, ${withWidth(url, 900)} 900w`,
-  };
-};
+const buildResponsiveSrc = (imageOrUrl) => buildSrcSet(imageOrUrl);
 
 export default function UniversalCard({
   image,
@@ -62,7 +45,7 @@ export default function UniversalCard({
   const Body = (
     <article
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl bg-white transition-all duration-300',
+        'group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-all duration-300',
         'border border-brand-hairline',
         'shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1',
         isElevated && 'ring-2 ring-brand-orange/20 shadow-soft-md',
@@ -89,18 +72,18 @@ export default function UniversalCard({
         )}
 
         {/* Subtle bottom gradient for depth (not obscuring content) */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-ink/25 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-scrim/25 to-transparent" />
 
         {/* Top-left badge */}
         {badge && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[11px] font-poppins font-semibold text-brand-ink shadow-soft-sm">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-surface/95 backdrop-blur px-2.5 py-1 text-[11px] font-poppins font-semibold text-brand-ink shadow-soft-sm">
             {badge}
           </span>
         )}
 
         {/* Top-right rating (hotels/packages) */}
         {rating != null && (
-          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[11px] font-poppins font-semibold text-brand-ink shadow-soft-sm">
+          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-surface/95 backdrop-blur px-2.5 py-1 text-[11px] font-poppins font-semibold text-brand-ink shadow-soft-sm">
             <Star className="h-3 w-3 fill-brand-orange text-brand-orange" />
             {typeof rating === 'number' ? rating.toFixed(1) : rating}
           </span>

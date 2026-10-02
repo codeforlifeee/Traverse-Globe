@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function SkeletonCard({ className }) {
   return (
-    <div className={cn("rounded-2xl overflow-hidden bg-white shadow-soft-sm border border-brand-hairline", className)}>
+    <div className={cn("rounded-2xl overflow-hidden bg-surface shadow-soft-sm border border-brand-hairline", className)}>
       <Skeleton className="aspect-[4/3] w-full rounded-none" />
       <div className="p-4 space-y-3">
         <Skeleton className="h-3 w-16" />

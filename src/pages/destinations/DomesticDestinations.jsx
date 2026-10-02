@@ -1,6 +1,7 @@
 // DomesticDestinations Component
 // Shows all domestic destination categories
 
+import { ArrowRight, MapPin, MapPinned } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { domesticDestinations } from '../../data/siteData';
 import HeroSlider from '../../components/HeroSlider';
@@ -15,7 +16,7 @@ export default function DomesticDestinations() {
   const destinations = domesticDestinations;
 
   return (
-    <div className="min-h-screen pt-20 pb-10 bg-gray-50">
+    <div className="min-h-screen pt-20 pb-10 bg-brand-canvas">
       {/* Hero Slider Section */}
       <section className="relative">
         <HeroSlider 
@@ -56,7 +57,7 @@ export default function DomesticDestinations() {
               <Link
                 key={idx}
                 to={dest.link}
-                className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                className="group bg-surface rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
               >
                 <div className="relative h-64 overflow-hidden">
                   <img 
@@ -66,10 +67,10 @@ export default function DomesticDestinations() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-white/95 backdrop-blur-sm px-5 py-3 rounded-xl shadow-2xl">
+                    <div className="bg-surface/95 backdrop-blur-sm px-5 py-3 rounded-xl shadow-2xl">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <i className="fa-solid fa-location-dot text-orange text-xl"></i>
+                          <MapPin className="w-5 h-5 text-orange" />
                           <h3 className="text-xl font-season font-bold text-darkBlue">
                             {dest.title}
                           </h3>
@@ -82,12 +83,12 @@ export default function DomesticDestinations() {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between pt-3 border-t border-brand-hairline">
                     <span className="text-orange font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                       View Packages
-                      <i className="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                     </span>
-                    <i className="fa-solid fa-map-location-dot text-darkBlue/20 text-xl"></i>
+                    <MapPinned className="w-5 h-5 text-darkBlue/20" />
                   </div>
                 </div>
               </Link>

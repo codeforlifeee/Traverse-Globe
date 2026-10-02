@@ -1,37 +1,43 @@
-import { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Monitor, Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/hooks/useTheme';
 
 /**
- * Dark mode toggle. Stores choice in localStorage, applies data-theme on <html>.
+ * Theme toggle. Cycles light -> dark -> system; 'system' follows the OS.
+ * State and persistence live in useTheme so every instance stays in sync.
  * DESIGN.md §7 · REVAMP_PLAN §6.5.
  */
-export default function ThemeToggle({ className, tone = 'auto' }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return 'light';
-    try {
-      return window.localStorage.getItem('tg_theme') || 'light';
-    } catch { return 'light'; }
-  });
 
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-    document.documentElement.setAttribute('data-theme', theme);
-    try { window.localStorage.setItem('tg_theme', theme); } catch {}
-  }, [theme]);
+const LABEL = {
+  light: 'Light theme. Switch to dark',
+  dark: 'Dark theme. Switch to system',
+  system: 'Following system theme. Switch to light',
+};
+
+export default function ThemeToggle({ className, tone = 'auto', showLabel = false }) {
+  const { mode, cycle } = useTheme();
+
+  const Icon = mode === 'light' ? Sun : mode === 'dark' ? Moon : Monitor;
 
   return (
     <button
       type="button"
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={cycle}
+      title={LABEL[mode]}
+      aria-label={LABEL[mode]}
       className={cn(
-        'inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors',
-        tone === 'light' ? 'text-white hover:bg-white/10' : 'text-brand-ink hover:text-brand-orange hover:bg-brand-canvas',
+        'inline-flex items-center justify-center gap-2 rounded-full transition-colors',
+        showLabel ? 'px-3 h-10' : 'w-10 h-10',
+        tone === 'light'
+          ? 'text-white hover:bg-white/10'
+          : 'text-brand-ink hover:text-brand-orange hover:bg-brand-canvas-2',
         className
       )}
     >
-      {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      <Icon className="w-5 h-5 shrink-0" />
+      {showLabel && (
+        <span className="text-sm font-poppins font-medium capitalize">{mode}</span>
+      )}
     </button>
   );
 }

@@ -1,50 +1,30 @@
 // Custom Hook: usePackageDetail
-// Fetches details for a specific package by category and slug with live updates
+// Fetches details for a specific package by category and slug.
+//
+// Backed by react-query: cached across navigation, no set-state-after-unmount race,
+// and `refetch` is now the query's own refetch rather than a counter in a dependency
+// array. The return shape is unchanged.
 
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getPackageBySlug } from '../services/destinationService';
 
 export function usePackageDetail(categorySlug, packageSlug) {
-  const [packageData, setPackageData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [refetchTrigger, setRefetchTrigger] = useState(0);
+  const enabled = Boolean(categorySlug && packageSlug);
 
-  useEffect(() => {
-    if (!categorySlug || !packageSlug) {
-      setIsLoading(false);
-      return;
-    }
+  const query = useQuery({
+    queryKey: ['package', categorySlug, packageSlug],
+    queryFn: () => getPackageBySlug(categorySlug, packageSlug),
+    enabled,
+  });
 
-    async function fetchData() {
-      setIsLoading(true);
-      setError(null);
+  // getPackageBySlug resolves to null when the slug does not exist in the category,
+  // which is a "not found", not a transport error.
+  const notFound = query.isSuccess && !query.data;
 
-      try {
-        const data = await getPackageBySlug(categorySlug, packageSlug);
-        
-        if (data) {
-          setPackageData(data);
-        } else {
-          setError('Package not found');
-          setPackageData(null);
-        }
-      } catch (err) {
-        console.error('Error fetching package details:', err);
-        setError(err.message || 'Failed to load package');
-        setPackageData(null);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [categorySlug, packageSlug, refetchTrigger]);
-
-  // Function to manually trigger refetch
-  const refetch = () => {
-    setRefetchTrigger(prev => prev + 1);
+  return {
+    packageData: query.data ?? null,
+    isLoading: enabled && query.isPending,
+    error: query.error?.message ?? (notFound ? 'Package not found' : null),
+    refetch: query.refetch,
   };
-
-  return { packageData, isLoading, error, refetch };
 }

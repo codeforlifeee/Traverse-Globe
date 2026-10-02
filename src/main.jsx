@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import App from './App.jsx'
 import './utils/trustedTypes.js' // Initialize Trusted Types policy
@@ -40,13 +41,30 @@ if (typeof window !== 'undefined' && 'performance' in window) {
   }
 }
 
+// CMS content changes rarely, so cached data stays fresh for minutes and survives
+// navigation. refetchOnWindowFocus is off: it previously re-ran every homepage query
+// on each tab refocus.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+    },
+  },
+});
+
 // Hydrate the root
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </StrictMode>
 );
 

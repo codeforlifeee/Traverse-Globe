@@ -27,11 +27,11 @@ export default function InclusionsTable({ included = [], excluded = [] }) {
 function Column({ title, tone, icon: Icon, items }) {
   const toneCls = tone === 'trust'
     ? 'bg-brand-trust/10 border-brand-trust/20 text-brand-trust'
-    : 'bg-rose-50 border-rose-200 text-rose-600';
-  const iconWrap = tone === 'trust' ? 'bg-brand-trust/10 text-brand-trust' : 'bg-rose-50 text-rose-500';
+    : 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/50 text-rose-600 dark:text-rose-400';
+  const iconWrap = tone === 'trust' ? 'bg-brand-trust/10 text-brand-trust' : 'bg-rose-50 dark:bg-rose-950/30 text-rose-500 dark:text-rose-400';
 
   return (
-    <div className="rounded-2xl border border-brand-hairline bg-white p-5 md:p-6">
+    <div className="rounded-2xl border border-brand-hairline bg-surface p-5 md:p-6">
       <div className={cn('inline-flex items-center gap-2 px-2.5 py-1 rounded-full border text-xs font-poppins font-semibold mb-4', toneCls)}>
         <Icon className="w-3.5 h-3.5" />
         {title}

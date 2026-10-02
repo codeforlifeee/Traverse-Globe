@@ -6,7 +6,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 const Command = React.forwardRef(({ className, ...props }, ref) => (
   <CommandPrimitive ref={ref}
-    className={cn("flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white text-brand-ink", className)} {...props} />
+    className={cn("flex h-full w-full flex-col overflow-hidden rounded-2xl bg-surface text-brand-ink", className)} {...props} />
 ))
 
 const CommandDialog = ({ children, ...props }) => (

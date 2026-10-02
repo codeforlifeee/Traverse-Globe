@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // The toggle sets data-theme on <html>; this makes `dark:` variants follow it
+  // instead of the OS media query.
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     "./index.html",
+    // Data modules hold prose, not class names - scanning them inflates the CSS output.
     "./src/**/*.{js,ts,jsx,tsx}",
+    "!./src/data/**",
   ],
   theme: {
     extend: {
@@ -22,23 +27,35 @@ export default {
         'body-lg': ['clamp(1.0625rem, 1.3vw, 1.125rem)', { lineHeight: '1.65' }],
       },
       colors: {
-        // Existing brand — kept for backwards compatibility during phase 1
-        primary: '#16232A',
-        darkBlue: '#16232A',
-        orange: '#FF5B04',
-        teal: '#075056',
-        lightGray: '#E4EEF0',
-        accent: '#FF5B04',
-        // Revamp tokens — DESIGN.md §1 + REVAMP_PLAN §6.4
+        // Every brand colour resolves through a CSS variable defined per theme in
+        // src/index.css. The rgb(... / <alpha-value>) form is what keeps opacity
+        // modifiers working, e.g. text-brand-ink/70 and from-brand-scrim/85.
+        //
+        // `ink` is semantic FOREGROUND: it is near-black in light mode and near-white
+        // in dark mode. For surfaces that must stay dark in both themes (image scrims,
+        // the footer, dark panels) use `brand-scrim`.
+        primary: 'rgb(var(--c-ink) / <alpha-value>)',
+        darkBlue: 'rgb(var(--c-ink) / <alpha-value>)',
+        orange: 'rgb(var(--c-orange) / <alpha-value>)',
+        teal: 'rgb(var(--c-teal) / <alpha-value>)',
+        lightGray: 'rgb(var(--c-light-gray) / <alpha-value>)',
+        accent: 'rgb(var(--c-orange) / <alpha-value>)',
+        // Card/panel surfaces. Replaces bare bg-white, which could not follow a theme.
+        surface: 'rgb(var(--c-surface) / <alpha-value>)',
+        'surface-2': 'rgb(var(--c-surface-2) / <alpha-value>)',
         brand: {
-          orange: '#f97316',          // Primary CTA — reserved
-          'orange-hover': '#ea6a12',
-          ink: '#0f172a',             // Deep navy for headings + footer
-          canvas: '#f8fafc',          // Main bg, never pure white
-          'canvas-2': '#f1f5f9',      // Alternate section bg
-          trust: '#10b981',           // Success/trust chips only
-          hairline: '#e2e8f0',        // The signature thin gray divider
-          'muted-ink': '#475569',     // Kicker + supporting text
+          orange: 'rgb(var(--c-orange) / <alpha-value>)',
+          'orange-hover': 'rgb(var(--c-orange-hover) / <alpha-value>)',
+          ink: 'rgb(var(--c-ink) / <alpha-value>)',
+          canvas: 'rgb(var(--c-canvas) / <alpha-value>)',
+          'canvas-2': 'rgb(var(--c-canvas-2) / <alpha-value>)',
+          trust: 'rgb(var(--c-trust) / <alpha-value>)',
+          hairline: 'rgb(var(--c-hairline) / <alpha-value>)',
+          'muted-ink': 'rgb(var(--c-muted-ink) / <alpha-value>)',
+          surface: 'rgb(var(--c-surface) / <alpha-value>)',
+          'surface-2': 'rgb(var(--c-surface-2) / <alpha-value>)',
+          // Always dark, in both themes.
+          scrim: 'rgb(var(--c-scrim) / <alpha-value>)',
         },
         // shadcn tokens (already added earlier)
         border: "hsl(var(--border))",
