@@ -1,16 +1,19 @@
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Map, Hotel, Car, HeartHandshake, Award } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { companyInfo } from '../data/companyInfo';
 import { services } from '../data/siteData';
 
+const iconMap = { Map, Hotel, Car, HeartHandshake, Award };
+
 const ServiceCard = ({ icon, title, description }) => {
+  const IconComponent = iconMap[icon] || CheckCircle2;
   return (
     <div className="bg-surface rounded-2xl p-6 transition-all duration-200 text-center border border-brand-hairline h-full flex flex-col"
       style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04)' }}
     >
       <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-orange/10 flex items-center justify-center transition-all duration-200">
-        <i className={`${icon} text-3xl text-orange`}></i>
+        <IconComponent className="w-8 h-8 text-orange" strokeWidth={1.5} />
       </div>
       <h4 className="text-lg font-bold mb-3 text-darkBlue font-poppins">{title}</h4>
       <p className="text-darkBlue/70 leading-relaxed font-canva-sans text-sm flex-1">{description}</p>

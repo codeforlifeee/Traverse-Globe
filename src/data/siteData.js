@@ -76,27 +76,27 @@ export const domesticDestinations = [
 // Company Features
 export const companyFeatures = [
   {
-    icon: "fa-solid fa-passport",
+    icon: "Map",
     title: "Personalized Itinerary",
     description: "Tailored travel plans crafted to match your unique preferences and desires."
   },
   {
-    icon: "fa-solid fa-hotel",
+    icon: "Hotel",
     title: "Luxury Stays, Unluxury Prices",
     description: "Experience premium accommodations without the premium price tag."
   },
   {
-    icon: "fa-solid fa-car",
+    icon: "Car",
     title: "Ride Easy",
     description: "Comfortable and reliable transportation throughout your journey."
   },
   {
-    icon: "fa-solid fa-handshake",
+    icon: "HeartHandshake",
     title: "Trusted Local Expertise",
     description: "Benefit from insider knowledge and authentic local experiences."
   },
   {
-    icon: "fa-solid fa-medal",
+    icon: "Award",
     title: "100% In-House Service",
     description: "End-to-end service managed by our dedicated team for seamless travel."
   }

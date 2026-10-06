@@ -36,8 +36,8 @@ const Home = () => {
     <div className="min-h-screen">
       <HeroSection />
       <Section height={1200}><TrendingDestinations /></Section>
-      <Section height={900}><ThemesShowcase /></Section>
-      <Section height={800}><LiveOffersStrip /></Section>
+      {/* <Section height={900}><ThemesShowcase /></Section> */}
+      {/* <Section height={800}><LiveOffersStrip /></Section> */}
       <Section height={1400}><PackageCategories /></Section>
       <Section height={1200}><TopDestinations /></Section>
       <Section height={800}><HotelCategories /></Section>

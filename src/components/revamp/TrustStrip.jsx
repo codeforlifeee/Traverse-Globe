@@ -25,11 +25,11 @@ export default function TrustStrip({ items = DEFAULT_ITEMS, variant = 'canvas' }
                 <item.icon className="w-4 h-4 md:w-5 md:h-5 text-brand-orange" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-[13px] md:text-sm font-poppins font-semibold leading-tight truncate">
+                <p className={`text-[13px] md:text-sm font-poppins font-semibold leading-tight truncate ${variant === 'ink' ? 'text-white' : 'text-brand-ink'}`}>
                   {item.label}
                 </p>
                 {item.sub && (
-                  <p className={`hidden md:block text-xs font-canva-sans truncate mt-0.5 ${variant === 'ink' ? 'text-white/60' : 'text-brand-muted-ink'}`}>
+                  <p className={`text-[10px] md:text-xs font-canva-sans truncate mt-0.5 ${variant === 'ink' ? 'text-white/60' : 'text-brand-muted-ink'}`}>
                     {item.sub}
                   </p>
                 )}

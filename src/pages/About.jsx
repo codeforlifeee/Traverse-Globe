@@ -1,7 +1,9 @@
 import WhatsAppIcon from '../components/icons/WhatsAppIcon';
-import { Phone } from 'lucide-react';
+import { Phone, Map, Hotel, Car, HeartHandshake, Award, CheckCircle2 } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
 import { companyFeatures } from '../data/siteData';
+
+const iconMap = { Map, Hotel, Car, HeartHandshake, Award };
 
 const About = () => {
   return (
@@ -41,15 +43,17 @@ const About = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">What Sets Us Apart</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {companyFeatures.map((f, i) => (
+            {companyFeatures.map((f, i) => {
+              const IconComponent = iconMap[f.icon] || CheckCircle2;
+              return (
               <div key={i} className="bg-surface border-2 border-brand-hairline rounded-2xl p-5 shadow-sm feature-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent">
                 <div className="feature-icon text-primary text-4xl mb-4">
-                  <i className={f.icon}></i>
+                  <IconComponent className="w-10 h-10" strokeWidth={1.5} />
                 </div>
                 <h4 className="font-bold text-lg mb-2">{f.title}</h4>
                 <p className="text-brand-muted-ink">{f.description}</p>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>

@@ -21,9 +21,9 @@ const Footer = () => {
           {/* Brand column — 4 cols on desktop */}
           <div className="col-span-2 lg:col-span-4">
             <img
-              src="/logo.webp"
+              src="/logo-white-text.png"
               alt={companyInfo.name}
-              className="h-12 mb-5 brightness-0 invert"
+              className="h-10 mb-5 object-contain"
               width="151"
               height="60"
             />
@@ -108,7 +108,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">About us</Link></li>
               <li><Link to="/contact" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">Contact</Link></li>
               <li><Link to="/blog" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">Guides & tips</Link></li>
-              <li><Link to="/hotels/luxury" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">Hotels</Link></li>
+              <li><Link to="/hotels" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">Hotels</Link></li>
               <li><Link to="/shortlist" className="text-sm text-white/70 hover:text-white transition-colors font-canva-sans">My shortlist</Link></li>
             </ul>
 

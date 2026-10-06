@@ -137,6 +137,8 @@ export default function DestinationDetail() {
   const [pdfProgress, setPdfProgress] = useState(0);
   const [pdfToastState, setPdfToastState] = useState('idle'); // idle | working | done | error
 
+  const enquiriesToday = useMemo(() => Math.floor(Math.random() * 20) + 1, []);
+
   useEffect(() => { setActiveImg(0); }, [currentPackage?.id]);
 
   useEffect(() => {
@@ -428,7 +430,7 @@ export default function DestinationDetail() {
           <QuickFact Icon={Users} label="Family-friendly" />
           <span className="ml-auto hidden md:inline-flex items-center gap-1 text-xs text-emerald-700 dark:text-emerald-300 font-poppins font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            12 people enquired today
+            {enquiriesToday} people enquired today
           </span>
         </div>
       </div>

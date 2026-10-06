@@ -8,7 +8,6 @@ import { companyInfo } from '../data/companyInfo';
 import { getShortlist, subscribeShortlist } from '@/lib/shortlist';
 import SearchCommand from './revamp/SearchCommand';
 import ThemeToggle from './revamp/ThemeToggle';
-
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPackagesDropdown, setShowPackagesDropdown] = useState(false);
@@ -87,24 +86,31 @@ const Header = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center transition-opacity hover:opacity-80"
+            className="flex items-center transition-opacity hover:opacity-80 relative w-[130px] md:w-[150px]"
             aria-label={`${companyInfo.name} Home`}
           >
-            <picture>
-              <source srcSet="/logo.webp" type="image/webp" />
-              <img
-                src="/logo.webp"
-                alt={companyInfo.name}
-                className={cn(
-                  'h-10 md:h-11 object-contain transition-all duration-300',
-                  'dark:brightness-0 dark:invert',
-                  !solid && 'brightness-0 invert'
-                )}
-                width="151"
-                height="60"
-                decoding="async"
-              />
-            </picture>
+            {/* Dark logo (shown when solid AND in light mode) - Dictates container height */}
+            <img
+              src="/logo.webp"
+              alt={companyInfo.name}
+              className={cn(
+                'w-full h-auto object-contain transition-opacity duration-300',
+                !solid ? 'opacity-0' : 'opacity-100 dark:opacity-0'
+              )}
+              width="151"
+              height="60"
+            />
+            {/* Alt logo (shown when NOT solid OR in dark mode) */}
+            <img
+              src="/logo-white-text.png"
+              alt={companyInfo.name}
+              className={cn(
+                'absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-300',
+                !solid ? 'opacity-100' : 'opacity-0 dark:opacity-100'
+              )}
+              width="151"
+              height="60"
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -112,7 +118,7 @@ const Header = () => {
             {[
               { to: '/', label: 'Home' },
               { to: '/destinations', label: 'Destinations', hasMenu: true },
-              { to: '/hotels/luxury', label: 'Hotels' },
+              { to: '/hotels', label: 'Hotels' },
               { to: '/blog', label: 'Guides' },
               { to: '/about', label: 'About' },
               { to: '/contact', label: 'Contact' },
@@ -300,7 +306,7 @@ const Header = () => {
                     </div>
                   )}
                 </li>
-                <li><Link to="/hotels/luxury" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Hotels</Link></li>
+                <li><Link to="/hotels" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Hotels</Link></li>
                 <li><Link to="/blog" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Guides</Link></li>
                 <li><Link to="/about" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">About</Link></li>
                 <li><Link to="/contact" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Contact</Link></li>
