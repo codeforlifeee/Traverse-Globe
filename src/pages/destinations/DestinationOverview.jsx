@@ -1,198 +1,199 @@
-// DestinationOverview Component
-// Main hub showing all destinations (both international and domestic)
+// DestinationOverview — `/destinations` landing hub. Two choice tiles
+// (International + Domestic) plus a featured preview grid of the top destinations.
+// Reads from Sanity via `useDestinationsByType` so the counts and previews stay fresh.
 
-import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { fetchDestinations } from '../../services/sanityClient';
-import { DESTINATION_TYPES } from '../../data/categoryConfig';
-import HeroSlider from '../../components/HeroSlider';
+import { ArrowRight, Plane, Mountain, MapPin } from 'lucide-react';
+import { useDestinationsByType } from '../../hooks/queries';
+import ImageWithFallback from '../../components/revamp/ImageWithFallback';
+import Kicker from '../../components/revamp/Kicker';
+import Section from '../../components/revamp/Section';
+import UniversalCard from '../../components/revamp/UniversalCard';
+import TrustStrip from '../../components/revamp/TrustStrip';
+import { SkeletonList, SkeletonHero } from '../../components/revamp/Skeletons';
 
-const destinationHeroImages = [
-  'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1600&q=80'
-];
+const HERO_FALLBACK = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=75';
 
 export default function DestinationOverview() {
-  const [internationalDestinations, setInternationalDestinations] = useState([]);
-  const [domesticDestinations, setDomesticDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const [international, domestic] = await Promise.all([
-          fetchDestinations('international'),
-          fetchDestinations('domestic')
-        ]);
-        setInternationalDestinations(international);
-        setDomesticDestinations(domestic);
-      } catch (error) {
-        console.error('Failed to load destinations:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen pt-20 pb-8 bg-brand-canvas flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange mx-auto mb-4"></div>
-          <p className="text-darkBlue font-canva-sans">Loading destinations...</p>
-        </div>
-      </div>
-    );
-  }
+  const { data: international = [], isPending: intlPending } = useDestinationsByType('international');
+  const { data: domestic = [], isPending: domPending } = useDestinationsByType('domestic');
+  const isPending = intlPending || domPending;
 
   return (
-    <div className="min-h-screen pt-20 pb-8 bg-brand-canvas">
-      {/* Hero Slider Section */}
-      <section className="relative">
-        <HeroSlider 
-          images={destinationHeroImages} 
-          className="w-full h-[400px] md:h-[500px] lg:h-[600px]"
-        >
-          <div className="text-center px-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-season font-bold mb-6 text-white drop-shadow-2xl">
-              Explore World Destinations
-            </h1>
-            <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto drop-shadow-lg font-poppins">
-              Curated travel experiences across the globe and India's finest destinations
-            </p>
-          </div>
-        </HeroSlider>
+    <div className="min-h-screen bg-brand-canvas pt-20 pb-12">
+      {/* ---------- Asymmetric hero ---------- */}
+      <section className="relative overflow-hidden">
+        <div className="container-custom py-10 md:py-16 lg:py-20">
+          {isPending ? (
+            <SkeletonHero />
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left: copy */}
+              <div className="lg:col-span-6 relative z-10">
+                <Breadcrumb />
+                <Kicker tone="orange" size="lg" className="mt-4">Pick anywhere</Kicker>
+                <h1 className="font-season text-4xl md:text-5xl lg:text-6xl font-bold text-brand-ink mt-3 leading-[1.1]">
+                  Where would you like to <span className="text-brand-orange">experience next?</span>
+                </h1>
+                <p className="mt-5 text-base md:text-lg text-brand-muted-ink font-canva-sans max-w-xl">
+                  From Dubai dunes to Kerala backwaters — handpicked destinations, honest prices,
+                  one WhatsApp message away.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Link
+                    to="/destinations/international"
+                    className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white font-poppins font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft-md transition-colors"
+                  >
+                    <Plane className="w-4 h-4" /> International
+                  </Link>
+                  <Link
+                    to="/destinations/domestic"
+                    className="inline-flex items-center gap-2 border border-brand-ink text-brand-ink hover:bg-brand-ink hover:text-white font-poppins font-semibold text-sm px-5 py-2.5 rounded-full transition-colors"
+                  >
+                    <Mountain className="w-4 h-4" /> Within India
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right: hero image + highlight stat card */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative aspect-[5/4] rounded-3xl overflow-hidden shadow-soft-xl">
+                  <ImageWithFallback
+                    src={international[0]?.image || domestic[0]?.image || HERO_FALLBACK}
+                    alt="Explore the world with Traverse Globe"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/55 via-transparent to-transparent" />
+                </div>
+
+                <div className="hidden md:block absolute -bottom-4 -left-6 lg:-left-10 bg-surface rounded-2xl shadow-soft-xl border border-brand-hairline p-4 w-60">
+                  <div className="flex items-center gap-3">
+                    <div className="text-3xl font-season font-bold text-brand-orange leading-none">
+                      {international.length + domestic.length}+
+                    </div>
+                    <div>
+                      <p className="text-kicker uppercase text-brand-muted-ink">Destinations</p>
+                      <p className="font-poppins font-semibold text-sm text-brand-ink">Live now</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 text-xs text-brand-muted-ink leading-relaxed">
+                    Family-first stays, transfers & tours — ready to send out tonight.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
-      {/* Destination Type Cards */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
-          <Link
+      <TrustStrip />
+
+      {/* ---------- Two choice tiles ---------- */}
+      <Section
+        kicker="Choose your journey"
+        title="International or within India?"
+        bg="canvas-2"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          <ChoiceTile
             to="/destinations/international"
-            className="group bg-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
-          >
-            <div className="p-8 text-center">
-              <div className="text-6xl mb-4">{DESTINATION_TYPES.international.icon}</div>
-              <h2 className="text-3xl font-season font-bold text-darkBlue mb-3 group-hover:text-orange transition-colors">
-                {DESTINATION_TYPES.international.label}
-              </h2>
-              <p className="text-darkBlue/70 mb-4">{DESTINATION_TYPES.international.description}</p>
-              <div className="text-orange font-semibold flex items-center justify-center gap-2">
-                View Destinations
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-              <div className="mt-4 text-sm text-darkBlue/50">
-                {internationalDestinations.length} Destinations
-              </div>
-            </div>
-          </Link>
-
-          <Link
+            image={international[0]?.image || HERO_FALLBACK}
+            icon={<Plane className="w-5 h-5" />}
+            kicker="Away from home"
+            title="International"
+            count={international.length}
+            description="Dubai, Thailand, Bali, Singapore, Vietnam and more"
+          />
+          <ChoiceTile
             to="/destinations/domestic"
-            className="group bg-surface rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
-          >
-            <div className="p-8 text-center">
-              <div className="text-6xl mb-4">{DESTINATION_TYPES.domestic.icon}</div>
-              <h2 className="text-3xl font-season font-bold text-darkBlue mb-3 group-hover:text-orange transition-colors">
-                {DESTINATION_TYPES.domestic.label}
-              </h2>
-              <p className="text-darkBlue/70 mb-4">{DESTINATION_TYPES.domestic.description}</p>
-              <div className="text-orange font-semibold flex items-center justify-center gap-2">
-                View Destinations
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-              <div className="mt-4 text-sm text-darkBlue/50">
-                {domesticDestinations.length} Destinations
-              </div>
-            </div>
+            image={domestic[0]?.image || HERO_FALLBACK}
+            icon={<Mountain className="w-5 h-5" />}
+            kicker="Across India"
+            title="Domestic"
+            count={domestic.length}
+            description="Kerala, Kashmir, Rajasthan, Andaman and more"
+          />
+        </div>
+      </Section>
+
+      {/* ---------- Featured preview ---------- */}
+      <Section
+        kicker="Most loved"
+        title="Featured destinations"
+        subtitle="Where our families are heading this season"
+        action={
+          <Link to="/destinations/international" className="hidden md:inline-flex items-center gap-1 text-sm font-poppins font-semibold text-brand-orange hover:text-brand-orange-hover transition-colors">
+            View all <ArrowRight className="w-4 h-4" />
           </Link>
-        </div>
-
-        {/* Featured Destinations Preview */}
-        <div className="mt-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-season font-bold text-darkBlue mb-4">
-              Featured Destinations
-            </h2>
-            <p className="text-darkBlue/70 text-lg">Handpicked destinations for unforgettable experiences</p>
+        }
+      >
+        {isPending ? (
+          <SkeletonList count={8} columns={4} />
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {[...international.slice(0, 4), ...domestic.slice(0, 4)].map((dest, idx) => (
+              <UniversalCard
+                key={dest._id || `${dest.title}-${idx}`}
+                image={dest.image}
+                imageAlt={dest.title}
+                kicker={dest.type === 'international' ? 'International' : 'Domestic'}
+                title={dest.title}
+                cta="Explore"
+                href={dest.link}
+                variant={idx === 0 ? 'elevated' : 'default'}
+              />
+            ))}
           </div>
-
-          {/* International Preview */}
-          <div className="mb-16">
-            <div className="flex items-center justify-between mb-8 border-b-2 border-orange/20 pb-4">
-              <h3 className="text-2xl md:text-3xl font-season font-bold text-darkBlue">
-                International Destinations
-              </h3>
-              <Link
-                to="/destinations/international"
-                className="text-orange hover:text-teal font-bold flex items-center gap-2 transition-colors"
-              >
-                View All
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {internationalDestinations.slice(0, 4).map((dest, idx) => (
-                <Link
-                  key={idx}
-                  to={dest.link}
-                  className="group bg-surface rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4 text-center">
-                      <h4 className="font-poppins font-bold text-white text-lg mb-1">
-                        {dest.title}
-                      </h4>
-                      <p className="text-sm text-white/90 font-medium">Explore Packages →</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Domestic Preview */}
-          <div>
-            <div className="flex items-center justify-between mb-8 border-b-2 border-teal/20 pb-4">
-              <h3 className="text-2xl md:text-3xl font-season font-bold text-darkBlue">
-                Domestic Destinations
-              </h3>
-              <Link
-                to="/destinations/domestic"
-                className="text-teal hover:text-orange font-bold flex items-center gap-2 transition-colors"
-              >
-                View All
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {domesticDestinations.map((dest, idx) => (
-                <Link
-                  key={idx}
-                  to={dest.link}
-                  className="group bg-surface rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4 text-center">
-                      <h4 className="font-poppins font-bold text-white text-lg mb-1">
-                        {dest.title}
-                      </h4>
-                      <p className="text-sm text-white/90 font-medium">Explore Packages →</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+        )}
+      </Section>
     </div>
+  );
+}
+
+function Breadcrumb() {
+  return (
+    <nav className="text-xs md:text-sm font-canva-sans text-brand-muted-ink flex items-center gap-1 flex-wrap">
+      <Link to="/" className="hover:text-brand-orange transition-colors">Home</Link>
+      <span>›</span>
+      <span className="text-brand-ink font-poppins font-semibold">Destinations</span>
+    </nav>
+  );
+}
+
+function ChoiceTile({ to, image, icon, kicker, title, count, description }) {
+  return (
+    <Link
+      to={to}
+      className="group relative overflow-hidden rounded-2xl border border-brand-hairline bg-surface shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300"
+    >
+      <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-brand-canvas-2">
+        <ImageWithFallback
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/80 via-brand-scrim/25 to-transparent" />
+
+        <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-surface/95 backdrop-blur-sm text-brand-ink rounded-full px-3 py-1 text-xs font-poppins font-semibold">
+          <MapPin className="w-3 h-3" /> {count} destinations
+        </div>
+
+        <div className="absolute bottom-5 left-5 right-5 text-white">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-full bg-brand-orange/90 flex items-center justify-center">
+              {icon}
+            </div>
+            <p className="text-kicker uppercase text-white/85 font-poppins">{kicker}</p>
+          </div>
+          <h3 className="font-season text-3xl md:text-4xl font-bold mt-2">{title}</h3>
+          <p className="mt-1 text-sm md:text-base text-white/90 font-canva-sans max-w-sm">
+            {description}
+          </p>
+          <span className="inline-flex items-center gap-1 mt-3 text-sm font-poppins font-semibold text-brand-orange bg-surface rounded-full px-3 py-1.5 group-hover:bg-brand-orange group-hover:text-white transition-colors">
+            Browse all <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
