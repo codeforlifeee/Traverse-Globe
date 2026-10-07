@@ -1,7 +1,7 @@
 name: Deploy to Hostinger via FTP
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/complete-frontend-revamp ]
   workflow_dispatch: {}
 
 jobs:
