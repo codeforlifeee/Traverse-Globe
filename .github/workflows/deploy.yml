@@ -38,9 +38,18 @@ jobs:
           protocol: ftp
           server-dir: ./
           local-dir: ./dist/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.github*
             **/node_modules/**
             **/README.md
+
+      - name: Bust CDN cache
+        run: |
+          echo "Waiting 10s for FTP sync to propagate..."
+          sleep 10
+          echo "Sending cache-bust requests to traverseglobe.com..."
+          curl -sI -H "Cache-Control: no-cache" -H "Pragma: no-cache" "https://traverseglobe.com/" -o /dev/null -w "HTTP Status: %{http_code}\n"
+          curl -sI -H "Cache-Control: no-cache" -H "Pragma: no-cache" "https://www.traverseglobe.com/" -o /dev/null -w "HTTP Status: %{http_code}\n"
+          echo "Cache-bust requests sent!"
