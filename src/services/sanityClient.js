@@ -545,7 +545,8 @@ export async function fetchBlogPosts({ limit = 50 } = {}) {
         image,
         category,
         readTime,
-        url
+        url,
+        content
       }`;
     const data = await sanityClient.fetch(query, { limit });
     return data || [];

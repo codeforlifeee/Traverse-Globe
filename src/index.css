@@ -362,6 +362,35 @@
 }
 
 /* ============================================
+   CUSTOM SCROLLBAR
+   Elegant scrollbar replacing the default windows/browser one
+   ============================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--c-surface));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-orange) / 0.85);
+  border-radius: 10px;
+  border: 2px solid rgb(var(--c-surface));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-orange));
+  border: 2px solid rgb(var(--c-surface));
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--c-orange)) rgb(var(--c-surface));
+}
+
+/* ============================================
    REDUCED MOTION
    The hero Ken Burns pan and the floating-button bounce run indefinitely, which
    is both an accessibility problem and continuous compositor work. Honour the

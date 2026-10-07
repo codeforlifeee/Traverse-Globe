@@ -1,4 +1,4 @@
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -10,14 +10,13 @@ import { useTheme } from '@/hooks/useTheme';
 
 const LABEL = {
   light: 'Light theme. Switch to dark',
-  dark: 'Dark theme. Switch to system',
-  system: 'Following system theme. Switch to light',
+  dark: 'Dark theme. Switch to light',
 };
 
 export default function ThemeToggle({ className, tone = 'auto', showLabel = false }) {
   const { mode, cycle } = useTheme();
 
-  const Icon = mode === 'light' ? Sun : mode === 'dark' ? Moon : Monitor;
+  const Icon = mode === 'light' ? Sun : Moon;
 
   return (
     <button

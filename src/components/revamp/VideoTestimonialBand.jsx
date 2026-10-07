@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Play, Pause, Star } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { Play, Pause, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -99,6 +99,15 @@ function VideoCard({ video }) {
 
 export default function VideoTestimonialBand() {
   const { data: videos = [], isPending } = useCustomerVideosByRole('testimonial', 6);
+  const swiperRef = useRef(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const updateNav = useCallback((sw) => {
+    if (!sw) return;
+    setIsBeginning(sw.isBeginning);
+    setIsEnd(sw.isEnd);
+  }, []);
 
   if (isPending) {
     return (
@@ -116,19 +125,50 @@ export default function VideoTestimonialBand() {
     <section className="section-padding bg-surface">
       <div className="container-custom">
         {/* Section header */}
-        <div className="mb-6 md:mb-8">
-          <Kicker>Heard From Our Travelers</Kicker>
-          <SectionRule />
-          <h2 className="text-h2 font-poppins font-bold text-brand-ink mt-3">
-            Watch what they say
-          </h2>
-          <p className="mt-2 text-sm md:text-base text-brand-muted-ink font-canva-sans max-w-xl">
-            Short clips from families who traveled with us — unscripted, unedited.
-          </p>
+        <div className="mb-6 md:mb-8 flex items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <Kicker>Heard From Our Travelers</Kicker>
+            <SectionRule />
+            <h2 className="text-h2 font-poppins font-bold text-brand-ink mt-3">
+              Watch what they say
+            </h2>
+            <p className="mt-2 text-sm md:text-base text-brand-muted-ink font-canva-sans max-w-xl">
+              Short clips from families who traveled with us — unscripted, unedited.
+            </p>
+          </div>
+
+          {/* Arrows — desktop only, header-aligned */}
+          <div className="hidden md:flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={() => swiperRef.current?.slidePrev()}
+              disabled={isBeginning}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={() => swiperRef.current?.slideNext()}
+              disabled={isEnd}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         <Swiper
           modules={[A11y]}
+          onSwiper={(sw) => {
+            swiperRef.current = sw;
+            updateNav(sw);
+          }}
+          onSlideChange={updateNav}
+          onReachBeginning={() => setIsBeginning(true)}
+          onReachEnd={() => setIsEnd(true)}
           spaceBetween={16}
           slidesPerView={1.1}
           breakpoints={{

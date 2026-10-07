@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'react';
  */
 
 const KEY = 'tg_theme';
-const MODES = ['light', 'dark', 'system'];
+const MODES = ['light', 'dark'];
 const DARK_THEME_COLOR = '#0c1119';
 const LIGHT_THEME_COLOR = '#FF5B04';
 
@@ -24,17 +24,17 @@ const prefersDark = () =>
 function readStored() {
   try {
     const v = window.localStorage.getItem(KEY);
-    return MODES.includes(v) ? v : 'system';
+    return MODES.includes(v) ? v : 'light';
   } catch {
-    return 'system';
+    return 'light';
   }
 }
 
 // Module-level so every mounted toggle reflects the same value.
-let mode = typeof window === 'undefined' ? 'system' : readStored();
+let mode = typeof window === 'undefined' ? 'light' : readStored();
 const listeners = new Set();
 
-const resolve = (m) => m === 'dark' || (m === 'system' && prefersDark());
+const resolve = (m) => m === 'dark';
 
 function applyToDocument() {
   if (typeof document === 'undefined') return false;
@@ -50,19 +50,9 @@ function notify() {
   listeners.forEach((fn) => fn(snapshot));
 }
 
-// One OS listener for the whole app, so 'system' mode tracks the OS live.
-let osWatcherAttached = false;
+// OS watcher is no longer necessary since we don't have a 'system' mode
 function attachOsWatcher() {
-  if (osWatcherAttached || typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
-  osWatcherAttached = true;
-  const mq = window.matchMedia('(prefers-color-scheme: dark)');
-  const onChange = () => {
-    if (mode !== 'system') return;
-    applyToDocument();
-    notify();
-  };
-  if (mq.addEventListener) mq.addEventListener('change', onChange);
-  else mq.addListener(onChange);
+  return;
 }
 
 export function useTheme() {

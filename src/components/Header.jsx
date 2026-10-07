@@ -31,8 +31,8 @@ const Header = () => {
   const domestic = getDomesticCategories();
 
   // Some pages have a light background above the fold — never go transparent there.
-  // Home & destinations-overview have dark hero images → transparent on load is fine.
-  const isDarkHeroPage = location.pathname === '/' || location.pathname === '/destinations';
+  // Home has a dark hero image → transparent on load is fine.
+  const isDarkHeroPage = location.pathname === '/';
 
   useEffect(() => {
     // One rAF per frame, and setScrolled only when the boolean actually flips -

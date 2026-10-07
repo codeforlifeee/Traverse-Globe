@@ -35,8 +35,8 @@ export const companyInfo = {
     }
   },
   social: {
-    facebook: "https://www.facebook.com/traverseglob",
-    instagram: "https://www.instagram.com/traverse.glob",
+    facebook: "https://www.facebook.com/traverseglob/",
+    instagram: "https://www.instagram.com/traverse.globe/?hl=en",
     linkedin: "https://www.linkedin.com/company/traverse-globe"
   },
   website: "https://traverseglobe.com/"
