@@ -28,17 +28,6 @@ jobs:
           echo "branch=${{ github.ref_name }}" >> dist/version.txt
           echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> dist/version.txt
 
-      - name: Add .htaccess for SPA
-        run: |
-          cat > dist/.htaccess << 'EOF'
-          RewriteEngine On
-          RewriteBase /
-          RewriteCond %{REQUEST_FILENAME} -f [OR]
-          RewriteCond %{REQUEST_FILENAME} -d
-          RewriteRule ^ - [L]
-          RewriteRule . /index.html [L]
-          EOF
-
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -49,7 +38,7 @@ jobs:
           protocol: ftp
           server-dir: ./
           local-dir: ./dist/
-          dangerous-clean-slate: false
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.github*
