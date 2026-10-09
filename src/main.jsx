@@ -69,7 +69,16 @@ root.render(
 );
 
 // Register service worker for PWA (deferred to after window load)
-if (import.meta.env.PROD) {
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  // Reload when a new Service Worker takes control
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      window.location.reload();
+    }
+  });
+
   window.addEventListener('load', async () => {
     try {
       const { registerSW } = await import('virtual:pwa-register');
@@ -78,8 +87,6 @@ if (import.meta.env.PROD) {
         onRegistered(registration) {
           if (registration) {
             console.log('SW registered:', registration.scope);
-          } else {
-            console.log('SW registered');
           }
         },
         onRegisterError(error) {
