@@ -45,9 +45,11 @@ function VideoCard({ video }) {
           <video
             ref={videoRef}
             src={video.videoUrl}
-            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+            style={{ opacity: playing ? 1 : 0 }}
             playsInline
-            preload="none"
+            controls={playing}
+            preload="metadata"
             onEnded={() => setPlaying(false)}
           />
         )}

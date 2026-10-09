@@ -148,7 +148,7 @@ export default function Contact() {
           </h2>
           <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow">
             <iframe
-              src={`https://maps.google.com/maps?q=${encodeURIComponent("352, Diwan Colony, near Virk Hospital, Urban Estate, Sector 13, Karnal, Haryana 132001")}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.9169472391054!2d76.9920!3d29.6920!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e6f54b66b4457%3A0xc348b94090b84039!2sSector%2013%2C%20Karnal%2C%20Haryana%20132001%2C%20India!5e0!3m2!1sen!2sus!4v1714571021481!5m2!1sen!2sus"
               width="100%"
               height="100%"
               style={{ border: 0 }}
