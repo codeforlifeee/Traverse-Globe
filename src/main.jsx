@@ -68,43 +68,7 @@ root.render(
   </StrictMode>
 );
 
-// Register service worker for PWA (deferred to after window load)
-if (import.meta.env.PROD && 'serviceWorker' in navigator) {
-  // Reload when a new Service Worker takes control
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing) {
-      refreshing = true;
-      window.location.reload();
-    }
-  });
-
-  window.addEventListener('load', async () => {
-    try {
-      const { registerSW } = await import('virtual:pwa-register');
-      const updateSW = registerSW({
-        immediate: false,
-        onRegistered(registration) {
-          if (registration) {
-            console.log('SW registered:', registration.scope);
-          }
-        },
-        onRegisterError(error) {
-          console.error('SW registration failed:', error);
-        }
-      });
-
-      // Proactively check for updates periodically
-      setInterval(() => {
-        try {
-          updateSW && updateSW();
-        } catch {}
-      }, 60 * 60 * 1000);
-    } catch (e) {
-      console.warn('PWA register module not available:', e);
-    }
-  });
-}
+// PWA registration removed to completely eliminate caching issues.
 
 // Load diagnostics in development
 if (import.meta.env.DEV) {
