@@ -19,6 +19,14 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Create .env file for production
+        run: |
+          echo "VITE_SANITY_PROJECT_ID=xe1685rk" >> .env
+          echo "VITE_SANITY_DATASET=production" >> .env
+          echo "VITE_SANITY_API_VERSION=2023-08-01" >> .env
+          echo "VITE_USE_SANITY=true" >> .env
+          echo "VITE_LEAD_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/26930498/uplr0kc/" >> .env
+
       - name: Build
         run: npm run build
 
