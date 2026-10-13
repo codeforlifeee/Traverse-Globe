@@ -17,6 +17,7 @@ import ScrollToast from '../components/revamp/ScrollToast';
 import PackageCard from '../components/PackageCard';
 import { SkeletonDetail } from '../components/revamp/Skeletons';
 import { Badge } from '@/components/ui/badge';
+import { trackPackageView } from '../lib/analytics';
 
 /**
  * Canonical package detail page — /packages/:slug
@@ -59,6 +60,17 @@ export default function PackageDetail() {
     if (!pkg) return;
     document.title = `${pkg.title} · Traverse Globe`;
   }, [pkg]);
+
+  // Funnel step 1: Viewed Package. Fires once per distinct package (keyed on _id).
+  useEffect(() => {
+    if (!pkg?._id) return;
+    trackPackageView({
+      packageId: pkg._id,
+      packageName: pkg.title,
+      price: pkg.price,
+      category: pkg.category,
+    });
+  }, [pkg?._id, pkg?.title, pkg?.price, pkg?.category]);
 
   if (loading) return <div className="pt-24"><SkeletonDetail /></div>;
 
@@ -196,6 +208,7 @@ export default function PackageDetail() {
                 slug: slug,
                 category: pkg.category,
                 href: `/packages/${slug}`,
+                packageId: pkg._id,
               }}
               size="lg"
             />

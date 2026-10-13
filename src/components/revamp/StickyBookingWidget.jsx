@@ -115,6 +115,8 @@ export default function StickyBookingWidget({ pkg, className }) {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         packageName={pkg?.title || 'Package enquiry'}
+        packageId={pkg?._id}
+        basePrice={pkg?.price}
       />
     </>
   );

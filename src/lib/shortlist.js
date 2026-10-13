@@ -7,6 +7,8 @@
  * localStorage is per-origin, so this survives republishes but never crosses devices.
  */
 
+import { trackShortlistAdd } from "./analytics";
+
 const KEY = "tg_shortlist_v1";
 const listeners = new Set();
 
@@ -60,6 +62,8 @@ export function toggleShortlist(item) {
   cache = [{ ...item, addedAt: Date.now() }, ...cache];
   safeWrite(cache);
   emit();
+  // Funnel step 2: Added to Shortlist (only on add, not removal).
+  trackShortlistAdd({ packageId: item.packageId, packageName: item.title, type: item.type });
   return { toggled: true, added: true };
 }
 

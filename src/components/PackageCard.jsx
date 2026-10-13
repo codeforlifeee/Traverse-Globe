@@ -156,6 +156,7 @@ export default function PackageCard({
     slug: computedSlug,
     category: resolvedCategory,
     href: packageLink,
+    packageId: packageData._id,
   };
 
   // Size variants

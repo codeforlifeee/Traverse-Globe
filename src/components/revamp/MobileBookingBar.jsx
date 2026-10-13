@@ -50,6 +50,8 @@ export default function MobileBookingBar({ pkg }) {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         packageName={pkg?.title || 'Package enquiry'}
+        packageId={pkg?._id}
+        basePrice={pkg?.price}
       />
     </>
   );
