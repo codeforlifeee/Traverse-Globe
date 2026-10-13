@@ -3,6 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Plane, MapPin, Heart, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from '@/components/ui/navigation-menu';
 import { getInternationalCategories, getDomesticCategories } from '../data/categoryConfig';
 import { companyInfo } from '../data/companyInfo';
 import { getShortlist, subscribeShortlist } from '@/lib/shortlist';
@@ -71,6 +79,10 @@ const Header = () => {
 
   const solid = scrolled || !isDarkHeroPage || isOpen;
   const linkTone = solid ? 'text-brand-ink hover:text-brand-orange' : 'text-white hover:text-white/80';
+  // Shared desktop top-level link styling (plain links + the Destinations trigger).
+  const topLinkClass = 'nav-link font-poppins text-sm font-medium px-3 py-2 rounded-lg transition-colors inline-flex items-center gap-1';
+  // Destination sub-link styling inside the mega-menu. Brand-orange highlight on hover AND focus (keyboard).
+  const subLinkClass = 'flex items-center gap-2 px-2 py-1.5 rounded-lg text-brand-ink hover:text-brand-orange hover:bg-brand-canvas focus:text-brand-orange focus:bg-brand-canvas focus:outline-none font-canva-sans text-sm transition-colors duration-300 ease-out';
 
   return (
     <header
@@ -113,36 +125,25 @@ const Header = () => {
             />
           </Link>
 
-          {/* Desktop nav */}
-          <ul className="hidden lg:flex items-center gap-1">
-            {[
-              { to: '/', label: 'Home' },
-              { to: '/destinations', label: 'Destinations', hasMenu: true },
-              { to: '/hotels', label: 'Hotels' },
-              { to: '/blog', label: 'Guides' },
-              { to: '/about', label: 'About' },
-              { to: '/contact', label: 'Contact' },
-            ].map((item) => (
-              <li key={item.label} className={item.hasMenu ? 'relative group' : ''}>
-                <Link
-                  to={item.to}
-                  className={cn(
-                    'nav-link font-poppins text-sm font-medium px-3 py-2 rounded-lg transition-colors inline-flex items-center gap-1',
-                    linkTone,
-                    solid && 'hover:bg-brand-orange/5'
-                  )}
-                >
-                  {item.label}
-                  {item.hasMenu && <ChevronDown className="w-3.5 h-3.5" />}
-                </Link>
+          {/* Desktop nav - Radix NavigationMenu: role=navigation, full keyboard support */}
+          <NavigationMenu className="hidden lg:flex" aria-label="Primary">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/" className={cn(topLinkClass, linkTone, solid && 'hover:bg-brand-orange/5')}>
+                    Home
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
 
-                {item.hasMenu && (
-                  <div
-                    className={cn(
-                      'invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute top-full left-0 mt-2',
-                      'bg-surface rounded-2xl p-6 min-w-[560px] border border-brand-hairline shadow-soft-xl grid grid-cols-2 gap-6'
-                    )}
-                  >
+              <NavigationMenuItem className="relative">
+                <NavigationMenuTrigger
+                  className={cn(linkTone, solid && 'hover:bg-brand-orange/5', 'data-[state=open]:text-brand-orange')}
+                >
+                  Destinations
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="absolute left-0 top-full mt-2">
+                  <div className="bg-surface rounded-2xl p-6 min-w-[560px] border border-brand-hairline shadow-soft-xl grid grid-cols-2 gap-6">
                     <div>
                       <div className="flex items-center gap-2 mb-3 pb-3 border-b border-brand-hairline">
                         <Plane className="w-4 h-4 text-brand-orange" />
@@ -150,14 +151,12 @@ const Header = () => {
                       </div>
                       <div className="grid gap-1">
                         {international.map((d) => (
-                          <Link
-                            key={d.slug}
-                            to={`/destinations/international/${d.slug}`}
-                            className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-brand-ink hover:text-brand-orange hover:bg-brand-canvas font-canva-sans text-sm"
-                          >
-                            <MapPin className="w-3 h-3 text-brand-muted-ink" />
-                            {d.name}
-                          </Link>
+                          <NavigationMenuLink asChild key={d.slug}>
+                            <Link to={`/destinations/international/${d.slug}`} className={subLinkClass}>
+                              <MapPin className="w-3 h-3 text-brand-muted-ink" />
+                              {d.name}
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                     </div>
@@ -168,22 +167,35 @@ const Header = () => {
                       </div>
                       <div className="grid gap-1">
                         {domestic.map((d) => (
-                          <Link
-                            key={d.slug}
-                            to={`/destinations/domestic/${d.slug}`}
-                            className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-brand-ink hover:text-brand-orange hover:bg-brand-canvas font-canva-sans text-sm"
-                          >
-                            <MapPin className="w-3 h-3 text-brand-muted-ink" />
-                            {d.name}
-                          </Link>
+                          <NavigationMenuLink asChild key={d.slug}>
+                            <Link to={`/destinations/domestic/${d.slug}`} className={subLinkClass}>
+                              <MapPin className="w-3 h-3 text-brand-muted-ink" />
+                              {d.name}
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                     </div>
                   </div>
-                )}
-              </li>
-            ))}
-          </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              {[
+                { to: '/hotels', label: 'Hotels' },
+                { to: '/blog', label: 'Guides' },
+                { to: '/about', label: 'About' },
+                { to: '/contact', label: 'Contact' },
+              ].map((item) => (
+                <NavigationMenuItem key={item.label}>
+                  <NavigationMenuLink asChild>
+                    <Link to={item.to} className={cn(topLinkClass, linkTone, solid && 'hover:bg-brand-orange/5')}>
+                      {item.label}
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* Right-side utility */}
           <div className="flex items-center gap-2">
