@@ -566,7 +566,8 @@ export async function fetchHomeReviews({ limit = 60 } = {}) {
     const query = `{
       "testimonials": *[_type == "testimonial" && active == true]
         | order(order asc, _createdAt asc)[0...$limit] {
-          _id, name, location, destination, rating, text, avatar, featured
+          _id, name, location, destination, rating, text, avatar, featured,
+          "tripPhotos": coalesce(tripPhotos[].asset->url, photos[].asset->url, [])
         },
       "platforms": *[_type == "platformReview" && active == true]
         | order(displayOrder asc) {

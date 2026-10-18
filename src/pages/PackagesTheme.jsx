@@ -100,7 +100,6 @@ export default function PackagesTheme() {
                 key={p._id || p.id}
                 pkg={p}
                 category={p.category}
-                destination={`/packages/${p.slug?.current}`}
                 size={idx % 3 === 1 ? 'large' : 'default'}
               />
             ))}

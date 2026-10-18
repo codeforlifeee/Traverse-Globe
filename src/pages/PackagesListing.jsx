@@ -169,7 +169,6 @@ export default function PackagesListing() {
                     key={p._id || p.id}
                     pkg={p}
                     category={p.category}
-                    destination={`/packages/${p.slug?.current}`}
                     // Elevate the middle card in every row of 3 — "Pick the Winner"
                     size={idx % 3 === 1 ? 'large' : 'default'}
                   />

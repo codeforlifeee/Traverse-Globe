@@ -135,7 +135,6 @@ export default function Chardham() {
                 key={p._id || p.id}
                 pkg={p}
                 category="chardhamyatra"
-                destination={`/packages/${p.slug?.current}`}
                 size={idx % 3 === 1 ? 'large' : 'default'}
               />
             ))}

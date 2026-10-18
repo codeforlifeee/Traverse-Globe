@@ -42,33 +42,57 @@ const FeedbackSection = () => {
       urlEnv: colorMap[review.platform]?.urlEnv || '#'
     };
   });
-  const [filter, setFilter] = useState('All');
   const scrollerRef = useRef(null);
 
-  // Documents are flat and carry `destination`; the UI wants a country chip per
-  // destination and a single display name per review.
-  const countries = useMemo(
-    () => ['All', ...Array.from(new Set(testimonials.map((t) => t.destination).filter(Boolean)))],
-    [testimonials]
-  );
+const DESTINATION_FALLBACK_PHOTOS = {
+  uae: [
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=300&q=80',
+  ],
+  dubai: [
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=300&q=80',
+  ],
+  bali: [
+    'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=300&q=80',
+  ],
+  thailand: [
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=300&q=80',
+  ],
+  kashmir: [
+    'https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=300&q=80',
+  ],
+  kerala: [
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=300&q=80',
+  ],
+};
 
   const allTestimonials = useMemo(
     () =>
       testimonials
-        .map((t, idx) => ({
-          ...t,
-          country: t.destination,
-          author: [t.name, t.location].filter(Boolean).join(', '),
-          key: t._id || `${t.destination}-${idx}`,
-        }))
+        .map((t, idx) => {
+          const destKey = (t.destination || '').toLowerCase().trim();
+          const photos = (t.tripPhotos && t.tripPhotos.length > 0)
+            ? t.tripPhotos
+            : (DESTINATION_FALLBACK_PHOTOS[destKey] || DESTINATION_FALLBACK_PHOTOS['dubai']);
+          return {
+            ...t,
+            country: t.destination,
+            author: [t.name, t.location].filter(Boolean).join(', '),
+            key: t._id || `${t.destination}-${idx}`,
+            tripPhotos: photos ? photos.slice(0, 3) : [],
+          };
+        })
         .sort((a, b) => b.rating - a.rating),
     [testimonials]
   );
 
-  const filteredTestimonials = useMemo(() => {
-    if (filter === 'All') return allTestimonials;
-    return allTestimonials.filter((t) => t.country === filter);
-  }, [allTestimonials, filter]);
 
   const totalReviews = allTestimonials.length;
   const avgRating = useMemo(() => {
@@ -165,22 +189,6 @@ const FeedbackSection = () => {
           </div>
         </div>
 
-        {/* Filter chips */}
-  <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4">
-          {countries.map((c) => (
-            <button
-              key={c}
-              onClick={() => setFilter(c)}
-              className={`px-3 py-1 rounded-full text-xs font-poppins border transition shadow-sm ${
-                filter === c
-                  ? 'bg-orange text-white border-orange'
-                  : 'bg-surface text-darkBlue border-lightGray hover:border-orange/50'
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
 
         {/* Carousel */}
         <div className="relative">
@@ -197,7 +205,7 @@ const FeedbackSection = () => {
             className="flex gap-2.5 overflow-x-auto snap-x snap-mandatory px-1 pb-2 scrollbar-thin"
             style={{ scrollBehavior: 'smooth' }}
           >
-            {filteredTestimonials.map((t) => (
+            {allTestimonials.map((t) => (
               <article
                 key={t.key}
                 className="snap-center shrink-0 w-[280px] md:w-[320px] bg-surface border border-lightGray rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden"
@@ -214,6 +222,23 @@ const FeedbackSection = () => {
                   <p className="mt-3 text-sm md:text-base text-darkBlue/80 leading-relaxed">
                     “{t.text}”
                   </p>
+
+                  {/* Embedded Trip Photos */}
+                  {t.tripPhotos && t.tripPhotos.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-brand-hairline">
+                      <div className="flex items-center gap-2">
+                        {t.tripPhotos.map((photo, pIdx) => (
+                          <img
+                            key={pIdx}
+                            src={photo}
+                            alt={`${t.author || 'Traveler'} trip in ${t.country}`}
+                            className="w-14 h-14 object-cover rounded-lg border border-brand-hairline cursor-pointer hover:opacity-90 hover:scale-105 transition-all"
+                            loading="lazy"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Author */}
                   <div className="mt-4 flex items-center gap-3">

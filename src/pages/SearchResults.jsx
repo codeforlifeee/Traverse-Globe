@@ -143,7 +143,7 @@ export default function SearchResults() {
                   <ResultGroup kicker={`Packages (${packages.length})`}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {packages.map((p) => (
-                        <PackageCard key={p._id} pkg={p} category={p.category} destination={`/packages/${p.slug?.current}`} showQuickView={false} />
+                        <PackageCard key={p._id} pkg={p} category={p.category} showQuickView={false} />
                       ))}
                     </div>
                   </ResultGroup>

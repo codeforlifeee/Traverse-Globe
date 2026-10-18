@@ -4,19 +4,14 @@ import HeroSection from '../components/HeroSection';
 // Only the hero is eager — it holds the LCP. Everything below the fold is split out so
 // framer-motion, Swiper and the Radix accordion stay off the critical path.
 const TrendingDestinations = lazy(() => import('../components/TrendingDestinations'));
-const ThemesShowcase = lazy(() => import('../components/revamp/ThemesShowcase'));
-const LiveOffersStrip = lazy(() => import('../components/revamp/LiveOffersStrip'));
-const PackageCategories = lazy(() => import('../components/PackageCategories'));
-const TopDestinations = lazy(() => import('../components/TopDestinations'));
-const HotelCategories = lazy(() => import('../components/HotelCategories'));
-const VideoHero = lazy(() => import('../components/revamp/VideoHero'));
-const FeedbackSection = lazy(() => import('../components/FeedbackSection'));
-const CustomerGrid = lazy(() => import('../components/revamp/CustomerGrid'));
-const VideoTestimonialBand = lazy(() => import('../components/revamp/VideoTestimonialBand'));
-const ExplorePrices = lazy(() => import('../components/ExplorePrices'));
-const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
-const PopularSearchesGrid = lazy(() => import('../components/revamp/PopularSearchesGrid'));
-const HomeFAQ = lazy(() => import('../components/revamp/HomeFAQ'));
+const ActivitiesShowcase  = lazy(() => import('../components/ActivitiesShowcase'));
+const SalesBanner          = lazy(() => import('../components/revamp/SalesBanner'));
+const FeedbackSection      = lazy(() => import('../components/FeedbackSection'));
+const ExplorePrices        = lazy(() => import('../components/ExplorePrices'));
+const WhyChooseUs          = lazy(() => import('../components/WhyChooseUs'));
+const HomeBlogSection      = lazy(() => import('../components/HomeBlogSection'));
+const PopularSearchesGrid  = lazy(() => import('../components/revamp/PopularSearchesGrid'));
+const HomeFAQ              = lazy(() => import('../components/revamp/HomeFAQ'));
 
 /**
  * Defers both layout and JS for a below-fold section. `height` feeds
@@ -34,20 +29,34 @@ const Section = ({ height, children }) => (
 const Home = () => {
   return (
     <div className="min-h-screen">
+      {/* ── Hero: Lead form + CTA buttons ── */}
       <HeroSection />
-      <Section height={1200}><TrendingDestinations /></Section>
-      {/* <Section height={900}><ThemesShowcase /></Section> */}
-      {/* <Section height={800}><LiveOffersStrip /></Section> */}
-      <Section height={1400}><PackageCategories /></Section>
-      <Section height={1200}><TopDestinations /></Section>
-      <Section height={800}><HotelCategories /></Section>
-      <Section height={560}><VideoHero /></Section>
-      <Section height={1000}><FeedbackSection /></Section>
-      <Section height={900}><CustomerGrid /></Section>
-      <Section height={700}><VideoTestimonialBand /></Section>
-      <Section height={900}><ExplorePrices /></Section>
-      <Section height={900}><WhyChooseUs /></Section>
-      <Section height={600}><PopularSearchesGrid /></Section>
+
+      {/* ── 1. Single unified destinations carousel ── */}
+      <Section height={800}><TrendingDestinations /></Section>
+
+      {/* ── 2. Activities showcase (Desert Safari, Scuba, etc.) ── */}
+      <Section height={650}><ActivitiesShowcase /></Section>
+
+      {/* ── 4. CMS-driven promotional / sales banner ── */}
+      <Section height={420}><SalesBanner /></Section>
+
+      {/* ── 5. Customer Reviews (photos embedded within) ── */}
+      <Section height={750}><FeedbackSection /></Section>
+
+      {/* ── 6. Packages placed AFTER reviews (CRO: social proof first) ── */}
+      <Section height={950}><ExplorePrices /></Section>
+
+      {/* ── 8. Why Choose Traverse Globe (video + call CTA) ── */}
+      <Section height={700}><WhyChooseUs /></Section>
+
+      {/* ── 9. Blog / Travel Guides (above FAQ) ── */}
+      <Section height={650}><HomeBlogSection /></Section>
+
+      {/* ── 10. Popular search tags ── */}
+      <Section height={500}><PopularSearchesGrid /></Section>
+
+      {/* ── 11. FAQ ── */}
       <Section height={700}><HomeFAQ /></Section>
     </div>
   );

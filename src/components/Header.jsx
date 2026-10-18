@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Plane, MapPin, Heart, Search } from 'lucide-react';
+import { Menu, X, ChevronDown, Plane, MapPin, Heart, Search, Compass, Waves, Anchor, Ticket, Ship } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
@@ -37,6 +37,14 @@ const Header = () => {
 
   const international = getInternationalCategories();
   const domestic = getDomesticCategories();
+
+  const popularActivities = [
+    { name: 'Desert Safari & Quad Biking', slug: 'desert-safari', icon: Compass, desc: 'Dune bashing, camel rides & BBQ' },
+    { name: 'Scuba Diving & Snorkeling', slug: 'scuba-diving', icon: Waves, desc: 'Coral reefs & marine exploration' },
+    { name: 'Dhow Cruise & Marina Dinner', slug: 'dhow-cruise', icon: Anchor, desc: 'Luxury dinner on waters' },
+    { name: 'Theme Parks & Waterparks', slug: 'theme-parks', icon: Ticket, desc: 'Burj Khalifa, Atlantis & Ferrari World' },
+    { name: 'Luxury Yacht Rentals', slug: 'yacht-rental', icon: Ship, desc: 'Private charters in Arabian Gulf' },
+  ];
 
   // Some pages have a light background above the fold — never go transparent there.
   // Home has a dark hero image → transparent on load is fine.
@@ -180,8 +188,58 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/hotels" className={cn(topLinkClass, linkTone, solid && 'hover:bg-brand-orange/5')}>
+                    Hotels
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem className="relative">
+                <NavigationMenuTrigger
+                  className={cn(linkTone, solid && 'hover:bg-brand-orange/5', 'data-[state=open]:text-brand-orange')}
+                >
+                  Activities
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="absolute left-0 top-full mt-2">
+                  <div className="bg-surface rounded-2xl p-4 min-w-[340px] border border-brand-hairline shadow-soft-xl">
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-brand-hairline">
+                      <span className="text-kicker uppercase text-brand-muted-ink font-poppins font-semibold text-xs">
+                        Curated Activities
+                      </span>
+                      <NavigationMenuLink asChild>
+                        <Link to="/activities" className="text-xs text-brand-orange hover:underline font-poppins font-medium">
+                          All Activities →
+                        </Link>
+                      </NavigationMenuLink>
+                    </div>
+                    <div className="grid gap-1">
+                      {popularActivities.map((act) => {
+                        const Icon = act.icon;
+                        return (
+                          <NavigationMenuLink asChild key={act.slug}>
+                            <Link
+                              to={`/activities/${act.slug}`}
+                              className="group/item flex items-center gap-3 px-3 py-2 rounded-xl text-brand-ink hover:text-brand-orange hover:bg-brand-canvas transition-colors"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 group-hover/item:bg-brand-orange group-hover/item:text-white transition-colors">
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <p className="text-sm font-poppins font-medium leading-none">{act.name}</p>
+                                <p className="text-[11px] text-brand-muted-ink font-canva-sans mt-1">{act.desc}</p>
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
               {[
-                { to: '/hotels', label: 'Hotels' },
                 { to: '/blog', label: 'Guides' },
                 { to: '/about', label: 'About' },
                 { to: '/contact', label: 'Contact' },
@@ -319,6 +377,7 @@ const Header = () => {
                   )}
                 </li>
                 <li><Link to="/hotels" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Hotels</Link></li>
+                <li><Link to="/activities" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Activities</Link></li>
                 <li><Link to="/blog" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Guides</Link></li>
                 <li><Link to="/about" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">About</Link></li>
                 <li><Link to="/contact" className="block px-3 py-3 rounded-lg text-brand-ink hover:bg-brand-canvas font-poppins font-medium">Contact</Link></li>

@@ -17,6 +17,7 @@ const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
 const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
 const Hotels = lazy(() => import(/* webpackChunkName: "hotels" */ './pages/Hotels'));
 const HotelDetail = lazy(() => import(/* webpackChunkName: "hotel-detail" */ './pages/HotelDetail'));
+const Activities = lazy(() => import(/* webpackChunkName: "activities" */ './pages/Activities'));
 
 // NEW: Dynamic destination routing components
 const DestinationOverview = lazy(() => import(/* webpackChunkName: "destination-overview" */ './pages/destinations/DestinationOverview'));
@@ -91,6 +92,10 @@ function App() {
               {/* Hotel Routes */}
               <Route path="/hotels/:category" element={<Hotels />} />
               <Route path="/hotels/:category/:slug" element={<HotelDetail />} />
+
+              {/* Activities Routes */}
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/activities/:category" element={<Activities />} />
               
               {/* NEW: Dynamic Destination Routes */}
               <Route path="/destinations" element={<DestinationOverview />} />
@@ -113,6 +118,7 @@ function App() {
               <Route path="/hotels/city/:city" element={<HotelsListing />} />
               <Route path="/guides" element={<Blog />} />
               <Route path="/guides/:slug" element={<Blog />} />
+              <Route path="/blog/:slug" element={<Blog />} />
               
               {/* Backward Compatibility - Redirects old URLs to new structure */}
               <Route path="/uae-packages" element={<LegacyRedirect />} />
