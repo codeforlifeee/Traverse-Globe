@@ -157,10 +157,13 @@ const Header = () => {
           {/* Right-side utility */}
           <div className="flex items-center gap-2">
             {/* Search trigger — a labelled pill rather than a bare icon, so the
-                affordance (and the ⌘K shortcut) is discoverable without hovering. */}
+                affordance (and the ⌘K shortcut) is discoverable without hovering.
+                The accessible name starts with the visible text (WCAG 2.5.3) so voice
+                users can say what they see; the shortcut is exposed via aria-keyshortcuts. */}
             <button
               onClick={() => { setSearchMounted(true); setSearchOpen(true); }}
-              aria-label="Search packages, hotels and destinations"
+              aria-label="Search trips: packages, hotels and destinations"
+              aria-keyshortcuts="Control+K Meta+K"
               className={cn(
                 'hidden md:inline-flex items-center gap-2 h-10 pl-3.5 pr-2 rounded-full border transition-colors',
                 solid
@@ -171,6 +174,7 @@ const Header = () => {
               <Search className="w-4 h-4 shrink-0" />
               <span className="font-canva-sans text-sm">Search trips…</span>
               <kbd
+                aria-hidden="true"
                 className={cn(
                   'hidden lg:inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-poppins font-medium border',
                   solid ? 'border-brand-hairline bg-surface text-brand-muted-ink' : 'border-white/30 bg-white/10 text-white/80'
