@@ -58,7 +58,7 @@ export default function CollectionGallery({
     if (el) el.scrollTo({ left: 0, behavior: 'auto' });
   }, [active]);
 
-  const bgClass = { white: 'bg-surface/65 backdrop-blur-[2px]', canvas: 'bg-brand-canvas/40 backdrop-blur-[2px]', 'canvas-2': 'bg-brand-canvas-2/55 backdrop-blur-[2px]' }[bg] || 'bg-brand-canvas/40 backdrop-blur-[2px]';
+  const bgClass = { white: 'bg-surface/75', canvas: 'bg-brand-canvas/50', 'canvas-2': 'bg-brand-canvas-2/65' }[bg] || 'bg-brand-canvas/50';
 
   if (!items.length) return null;
 

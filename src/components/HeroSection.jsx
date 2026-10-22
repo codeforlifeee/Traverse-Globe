@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { renderingPrerender } from '@/lib/hydration';
 import { REVEAL_VIEWPORT, riseItem, staggerParent } from '@/lib/motionVariants';
 import { PhoneCall, Star } from 'lucide-react';
-import { useBanners } from '../hooks/queries';
 import { HERO_WIDTHS } from '@/lib/sanityImage';
 import ImageWithFallback from './revamp/ImageWithFallback';
 import Kicker from './revamp/Kicker';
@@ -20,18 +21,29 @@ import NumberTicker from './magicui/NumberTicker';
  * - TrustStrip removed — relocated to Home.jsx below package cards
  */
 
-// Keep in sync with <link rel=preload> in index.html
-const HERO_FALLBACK_IMAGE =
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80';
+// The hero is the LCP element, so its image is fixed rather than CMS-driven. It used
+// to render a skyline and then swap to the 'general' banner once Sanity answered: a
+// visible flicker, a second full-width download, and LCP pushed out to the swap.
+// The diver shot was that banner's first image, so it is now the hero from first paint.
+//
+// Keep in sync with <link rel=preload imagesrcset> in index.html. That preload must
+// list exactly the URLs buildSrcSet(HERO_IMAGE, { widths: HERO_WIDTHS }) produces,
+// or the browser downloads the preload and then the real image as well.
+const HERO_IMAGE =
+  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=80';
 
 const HeroSection = () => {
-  const reduceMotion = useReducedMotion();
+  // When the hero arrived as pre-rendered HTML it is already on screen, so replaying
+  // the entrance would blank it out and fade it back in. Start in the final state.
+  // Captured at mount: a later client-side visit to "/" still gets the entrance.
+  const [skipIntro] = useState(renderingPrerender);
+  const intro = skipIntro ? false : 'hidden';
+  // With the entrance skipped nothing animates, so use the variants the build
+  // rendered with (the server has no motion preference); otherwise the reduced-motion
+  // variant's missing `transform` would not match the pre-rendered style attribute.
+  const reduceMotion = useReducedMotion() && !skipIntro;
   const parent = staggerParent(reduceMotion);
   const item = riseItem(reduceMotion);
-  const { data: banners = [] } = useBanners('general');
-
-  // Render immediately — CMS banner swaps in when it arrives without blocking LCP.
-  const heroImage = banners[0]?.url || banners[0] || HERO_FALLBACK_IMAGE;
 
   const waText = encodeURIComponent(
     "Hi Traverse Globe! I'd like to plan a trip. Can you help me?"
@@ -44,8 +56,8 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <div className="w-full h-full animate-ken-burns">
           <ImageWithFallback
-            src={heroImage}
-            alt="Dubai skyline — Traverse Globe"
+            src={HERO_IMAGE}
+            alt="Scuba diver beside a school of yellow fish on a coral reef — Traverse Globe"
             className="w-full h-full object-cover"
             loading="eager"
             fetchpriority="high"
@@ -64,17 +76,20 @@ const HeroSection = () => {
         <div className="max-w-4xl">
           {/* The hero reveals as one sequence rather than appearing all at once:
               kicker, headline, promise, CTAs, then the proof. */}
-          <motion.div variants={parent} initial="hidden" animate="show">
+          <motion.div variants={parent} initial={intro} animate="show">
             <motion.div variants={item}>
               <Kicker tone="orange" size="lg" className="text-white/90 mb-3 md:mb-4">
                 Curated family trips · India + UAE
               </Kicker>
             </motion.div>
 
-            <motion.h1 variants={item} className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
+            {/* Not animated: the headline is the mobile LCP element, and a fade-in
+                from opacity 0 delays LCP until the animation starts. The lines
+                around it still rise in, so the sequence reads the same. */}
+            <h1 className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
               Your genuine, affordable,{' '}
               <span className="text-brand-orange">first-to-go</span> travel partner.
-            </motion.h1>
+            </h1>
 
             <motion.p variants={item} className="text-sm md:text-body-lg text-white/85 font-canva-sans max-w-xl mb-7 md:mb-9">
               Handpicked trips for real families. Fixed prices, no hidden fees, one WhatsApp away — from Karnal to Sharjah.
@@ -121,7 +136,7 @@ const HeroSection = () => {
                 <dt className="sr-only">families served</dt>
                 <dd>
                   <span className="block font-poppins font-bold text-2xl md:text-3xl text-white leading-none">
-                    <NumberTicker value={10000} suffix="+" delay={0.5} />
+                    <NumberTicker value={10000} suffix="+" delay={0.5} animate={!skipIntro} />
                   </span>
                   <span className="mt-1.5 block text-[11px] font-poppins uppercase tracking-widest text-white/65">
                     families served
@@ -133,7 +148,7 @@ const HeroSection = () => {
                 <dt className="sr-only">Google and WhatsApp rating</dt>
                 <dd>
                   <span className="flex items-baseline gap-1 font-poppins font-bold text-2xl md:text-3xl text-white leading-none">
-                    <NumberTicker value={4.8} decimalPlaces={1} delay={0.65} />
+                    <NumberTicker value={4.8} decimalPlaces={1} delay={0.65} animate={!skipIntro} />
                     <Star className="w-4 h-4 md:w-5 md:h-5 shrink-0 translate-y-[-1px] fill-brand-orange text-brand-orange" />
                   </span>
                   <span className="mt-1.5 block text-[11px] font-poppins uppercase tracking-widest text-white/65">
@@ -162,7 +177,7 @@ const HeroSection = () => {
             than the linear tween it used to carry. */}
         <motion.div
           variants={item}
-          initial="hidden"
+          initial={intro}
           animate="show"
           transition={{ delay: 0.45 }}
           className="mt-10 md:mt-14"

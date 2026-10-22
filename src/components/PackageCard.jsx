@@ -118,6 +118,11 @@ export default function PackageCard({
 }) {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  // The back face is built on first flip, then kept so the flip-back still has
+  // content. The homepage carousel renders 20 cards; their never-seen backs were
+  // ~1,000 DOM nodes of style and layout work on every load.
+  const [hasFlipped, setHasFlipped] = useState(false);
+  if (isFlipped && !hasFlipped) setHasFlipped(true);
   const [bookingOpen, setBookingOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -372,6 +377,7 @@ export default function PackageCard({
                 alt={packageData.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
+                sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 85vw"
               />
 
               {/* Gradient Bottom Overlay for Legibility */}
@@ -555,103 +561,107 @@ export default function PackageCard({
 
           {/* ==================== BACK OF CARD (QUICK VIEW) ==================== */}
           <div className="flip-card-back w-full h-full overflow-hidden bg-surface flex flex-col p-5">
-            <div className="flex justify-between items-center mb-3 pb-3 border-b border-brand-hairline">
-              <div>
-                <span className="text-[11px] font-poppins font-semibold uppercase tracking-wider text-brand-orange">
-                  Quick Itinerary
-                </span>
-                <h4 className="font-poppins font-bold text-brand-ink text-base line-clamp-1">
-                  {packageData.title}
-                </h4>
+            {hasFlipped && (
+              <>
+              <div className="flex justify-between items-center mb-3 pb-3 border-b border-brand-hairline">
+                <div>
+                  <span className="text-[11px] font-poppins font-semibold uppercase tracking-wider text-brand-orange">
+                    Quick Itinerary
+                  </span>
+                  <h4 className="font-poppins font-bold text-brand-ink text-base line-clamp-1">
+                    {packageData.title}
+                  </h4>
+                </div>
+                <button
+                  onClick={() => setIsFlipped(false)}
+                  className="w-8 h-8 rounded-lg bg-brand-canvas-2 hover:bg-brand-hairline flex items-center justify-center text-brand-ink transition-colors"
+                  title="Close Quick View"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              <button
-                onClick={() => setIsFlipped(false)}
-                className="w-8 h-8 rounded-lg bg-brand-canvas-2 hover:bg-brand-hairline flex items-center justify-center text-brand-ink transition-colors"
-                title="Close Quick View"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 scrollbar-thin">
-              {itineraryDays.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
-                      Day Breakdown
-                    </span>
-                    <span className="text-[11px] bg-brand-orange/10 text-brand-orange rounded px-2 py-0.5 font-poppins font-medium">
-                      {itineraryDays.length} Days
-                    </span>
+              <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 scrollbar-thin">
+                {itineraryDays.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Day Breakdown
+                      </span>
+                      <span className="text-[11px] bg-brand-orange/10 text-brand-orange rounded px-2 py-0.5 font-poppins font-medium">
+                        {itineraryDays.length} Days
+                      </span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {itineraryDays.slice(0, 4).map((day, idx) => (
+                        <div key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <span className="font-poppins font-semibold text-brand-orange min-w-fit">
+                            {day.dayKey || `Day ${idx + 1}`}
+                          </span>
+                          <span className="line-clamp-1">{day.title}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="space-y-1.5">
-                    {itineraryDays.slice(0, 4).map((day, idx) => (
-                      <div key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
-                        <span className="font-poppins font-semibold text-brand-orange min-w-fit">
-                          {day.dayKey || `Day ${idx + 1}`}
-                        </span>
-                        <span className="line-clamp-1">{day.title}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+                )}
 
-              {inclusions.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
-                      Inclusions
-                    </span>
-                    <span className="text-[11px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 rounded px-2 py-0.5 font-poppins font-medium">
-                      {inclusions.length} items
-                    </span>
+                {inclusions.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Inclusions
+                      </span>
+                      <span className="text-[11px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 rounded px-2 py-0.5 font-poppins font-medium">
+                        {inclusions.length} items
+                      </span>
+                    </div>
+                    <ul className="space-y-1">
+                      {inclusions.slice(0, 4).map((item, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                          <span className="line-clamp-1">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-1">
-                    {inclusions.slice(0, 4).map((item, idx) => (
-                      <li key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                        <span className="line-clamp-1">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+                )}
 
-              {accommodations.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
-                      Stays
-                    </span>
+                {accommodations.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Stays
+                      </span>
+                    </div>
+                    <ul className="space-y-1">
+                      {accommodations.slice(0, 2).map((hotel, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink line-clamp-1 flex items-center gap-1.5">
+                          <Hotel className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                          <span>{typeof hotel === 'string' ? hotel : hotel.name}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-1">
-                    {accommodations.slice(0, 2).map((hotel, idx) => (
-                      <li key={idx} className="text-xs text-brand-ink line-clamp-1 flex items-center gap-1.5">
-                        <Hotel className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-                        <span>{typeof hotel === 'string' ? hotel : hotel.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Quick Consultation Actions on Card Back.
-                The "Call Expert" button was removed — the front of the card already
-                opens the enquiry form, and exposing a raw phone number here on
-                every card made the back read as an advert. */}
-            <div className="mt-3 pt-3 border-t border-brand-hairline space-y-2">
-              <a
-                href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(`Hi Traverse Globe! I want details on: ${packageData.title}`)}`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white py-2 px-4 rounded-xl text-xs font-poppins font-semibold transition-colors"
-              >
-                <WhatsAppIcon className="w-3.5 h-3.5" />
-                Chat on WhatsApp
-              </a>
-            </div>
+              {/* Quick Consultation Actions on Card Back.
+                  The "Call Expert" button was removed — the front of the card already
+                  opens the enquiry form, and exposing a raw phone number here on
+                  every card made the back read as an advert. */}
+              <div className="mt-3 pt-3 border-t border-brand-hairline space-y-2">
+                <a
+                  href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(`Hi Traverse Globe! I want details on: ${packageData.title}`)}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white py-2 px-4 rounded-xl text-xs font-poppins font-semibold transition-colors"
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+              </>
+            )}
           </div>
         </div>
       </div>

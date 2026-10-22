@@ -18,7 +18,7 @@ const ExplorePrices = () => {
 
   if (loading) {
     return (
-      <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
+      <section className="section-y bg-brand-canvas/50">
         <div className="container-custom">
           <SkeletonList count={4} columns={4} />
         </div>

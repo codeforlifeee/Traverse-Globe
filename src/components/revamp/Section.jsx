@@ -21,13 +21,16 @@ export default function Section({
   headerAlign = "left",
   id,
 }) {
+  // Translucent tints only, no backdrop-filter: a blur here sits over the fixed
+  // AestheticBackground, so the browser re-filters a full-viewport area on every
+  // scroll frame — the main source of scroll jank on mid-range phones.
   const bgCls = {
-    canvas: "bg-brand-canvas/40 backdrop-blur-[2px]",
-    "canvas-2": "bg-brand-canvas-2/55 backdrop-blur-[2px]",
-    white: "bg-surface/65 backdrop-blur-[2px]",
+    canvas: "bg-brand-canvas/50",
+    "canvas-2": "bg-brand-canvas-2/65",
+    white: "bg-surface/75",
     ink: "bg-brand-scrim text-white",
     none: "",
-  }[bg] || "bg-brand-canvas/40 backdrop-blur-[2px]";
+  }[bg] || "bg-brand-canvas/50";
 
   const wrapCls = fullBleed
     ? "px-4 md:px-6 lg:px-8"

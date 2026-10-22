@@ -1,40 +1,54 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
 
 /**
  * SmoothScroll Provider
- * Wraps the application in a Lenis instance to give silky-smooth inertial momentum
- * scrolling. Automatically disables if user has 'prefers-reduced-motion' enabled.
+ * Wraps the application in a Lenis instance to give inertial momentum to mouse-wheel
+ * scrolling on desktop.
+ *
+ * Skipped entirely when:
+ * - the user prefers reduced motion, or
+ * - the primary pointer is coarse (phones, tablets). Touch scrolling already has native
+ *   momentum, and Lenis's per-frame loop only adds input latency there — on mid-range
+ *   Android it made the page trail behind the finger, which read as lag.
+ *
+ * Lenis is imported on demand, so the devices that skip it never download it.
  */
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || coarsePointer) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
+    let lenis = null;
+    let rafId = 0;
+    let cancelled = false;
+
+    import("lenis").then(({ default: Lenis }) => {
+      if (cancelled) return;
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        syncTouch: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      rafId = requestAnimationFrame(raf);
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const rafId = requestAnimationFrame(raf);
-
     return () => {
+      cancelled = true;
       cancelAnimationFrame(rafId);
-      lenis.destroy();
+      lenis?.destroy();
     };
   }, []);
 

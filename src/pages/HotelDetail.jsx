@@ -414,7 +414,7 @@ export default function HotelDetail() {
           {/* ---- Left: content ---- */}
           <div className="lg:col-span-2 min-w-0">
             {/* Underline tabs — compact, sticky */}
-            <nav className="sticky top-16 md:top-20 z-20 -mx-4 md:mx-0 bg-brand-canvas/95 backdrop-blur-md border-b border-brand-hairline mb-5">
+            <nav className="sticky top-16 md:top-20 z-20 -mx-4 md:mx-0 bg-brand-canvas border-b border-brand-hairline mb-5">
               <div className="flex gap-1 px-4 md:px-0 overflow-x-auto no-scrollbar">
                 {SECTIONS.map(({ id, label }) => (
                   <button
@@ -1011,7 +1011,7 @@ export default function HotelDetail() {
       </div>
 
       {/* ---------- Mobile sticky booking bar ---------- */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface/95 backdrop-blur-md border-t border-brand-hairline shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.15)]">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface border-t border-brand-hairline shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.15)]">
         <div className="container-custom py-2.5 flex items-center gap-3">
           <div className="min-w-0">
             <div className="flex items-end gap-1.5">

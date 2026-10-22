@@ -25,6 +25,8 @@
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'dark');
         }
+        // The pre-rendered markup in #root is the homepage; see the script after #root.
+        if (location.pathname !== '/') document.documentElement.setAttribute('data-route-other', '');
       })();
     </script>
     <!-- NUCLEAR CACHE BUSTER -->
@@ -61,16 +63,19 @@
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     
-    <!-- Preconnect ONLY to most critical origins (limit to 4) -->
+    <!-- Preconnect ONLY to most critical origins (limit to 4). cdn.sanity.io serves only
+         below-the-fold native image assets, so it gets the dns-prefetch above instead. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="preconnect" href="https://xe1685rk.apicdn.sanity.io" crossorigin />
     
-    <!-- LCP hero image - keep in sync with HERO_FALLBACK_IMAGE in src/components/HeroSection.jsx -->
+    <!-- LCP hero image. These URLs must be exactly what buildSrcSet(HERO_IMAGE, { widths: HERO_WIDTHS })
+         produces in src/components/HeroSection.jsx; any mismatch and the browser downloads both. -->
     <link rel="preload" as="image" fetchpriority="high"
-          href="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80" />
+          href="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60&fm=webp"
+          imagesrcset="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=640&q=60&fm=webp 640w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60&fm=webp 960w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1280&q=60&fm=webp 1280w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=60&fm=webp 1920w"
+          imagesizes="100vw" />
 
   <!-- Critical inline CSS for above-the-fold content -->
     <style>
@@ -87,6 +92,8 @@
       .boot-hero{height:72vh;min-height:420px;background:#16232A;background-image:linear-gradient(100deg,#16232A 0%,#1f333d 50%,#16232A 100%);background-size:200% 100%;animation:bootShimmer 1.4s ease-in-out infinite}
       @keyframes bootShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
       @media (prefers-reduced-motion:reduce){.boot-hero{animation:none}}
+      /* Never paint the pre-rendered homepage on another URL (swapped out after #root). */
+      [data-route-other] #root[data-prerendered]{visibility:hidden}
     </style>
     
     <!-- Optimized fonts with font-display: swap -->
@@ -95,12 +102,33 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" />
     </noscript>
     
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WZWV7ZQ7');</script>
+    <!-- Third-party tag loader. GTM and the Meta Pixel cost ~0.9s of main thread on a
+         mid-range phone, and they used to run while the page itself was booting. Their
+         queues (dataLayer, fbq) are created immediately below, so every event pushed
+         before the libraries arrive is kept and replayed; only the library downloads
+         wait until the page has loaded and the main thread is idle. -->
+    <script>
+      window.__loadThirdParty = function (src) {
+        var run = function () {
+          var j = document.createElement('script');
+          j.async = true;
+          j.src = src;
+          document.head.appendChild(j);
+        };
+        var whenIdle = function () {
+          if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 2500 });
+          else setTimeout(run, 1500);
+        };
+        if (document.readyState === 'complete') whenIdle();
+        else window.addEventListener('load', whenIdle);
+      };
+    </script>
+
+    <!-- Google Tag Manager (library deferred via __loadThirdParty) -->
+    <script>(function(w,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var dl=l!='dataLayer'?'&l='+l:'';
+w.__loadThirdParty('https://www.googletagmanager.com/gtm.js?id='+i+dl);
+})(window,'dataLayer','GTM-WZWV7ZQ7');</script>
     <!-- End Google Tag Manager -->
     
     <!-- Meta Pixel managed via Google Tag Manager -->
@@ -109,15 +137,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <!-- Cookie Control - Block third-party cookies early -->
     <script type="module" src="/src/utils/cookieControl.js"></script>
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code (pixel 814339692478366; GTM loads a second, different pixel).
+         Standard stub, with the fbevents.js download deferred via __loadThirdParty. -->
     <script>
-    !function(f,b,e,v,n,t,s)
+    !function(f,v,n)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
     if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    n.queue=[];f.__loadThirdParty(v)}(window,
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '814339692478366');
     fbq('track', 'PageView');
@@ -137,13 +164,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <!-- Meta Pixel is injected by GTM; noscript tracking omitted to prevent duplication -->
     
-    <!-- Boot skeleton sized to the hero so first paint does not shift -->
+    <!-- Boot skeleton sized to the hero so first paint does not shift.
+         On build, scripts/prerender.mjs replaces everything between the app-root markers
+         with <div id="root" data-prerendered> holding the server-rendered homepage
+         (header + hero), which main.jsx then hydrates. -->
+    <!--app-root-->
     <div id="root">
       <div class="boot">
         <div class="boot-hero"></div>
       </div>
     </div>
-    
+    <!--/app-root-->
+
+    <!-- Every URL is served this same file, but only "/" may use the pre-rendered
+         homepage. Anywhere else, swap it for the boot skeleton before React starts
+         (the data-route-other rule in <head> keeps it from painting meanwhile). -->
+    <script>
+      (function () {
+        var root = document.getElementById('root');
+        if (!root.hasAttribute('data-prerendered') || location.pathname === '/') return;
+        root.removeAttribute('data-prerendered');
+        var boot = document.createElement('div');
+        boot.className = 'boot';
+        var hero = document.createElement('div');
+        hero.className = 'boot-hero';
+        boot.appendChild(hero);
+        root.replaceChildren(boot);
+      })();
+    </script>
+
     <!-- Main app script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>

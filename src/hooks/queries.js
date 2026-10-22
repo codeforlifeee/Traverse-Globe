@@ -43,12 +43,17 @@ export function useDestinationsByType(type) {
   });
 }
 
-/** Homepage package carousel - featured first, one request. */
+/**
+ * Homepage package carousel - featured first, one request. The options are shared
+ * with the boot-time prefetch in main.jsx, so the two can never use different keys.
+ */
+export const homepagePackagesQuery = (limit = 20) => ({
+  queryKey: ['packages', 'homepage', limit],
+  queryFn: () => fetchHomepagePackages(limit),
+});
+
 export function useHomepagePackages(limit = 20) {
-  return useQuery({
-    queryKey: ['packages', 'homepage', limit],
-    queryFn: () => fetchHomepagePackages(limit),
-  });
+  return useQuery(homepagePackagesQuery(limit));
 }
 
 /** Packages in a category (card fields). */

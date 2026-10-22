@@ -54,6 +54,11 @@ every consumer reads `slug?.current`.
 Sanity is read-only from the browser with no token. Writes go through scripts in `scripts/` with
 an Editor token passed via env var.
 
+The browser "client" in `sanityClient.js` is a ~40-line `fetch` wrapper over the HTTP query API,
+**not** `@sanity/client` (that SDK plus rxjs/get-it was ~200 KB of the entry chunk). It only
+supports `sanityClient.fetch(query, params)`. `@sanity/client` stays in `package.json` for the
+write scripts — do not import it from `src/`.
+
 ### Routing
 
 React Router v6 in `src/App.jsx`. Two routing patterns:
@@ -116,11 +121,57 @@ New document types must be registered in `sanity-studio/schemas/index.js`.
   being modulepreloaded on every page.
 - Only `HeroSection` is eager on the homepage; every other section in `src/pages/Home.jsx` is
   `React.lazy` inside a `content-visibility:auto` wrapper whose reserved height matches the
-  Suspense fallback, so lazy mounting cannot shift layout.
+  Suspense fallback, so lazy mounting cannot shift layout. Sections also **mount only when within
+  800px of the viewport** (IntersectionObserver in `Home.jsx`'s `Section`), so first load renders
+  ~360 DOM nodes instead of ~3,600. If you change a section's height, update its `height` pair.
+- `PackageCard` builds its flip-card back only after the first flip. Compact cards (homepage)
+  have no Quick View, so their backs never render.
+- Images: `resolveImageUrl` / `buildSrcSet` size bare Pexels and width-less Unsplash URLs to
+  WebP automatically (CMS editors paste camera-original Pexels links of 2–3 MB). URLs that
+  already set `w=` are left as authored.
+- GTM and the inline Meta Pixel (pixel `814339692478366`; GTM loads a *different* pixel,
+  `1414409276720807`) create their queues immediately but download their libraries after
+  `load` + idle via `window.__loadThirdParty` in `index.html`.
+- `index.css` defines metric-matched `"Poppins Fallback"` / `"Inter Fallback"` /
+  `"Playfair Fallback"` faces used in the Tailwind font stacks to prevent font-swap CLS.
+  Re-measure them if the families or weights in `index.html` change.
+- Lighthouse on `localhost:5173` measures the **dev server** (unminified, no caching) and is
+  not meaningful. Test a production build: `npm run build && npx vite preview`, then run
+  Lighthouse with Chrome flag `--disable-web-security` so the CMS loads without a CORS entry.
 - `index.html` preconnects to `cdn.sanity.io` and `<projectId>.apicdn.sanity.io`, and
-  `<link rel="preload" as="image">`s the hero image. That preload URL must stay in sync with
-  `HERO_FALLBACK_IMAGE` in `src/components/HeroSection.jsx` — the hero renders immediately with
-  that fallback rather than waiting on the CMS, which is what keeps LCP off the network path.
+  `<link rel="preload" as="image" imagesrcset>`s the hero image. The hero image is fixed
+  (`HERO_IMAGE` in `src/components/HeroSection.jsx`), not CMS-driven: swapping to the CMS banner
+  after load caused a flicker and a second full-width download. The preload's `href` and
+  `imagesrcset` must be **exactly** the URLs `buildSrcSet(HERO_IMAGE, { widths: HERO_WIDTHS })`
+  produces, or the browser downloads the image twice.
+- **The homepage is pre-rendered at build time and hydrated.** `npm run build` runs
+  `vite build` then `scripts/prerender.mjs`, which SSR-builds `src/entry-server.jsx`, renders
+  "/" with `renderToString`, and writes it into `dist/index.html` between the
+  `<!--app-root-->` markers as `<div id="root" data-prerendered>`. `main.jsx` hydrates when
+  that attribute is present (one animation frame after load, so the HTML paints first) and
+  client-renders otherwise. Every URL is served the same `index.html`, so an inline script
+  after `#root` swaps the pre-rendered markup for the boot skeleton on any path but "/".
+  Rules this imposes:
+  - The first client render of the eager tree (App shell, Header, Footer, Home, HeroSection
+    and what they render) **must match the server render**. Anything that depends on the
+    browser — saved theme, viewport, motion preference, the clock, `localStorage` — must
+    render the server default while `renderingPrerender()` (`src/lib/hydration.js`) is true
+    and switch in an effect. Existing examples: `useTheme`, `useIsDesktop` in Header,
+    HeroSection's `skipIntro`, Footer's year, App's floating buttons.
+  - Don't read `window`/`document` at module scope or during render in those components
+    without a guard; the build renders them in Node.
+  - `hydration.active` is cleared in **Home's** effect, not App's: React hydrates the routes'
+    Suspense boundary (which holds the hero) after the shell has committed.
+  - To debug a hydration mismatch, build with
+    `NODE_ENV=development npx vite build --mode development --minify false && node scripts/prerender.mjs`
+    and read the console; production React only prints error codes (#418/#425/#422).
+  - The router lives in the entry points (`BrowserRouter` in main.jsx, `StaticRouter` in
+    entry-server.jsx), not in App.
+- `main.jsx` prefetches the homepage package query (`homepagePackagesQuery` in
+  `src/hooks/queries.js`) before render, so it runs in parallel with React and the lazy chunk.
+- Device-gated code: the desktop menu (`DesktopNav.jsx`, carries Radix NavigationMenu) only
+  loads at `min-width: 1024px`; Lenis is dynamically imported and skipped on touch devices and
+  reduced motion; the three.js globe mounts only when scrolled near and the browser is idle.
 - PWA via `vite-plugin-pwa`. Precache is scoped to the app shell only (entry + vendor chunks +
   CSS); runtime caching covers Google Fonts, Unsplash and Pexels.
 - Terser drops console.log in production. No SSR — fully client-rendered SPA.
@@ -133,7 +184,7 @@ See `DESIGN.md` for the full UI/UX revamp specifications. Key constraints:
 - Primary CTA color: `#FF5B04` (orange) — reserved for primary actions only
 - Background: off-white (`#f8fafc` to `#f1f5f9`), never pure white for main bg
 - Cards: `rounded-2xl`, `shadow-md` resting / `shadow-xl` hover with `hover:-translate-y-1`
-- **Animation System (Magic UI + Lenis)**: Defined in `.claude/skills/tg-magic-animations/SKILL.md`. Uses `lenis` for inertial smooth scrolling, `framer-motion` spring physics, and Magic UI primitives in `src/components/magicui/` (`ShimmerButton`, `NumberTicker`, `Globe`, `Marquee`).
+- **Animation System (Magic UI + Lenis)**: Defined in `.claude/skills/tg-magic-animations/SKILL.md`. Uses `lenis` for inertial smooth scrolling (desktop mouse wheel only), `framer-motion` spring physics, and Magic UI primitives in `src/components/magicui/` (`ShimmerButton`, `NumberTicker`, `Globe`, `Marquee`).
 - All data-fetching states must use skeleton loaders, never spinners or blank screens.
   **Partially met:** the route-level fallback and the homepage sections use skeletons, but
   `Hotels.jsx`, `HotelDetail.jsx`, `DestinationList.jsx`, `DestinationDetail.jsx` and

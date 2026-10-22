@@ -97,7 +97,9 @@ function localLeadWebhookApi() {
 // }
 
 // https://vite.dev/config/
-export default defineConfig({
+// `isSsrBuild` is the build-time pre-render bundle (scripts/prerender.mjs). It keeps
+// node_modules external, so the browser chunk split below does not apply to it.
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
     localLeadWebhookApi(),
     // injectCSPMetaTag(), // Disabled - CSP handled by .htaccess
@@ -146,7 +148,7 @@ export default defineConfig({
     // Enable code splitting
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: isSsrBuild ? undefined : {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           // framer-motion and lucide are needed by the eager Header, so they are
           // critical. Swiper is not - leaving it unlisted lets it ride along with the
@@ -225,4 +227,4 @@ export default defineConfig({
       overlay: false
     }
   }
-})
+}))

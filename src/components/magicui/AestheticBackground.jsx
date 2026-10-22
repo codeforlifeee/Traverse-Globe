@@ -11,8 +11,9 @@ import DotPattern from "./DotPattern";
  *
  * Colours come from the --c-* theme channels, so teal shifts with the theme like
  * everything else. Orbs are soft radial gradients rather than `filter: blur`, which
- * keeps the layer cheap to composite; the slow drift animates transform only and is
- * gated behind `motion-safe:` so reduced motion gets a static canvas.
+ * keeps the layer cheap to composite. They are deliberately static: this layer sits
+ * behind every translucent section on the site, so any motion here forces the whole
+ * viewport to repaint on every frame.
  *
  * The layer is `fixed`, so it shows through wherever a page or section uses a
  * translucent backdrop. An opaque full-width wrapper (bg-brand-canvas, bg-surface)
@@ -30,25 +31,25 @@ const AestheticBackground = memo(() => {
     >
       {/* ── 1. Sunset orange horizon, top right ── */}
       <div
-        className="absolute -top-[22%] -right-[12%] h-[70vmax] w-[70vmax] rounded-full opacity-100 dark:opacity-70 will-change-transform motion-safe:animate-orb-drift"
+        className="absolute -top-[22%] -right-[12%] h-[70vmax] w-[70vmax] rounded-full opacity-100 dark:opacity-70"
         style={{ background: orb("--c-orange", 0.3) }}
       />
 
       {/* ── 2. Coastal teal, left, mid-viewport ── */}
       <div
-        className="absolute top-[18%] -left-[22%] h-[65vmax] w-[65vmax] rounded-full opacity-100 dark:opacity-90 will-change-transform motion-safe:animate-orb-drift-slow"
+        className="absolute top-[18%] -left-[22%] h-[65vmax] w-[65vmax] rounded-full opacity-100 dark:opacity-90"
         style={{ background: orb("--c-teal", 0.26) }}
       />
 
       {/* ── 3. Warm dusk, bottom right — the lower half of the screen was bare ── */}
       <div
-        className="absolute -bottom-[30%] right-[8%] h-[60vmax] w-[60vmax] rounded-full opacity-90 dark:opacity-60 will-change-transform motion-safe:animate-orb-drift-reverse"
+        className="absolute -bottom-[30%] right-[8%] h-[60vmax] w-[60vmax] rounded-full opacity-90 dark:opacity-60"
         style={{ background: orb("--c-orange", 0.22) }}
       />
 
       {/* ── 4. Teal haze, bottom left, ties the two hues together ── */}
       <div
-        className="absolute -bottom-[25%] -left-[10%] h-[45vmax] w-[45vmax] rounded-full opacity-80 dark:opacity-70 will-change-transform motion-safe:animate-orb-drift-slow"
+        className="absolute -bottom-[25%] -left-[10%] h-[45vmax] w-[45vmax] rounded-full opacity-80 dark:opacity-70"
         style={{ background: orb("--c-teal", 0.2) }}
       />
 

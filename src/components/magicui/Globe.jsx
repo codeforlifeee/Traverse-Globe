@@ -149,6 +149,13 @@ export const FLIGHT_ROUTES = [
   { id: "jai", from: LOCATIONS.DEL, to: LOCATIONS.JAI, duration: "≈ 0h 55m", note: "Royal heritage hop", category: "domestic" },
 ];
 
+// Only the network the site actually sells is drawn. Every route and airport is its
+// own set of transparent draw calls, and the "global" ones (destinations we don't
+// sell) were about two thirds of the scene. Drop this filter to show them again.
+const isSold = (loc) => loc.type !== "global";
+const SHOWN_ROUTES = FLIGHT_ROUTES.filter((r) => isSold(r.from) && isSold(r.to));
+const SHOWN_LOCATIONS = Object.values(LOCATIONS).filter(isSold);
+
 const EARTH_RADIUS = 2.0;
 const CLOUD_RADIUS = EARTH_RADIUS + 0.018;
 const HALO_RADIUS = EARTH_RADIUS + 0.22;
@@ -556,12 +563,15 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
     camera.position.set(0, 0, DEFAULT_DIST);
 
+    // Phones already render at DPR 2–3, where MSAA buys little and costs a lot of
+    // fill rate; the 1.5 cap keeps the canvas sharp at its ~370px display size.
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: !coarsePointer,
       alpha: true,
       powerPreference: "high-performance",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(width, height, false);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
@@ -588,7 +598,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
 
     // ── 3. Earth ──
     const textureLoader = new THREE.TextureLoader();
-    const maxAniso = renderer.capabilities.getMaxAnisotropy();
+    const maxAniso = Math.min(4, renderer.capabilities.getMaxAnisotropy());
     const loadTexture = (url, onLoad, onError) =>
       textureLoader.load(
         url,
@@ -604,23 +614,34 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
         () => !disposed && onError?.()
       );
 
+    // 1×1 stand-ins so both spheres are built with a `map` from the start. Adding a map
+    // later changes the shader program, which forced a second synchronous compile
+    // the moment each texture landed; swapping one texture for another does not.
+    const placeholder = (r, g, b, a) => {
+      const tex = new THREE.DataTexture(new Uint8Array([r, g, b, a]), 1, 1);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.needsUpdate = true;
+      return tex;
+    };
+
     // Deep navy until the texture streams in.
     const earthMat = new THREE.MeshStandardMaterial({
-      color: 0x0b2a5b,
+      map: placeholder(0x0b, 0x2a, 0x5b, 0xff),
       roughness: 0.65,
       metalness: 0.1,
     });
     earthMat.onBeforeCompile = gradeEarthShader;
-    const earthMesh = new THREE.Mesh(new THREE.SphereGeometry(EARTH_RADIUS, 96, 96), earthMat);
+    const earthMesh = new THREE.Mesh(new THREE.SphereGeometry(EARTH_RADIUS, 64, 64), earthMat);
     earthGroup.add(earthMesh);
 
+    // 2048×1024 is the most the ~370px canvas can resolve even at max zoom; the old
+    // 4096 map was ~45MB of GPU memory once mipmapped.
     loadTexture(
-      "/assets/images/earth-blue-marble.jpg",
+      "/assets/images/earth-blue-marble.webp",
       (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
+        earthMat.map.dispose();
         earthMat.map = tex;
-        earthMat.color.setHex(0xffffff);
-        earthMat.needsUpdate = true;
         setReady(true);
       },
       // The navy sphere still carries the routes; reveal it rather than hang on the skeleton.
@@ -629,29 +650,28 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
 
     // ── 4. Drifting cloud deck ──
     const cloudMat = new THREE.MeshStandardMaterial({
+      map: placeholder(0xff, 0xff, 0xff, 0x00),
       transparent: true,
       opacity: 0.85,
       depthWrite: false,
       roughness: 1,
       metalness: 0,
     });
-    const cloudMesh = new THREE.Mesh(new THREE.SphereGeometry(CLOUD_RADIUS, 96, 96), cloudMat);
-    cloudMesh.visible = false;
+    const cloudMesh = new THREE.Mesh(new THREE.SphereGeometry(CLOUD_RADIUS, 64, 64), cloudMat);
     cloudMesh.renderOrder = 1;
     earthGroup.add(cloudMesh);
 
     // White texels with real alpha, so normal blending rather than additive.
-    loadTexture("/assets/images/earth-clouds.png", (tex) => {
+    loadTexture("/assets/images/earth-clouds.webp", (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
+      cloudMat.map.dispose();
       cloudMat.map = tex;
-      cloudMat.needsUpdate = true;
-      cloudMesh.visible = true;
     });
 
     // ── 5. Atmosphere: inner Fresnel rim + outer halo ──
     const atmosphereColor = new THREE.Color(COLOR_ATMOSPHERE);
     const rimMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(EARTH_RADIUS + 0.03, 64, 64),
+      new THREE.SphereGeometry(EARTH_RADIUS + 0.03, 48, 48),
       new THREE.ShaderMaterial({
         ...RimShader,
         uniforms: { uColor: { value: atmosphereColor } },
@@ -664,7 +684,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     scene.add(rimMesh);
 
     const haloMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(HALO_RADIUS, 64, 64),
+      new THREE.SphereGeometry(HALO_RADIUS, 48, 48),
       new THREE.ShaderMaterial({
         ...HaloShader,
         uniforms: { uColor: { value: atmosphereColor } },
@@ -679,7 +699,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     // ── 6. Flight arcs ──
     // Tubes rather than Lines: WebGL ignores linewidth, so a 1px line is all a Line can be.
     const routes = new Map();
-    FLIGHT_ROUTES.forEach((route) => {
+    SHOWN_ROUTES.forEach((route) => {
       const curve = buildRouteCurve(route.from, route.to);
       const isActive = route.id === initialRouteRef.current;
       const material = new THREE.ShaderMaterial({
@@ -695,7 +715,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
         transparent: true,
         depthWrite: false,
       });
-      const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 96, 0.011, 8, false), material);
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 64, 0.011, 6, false), material);
       tube.renderOrder = 3;
       earthGroup.add(tube);
       routes.set(route.id, {
@@ -762,7 +782,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     const pinActive = new THREE.Color(COLOR_ORANGE);
     const hitTargets = [];
 
-    const airports = Object.values(LOCATIONS).map((loc) => {
+    const airports = SHOWN_LOCATIONS.map((loc) => {
       const base = latLngToVec3(loc.lat, loc.lng, EARTH_RADIUS, PIN_ALTITUDE);
       const normal = base.clone().normalize();
       const baseColor = new THREE.Color(loc.colorHex || 0x38bdf8);
@@ -974,7 +994,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
         if (hits.length > 0) {
           const clickedCode = hits[0].object.userData.code;
           // Find matching route for this destination
-          const targetRoute = FLIGHT_ROUTES.find(
+          const targetRoute = SHOWN_ROUTES.find(
             (r) => r.to.code === clickedCode || r.from.code === clickedCode
           );
           if (targetRoute) {
@@ -1054,6 +1074,9 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     const left = new THREE.Vector3();
     const basis = new THREE.Matrix4();
     const side = new THREE.Vector3();
+    const worldPos = new THREE.Vector3();
+    // The camera only dollies along +Z and never rotates, so "towards the camera" is fixed.
+    const toCamera = new THREE.Vector3(0, 0, 1);
     let bank = 0;
     let elapsed = 0;
     let lastFrame = performance.now();
@@ -1180,13 +1203,11 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
         u.uHead.value = route === currentRoute ? head : -1;
       });
 
-      const endpoints = [currentRoute.from.code, currentRoute.to.code];
-      const cameraDir = new THREE.Vector3();
-      camera.getWorldDirection(cameraDir);
-      const toCamera = cameraDir.clone().negate();
+      const fromCode = currentRoute.from.code;
+      const toCode = currentRoute.to.code;
 
       airports.forEach((a) => {
-        const isActiveEndpoint = endpoints.includes(a.code);
+        const isActiveEndpoint = a.code === fromCode || a.code === toCode;
         a.mix += ((isActiveEndpoint ? 1 : 0) - a.mix) * (reduced ? 1 : mixRate);
         a.pinMat.color.copy(a.baseColor).lerp(pinActive, a.mix);
         a.glow.material.color.copy(a.pinMat.color);
@@ -1203,7 +1224,7 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
         });
 
         // Facing test: check if location is on front hemisphere towards camera
-        const worldPos = a.base.clone().applyQuaternion(earthGroup.quaternion).normalize();
+        worldPos.copy(a.base).applyQuaternion(earthGroup.quaternion).normalize();
         const facing = worldPos.dot(toCamera);
 
         // Active bold billboard label (for current route endpoints)
@@ -1230,8 +1251,9 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
 
     // Only animate while the globe is on screen and the tab is visible.
     let inView = true;
+    let compiled = false;
     const start = () => {
-      if (animId || disposed || !inView || document.hidden) return;
+      if (animId || disposed || !compiled || !inView || document.hidden) return;
       lastFrame = performance.now();
       animId = requestAnimationFrame(frame);
     };
@@ -1247,7 +1269,17 @@ export default function Globe({ className, activeRoute = "dxb", onSelectRoute })
     intersection.observe(mount);
     const onVisibility = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", onVisibility);
-    start();
+
+    // Compile every shader program before the first frame, in parallel where the
+    // driver supports KHR_parallel_shader_compile. A plain first render compiled
+    // them all synchronously in one long main-thread task.
+    renderer
+      .compileAsync(scene, camera)
+      .catch(() => {})
+      .finally(() => {
+        compiled = true;
+        start();
+      });
 
     // ── 12. Resize ──
     const resize = new ResizeObserver(() => {

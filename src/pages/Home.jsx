@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { hydration } from '@/lib/hydration';
 import HeroSection from '../components/HeroSection';
 import { DUBAI_COLLECTIONS, DUBAI_COLLECTION_TABS } from '../data/dubaiCollections';
 
@@ -22,16 +23,48 @@ const HomeFAQ             = lazy(() => import('../components/revamp/HomeFAQ'));
  * and the Suspense placeholder through the .lazy-section CSS variables, so the
  * reserved box matches the real one and lazy mounting cannot shift the page.
  * Values are measured rendered heights (390px and 1366px viewports).
+ *
+ * Children mount only once the box comes within MOUNT_MARGIN of the viewport.
+ * content-visibility skips painting off-screen sections, but React still rendered
+ * all nine on load and the browser still styled every node, which was the bulk of
+ * mobile blocking time and delayed the hero headline (the mobile LCP element).
+ * Once mounted a section stays mounted.
  */
-const Section = ({ height: [mobile, desktop], children }) => (
-  <div className="lazy-section" style={{ '--h-m': `${mobile}px`, '--h-d': `${desktop}px` }}>
-    <Suspense fallback={<div className="lazy-section-fallback" aria-hidden="true" />}>
-      {children}
-    </Suspense>
-  </div>
-);
+const MOUNT_MARGIN = '800px 0px';
+
+const Section = ({ height: [mobile, desktop], children }) => {
+  const ref = useRef(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || mounted) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setMounted(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: MOUNT_MARGIN });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [mounted]);
+
+  const placeholder = <div className="lazy-section-fallback" aria-hidden="true" />;
+  return (
+    <div ref={ref} className="lazy-section" style={{ '--h-m': `${mobile}px`, '--h-d': `${desktop}px` }}>
+      {mounted ? <Suspense fallback={placeholder}>{children}</Suspense> : placeholder}
+    </div>
+  );
+};
 
 const Home = () => {
+  // The pre-rendered hero sits inside the routes' Suspense boundary, which React
+  // hydrates only after committing the outer shell. Home's effect runs once the hero
+  // has hydrated, so this is the point where pre-render matching can stop.
+  useEffect(() => {
+    hydration.active = false;
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* ── Hero: headline + CTAs + horizontal lead bar ── */}

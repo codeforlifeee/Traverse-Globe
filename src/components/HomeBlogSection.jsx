@@ -69,7 +69,7 @@ export default function HomeBlogSection() {
 
   if (isPending) {
     return (
-      <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
+      <section className="section-y bg-brand-canvas/50">
         <div className="container-custom">
           <SkeletonList count={4} columns={4} />
         </div>
@@ -80,7 +80,7 @@ export default function HomeBlogSection() {
   const posts = postsData.length >= 3 ? postsData.slice(0, 4) : FALLBACK_POSTS;
 
   return (
-    <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
+    <section className="section-y bg-brand-canvas/50">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 md:mb-8">

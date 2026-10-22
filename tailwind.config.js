@@ -12,9 +12,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'season': ['"The Seasons"', '"Playfair Display"', 'serif'],
-        'poppins': ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        'canva-sans': ['"Canva Sans"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Each "<X> Fallback" is a metric-matched local font defined in index.css: the
+        // Arial-based face first, then the Roboto-based one for Android (no Arial there).
+        'season': ['"The Seasons"', '"Playfair Display"', '"Playfair Fallback"', 'serif'],
+        'poppins': ['Poppins', '"Poppins Fallback"', '"Poppins Fallback Android"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'canva-sans': ['"Canva Sans"', 'Inter', '"Inter Fallback"', '"Inter Fallback Android"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Revamp type scale — see REVAMP_PLAN §6.2
@@ -111,12 +113,9 @@ export default {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
         'bounce-slow': 'bounce 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
-        'ken-burns': 'kenBurns 16s ease-in-out infinite alternate',
-        // Ambient background orbs (AestheticBackground). Long, offset periods so the
-        // orbs never visibly sync up; transform-only so it stays on the compositor.
-        'orb-drift': 'orbDrift 38s ease-in-out infinite alternate',
-        'orb-drift-slow': 'orbDrift 52s ease-in-out infinite alternate',
-        'orb-drift-reverse': 'orbDrift 44s ease-in-out infinite alternate-reverse',
+        // Plays once and holds. Looping it kept the hero's backdrop-blur chips
+        // re-filtering every frame for as long as the page was open.
+        'ken-burns': 'kenBurns 16s ease-out both',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "shimmer-slide": "shimmer-slide var(--speed) ease-in-out infinite alternate",
@@ -132,11 +131,6 @@ export default {
         fadeIn: {
           'from': { opacity: '0' },
           'to': { opacity: '1' },
-        },
-        orbDrift: {
-          '0%': { transform: 'translate3d(0, 0, 0) scale(1)' },
-          '50%': { transform: 'translate3d(-6%, 4%, 0) scale(1.06)' },
-          '100%': { transform: 'translate3d(4%, -3%, 0) scale(0.96)' },
         },
         kenBurns: {
           '0%': { transform: 'scale(1) translate(0,0)' },

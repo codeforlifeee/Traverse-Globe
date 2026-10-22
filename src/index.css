@@ -4,6 +4,177 @@
    If you have a licensed webfont, add it via @font-face; otherwise
    our tailwind config falls back to Inter/system fonts. */
 
+/* Metric-matched fallbacks, one face per weight. The homepage hero is pre-rendered and
+   paints before the Google webfonts arrive; without these the swap re-wrapped the hero
+   and shifted the lead bar (CLS). Each face points a local system font of the same
+   weight at the webfont's advance width (size-adjust) and vertical metrics, so the swap
+   barely moves anything. "Android" variants are measured against Roboto, because
+   Android has no Arial and most of this audience is on Android phones.
+   Values were measured in Chrome against the real webfonts (Arial/Roboto/Times New
+   Roman, same weight); re-measure if the families or weights in index.html change. */
+@font-face {
+  font-family: "Poppins Fallback";
+  font-weight: 400;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 108.68%;
+  ascent-override: 96.62%;
+  descent-override: 32.21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback";
+  font-weight: 500;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 110.12%;
+  ascent-override: 95.35%;
+  descent-override: 31.78%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback";
+  font-weight: 600;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 104.79%;
+  ascent-override: 100.2%;
+  descent-override: 33.4%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback";
+  font-weight: 700;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 105.79%;
+  ascent-override: 99.25%;
+  descent-override: 33.08%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback Android";
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular");
+  size-adjust: 110.68%;
+  ascent-override: 94.87%;
+  descent-override: 31.62%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback Android";
+  font-weight: 500;
+  src: local("Roboto Medium"), local("Roboto-Medium");
+  size-adjust: 110.85%;
+  ascent-override: 94.72%;
+  descent-override: 31.57%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback Android";
+  font-weight: 600;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 110.69%;
+  ascent-override: 94.86%;
+  descent-override: 31.62%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Poppins Fallback Android";
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 111.74%;
+  ascent-override: 93.97%;
+  descent-override: 31.32%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  font-weight: 400;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 105.54%;
+  ascent-override: 91.91%;
+  descent-override: 22.74%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  font-weight: 500;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 106.55%;
+  ascent-override: 91.04%;
+  descent-override: 22.53%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  font-weight: 600;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 101.49%;
+  ascent-override: 95.58%;
+  descent-override: 23.65%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  font-weight: 700;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 102.43%;
+  ascent-override: 94.7%;
+  descent-override: 23.43%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback Android";
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular");
+  size-adjust: 107.49%;
+  ascent-override: 90.24%;
+  descent-override: 22.33%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback Android";
+  font-weight: 500;
+  src: local("Roboto Medium"), local("Roboto-Medium");
+  size-adjust: 107.25%;
+  ascent-override: 90.44%;
+  descent-override: 22.38%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback Android";
+  font-weight: 600;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 107.2%;
+  ascent-override: 90.49%;
+  descent-override: 22.39%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback Android";
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 108.19%;
+  ascent-override: 89.66%;
+  descent-override: 22.18%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Playfair Fallback";
+  font-weight: 600;
+  src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT");
+  size-adjust: 104.31%;
+  ascent-override: 103.54%;
+  descent-override: 23.97%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Playfair Fallback";
+  font-weight: 700;
+  src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT");
+  size-adjust: 105.46%;
+  ascent-override: 102.41%;
+  descent-override: 23.71%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -520,7 +691,10 @@ html {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    /* `none` rather than a 0.01ms duration: with the default `transition-property: all`
+       that turned every JS style write (e.g. the rail thumb's width) into a transition.
+       Nothing in src listens for transitionend. */
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 }

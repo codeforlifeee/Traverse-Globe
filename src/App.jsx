@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense, lazy, memo } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy, memo, useEffect, useState } from 'react';
+import { renderingPrerender } from './lib/hydration';
 import ErrorBoundary from './components/ErrorBoundary';
 import SmoothScroll from './components/providers/SmoothScroll';
 import AestheticBackground from './components/magicui/AestheticBackground';
@@ -73,9 +74,16 @@ LoadingFallback.displayName = 'LoadingFallback';
 // interruption trained users to dismiss before they knew what we sell. Replaced
 // by a scroll-triggered soft toast on detail pages only (added in Phase 2).
 
+// The router is supplied by the entry point: BrowserRouter in main.jsx, StaticRouter
+// in entry-server.jsx (build-time pre-render of the homepage).
 function App() {
+  // A lazy component cannot be rendered at build time, so the floating buttons are
+  // left out of the pre-rendered HTML (and so of hydration) and mount right after.
+  const [showFloating, setShowFloating] = useState(() => !renderingPrerender());
+  useEffect(() => setShowFloating(true), []);
+
   return (
-    <Router>
+    <>
       <ErrorBoundary>
       <SmoothScroll>
       <ScrollToTop />
@@ -157,13 +165,15 @@ function App() {
           </Suspense>
         </main>
         <Footer />
-        <Suspense fallback={null}>
-          <FloatingButtons />
-        </Suspense>
+        {showFloating && (
+          <Suspense fallback={null}>
+            <FloatingButtons />
+          </Suspense>
+        )}
       </div>
       </SmoothScroll>
       </ErrorBoundary>
-      </Router>
+    </>
   );
 }
 

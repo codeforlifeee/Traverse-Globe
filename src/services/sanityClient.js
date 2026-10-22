@@ -3,23 +3,62 @@
  * This file sets up the Sanity client for fetching data from Sanity CMS
  */
 
-import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 
-// Initialize Sanity client
-const sanityClient = createClient({
+const config = {
   projectId: import.meta.env?.VITE_SANITY_PROJECT_ID || process.env.VITE_SANITY_PROJECT_ID,
   dataset: import.meta.env?.VITE_SANITY_DATASET || process.env.VITE_SANITY_DATASET || 'production',
   apiVersion: import.meta.env?.VITE_SANITY_API_VERSION || process.env.VITE_SANITY_API_VERSION || '2024-01-01',
   useCdn: import.meta.env?.PROD ?? (process.env.NODE_ENV === 'production'),
-  perspective: 'published', // Only fetch published documents
-  stega: false, // Visual Editing is unused - drops the stega encoder from the bundle
-  // Note: token is intentionally omitted for browser security (read-only access)
-  // If you need write access, use a server-side endpoint instead
-});
+};
+
+// @sanity/client's own GET → POST switch point; past it, proxies start rejecting the URL.
+const MAX_GET_URL = 11264;
+
+/**
+ * Minimal read-only GROQ client.
+ *
+ * The browser only ever runs tokenless `fetch(query, params)` calls, so this talks to
+ * the HTTP query API directly instead of shipping @sanity/client, which with rxjs,
+ * get-it and tslib was ~200 KB of the entry chunk. Same endpoint, same CDN choice,
+ * same `published` perspective, and it resolves to `result` like client.fetch does.
+ * Write scripts in scripts/ still use @sanity/client with a token.
+ */
+const sanityClient = {
+  async fetch(query, params = {}) {
+    const host = `${config.projectId}.${config.useCdn ? 'apicdn' : 'api'}.sanity.io`;
+    const version = String(config.apiVersion).replace(/^v/, '');
+    const endpoint = `https://${host}/v${version}/data/query/${config.dataset}`;
+
+    const search = new URLSearchParams({ query, perspective: 'published', returnQuery: 'false' });
+    for (const [key, value] of Object.entries(params)) {
+      search.append(`$${key}`, JSON.stringify(value));
+    }
+
+    let url = `${endpoint}?${search}`;
+    let init;
+    if (url.length > MAX_GET_URL) {
+      // POST bypasses the API CDN, so only very long queries take this path.
+      url = `${endpoint}?perspective=published&returnQuery=false`;
+      init = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, params }),
+      };
+    }
+
+    const res = await fetch(url, init);
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      const detail = body?.error?.description || body?.message || res.statusText;
+      throw new Error(`Sanity query failed (${res.status}): ${detail}`);
+    }
+    return body?.result;
+  },
+};
 
 // Initialize image URL builder
-const builder = createImageUrlBuilder(sanityClient);
+const builder = createImageUrlBuilder({ projectId: config.projectId, dataset: config.dataset });
 
 /**
  * Helper function to generate optimized image URLs

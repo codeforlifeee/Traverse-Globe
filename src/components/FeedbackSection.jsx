@@ -188,7 +188,7 @@ const DESTINATION_FALLBACK_PHOTOS = {
 
   if (isPending) {
     return (
-      <section className="section-y bg-surface/65 backdrop-blur-[2px]">
+      <section className="section-y bg-surface/75">
         <div className="container-custom">
           <SkeletonList count={3} columns={3} />
         </div>
@@ -199,7 +199,7 @@ const DESTINATION_FALLBACK_PHOTOS = {
   if (!allTestimonials.length) return null;
 
   return (
-    <section className="section-y bg-surface/65 backdrop-blur-[2px] overflow-hidden">
+    <section className="section-y bg-surface/75 overflow-hidden">
       {/* JSON-LD for SEO */}
       <script
         type="application/ld+json"

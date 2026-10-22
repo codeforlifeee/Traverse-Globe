@@ -28,6 +28,9 @@ export default function NumberTicker({
   suffix = "",
   useGrouping = true,
   springConfig,
+  // false renders the final figure with no count-up (used when the number arrived
+  // in pre-rendered HTML and is already on screen).
+  animate = true,
 }) {
   const ref = useRef(null);
   const reduceMotion = useReducedMotion();
@@ -43,7 +46,7 @@ export default function NumberTicker({
     }).format(Number(Number(n).toFixed(decimalPlaces)));
 
   useEffect(() => {
-    if (!isInView) return undefined;
+    if (!animate || !isInView) return undefined;
 
     // Counting up is motion; with the preference set, state the figure instead.
     if (reduceMotion) {
@@ -56,7 +59,7 @@ export default function NumberTicker({
     }, delay * 1000);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [motionValue, isInView, delay, value, direction, reduceMotion]);
+  }, [motionValue, isInView, delay, value, direction, reduceMotion, animate]);
 
   useEffect(
     () =>
@@ -73,7 +76,7 @@ export default function NumberTicker({
     <span className={cn("inline-block tabular-nums tracking-tight", className)} ref={ref}>
       {/* Formatted rather than a bare "0", so the first paint matches the shape
           of the final value (e.g. "0.0★", not "0★") and the width does not jump. */}
-      {`${prefix}${format(direction === "down" ? value : 0)}${suffix}`}
+      {`${prefix}${format(!animate || direction === "down" ? value : 0)}${suffix}`}
     </span>
   );
 }

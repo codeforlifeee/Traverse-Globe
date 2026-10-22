@@ -10,7 +10,7 @@ import SectionRule from './revamp/SectionRule';
  */
 export default function WhyChooseUs() {
   return (
-    <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
+    <section className="section-y bg-brand-canvas/50">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Column: Dubai copy + Guarantees + Call CTA (7/12) */}

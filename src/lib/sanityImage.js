@@ -19,9 +19,35 @@ export function isSanityImageRef(value) {
   );
 }
 
+const isPexels = (u) => u.includes('images.pexels.com');
+const isUnsplash = (u) => u.includes('images.unsplash.com');
+const join = (u) => (u.includes('?') ? '&' : '?');
+
+/**
+ * Pexels serves the camera original (up to ~5500px, 2–3 MB) unless asked otherwise,
+ * and CMS editors paste bare Pexels links. `auto=compress&cs=tinysrgb` + `w` + `fm=webp`
+ * is Pexels' own resize API; any params already on the URL are replaced.
+ */
+function pexelsAt(url, w) {
+  return `${url.split('?')[0]}?auto=compress&cs=tinysrgb&w=${w}&fm=webp`;
+}
+
+/**
+ * Sizes a plain external URL that carries no width of its own. URLs that already
+ * specify `w=` are left exactly as authored.
+ */
+function sizeExternal(url, w) {
+  if (isPexels(url) && !/[?&]w=\d+/.test(url)) return pexelsAt(url, w);
+  if (isUnsplash(url) && !/[?&]w=\d+/.test(url)) {
+    return `${url}${join(url)}auto=format&fit=crop&w=${w}&q=70&fm=webp`;
+  }
+  return url;
+}
+
 /**
  * Resolves any image source to a plain URL string.
- * - Plain string (existing data): returned as-is.
+ * - Plain string (existing data): returned as authored, except bare Pexels/Unsplash
+ *   links with no width, which are sized to `width` (default 800) as WebP.
  * - Sanity image reference object (new data): passed through urlFor().
  *
  * @param {string|Object} source
@@ -30,7 +56,7 @@ export function isSanityImageRef(value) {
  */
 export function resolveImageUrl(source, opts = {}) {
   if (!source) return '';
-  if (typeof source === 'string') return source;
+  if (typeof source === 'string') return sizeExternal(source, opts.width || 800);
   if (!isSanityImageRef(source)) return '';
 
   const { width = 800, height, quality = 75 } = opts;
@@ -64,8 +90,16 @@ export function buildSrcSet(source, opts = {}) {
     };
   }
 
-  // Plain URL string — preserve existing Unsplash param logic exactly
   const url = source;
+
+  if (isPexels(url)) {
+    return {
+      src: pexelsAt(url, fallbackWidth),
+      srcSet: widths.map((w) => `${pexelsAt(url, w)} ${w}w`).join(', '),
+    };
+  }
+
+  // Plain URL string — preserve existing Unsplash param logic exactly
   const addWebp = (u) =>
     u.includes('images.unsplash.com') && !/fm=/.test(u)
       ? `${u}${u.includes('?') ? '&' : '?'}fm=webp`

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ShieldCheck, Award, Lock } from 'lucide-react';
 import WhatsAppIcon from './icons/WhatsAppIcon';
 import { companyInfo } from '../data/companyInfo';
@@ -12,6 +13,11 @@ import Kicker from './revamp/Kicker';
  * starting a WhatsApp conversation. The trust-badge row stays.
  */
 const Footer = () => {
+  // Filled in after mount: the homepage is pre-rendered at build time, and the build's
+  // year must not be frozen into the HTML (or mismatch the visitor's clock on hydrate).
+  const [year, setYear] = useState(null);
+  useEffect(() => setYear(new Date().getFullYear()), []);
+
   const socials = [
     { href: companyInfo.social.facebook, label: 'Facebook', Icon: Facebook },
     { href: companyInfo.social.instagram, label: 'Instagram', Icon: Instagram },
@@ -28,7 +34,7 @@ const Footer = () => {
           {/* Brand + contact */}
           <div className="max-w-md">
             <img
-              src="/logo-white-text.png"
+              src="/logo-white-text.webp"
               alt={companyInfo.name}
               className="h-10 mb-5 object-contain"
               width="151"
@@ -131,7 +137,7 @@ const Footer = () => {
       <div className="border-t border-white/10">
         <div className="container-custom py-5 md:pr-24 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/60 font-canva-sans">
-            © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
+            © {year} {companyInfo.name}. All rights reserved.
           </p>
           <p className="text-xs text-white/60 font-canva-sans">
             Crafted with <span className="text-brand-orange">♥</span> for travellers in India &amp; the UAE

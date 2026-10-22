@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { CalendarDays, Plane, ShieldCheck, Wallet } from 'lucide-react';
 import Kicker from './Kicker';
@@ -23,6 +23,48 @@ import { cn } from '@/lib/utils';
 // globe slerp that corridor to face the viewer and relaunch the aircraft on it.
 const Globe = lazy(() => import('@/components/magicui/Globe'));
 
+/**
+ * True once `ref` comes within `rootMargin` of the viewport and the main thread is
+ * idle. Gates the globe: three.js plus its textures is the heaviest thing on the
+ * homepage, and without this it downloaded on every visit, scrolled to or not.
+ */
+function useNearViewportIdle(ref, rootMargin = '150px') {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || ready) return undefined;
+
+    let idleId = 0;
+    let timeoutId = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(() => setReady(true), { timeout: 1200 });
+      } else {
+        timeoutId = window.setTimeout(() => setReady(true), 200);
+      }
+    }, { rootMargin });
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (idleId) window.cancelIdleCallback(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, [ref, rootMargin, ready]);
+
+  return ready;
+}
+
+const GLOBE_PLACEHOLDER = (
+  <div
+    className="mx-auto aspect-square w-full max-w-[370px] animate-pulse rounded-full border border-brand-hairline bg-teal/5 ring-1 ring-inset ring-teal/10"
+    aria-hidden="true"
+  />
+);
+
 const FACTS = [
   { icon: CalendarDays, label: 'Best months', value: 'Nov – Mar' },
   { icon: Plane, label: 'Flight time', value: '3–4 hrs from Delhi' },
@@ -34,6 +76,8 @@ const SPRING = { type: 'spring', stiffness: 300, damping: 25, mass: 0.8 };
 
 export default function DubaiIntro() {
   const reduceMotion = useReducedMotion();
+  const globeSlotRef = useRef(null);
+  const showGlobe = useNearViewportIdle(globeSlotRef);
 
   // Transform is dropped entirely under reduced motion — a plain fade still
   // sequences the block without anything travelling across the screen.
@@ -120,17 +164,14 @@ export default function DubaiIntro() {
         >
           <div className="relative mx-auto w-full max-w-[420px] flex flex-col items-center">
             {/* The 3D globe */}
-            <div className="relative w-full">
-              <Suspense
-                fallback={
-                  <div
-                    className="mx-auto aspect-square w-full max-w-[370px] animate-pulse rounded-full border border-brand-hairline bg-teal/5 ring-1 ring-inset ring-teal/10"
-                    aria-hidden="true"
-                  />
-                }
-              >
-                <Globe className="mx-auto px-0" activeRoute="dxb" />
-              </Suspense>
+            <div ref={globeSlotRef} className="relative w-full">
+              {showGlobe ? (
+                <Suspense fallback={GLOBE_PLACEHOLDER}>
+                  <Globe className="mx-auto px-0" activeRoute="dxb" />
+                </Suspense>
+              ) : (
+                GLOBE_PLACEHOLDER
+              )}
             </div>
 
             <p className="mt-3 text-center font-canva-sans text-xs text-brand-muted-ink">

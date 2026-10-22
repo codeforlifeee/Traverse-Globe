@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { renderingPrerender } from '@/lib/hydration';
 
 /**
  * Theme state shared by every toggle instance.
@@ -56,7 +57,11 @@ function attachOsWatcher() {
 }
 
 export function useTheme() {
-  const [state, setState] = useState(() => ({ mode, isDark: resolve(mode) }));
+  // The pre-rendered homepage was built in the default (dark) theme; match it while
+  // hydrating, and the effect below switches to the stored theme straight after.
+  const [state, setState] = useState(() =>
+    renderingPrerender() ? { mode: 'dark', isDark: true } : { mode, isDark: resolve(mode) }
+  );
 
   useEffect(() => {
     attachOsWatcher();

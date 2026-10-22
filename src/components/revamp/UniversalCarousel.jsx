@@ -49,11 +49,11 @@ export default function UniversalCarousel({
   const item = riseItem(reduceMotion);
 
   const bgClass = {
-    white: 'bg-surface/65 backdrop-blur-[2px]',
-    canvas: 'bg-brand-canvas/40 backdrop-blur-[2px]',
-    'canvas-2': 'bg-brand-canvas-2/55 backdrop-blur-[2px]',
+    white: 'bg-surface/75',
+    canvas: 'bg-brand-canvas/50',
+    'canvas-2': 'bg-brand-canvas-2/65',
     transparent: 'bg-transparent',
-  }[bg] || 'bg-brand-canvas/40 backdrop-blur-[2px]';
+  }[bg] || 'bg-brand-canvas/50';
 
   const items = Children.toArray(children);
 

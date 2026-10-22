@@ -8,7 +8,7 @@ export default function CustomerGrid() {
 
   if (isPending) {
     return (
-      <section className="section-padding bg-brand-canvas-2/55 backdrop-blur-[2px]">
+      <section className="section-padding bg-brand-canvas-2/65">
         <div className="container-custom">
           <SkeletonList count={4} columns={4} />
         </div>
