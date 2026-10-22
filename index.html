@@ -56,25 +56,23 @@
     <link rel="apple-touch-icon" href="/logo.webp" />
     
     <!-- DNS Prefetch for faster third-party connections -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     
     <!-- Preconnect ONLY to most critical origins (limit to 4). cdn.sanity.io serves only
-         below-the-fold native image assets, so it gets the dns-prefetch above instead. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+         below-the-fold native image assets, so it gets the dns-prefetch above instead.
+         Fonts are self-hosted, so they need no connection of their own. -->
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://xe1685rk.apicdn.sanity.io" crossorigin />
     
     <!-- LCP hero image. These URLs must be exactly what buildSrcSet(HERO_IMAGE, { widths: HERO_WIDTHS })
-         produces in src/components/HeroSection.jsx; any mismatch and the browser downloads both. -->
+         produces in src/components/HeroSection.jsx; any mismatch and the browser downloads both.
+         No fm=: Unsplash's auto=format picks AVIF/WebP/JPEG from the Accept header. -->
     <link rel="preload" as="image" fetchpriority="high"
-          href="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60&fm=webp"
-          imagesrcset="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=640&q=60&fm=webp 640w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60&fm=webp 960w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1280&q=60&fm=webp 1280w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=60&fm=webp 1920w"
+          href="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60"
+          imagesrcset="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=640&q=60 640w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=768&q=60 768w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=960&q=60 960w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1280&q=60 1280w, https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=60 1920w"
           imagesizes="100vw" />
 
   <!-- Critical inline CSS for above-the-fold content -->
@@ -96,11 +94,15 @@
       [data-route-other] #root[data-prerendered]{visibility:hidden}
     </style>
     
-    <!-- Optimized fonts with font-display: swap -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" />
-    </noscript>
+    <!-- Self-hosted fonts (@font-face in src/index.css). Preload only the faces the
+         pre-rendered hero paints with, so its first paint is usually already in the real
+         fonts and the swap cannot shift the hero (that swap was PageSpeed's CLS culprit).
+         Keep these paths in sync with public/fonts and the @font-face rules. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-400-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-500-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-600-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-700-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var-latin.woff2" crossorigin />
     
     <!-- Third-party tag loader. GTM and the Meta Pixel cost ~0.9s of main thread on a
          mid-range phone, and they used to run while the page itself was booting. Their

@@ -136,19 +136,22 @@ export default function DubaiIntro() {
             {FACTS.map(({ icon: Icon, label, value }) => (
               // Icon beside the text rather than stacked above it — same information
               // in roughly half the height, so the facts don't dominate the column.
+              // A <dl> group may only hold <dt>/<dd>, so the icon lives inside the <dt>,
+              // absolutely positioned into the left padding (14px + 36px icon + 12px gap).
               <div
                 key={label}
-                className="flex items-center gap-3 rounded-2xl border border-brand-hairline bg-surface px-3.5 py-3"
+                className="relative flex min-h-[60px] min-w-0 flex-col justify-center rounded-2xl border border-brand-hairline bg-surface py-3 pl-[62px] pr-3.5"
               >
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-orange/10">
-                  <Icon className="h-[18px] w-[18px] text-brand-orange" />
-                </span>
-                <div className="min-w-0">
-                  <dt className="text-[10px] font-poppins font-semibold uppercase tracking-widest text-brand-muted-ink">
-                    {label}
-                  </dt>
-                  <dd className="mt-0.5 font-poppins font-bold text-sm md:text-[15px] text-brand-ink leading-snug">{value}</dd>
-                </div>
+                <dt className="text-[10px] font-poppins font-semibold uppercase tracking-widest text-brand-muted-ink">
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-3.5 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-orange/10"
+                  >
+                    <Icon className="h-[18px] w-[18px] text-brand-orange" />
+                  </span>
+                  {label}
+                </dt>
+                <dd className="mt-0.5 font-poppins font-bold text-sm md:text-[15px] text-brand-ink leading-snug">{value}</dd>
               </div>
             ))}
           </motion.dl>

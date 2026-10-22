@@ -14,9 +14,12 @@ export default {
       fontFamily: {
         // Each "<X> Fallback" is a metric-matched local font defined in index.css: the
         // Arial-based face first, then the Roboto-based one for Android (no Arial there).
-        'season': ['"The Seasons"', '"Playfair Display"', '"Playfair Fallback"', 'serif'],
+        // The class names are historical: "The Seasons" and "Canva Sans" were never
+        // loaded anywhere, so they are gone from the stacks (each missing family cost a
+        // system font lookup). font-season is Playfair Display, font-canva-sans is Inter.
+        'season': ['"Playfair Display"', '"Playfair Fallback"', 'serif'],
         'poppins': ['Poppins', '"Poppins Fallback"', '"Poppins Fallback Android"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        'canva-sans': ['"Canva Sans"', 'Inter', '"Inter Fallback"', '"Inter Fallback Android"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'canva-sans': ['Inter', '"Inter Fallback"', '"Inter Fallback Android"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Revamp type scale — see REVAMP_PLAN §6.2

@@ -4,7 +4,8 @@ import { urlFor } from '@/services/sanityClient';
 export const CARD_WIDTHS = [400, 640, 900];
 
 /** Wider ladder for full-bleed imagery (hero, banners) on hi-dpi desktops. */
-export const HERO_WIDTHS = [640, 960, 1280, 1920];
+// 768 fits the common 390-412px phones at ~1.75-2x DPR, which otherwise jumped to 960.
+export const HERO_WIDTHS = [640, 768, 960, 1280, 1920];
 
 /**
  * Returns true if value is a Sanity native image reference object.
@@ -25,11 +26,11 @@ const join = (u) => (u.includes('?') ? '&' : '?');
 
 /**
  * Pexels serves the camera original (up to ~5500px, 2–3 MB) unless asked otherwise,
- * and CMS editors paste bare Pexels links. `auto=compress&cs=tinysrgb` + `w` + `fm=webp`
+ * and CMS editors paste bare Pexels links. `auto=compress,format&cs=tinysrgb` + `w`
  * is Pexels' own resize API; any params already on the URL are replaced.
  */
 function pexelsAt(url, w) {
-  return `${url.split('?')[0]}?auto=compress&cs=tinysrgb&w=${w}&fm=webp`;
+  return `${url.split('?')[0]}?auto=compress,format&cs=tinysrgb&w=${w}`;
 }
 
 /**
@@ -39,7 +40,7 @@ function pexelsAt(url, w) {
 function sizeExternal(url, w) {
   if (isPexels(url) && !/[?&]w=\d+/.test(url)) return pexelsAt(url, w);
   if (isUnsplash(url) && !/[?&]w=\d+/.test(url)) {
-    return `${url}${join(url)}auto=format&fit=crop&w=${w}&q=70&fm=webp`;
+    return `${url}${join(url)}auto=format&fit=crop&w=${w}&q=70`;
   }
   return url;
 }
@@ -99,18 +100,18 @@ export function buildSrcSet(source, opts = {}) {
     };
   }
 
-  // Plain URL string — preserve existing Unsplash param logic exactly
-  const addWebp = (u) =>
-    u.includes('images.unsplash.com') && !/fm=/.test(u)
-      ? `${u}${u.includes('?') ? '&' : '?'}fm=webp`
-      : u;
+  // Plain URL string. Unsplash and Pexels pick the format from the browser's Accept
+  // header via `auto=format` (AVIF where supported, ~25% smaller than WebP, then WebP,
+  // then JPEG), so a pinned `fm=` - which overrides that - is removed.
+  const autoFormat = (u) =>
+    isUnsplash(u) ? u.replace(/[?&]fm=[a-z]+/, (m) => (m[0] === '?' ? '?' : '')).replace('?&', '?') : u;
   const withWidth = (u, w) => {
     let out = u;
     out = /w=\d+/.test(out) ? out.replace(/w=\d+/, `w=${w}`) : `${out}${out.includes('?') ? '&' : '?'}w=${w}`;
     out = /q=\d+/.test(out) ? out.replace(/q=\d+/, 'q=60') : `${out}&q=60`;
     if (!/auto=/.test(out)) out += '&auto=format';
     if (!/fit=/.test(out)) out += '&fit=crop';
-    return addWebp(out);
+    return autoFormat(out);
   };
   return {
     src: withWidth(url, fallbackWidth),
