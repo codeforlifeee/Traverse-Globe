@@ -29,8 +29,9 @@ import NumberTicker from './magicui/NumberTicker';
 // Keep in sync with <link rel=preload imagesrcset> in index.html. That preload must
 // list exactly the URLs buildSrcSet(HERO_IMAGE, { widths: HERO_WIDTHS }) produces,
 // or the browser downloads the preload and then the real image as well.
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=80';
+// LOCAL TESTING: desert group photo served from public/. Previous value:
+// 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=80'
+const HERO_IMAGE = '/hero-desert-group.png';
 
 const HeroSection = () => {
   // When the hero arrived as pre-rendered HTML it is already on screen, so replaying
@@ -57,7 +58,7 @@ const HeroSection = () => {
         <div className="w-full h-full animate-ken-burns">
           <ImageWithFallback
             src={HERO_IMAGE}
-            alt="Scuba diver beside a school of yellow fish on a coral reef — Traverse Globe"
+            alt="Traverse Globe travellers celebrating together on the Dubai desert dunes"
             className="w-full h-full object-cover"
             loading="eager"
             fetchpriority="high"
