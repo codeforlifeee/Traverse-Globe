@@ -326,7 +326,7 @@ export default function PackageCard({
           : undefined
       }
       className={cn(
-        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-all duration-300',
+        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-[transform,box-shadow,border-color] duration-300',
         CARD_LIFT,
         isLarge ? 'border-brand-orange/40 ring-1 ring-brand-orange/20' : 'border-brand-hairline',
         soldOut && 'grayscale opacity-70 pointer-events-none'
@@ -424,9 +424,9 @@ export default function PackageCard({
                         }}
                         aria-label={`Show image ${dotIdx + 1}`}
                         className={cn(
-                          'w-2 h-2 rounded-full transition-all duration-200',
+                          'w-2 h-2 rounded-full transition-[transform,opacity,background-color] duration-200',
                           activeImageIdx === dotIdx
-                            ? 'bg-brand-orange w-4'
+                            ? 'bg-brand-orange scale-x-150'
                             : 'bg-white/70 hover:bg-white'
                         )}
                       />

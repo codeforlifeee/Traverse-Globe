@@ -46,7 +46,7 @@ export default function UniversalCard({
   const Body = (
     <article
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-all duration-300',
+        'group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-[transform,box-shadow] duration-300',
         'border border-brand-hairline',
         CARD_LIFT,
         'hover:-translate-y-1',
@@ -147,12 +147,12 @@ export default function UniversalCard({
 
             {cta && (
               cta.style === 'button' ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-4 py-2 text-xs font-poppins font-semibold text-white shadow-soft-sm transition-all group-hover:bg-brand-orange-hover group-hover:shadow-glow-orange">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-4 py-2 text-xs font-poppins font-semibold text-white shadow-soft-sm transition-[background-color,box-shadow] group-hover:bg-brand-orange-hover group-hover:shadow-glow-orange">
                   {cta.label}
                   <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 text-sm font-poppins font-semibold text-brand-orange transition-all group-hover:gap-2">
+                <span className="inline-flex items-center gap-1 text-sm font-poppins font-semibold text-brand-orange transition-[gap] group-hover:gap-2">
                   {cta.label}
                   <ArrowRight className="h-4 w-4" />
                 </span>

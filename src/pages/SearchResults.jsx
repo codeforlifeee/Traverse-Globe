@@ -147,7 +147,7 @@ export default function SearchResults() {
                         <Link
                           key={h._id}
                           to={hotelHref(h)}
-                          className="group flex flex-col rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-all"
+                          className="group flex flex-col rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-[transform,box-shadow]"
                         >
                           <div className={cn("relative bg-brand-canvas-2 overflow-hidden", CARD_MEDIA)}>
                             <ImageWithFallback
@@ -268,7 +268,7 @@ function LinkTile({ to, icon: Icon, title, sub, meta }) {
   return (
     <Tag
       {...props}
-      className="group flex items-start gap-3 p-4 rounded-xl border border-brand-hairline bg-surface hover:shadow-soft-md hover:border-brand-orange/40 transition-all"
+      className="group flex items-start gap-3 p-4 rounded-xl border border-brand-hairline bg-surface hover:shadow-soft-md hover:border-brand-orange/40 transition-[transform,box-shadow,border-color]"
     >
       <span className="mt-0.5 inline-flex w-9 h-9 shrink-0 items-center justify-center rounded-lg bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
         <Icon className="w-4 h-4" />

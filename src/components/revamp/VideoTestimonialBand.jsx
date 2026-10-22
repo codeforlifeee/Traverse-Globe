@@ -146,7 +146,7 @@ export default function VideoTestimonialBand() {
               aria-label="Previous"
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={isBeginning}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-[background-color,border-color,color,box-shadow] hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -155,7 +155,7 @@ export default function VideoTestimonialBand() {
               aria-label="Next"
               onClick={() => swiperRef.current?.slideNext()}
               disabled={isEnd}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-hairline bg-surface text-brand-ink transition-[background-color,border-color,color,box-shadow] hover:border-brand-orange hover:bg-brand-orange hover:text-white hover:shadow-glow-orange disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-brand-ink disabled:hover:border-brand-hairline disabled:hover:shadow-none"
             >
               <ChevronRight className="h-5 w-5" />
             </button>

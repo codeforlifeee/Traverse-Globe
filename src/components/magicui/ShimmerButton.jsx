@@ -31,7 +31,7 @@ export const ShimmerButton = React.forwardRef(
           "--bg": background,
         }}
         className={cn(
-          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-glow-orange",
+          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap px-6 py-3 text-white [background:var(--bg)] [border-radius:var(--radius)] duration-150 hover:scale-[1.02] active:scale-[0.97] shadow-glow-orange",
           "transform-gpu transition-transform ease-out",
           className
         )}
@@ -62,7 +62,7 @@ export const ShimmerButton = React.forwardRef(
           className={cn(
             "insert-0 absolute size-full",
             "rounded-[var(--radius)] px-4 py-1.5 text-sm font-medium",
-            "transform-gpu transition-all duration-300 ease-in-out",
+            "transform-gpu transition-[box-shadow] duration-200 ease-in-out",
             "group-hover:shadow-[inset_0_-6px_10px_rgba(255,255,255,0.2)]",
             "group-active:shadow-[inset_0_-10px_10px_rgba(0,0,0,0.2)]"
           )}

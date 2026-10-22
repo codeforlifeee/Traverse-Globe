@@ -246,7 +246,7 @@ const DESTINATION_FALLBACK_PHOTOS = {
                   href={getEnv(p.urlEnv)}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-hairline bg-surface px-3 py-1.5 hover:-translate-y-0.5 hover:shadow-soft-md transition-all"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-hairline bg-surface px-3 py-1.5 hover:-translate-y-0.5 hover:shadow-soft-md transition-[transform,box-shadow]"
                 >
                   <span className={`inline-block w-2 h-2 rounded-full ${p.color}`} />
                   <span className="text-xs font-poppins text-brand-ink">{p.name}</span>

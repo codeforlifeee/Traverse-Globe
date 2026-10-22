@@ -57,7 +57,7 @@ export default function WhyChooseUs() {
             <div>
               <a
                 href={`tel:${companyInfo.phone.primary}`}
-                className="inline-flex items-center gap-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-3.5 rounded-xl font-poppins font-semibold text-sm md:text-base shadow-glow-orange transition-all duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-3.5 rounded-xl font-poppins font-semibold text-sm md:text-base shadow-glow-orange transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5"
               >
                 <Phone className="w-4 h-4" />
                 Call an Expert Now

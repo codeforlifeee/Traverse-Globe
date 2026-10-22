@@ -7,7 +7,7 @@ import HeroSlider from '../components/HeroSlider';
 
 const HotelCategoryCard = ({ category }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-surface h-full">
+    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-[transform,box-shadow] duration-300 bg-surface h-full">
       <div className="relative overflow-hidden h-44 md:h-52">
         <img 
           src={category.image} 
@@ -21,7 +21,7 @@ const HotelCategoryCard = ({ category }) => {
           <h3 className="text-lg font-bold text-darkBlue font-season">{category.title}</h3>
           <Link 
             to={category.link} 
-            className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0"
+            className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-[background-color] hover:shadow-lg whitespace-nowrap flex-shrink-0"
           >
             Explore
           </Link>
@@ -67,7 +67,7 @@ const HotelCard = ({ hotel, category }) => {
           </div>
           <button 
             onClick={handleBookClick}
-            className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0"
+            className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-[transform,background-color] duration-200 whitespace-nowrap flex-shrink-0"
           >
             <BedDouble className="w-3 h-3 mr-1" />
             Book Now
@@ -234,7 +234,7 @@ export default function Hotels() {
             <div className="mt-8 text-center">
               <Link 
                 to="/"
-                className="inline-block custom-btn px-6 py-3 text-sm font-semibold hover:scale-105 transition-all duration-200"
+                className="inline-block custom-btn px-6 py-3 text-sm font-semibold hover:scale-105 transition-[transform] duration-200"
               >
                 <Home className="w-4 h-4 mr-2" />
                 Back to Home

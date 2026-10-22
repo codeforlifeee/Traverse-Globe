@@ -267,7 +267,7 @@ export default function Blog() {
                   {featured.excerpt}
                 </p>
                 <div className="mt-8">
-                  <span className="inline-flex items-center justify-center font-poppins font-semibold text-sm transition-all h-11 px-6 rounded-full bg-brand-orange text-white group-hover:bg-brand-orange-hover">
+                  <span className="inline-flex items-center justify-center font-poppins font-semibold text-sm transition-[background-color] h-11 px-6 rounded-full bg-brand-orange text-white group-hover:bg-brand-orange-hover">
                     Read Article
                   </span>
                 </div>
@@ -286,7 +286,7 @@ export default function Blog() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {others.map((p) => (
-              <Link to={p.url || `/guides/${p.slug}`} key={p.id} className="group flex flex-col bg-surface rounded-2xl shadow-soft-sm hover:shadow-soft-xl border border-brand-hairline overflow-hidden transition-all hover:-translate-y-1">
+              <Link to={p.url || `/guides/${p.slug}`} key={p.id} className="group flex flex-col bg-surface rounded-2xl shadow-soft-sm hover:shadow-soft-xl border border-brand-hairline overflow-hidden transition-[transform,box-shadow] hover:-translate-y-1">
                 {p.image && (
                   <div className={cn("relative overflow-hidden bg-brand-canvas-2", CARD_MEDIA)}>
                     <img 

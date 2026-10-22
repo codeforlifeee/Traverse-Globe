@@ -55,7 +55,7 @@ export default function Activities() {
               <button
                 key={cat.key}
                 onClick={() => setSelectedCategory(cat.key)}
-                className={`px-4 py-2 rounded-xl text-xs md:text-sm font-poppins font-semibold transition-all duration-200 ${
+                className={`px-4 py-2 rounded-xl text-xs md:text-sm font-poppins font-semibold transition-[background-color,color,box-shadow] duration-200 ${
                   selectedCategory === cat.key
                     ? 'bg-brand-orange text-white shadow-soft-md shadow-brand-orange/20 scale-105'
                     : 'bg-surface text-brand-ink border border-brand-hairline hover:border-brand-orange/40 hover:text-brand-orange'
@@ -91,7 +91,7 @@ export default function Activities() {
               return (
                 <article
                   key={act.id}
-                  className="flex flex-col bg-surface rounded-2xl overflow-hidden border border-brand-hairline shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300"
+                  className="flex flex-col bg-surface rounded-2xl overflow-hidden border border-brand-hairline shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
                 >
                   {/* Media */}
                   <div className={cn("relative overflow-hidden bg-brand-canvas-2", CARD_MEDIA)}>
@@ -206,14 +206,14 @@ export default function Activities() {
             <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
               <a
                 href={`tel:${companyInfo.phone.primary}`}
-                className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-3.5 rounded-xl font-poppins font-semibold text-sm shadow-glow-orange transition-all"
+                className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-3.5 rounded-xl font-poppins font-semibold text-sm shadow-glow-orange transition-[transform,box-shadow,background-color]"
               >
                 <Phone className="w-4 h-4" />
                 Speak to our Adventure Specialist
               </a>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white px-6 py-3.5 rounded-xl font-poppins font-medium text-sm transition-all"
+                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white px-6 py-3.5 rounded-xl font-poppins font-medium text-sm transition-[background-color]"
               >
                 Request Custom Itinerary
               </Link>

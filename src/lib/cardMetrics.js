@@ -39,4 +39,4 @@ export const CARD_TITLE = 'font-poppins font-semibold text-base md:text-lg leadi
 export const CARD_SURFACE = 'bg-surface border border-brand-hairline';
 export const CARD_LIFT = 'shadow-soft-md hover:shadow-soft-xl';
 export const CARD_SHELL =
-  `group h-full flex flex-col rounded-2xl overflow-hidden ${CARD_SURFACE} ${CARD_LIFT} transition-all duration-300`;
+  `group h-full flex flex-col rounded-2xl overflow-hidden ${CARD_SURFACE} ${CARD_LIFT} transition-[transform,box-shadow] duration-300`;

@@ -194,7 +194,7 @@ export default function Contact() {
               href={companyInfo.address.karnal.mapLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-brand-scrim text-white px-6 py-3 rounded-full hover:bg-brand-scrim/90 transition-all font-medium"
+              className="inline-flex items-center gap-2 bg-brand-scrim text-white px-6 py-3 rounded-full hover:bg-brand-scrim/90 transition-[background-color] font-medium"
             >
               <MapPin className="w-4 h-4" aria-hidden="true" />
               Open in Google Maps

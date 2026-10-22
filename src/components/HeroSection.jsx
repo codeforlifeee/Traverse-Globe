@@ -112,7 +112,7 @@ const HeroSection = () => {
                 href={waUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white px-6 py-4 rounded-2xl font-poppins font-medium text-sm md:text-base backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white px-6 py-4 rounded-2xl font-poppins font-medium text-sm md:text-base backdrop-blur-md transition-[transform,background-color] duration-200 hover:-translate-y-0.5"
               >
                 <WhatsAppIcon className="w-5 h-5 text-emerald-400" />
                 Chat on WhatsApp

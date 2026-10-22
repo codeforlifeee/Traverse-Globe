@@ -191,7 +191,7 @@ export default function FilterRail({ facets, values, onChange, categories = [] }
                 onClick={() => toggleArray('themes', t.value)}
                 aria-pressed={active}
                 className={cn(
-                  'flex flex-col items-start gap-1.5 rounded-xl border p-3 text-left transition-all',
+                  'flex flex-col items-start gap-1.5 rounded-xl border p-3 text-left transition-[transform,border-color,background-color,box-shadow]',
                   active
                     ? 'border-brand-orange bg-brand-orange/10 text-brand-orange shadow-soft-sm'
                     : 'border-brand-hairline bg-surface text-brand-ink hover:border-brand-orange/40 hover:-translate-y-0.5'

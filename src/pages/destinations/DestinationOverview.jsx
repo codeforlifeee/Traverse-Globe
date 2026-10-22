@@ -164,7 +164,7 @@ function ChoiceTile({ to, image, icon, kicker, title, count, description }) {
   return (
     <Link
       to={to}
-      className="group relative overflow-hidden rounded-2xl border border-brand-hairline bg-surface shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300"
+      className="group relative overflow-hidden rounded-2xl border border-brand-hairline bg-surface shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
     >
       <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-brand-canvas-2">
         <ImageWithFallback

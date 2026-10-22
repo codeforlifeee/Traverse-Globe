@@ -99,7 +99,7 @@ export default function HomeBlogSection() {
 
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-poppins font-semibold text-brand-orange hover:text-brand-orange-hover hover:gap-2 transition-all self-start md:self-end"
+            className="inline-flex items-center gap-1.5 text-sm font-poppins font-semibold text-brand-orange hover:text-brand-orange-hover hover:gap-2 transition-[gap,color] self-start md:self-end"
           >
             <span>View all travel guides</span>
             <ArrowRight className="w-4 h-4" />
@@ -182,7 +182,7 @@ export default function HomeBlogSection() {
                   <div className="mt-auto pt-3 border-t border-brand-hairline flex items-center justify-between">
                     <Link
                       to={articleHref}
-                      className="inline-flex items-center gap-1.5 text-xs font-poppins font-semibold text-brand-orange hover:gap-2 transition-all"
+                      className="inline-flex items-center gap-1.5 text-xs font-poppins font-semibold text-brand-orange hover:gap-2 transition-[gap]"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       Read Guide <ArrowRight className="w-3.5 h-3.5" />

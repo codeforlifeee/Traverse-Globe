@@ -193,7 +193,7 @@ export default function ContactEnquiryForm() {
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="flex-1 inline-flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-60 text-white font-poppins font-semibold text-sm py-3.5 rounded-xl shadow-glow-orange transition-all duration-200 hover:-translate-y-0.5"
+          className="flex-1 inline-flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-60 text-white font-poppins font-semibold text-sm py-3.5 rounded-xl shadow-glow-orange transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5"
         >
           {status === 'loading'
             ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</>

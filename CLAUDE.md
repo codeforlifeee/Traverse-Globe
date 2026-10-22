@@ -16,6 +16,38 @@ npm run preview       # Serve the production build locally
 npm run sanity:cors:list / :add / :remove   # Manage Sanity CORS origins
 ```
 
+---
+
+## ⚡ Strict Performance & Core Web Vitals Guardrails (DO NOT BREAK)
+
+Every code change in this repository MUST maintain **90+ Mobile / 95+ Desktop PageSpeed** and pass Google Core Web Vitals. Follow these 5 ironclad rules:
+
+### 1. Typography & Zero-CLS Rule (CLS MUST BE ≤ 0.05)
+* **`font-display: optional` is MANDATORY:** Never change web fonts in `src/index.css` to `font-display: swap` for above-the-fold content. Font swap causes mobile layout shift.
+* **Height Reservations:** Dynamic text in the hero and headers MUST have explicit `min-h` reservations (e.g., `min-h-[96px] sm:min-h-[72px] md:min-h-0` on Hero `<h1>`).
+* **Skeletons over Spinners:** Never render spinners or zero-height containers that pop in. Always use structured skeleton loaders from `src/components/revamp/Skeletons.jsx` to reserve space before Sanity data arrives.
+
+### 2. Image Optimization & LCP Guardrails (LCP MUST BE ≤ 2.0s)
+* **Hero Image Priority:** The hero LCP image must always have `loading="eager"` and `fetchpriority="high"`. Never add `loading="lazy"` to the hero image!
+* **Below-the-Fold Images:** Every package card and banner below the fold MUST have `loading="lazy"`, `decoding="async"`, and explicit `width`/`height` or aspect-ratio wrappers to prevent layout shifts.
+* **Format & Sizing:** Use modern WebP/AVIF images. Cards must use `CARD_WIDTHS` from `src/lib/sanityImage.js` to avoid serving 2MB camera originals on 400px mobile cards.
+
+### 3. JavaScript Execution & TBT Rules (TBT MUST BE ≤ 150ms)
+* **Code Splitting:** Never import heavy libraries eagerly into main bundles (e.g., Three.js, Cobe Globe, html2canvas, jsPDF, `@sanity/client`). Use `React.lazy` or dynamic `import()`.
+* **Third-Party Script Deferral:** Never inject tracking scripts (Meta Pixel, Google Tag Manager, hotjar) synchronously in `<head>`. They MUST use `window.__loadThirdParty` or `requestIdleCallback` so they never compete with initial page render.
+
+### 4. GPU-Composited Animations Only (60–120 FPS Fluidity)
+* **Compositor Thread Only:** Only animate `transform` (`translate3d`, `scale3d`) and `opacity`.
+* **Banned CSS:** NEVER use `transition: all`. NEVER animate layout-triggering properties (`width`, `height`, `top`, `left`, `margin`, `padding`, `max-height`).
+* **Scroll Listeners:** Never attach un-throttled `window.addEventListener('scroll')`. Always use passive `IntersectionObserver` for viewport reveals.
+
+### 5. Build Verification
+Before committing any frontend feature or refactor, always run:
+```bash
+npm run build
+```
+Verify that the pre-rendered homepage builds cleanly and no bundle chunk exceeds limits.
+
 ⚠️ `npm run lint` is defined but **eslint is not installed** (it is not in devDependencies), so
 the script fails. Either add eslint or rely on `npm run build` to catch unresolved imports —
 note that a build does NOT catch a JSX component used without being imported, since that only

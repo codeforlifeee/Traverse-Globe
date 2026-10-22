@@ -186,7 +186,7 @@ function Field({ icon: Icon, label, value, onChange, options, placeholder, isFir
       onMouseEnter={cancelClose}
       onMouseLeave={() => hoverEnabled && closeSoon()}
       style={panelStyle}
-      className="z-[60] overflow-y-auto select-none rounded-2xl border border-brand-hairline bg-surface p-1.5 shadow-soft-xl focus:outline-none scrollbar-thin"
+      className="z-[60] overflow-y-auto select-none rounded-2xl border border-brand-hairline bg-surface p-1.5 shadow-soft-xl focus:outline-none scrollbar-thin animate-in fade-in-0 duration-150 zoom-in-[0.98]"
     >
       {choices.map((c, i) => {
         const isSelected = c.value === value;
@@ -407,8 +407,9 @@ export default function HeroSearchBar() {
       {/* Second step — name + phone, revealed once the trip details are picked */}
       {(status === 'expanded' || status === 'loading') && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden"
         >
           <div className="mt-3 flex flex-col sm:flex-row gap-2 rounded-2xl md:rounded-full bg-surface shadow-soft-lg p-2">

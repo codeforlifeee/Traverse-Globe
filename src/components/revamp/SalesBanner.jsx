@@ -94,7 +94,7 @@ export default function SalesBanner() {
                   href={waUrl}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-5 py-3.5 rounded-xl font-poppins font-medium text-sm shadow-soft-md transition-all duration-200 hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-5 py-3.5 rounded-xl font-poppins font-medium text-sm shadow-soft-md transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5"
                 >
                   <WhatsAppIcon className="w-4 h-4" />
                   WhatsApp Concierge

@@ -17,7 +17,7 @@ const FloatingButtons = () => {
         href={`https://wa.me/${companyInfo.phone.whatsapp}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg hover:shadow-xl transition-[transform,box-shadow] duration-200 hover:scale-110"
         aria-label="WhatsApp"
       >
         <WhatsAppIcon className="w-6 h-6" />
@@ -26,7 +26,7 @@ const FloatingButtons = () => {
       {/* Call Button */}
       <a
         href={`tel:${companyInfo.phone.primary}`}
-        className="w-12 h-12 rounded-full flex items-center justify-center bg-orange hover:bg-teal text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="w-12 h-12 rounded-full flex items-center justify-center bg-orange hover:bg-teal text-white shadow-lg hover:shadow-xl transition-[transform,box-shadow] duration-200 hover:scale-110"
         aria-label="Call Us"
       >
         <Phone className="w-5 h-5" />

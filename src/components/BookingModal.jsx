@@ -239,7 +239,7 @@ export default function BookingModal({ open, onClose, packageName, packageId, ba
                     aria-invalid={showError(nameValid, 'fullName')}
                     placeholder="Enter your full name"
                     className={cn(
-                      'w-full border-2 rounded-lg pl-10 pr-4 py-3 text-sm bg-transparent text-brand-ink focus:outline-none focus:ring-2 transition-all font-canva-sans',
+                      'w-full border-2 rounded-lg pl-10 pr-4 py-3 text-sm bg-transparent text-brand-ink focus:outline-none focus:ring-2 transition-[border-color,box-shadow] font-canva-sans',
                       showError(nameValid, 'fullName')
                         ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                         : 'border-brand-hairline focus:border-orange focus:ring-orange/10'
@@ -259,7 +259,7 @@ export default function BookingModal({ open, onClose, packageName, packageId, ba
                   Mobile Number <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <div className={cn(
-                  'flex items-stretch border-2 rounded-lg overflow-hidden focus-within:ring-2 transition-all',
+                  'flex items-stretch border-2 rounded-lg overflow-hidden focus-within:ring-2 transition-[border-color,box-shadow]',
                   showError(mobileValid, 'mobile')
                     ? 'border-red-400 focus-within:border-red-500 focus-within:ring-red-500/10'
                     : 'border-brand-hairline focus-within:border-orange focus-within:ring-orange/10'
@@ -305,7 +305,7 @@ export default function BookingModal({ open, onClose, packageName, packageId, ba
                     aria-invalid={showError(emailValid, 'email')}
                     placeholder="your.email@example.com"
                     className={cn(
-                      'w-full border-2 rounded-lg pl-10 pr-4 py-3 text-sm bg-transparent text-brand-ink focus:outline-none focus:ring-2 transition-all font-canva-sans',
+                      'w-full border-2 rounded-lg pl-10 pr-4 py-3 text-sm bg-transparent text-brand-ink focus:outline-none focus:ring-2 transition-[border-color,box-shadow] font-canva-sans',
                       showError(emailValid, 'email')
                         ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                         : 'border-brand-hairline focus:border-orange focus:ring-orange/10'

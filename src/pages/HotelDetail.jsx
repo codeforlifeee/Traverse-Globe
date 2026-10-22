@@ -360,7 +360,7 @@ export default function HotelDetail() {
                     <button
                       key={idx}
                       onClick={() => setActiveImg(idx)}
-                      className={`relative w-16 h-16 lg:w-20 lg:h-20 rounded-xl overflow-hidden ring-2 transition-all ${
+                      className={`relative w-16 h-16 lg:w-20 lg:h-20 rounded-xl overflow-hidden ring-2 transition-[transform,box-shadow,ring-color] ${
                         activeImg === idx ? 'ring-brand-orange shadow-soft-md scale-105' : 'ring-white/40 hover:ring-white/80'
                       }`}
                     >
@@ -768,7 +768,7 @@ export default function HotelDetail() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full inline-flex items-center justify-center gap-1.5 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-70 disabled:cursor-not-allowed text-white font-poppins font-semibold text-sm py-2.5 rounded-full shadow-soft-md transition-all duration-300 hover:-translate-y-0.5"
+                  className="w-full inline-flex items-center justify-center gap-1.5 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-70 disabled:cursor-not-allowed text-white font-poppins font-semibold text-sm py-2.5 rounded-full shadow-soft-md transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5"
                 >
                   {isSubmitting ? (
                     <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>
@@ -980,7 +980,7 @@ export default function HotelDetail() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full inline-flex items-center justify-center gap-1.5 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-70 text-white font-poppins font-semibold text-sm py-3 rounded-full shadow-soft-md transition-all"
+              className="w-full inline-flex items-center justify-center gap-1.5 bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-70 text-white font-poppins font-semibold text-sm py-3 rounded-full shadow-soft-md transition-[transform,box-shadow,background-color] duration-200 active:scale-95"
             >
               {isSubmitting ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</>

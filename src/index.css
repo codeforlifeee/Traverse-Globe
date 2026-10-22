@@ -310,6 +310,13 @@
     --c-trust: 16 185 129;
     --c-scrim: 15 23 42;
 
+    /* Canonical motion tokens */
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-smooth: 400ms;
+
     --background: 210 40% 98%;
     --foreground: 222.2 47.4% 11.2%;
     --card: 0 0% 100%;
@@ -436,12 +443,18 @@
     font-weight: 700;
   }
   
+  .gpu-layer {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
   .custom-btn {
-    @apply bg-orange hover:bg-teal text-white border-none py-3 px-6 rounded-lg font-poppins font-semibold text-sm transition-all duration-200;
+    @apply bg-orange hover:bg-teal text-white border-none py-3 px-6 rounded-lg font-poppins font-semibold text-sm transition-[background-color,transform] duration-200;
   }
   
   .destination-box {
-    @apply cursor-pointer relative overflow-hidden rounded-2xl transition-all duration-300 opacity-0 animate-fadeInUp;
+    @apply cursor-pointer relative overflow-hidden rounded-2xl transition-[transform,box-shadow] duration-300 opacity-0 animate-fadeInUp;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   }
   
@@ -451,7 +464,7 @@
   }
   
   .floating-btn {
-    @apply w-12 h-12 rounded-full flex items-center justify-center text-white text-lg cursor-pointer transition-all duration-200 animate-bounce-slow;
+    @apply w-12 h-12 rounded-full flex items-center justify-center text-white text-lg cursor-pointer transition-[transform,box-shadow] duration-200 animate-bounce-slow;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   
@@ -461,7 +474,7 @@
   }
   
   .custom-card {
-    @apply rounded-2xl overflow-hidden transition-all duration-300 border border-brand-hairline bg-surface h-full relative;
+    @apply rounded-2xl overflow-hidden transition-[transform,box-shadow,border-color] duration-300 border border-brand-hairline bg-surface h-full relative;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
   }
   

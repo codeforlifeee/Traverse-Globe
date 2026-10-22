@@ -159,7 +159,7 @@ function FeaturedCard({ dest }) {
   return (
     <Link
       to={dest.link}
-      className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-brand-orange/30 bg-surface shadow-soft-md hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300 ring-2 ring-brand-orange/15"
+      className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-brand-orange/30 bg-surface shadow-soft-md hover:shadow-soft-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ring-2 ring-brand-orange/15"
     >
       <div className="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-brand-canvas-2">
         <ImageWithFallback src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
