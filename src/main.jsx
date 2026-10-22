@@ -1,108 +1,74 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import App from './App.jsx'
+import { homepagePackagesQuery } from './hooks/queries'
 import './utils/trustedTypes.js' // Initialize Trusted Types policy
 
-// Performance monitoring
-if (typeof window !== 'undefined' && 'performance' in window) {
-  // Report Web Vitals
-  window.addEventListener('load', () => {
-    // Log initial load metrics
-    const perfData = performance.getEntriesByType('navigation')[0];
-    if (perfData) {
-      console.log('Performance Metrics:', {
-        DNS: perfData.domainLookupEnd - perfData.domainLookupStart,
-        TCP: perfData.connectEnd - perfData.connectStart,
-        Request: perfData.responseStart - perfData.requestStart,
-        Response: perfData.responseEnd - perfData.responseStart,
-        DOM: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
-        Load: perfData.loadEventEnd - perfData.loadEventStart,
-        Total: perfData.loadEventEnd - perfData.fetchStart
-      });
-    }
-  });
+// CMS content changes rarely, so cached data stays fresh for minutes and survives
+// navigation. refetchOnWindowFocus is off: it previously re-ran every homepage query
+// on each tab refocus.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+    },
+  },
+});
 
-  // Observe Long Tasks
-  if ('PerformanceObserver' in window) {
-    try {
-      const longTaskObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (entry.duration > 50) {
-            console.warn('Long task detected:', entry.duration.toFixed(2) + 'ms');
-          }
-        }
-      });
-      longTaskObserver.observe({ entryTypes: ['longtask'] });
-    } catch (e) {
-      // Long task API not supported
-    }
-  }
+// The first CMS-driven homepage section (the package carousel) is lazy, so on its own
+// its query would wait for React to mount, then for the section chunk to download.
+// Starting it here runs the request in parallel with both.
+if (window.location.pathname === '/') {
+  queryClient.prefetchQuery(homepagePackagesQuery(20));
 }
 
-// Hydrate the root
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
+// Keep this tree identical to render() in entry-server.jsx (apart from the router),
+// or hydration of the pre-rendered homepage will not match.
+const app = (
   <StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 );
 
-// Register service worker for PWA (deferred to after window load)
-if (import.meta.env.PROD) {
-  window.addEventListener('load', async () => {
-    try {
-      const { registerSW } = await import('virtual:pwa-register');
-      const updateSW = registerSW({
-        immediate: false,
-        onRegistered(registration) {
-          if (registration) {
-            console.log('SW registered:', registration.scope);
-          } else {
-            console.log('SW registered');
-          }
-        },
-        onRegisterError(error) {
-          console.error('SW registration failed:', error);
-        }
-      });
+// The homepage ships with its header and hero pre-rendered (scripts/prerender.mjs), so
+// React adopts that markup instead of rebuilding it. index.html strips the marker on
+// every other URL, which then renders from scratch as before.
+const rootElement = document.getElementById('root');
+const start = () => {
+  if (rootElement.hasAttribute('data-prerendered')) {
+    hydrateRoot(rootElement, app);
+  } else {
+    createRoot(rootElement).render(app);
+  }
+};
 
-      // Proactively check for updates periodically
-      setInterval(() => {
-        try {
-          updateSW && updateSW();
-        } catch {}
-      }, 60 * 60 * 1000);
-    } catch (e) {
-      console.warn('PWA register module not available:', e);
-    }
-  });
+// Let the browser paint first. The scripts are preloaded, so they are often ready the
+// moment the HTML finishes parsing; starting React synchronously then ran the whole
+// hydration before the first paint, holding back the pre-rendered headline (FCP/LCP)
+// for the length of it. rAF fires just before the next paint and the timeout runs
+// just after it. Hidden tabs never fire rAF, so they start straight away.
+if (document.visibilityState === 'visible') {
+  requestAnimationFrame(() => setTimeout(start, 0));
+} else {
+  start();
 }
+
+// PWA registration removed to completely eliminate caching issues.
 
 // Load diagnostics in development
 if (import.meta.env.DEV) {
   import('./utils/swDiagnostics.js').catch(() => {
     console.log('SW diagnostics not available');
   });
-}
-
-// Preload critical routes on idle
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(() => {
-    // Preload top destination images with valid URLs
-    const criticalImages = [
-      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c',
-      'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'
-    ];
-    
-    criticalImages.forEach(src => {
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.as = 'image';
-      link.href = `${src}?auto=format&fit=crop&w=800&q=80`;
-      document.head.appendChild(link);
-    });
-  }, { timeout: 2000 });
 }

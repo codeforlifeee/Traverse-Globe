@@ -1,23 +1,25 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy, memo, useEffect, useState } from 'react';
+import { renderingPrerender } from './lib/hydration';
 import ErrorBoundary from './components/ErrorBoundary';
+import SmoothScroll from './components/providers/SmoothScroll';
+import AestheticBackground from './components/magicui/AestheticBackground';
 
 // Critical components - loaded immediately
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import BookingModal from './components/BookingModal';
 import Home from './pages/Home';
 
 // Lazy load non-critical components
 const FloatingButtons = lazy(() => import('./components/FloatingButtons'));
 
 // Lazy load all page components
-const About = lazy(() => import(/* webpackChunkName: "about" */ './pages/About'));
 const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
 const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
 const Hotels = lazy(() => import(/* webpackChunkName: "hotels" */ './pages/Hotels'));
 const HotelDetail = lazy(() => import(/* webpackChunkName: "hotel-detail" */ './pages/HotelDetail'));
+const Activities = lazy(() => import(/* webpackChunkName: "activities" */ './pages/Activities'));
 
 // NEW: Dynamic destination routing components
 const DestinationOverview = lazy(() => import(/* webpackChunkName: "destination-overview" */ './pages/destinations/DestinationOverview'));
@@ -27,65 +29,85 @@ const DestinationList = lazy(() => import(/* webpackChunkName: "destination-list
 const DestinationDetail = lazy(() => import(/* webpackChunkName: "destination-detail" */ './pages/destinations/DestinationDetail'));
 const LegacyRedirect = lazy(() => import(/* webpackChunkName: "legacy-redirect" */ './pages/destinations/LegacyRedirect'));
 
-// Optimized loading fallback
+// Revamp — Phase 2 canonical routes
+const PackageDetail = lazy(() => import(/* webpackChunkName: "package-detail" */ './pages/PackageDetail'));
+const PackagesListing = lazy(() => import(/* webpackChunkName: "packages-listing" */ './pages/PackagesListing'));
+const PackagesTheme = lazy(() => import(/* webpackChunkName: "packages-theme" */ './pages/PackagesTheme'));
+const SearchResults = lazy(() => import(/* webpackChunkName: "search" */ './pages/SearchResults'));
+const Shortlist = lazy(() => import(/* webpackChunkName: "shortlist" */ './pages/Shortlist'));
+const Trust = lazy(() => import(/* webpackChunkName: "trust" */ './pages/Trust'));
+const Chardham = lazy(() => import(/* webpackChunkName: "chardham" */ './pages/Chardham'));
+const HotelsListing = lazy(() => import(/* webpackChunkName: "hotels-listing" */ './pages/HotelsListing'));
+const NotFound = lazy(() => import(/* webpackChunkName: "not-found" */ './pages/NotFound'));
+
+// Route fallback. A skeleton that roughly matches a page's shape reads as the page
+// arriving rather than as a blocking spinner, and it reserves height so the swap to
+// real content does not shift the layout.
 const LoadingFallback = memo(() => (
-  <div className="min-h-[calc(100vh-80px)] flex items-center justify-center" role="status" aria-live="polite">
-    <div className="text-center">
-      <div 
-        className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange mb-4"
-        aria-hidden="true"
-      ></div>
-      <p className="text-darkBlue/80 font-poppins">Loading...</p>
+  <div
+    className="min-h-[calc(100vh-80px)] container-custom py-10 md:py-14"
+    role="status"
+    aria-live="polite"
+    aria-busy="true"
+  >
+    <span className="sr-only">Loading page</span>
+    <div className="animate-pulse space-y-6" aria-hidden="true">
+      <div className="h-8 w-2/3 max-w-md rounded-lg bg-brand-canvas-2" />
+      <div className="h-4 w-1/2 max-w-sm rounded bg-brand-canvas-2" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pt-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-2xl overflow-hidden border border-brand-hairline">
+            <div className="aspect-[16/10] bg-brand-canvas-2" />
+            <div className="p-4 space-y-2">
+              <div className="h-4 w-3/4 rounded bg-brand-canvas-2" />
+              <div className="h-3 w-1/2 rounded bg-brand-canvas-2" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 ));
 LoadingFallback.displayName = 'LoadingFallback';
 
-function TimedSitewideFormPopup() {
-  const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+// TimedSitewideFormPopup removed per REVAMP_PLAN §4.6 — the global 10-second
+// interruption trained users to dismiss before they knew what we sell. Replaced
+// by a scroll-triggered soft toast on detail pages only (added in Phase 2).
 
-  useEffect(() => {
-    setIsOpen(false);
-
-    const timerId = window.setTimeout(() => {
-      setIsOpen(true);
-    }, 10000);
-
-    return () => {
-      window.clearTimeout(timerId);
-    };
-  }, [location.pathname]);
-
-  return (
-    <BookingModal
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      packageName="General Travel Enquiry"
-    />
-  );
-}
-
+// The router is supplied by the entry point: BrowserRouter in main.jsx, StaticRouter
+// in entry-server.jsx (build-time pre-render of the homepage).
 function App() {
+  // A lazy component cannot be rendered at build time, so the floating buttons are
+  // left out of the pre-rendered HTML (and so of hydration) and mount right after.
+  const [showFloating, setShowFloating] = useState(() => !renderingPrerender());
+  useEffect(() => setShowFloating(true), []);
+
   return (
-    <Router>
+    <>
       <ErrorBoundary>
+      <SmoothScroll>
       <ScrollToTop />
-      <div className="min-h-screen bg-white overflow-x-hidden">
+      <div className="min-h-screen bg-transparent overflow-x-hidden relative">
+        <AestheticBackground />
         <Header />
         <main role="main">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               {/* Static Pages */}
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/services" element={<About />} />
+              {/* About was merged into Contact — keep the old URLs alive. */}
+              <Route path="/about" element={<Navigate to="/contact" replace />} />
+              <Route path="/services" element={<Navigate to="/contact" replace />} />
               <Route path="/blog" element={<Blog />} />
               
               {/* Hotel Routes */}
               <Route path="/hotels/:category" element={<Hotels />} />
               <Route path="/hotels/:category/:slug" element={<HotelDetail />} />
+
+              {/* Activities Routes */}
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/activities/:category" element={<Activities />} />
               
               {/* NEW: Dynamic Destination Routes */}
               <Route path="/destinations" element={<DestinationOverview />} />
@@ -93,6 +115,24 @@ function App() {
               <Route path="/destinations/domestic" element={<DomesticDestinations />} />
               <Route path="/destinations/:type/:category" element={<DestinationList />} />
               <Route path="/destinations/:type/:category/:slug" element={<DestinationDetail />} />
+
+              {/* Revamp Phase 2 — canonical URLs */}
+              <Route path="/packages" element={<PackagesListing />} />
+              <Route path="/packages/theme/:theme" element={<PackagesTheme />} />
+              <Route path="/packages/:slug" element={<PackageDetail />} />
+              <Route path="/search" element={<SearchResults />} />
+
+              {/* Revamp Phase 3 — new surfaces */}
+              <Route path="/wishlist" element={<Shortlist />} />
+              {/* The feature is called "Wishlist" in the UI now; keep the old path working. */}
+              <Route path="/shortlist" element={<Navigate to="/wishlist" replace />} />
+              <Route path="/trust" element={<Trust />} />
+              <Route path="/chardham" element={<Chardham />} />
+              <Route path="/hotels" element={<HotelsListing />} />
+              <Route path="/hotels/city/:city" element={<HotelsListing />} />
+              <Route path="/guides" element={<Blog />} />
+              <Route path="/guides/:slug" element={<Blog />} />
+              <Route path="/blog/:slug" element={<Blog />} />
               
               {/* Backward Compatibility - Redirects old URLs to new structure */}
               <Route path="/uae-packages" element={<LegacyRedirect />} />
@@ -120,18 +160,20 @@ function App() {
               <Route path="/package/:slug" element={<LegacyRedirect />} />
               
               {/* 404 Fallback */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
         <Footer />
-        <Suspense fallback={null}>
-          <FloatingButtons />
-        </Suspense>
-        <TimedSitewideFormPopup />
+        {showFloating && (
+          <Suspense fallback={null}>
+            <FloatingButtons />
+          </Suspense>
+        )}
       </div>
+      </SmoothScroll>
       </ErrorBoundary>
-      </Router>
+    </>
   );
 }
 

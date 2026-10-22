@@ -1,0 +1,120 @@
+import { urlFor } from '@/services/sanityClient';
+
+/** Default responsive ladder for cards and grid imagery. */
+export const CARD_WIDTHS = [400, 640, 900];
+
+/** Wider ladder for full-bleed imagery (hero, banners) on hi-dpi desktops. */
+// 768 fits the common 390-412px phones at ~1.75-2x DPR, which otherwise jumped to 960.
+export const HERO_WIDTHS = [640, 768, 960, 1280, 1920];
+
+/**
+ * Returns true if value is a Sanity native image reference object.
+ * Sanity image refs always have { _type: 'image', asset: { _ref: '...' } }.
+ */
+export function isSanityImageRef(value) {
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    value.asset &&
+    typeof value.asset._ref === 'string'
+  );
+}
+
+const isPexels = (u) => u.includes('images.pexels.com');
+const isUnsplash = (u) => u.includes('images.unsplash.com');
+const join = (u) => (u.includes('?') ? '&' : '?');
+
+/**
+ * Pexels serves the camera original (up to ~5500px, 2–3 MB) unless asked otherwise,
+ * and CMS editors paste bare Pexels links. `auto=compress,format&cs=tinysrgb` + `w`
+ * is Pexels' own resize API; any params already on the URL are replaced.
+ */
+function pexelsAt(url, w) {
+  return `${url.split('?')[0]}?auto=compress,format&cs=tinysrgb&w=${w}`;
+}
+
+/**
+ * Sizes a plain external URL that carries no width of its own. URLs that already
+ * specify `w=` are left exactly as authored.
+ */
+function sizeExternal(url, w) {
+  if (isPexels(url) && !/[?&]w=\d+/.test(url)) return pexelsAt(url, w);
+  if (isUnsplash(url) && !/[?&]w=\d+/.test(url)) {
+    return `${url}${join(url)}auto=format&fit=crop&w=${w}&q=70`;
+  }
+  return url;
+}
+
+/**
+ * Resolves any image source to a plain URL string.
+ * - Plain string (existing data): returned as authored, except bare Pexels/Unsplash
+ *   links with no width, which are sized to `width` (default 800) as WebP.
+ * - Sanity image reference object (new data): passed through urlFor().
+ *
+ * @param {string|Object} source
+ * @param {{ width?: number, height?: number, quality?: number }} opts
+ * @returns {string}
+ */
+export function resolveImageUrl(source, opts = {}) {
+  if (!source) return '';
+  if (typeof source === 'string') return sizeExternal(source, opts.width || 800);
+  if (!isSanityImageRef(source)) return '';
+
+  const { width = 800, height, quality = 75 } = opts;
+  let b = urlFor(source).width(width).quality(quality).format('webp').fit('crop');
+  if (height) b = b.height(height);
+  return b.url();
+}
+
+/**
+ * Builds { src, srcSet } for responsive images.
+ * Works for both plain URL strings (Unsplash / external) and Sanity image refs.
+ *
+ * @param {string|Object} source
+ * @param {{ quality?: number, widths?: number[] }} opts
+ * @returns {{ src: string, srcSet: string }}
+ */
+export function buildSrcSet(source, opts = {}) {
+  if (!source) return { src: '', srcSet: '' };
+
+  const { widths = CARD_WIDTHS } = opts;
+  // src is only a fallback when srcSet is unsupported — a mid-ladder width is the safe pick.
+  const fallbackWidth = widths[Math.floor((widths.length - 1) / 2)];
+
+  if (isSanityImageRef(source)) {
+    const { quality = 60 } = opts;
+    const make = (w) =>
+      urlFor(source).width(w).quality(quality).format('webp').fit('crop').url();
+    return {
+      src: make(fallbackWidth),
+      srcSet: widths.map((w) => `${make(w)} ${w}w`).join(', '),
+    };
+  }
+
+  const url = source;
+
+  if (isPexels(url)) {
+    return {
+      src: pexelsAt(url, fallbackWidth),
+      srcSet: widths.map((w) => `${pexelsAt(url, w)} ${w}w`).join(', '),
+    };
+  }
+
+  // Plain URL string. Unsplash and Pexels pick the format from the browser's Accept
+  // header via `auto=format` (AVIF where supported, ~25% smaller than WebP, then WebP,
+  // then JPEG), so a pinned `fm=` - which overrides that - is removed.
+  const autoFormat = (u) =>
+    isUnsplash(u) ? u.replace(/[?&]fm=[a-z]+/, (m) => (m[0] === '?' ? '?' : '')).replace('?&', '?') : u;
+  const withWidth = (u, w) => {
+    let out = u;
+    out = /w=\d+/.test(out) ? out.replace(/w=\d+/, `w=${w}`) : `${out}${out.includes('?') ? '&' : '?'}w=${w}`;
+    out = /q=\d+/.test(out) ? out.replace(/q=\d+/, 'q=60') : `${out}&q=60`;
+    if (!/auto=/.test(out)) out += '&auto=format';
+    if (!/fit=/.test(out)) out += '&fit=crop';
+    return autoFormat(out);
+  };
+  return {
+    src: withWidth(url, fallbackWidth),
+    srcSet: widths.map((w) => `${withWidth(url, w)} ${w}w`).join(', '),
+  };
+}

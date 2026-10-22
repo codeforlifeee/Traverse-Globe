@@ -1,82 +1,68 @@
-import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
-import { hotelCategories } from '../data/siteData';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import UniversalCarousel from './revamp/UniversalCarousel';
+import UniversalCard from './revamp/UniversalCard';
 
-const HotelCard = ({ hotel }) => {
-  return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full max-w-[320px] mx-auto">
-      <div className="relative overflow-hidden aspect-[4/3]">
-        <img 
-          src={hotel.image} 
-          alt={hotel.title} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-        />
-        <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
-      </div>
-      <div className="p-3 bg-white">
-        <div className="flex items-center justify-between gap-2 mb-1.5">
-          <h3 className="text-base md:text-lg font-bold text-darkBlue font-season">{hotel.title}</h3>
-          <Link 
-            to={hotel.link} 
-            className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0"
-          >
-            Explore
-          </Link>
-        </div>
-        <p className="text-xs text-darkBlue/70 font-canva-sans">{hotel.blurb}</p>
-      </div>
-    </div>
-  );
-};
+const hotelTypes = [
+  {
+    title: 'Luxury Hotels',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/luxury',
+    blurb: 'Five-star suites, spa retreats & world-class service',
+    badge: 'Premium',
+  },
+  {
+    title: 'Resort Stays',
+    image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/resort',
+    blurb: 'Beachfront, poolside & all-inclusive family resorts',
+  },
+  {
+    title: 'Business Hotels',
+    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/business',
+    blurb: 'Central locations, work spaces & fast check-ins',
+  },
+  {
+    title: 'Budget Friendly',
+    image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/budget',
+    blurb: 'Comfortable stays that keep your trip on track',
+  },
+  {
+    title: 'Domestic Hotels',
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/domestic',
+    blurb: 'Handpicked stays across India',
+  },
+  {
+    title: 'International Hotels',
+    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=60',
+    link: '/hotels/international',
+    blurb: 'Luxury accommodations worldwide',
+  },
+];
 
 export default function HotelCategories() {
   return (
-    <section className="py-8 md:py-10 lg:py-12 bg-lightGray">
-      <div className="container-custom">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-darkBlue font-poppins">Explore Hotels</h2>
-        </div>
-        <p className="text-xs md:text-sm text-darkBlue/80 mb-5 font-canva-sans">Discover the perfect accommodation for your stay</p>
-        
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={14}
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-          }}
-          navigation={true}
-          modules={[Autoplay, Navigation]}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 12,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 14,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 16,
-            },
-            1280: {
-              slidesPerView: 4,
-              spaceBetween: 18,
-            },
-          }}
-          className="categorySwiper"
-        >
-          {hotelCategories.map((hotel, idx) => (
-            <SwiperSlide key={idx}>
-              <HotelCard hotel={hotel} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </section>
+    <UniversalCarousel
+      kicker="Where you'll stay"
+      title="Hotels for every kind of trip"
+      subtitle="From beachside villas to city-centre business hotels — inspected and negotiated by us"
+      bg="canvas"
+      slidesPerViewDesktop={4}
+    >
+      {hotelTypes.map((h, i) => (
+        <UniversalCard
+          key={i}
+          image={h.image}
+          imageAlt={h.title}
+          kicker="Hotels"
+          title={h.title}
+          subtitle={h.blurb}
+          badge={h.badge}
+          cta={{ label: 'Browse hotels', style: 'link' }}
+          href={h.link}
+        />
+      ))}
+    </UniversalCarousel>
   );
 }

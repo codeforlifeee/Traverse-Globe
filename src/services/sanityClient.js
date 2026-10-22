@@ -3,22 +3,62 @@
  * This file sets up the Sanity client for fetching data from Sanity CMS
  */
 
-import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 
-// Initialize Sanity client
-const sanityClient = createClient({
+const config = {
   projectId: import.meta.env?.VITE_SANITY_PROJECT_ID || process.env.VITE_SANITY_PROJECT_ID,
   dataset: import.meta.env?.VITE_SANITY_DATASET || process.env.VITE_SANITY_DATASET || 'production',
   apiVersion: import.meta.env?.VITE_SANITY_API_VERSION || process.env.VITE_SANITY_API_VERSION || '2024-01-01',
-  useCdn: false, // Disable CDN to get fresh data immediately from Sanity
-  perspective: 'published', // Only fetch published documents
-  // Note: token is intentionally omitted for browser security (read-only access)
-  // If you need write access, use a server-side endpoint instead
-});
+  useCdn: import.meta.env?.PROD ?? (process.env.NODE_ENV === 'production'),
+};
+
+// @sanity/client's own GET → POST switch point; past it, proxies start rejecting the URL.
+const MAX_GET_URL = 11264;
+
+/**
+ * Minimal read-only GROQ client.
+ *
+ * The browser only ever runs tokenless `fetch(query, params)` calls, so this talks to
+ * the HTTP query API directly instead of shipping @sanity/client, which with rxjs,
+ * get-it and tslib was ~200 KB of the entry chunk. Same endpoint, same CDN choice,
+ * same `published` perspective, and it resolves to `result` like client.fetch does.
+ * Write scripts in scripts/ still use @sanity/client with a token.
+ */
+const sanityClient = {
+  async fetch(query, params = {}) {
+    const host = `${config.projectId}.${config.useCdn ? 'apicdn' : 'api'}.sanity.io`;
+    const version = String(config.apiVersion).replace(/^v/, '');
+    const endpoint = `https://${host}/v${version}/data/query/${config.dataset}`;
+
+    const search = new URLSearchParams({ query, perspective: 'published', returnQuery: 'false' });
+    for (const [key, value] of Object.entries(params)) {
+      search.append(`$${key}`, JSON.stringify(value));
+    }
+
+    let url = `${endpoint}?${search}`;
+    let init;
+    if (url.length > MAX_GET_URL) {
+      // POST bypasses the API CDN, so only very long queries take this path.
+      url = `${endpoint}?perspective=published&returnQuery=false`;
+      init = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, params }),
+      };
+    }
+
+    const res = await fetch(url, init);
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      const detail = body?.error?.description || body?.message || res.statusText;
+      throw new Error(`Sanity query failed (${res.status}): ${detail}`);
+    }
+    return body?.result;
+  },
+};
 
 // Initialize image URL builder
-const builder = createImageUrlBuilder(sanityClient);
+const builder = createImageUrlBuilder({ projectId: config.projectId, dataset: config.dataset });
 
 /**
  * Helper function to generate optimized image URLs
@@ -31,35 +71,69 @@ export const urlFor = (source) => {
 
 export { sanityClient };
 
+/* ------------------------------------------------------------------ *
+ * Projections
+ *
+ * Queries are projected so listings stop downloading fields nothing renders.
+ * `slug` stays a raw Sanity object because every consumer reads `slug?.current`.
+ * ------------------------------------------------------------------ */
+
+/**
+ * Everything a package card or listing row renders.
+ * Omits overview, exclusions, highlights and images entirely, and strips the long
+ * per-day `description` from the itinerary while keeping the array length intact so
+ * PackageCard's "N days" count stays correct.
+ */
+const PACKAGE_CARD = `
+  _id, id, slug, category, title, price, strikePrice, destination, duration,
+  rating, reviews, bannerImage, themes, urgency, savingsPercent,
+  freeCancellationDays, featured, publishedAt,
+  "itinerary": { "days": itinerary.days[]{ dayKey, title } },
+  inclusions,
+  hotels
+`;
+
+/** Hotel card fields. Omits gallery, roomTypes, policies and nearbyAttractions. */
+const HOTEL_CARD = `
+  _id, name, slug, category, location, city, country, rating, reviewRating,
+  reviewCount, price, originalPrice, image, amenities, featured
+`;
+
+/** Projection suffix: '' returns the whole document, used by detail pages. */
+const proj = (fields) => (fields === 'full' ? '' : ` { ${fields} }`);
+
 /**
  * Fetch all packages from Sanity
  * @param {Object} options - Query options
  * @param {string} options.category - Filter by category (optional)
  * @param {number} options.limit - Limit results (optional)
  * @param {boolean} options.featured - Filter featured packages (optional)
+ * @param {'card'|'full'} options.fields - 'card' (default) projects listing fields only
  * @returns {Promise<Array>} Array of package objects
  */
 export async function fetchPackages(options = {}) {
-  const { category, limit, featured } = options;
-  
+  const { category, limit, featured, fields = 'card' } = options;
+
   try {
-    let query = '*[_type == "package" && active == true';
-    
+    const params = {};
+    let filter = '_type == "package" && active == true';
+
     if (category) {
-      query += ` && category == "${category}"`;
+      filter += ' && category == $category';
+      params.category = category;
     }
-    
     if (featured) {
-      query += ' && featured == true';
+      filter += ' && featured == true';
     }
-    
-    query += '] | order(publishedAt desc)';
-    
+
+    let query = `*[${filter}] | order(publishedAt desc)`;
     if (limit) {
-      query += `[0...${limit}]`;
+      query += '[0...$limit]';
+      params.limit = limit;
     }
-    
-    const data = await sanityClient.fetch(query);
+    query += proj(fields === 'full' ? 'full' : PACKAGE_CARD);
+
+    const data = await sanityClient.fetch(query, params);
     return data || [];
   } catch (error) {
     console.error('Error fetching packages from Sanity:', error);
@@ -68,14 +142,14 @@ export async function fetchPackages(options = {}) {
 }
 
 /**
- * Fetch a single package by ID
+ * Fetch a single package by ID (full document - detail page)
  * @param {number} id - Package ID
  * @returns {Promise<Object|null>} Package object or null
  */
 export async function fetchPackageById(id) {
   try {
-    const query = `*[_type == "package" && active == true && id == ${Number(id)}][0]`;
-    const data = await sanityClient.fetch(query);
+    const query = '*[_type == "package" && active == true && id == $id][0]';
+    const data = await sanityClient.fetch(query, { id: Number(id) });
     return data || null;
   } catch (error) {
     console.error(`Error fetching package with ID ${id}:`, error);
@@ -84,14 +158,14 @@ export async function fetchPackageById(id) {
 }
 
 /**
- * Fetch a single package by slug
+ * Fetch a single package by slug (full document - detail page)
  * @param {string} slug - Package slug
  * @returns {Promise<Object|null>} Package object or null
  */
 export async function fetchPackageBySlug(slug) {
   try {
-    const query = `*[_type == "package" && active == true && slug.current == "${slug}"][0]`;
-    const data = await sanityClient.fetch(query);
+    const query = '*[_type == "package" && active == true && slug.current == $slug][0]';
+    const data = await sanityClient.fetch(query, { slug });
     return data || null;
   } catch (error) {
     console.error(`Error fetching package with slug ${slug}:`, error);
@@ -100,12 +174,14 @@ export async function fetchPackageBySlug(slug) {
 }
 
 /**
- * Fetch packages by category
+ * Fetch packages by category.
+ * Returns FULL documents: DestinationDetail renders package detail straight out of
+ * this list rather than making a second detail request.
  * @param {string} category - Category name
  * @returns {Promise<Array>} Array of package objects
  */
 export async function fetchPackagesByCategory(category) {
-  return fetchPackages({ category });
+  return fetchPackages({ category, fields: 'full' });
 }
 
 /**
@@ -115,13 +191,14 @@ export async function fetchPackagesByCategory(category) {
  */
 export async function fetchDestinations(type = null) {
   try {
-    let query = '*[_type == "destination" && active == true';
+    const params = {};
+    let filter = '_type == "destination" && active == true';
     if (type) {
-      query += ` && type == "${type}"`;
+      filter += ' && type == $type';
+      params.type = type;
     }
-    query += '] | order(order asc)';
-    
-    const data = await sanityClient.fetch(query);
+    const query = `*[${filter}] | order(order asc)`;
+    const data = await sanityClient.fetch(query, params);
     return data || [];
   } catch (error) {
     console.error('Error fetching destinations from Sanity:', error);
@@ -152,8 +229,8 @@ export async function fetchDomesticDestinations() {
  */
 export async function fetchBanners(category = 'general') {
   try {
-    const query = `*[_type == "banner" && category == "${category}" && active == true][0].images`;
-    const images = await sanityClient.fetch(query);
+    const query = '*[_type == "banner" && category == $category && active == true][0].images';
+    const images = await sanityClient.fetch(query, { category });
     return images || [];
   } catch (error) {
     console.error(`Error fetching banners for category ${category}:`, error);
@@ -167,10 +244,10 @@ export async function fetchBanners(category = 'general') {
  */
 export async function fetchAllBanners() {
   try {
-    const query = '*[_type == "banner" && active == true]';
+    const query = '*[_type == "banner" && active == true] { category, images }';
     const bannersData = await sanityClient.fetch(query);
     const bannersByCategory = {};
-    bannersData.forEach(banner => {
+    (bannersData || []).forEach((banner) => {
       bannersByCategory[banner.category] = banner.images || [];
     });
     return bannersByCategory;
@@ -183,18 +260,18 @@ export async function fetchAllBanners() {
 /**
  * Search packages by keyword
  * @param {string} keyword - Search keyword
+ * @param {number} limit - Maximum results (default 25)
  * @returns {Promise<Array>} Array of matching package objects
  */
-export async function searchPackages(keyword) {
-  const query = `*[_type == "package" && active == true && (
-    title match "${keyword}*" ||
-    destination match "${keyword}*" ||
-    category match "${keyword}*" ||
-    overview match "${keyword}*"
-  )] | order(rating desc)`;
-  
+export async function searchPackages(keyword, limit = 25) {
   try {
-    const results = await sanityClient.fetch(query);
+    const query = `*[_type == "package" && active == true && (
+      title match $kw ||
+      destination match $kw ||
+      category match $kw ||
+      overview match $kw
+    )] | order(rating desc)[0...$limit]${proj(PACKAGE_CARD)}`;
+    const results = await sanityClient.fetch(query, { kw: `${keyword}*`, limit });
     return results || [];
   } catch (error) {
     console.error('Error searching packages:', error);
@@ -218,34 +295,35 @@ export async function fetchFeaturedPackages(limit = 6) {
  * @param {number} filters.minPrice - Minimum price
  * @param {number} filters.maxPrice - Maximum price
  * @param {number} filters.minRating - Minimum rating
+ * @param {number} filters.limit - Maximum results (default 60)
  * @returns {Promise<Array>} Array of filtered package objects
  */
 export async function fetchPackagesWithFilters(filters = {}) {
-  const { categories, minPrice, maxPrice, minRating } = filters;
-  
+  const { categories, minPrice, maxPrice, minRating, limit = 60 } = filters;
+
   try {
-    let query = '*[_type == "package" && active == true';
-    
+    const params = { limit };
+    let filter = '_type == "package" && active == true';
+
     if (categories?.length) {
-      const categoryConditions = categories.map(cat => `category == "${cat}"`).join(' || ');
-      query += ` && (${categoryConditions})`;
+      filter += ' && category in $categories';
+      params.categories = categories;
     }
-    
     if (minPrice !== undefined) {
-      query += ` && price >= ${Number(minPrice)}`;
+      filter += ' && price >= $minPrice';
+      params.minPrice = Number(minPrice);
     }
-    
     if (maxPrice !== undefined) {
-      query += ` && price <= ${Number(maxPrice)}`;
+      filter += ' && price <= $maxPrice';
+      params.maxPrice = Number(maxPrice);
     }
-    
     if (minRating !== undefined) {
-      query += ` && rating >= ${Number(minRating)}`;
+      filter += ' && rating >= $minRating';
+      params.minRating = Number(minRating);
     }
-    
-    query += '] | order(publishedAt desc)';
-    
-    const data = await sanityClient.fetch(query);
+
+    const query = `*[${filter}] | order(publishedAt desc)[0...$limit]${proj(PACKAGE_CARD)}`;
+    const data = await sanityClient.fetch(query, params);
     return data || [];
   } catch (error) {
     console.error('Error fetching packages with filters:', error);
@@ -259,15 +337,16 @@ export async function fetchPackagesWithFilters(filters = {}) {
  */
 export async function getPackageStats() {
   try {
-    const [totalPackages, totalDestinations, avgRating] = await Promise.all([
-      sanityClient.fetch('count(*[_type == "package" && active == true])'),
-      sanityClient.fetch('count(*[_type == "destination" && active == true])'),
-      sanityClient.fetch('math::avg(*[_type == "package" && active == true].rating)'),
-    ]);
+    // One round trip instead of three.
+    const stats = await sanityClient.fetch(`{
+      "totalPackages": count(*[_type == "package" && active == true]),
+      "totalDestinations": count(*[_type == "destination" && active == true]),
+      "avgRating": math::avg(*[_type == "package" && active == true].rating)
+    }`);
     return {
-      totalPackages: totalPackages || 0,
-      totalDestinations: totalDestinations || 0,
-      avgRating: Number(avgRating)?.toFixed(1) || 0,
+      totalPackages: stats?.totalPackages || 0,
+      totalDestinations: stats?.totalDestinations || 0,
+      avgRating: stats?.avgRating ? Number(stats.avgRating).toFixed(1) : 0,
     };
   } catch (error) {
     console.error('Error fetching package stats:', error);
@@ -285,29 +364,32 @@ export async function getPackageStats() {
  * @param {string} options.category - Filter by category (optional)
  * @param {number} options.limit - Limit results (optional)
  * @param {boolean} options.featured - Filter featured hotels (optional)
+ * @param {'card'|'full'} options.fields - 'card' (default) projects listing fields only
  * @returns {Promise<Array>} Array of hotel objects
  */
 export async function fetchHotels(options = {}) {
-  const { category, limit, featured } = options;
-  
+  const { category, limit, featured, fields = 'card' } = options;
+
   try {
-    let query = '*[_type == "hotel" && active == true';
-    
+    const params = {};
+    let filter = '_type == "hotel" && active == true';
+
     if (category) {
-      query += ` && category == "${category}"`;
+      filter += ' && category == $category';
+      params.category = category;
     }
-    
     if (featured) {
-      query += ' && featured == true';
+      filter += ' && featured == true';
     }
-    
-    query += '] | order(_createdAt desc)';
-    
+
+    let query = `*[${filter}] | order(_createdAt desc)`;
     if (limit) {
-      query += `[0...${limit}]`;
+      query += '[0...$limit]';
+      params.limit = limit;
     }
-    
-    const data = await sanityClient.fetch(query);
+    query += proj(fields === 'full' ? 'full' : HOTEL_CARD);
+
+    const data = await sanityClient.fetch(query, params);
     return data || [];
   } catch (error) {
     console.error('Error fetching hotels from Sanity:', error);
@@ -325,15 +407,16 @@ export async function fetchHotelsByCategory(category) {
 }
 
 /**
- * Fetch a single hotel by slug
+ * Fetch a single hotel by slug (full document - detail page)
  * @param {string} category - Hotel category
  * @param {string} slug - Hotel slug
  * @returns {Promise<Object|null>} Hotel object or null
  */
 export async function fetchHotelBySlug(category, slug) {
   try {
-    const query = `*[_type == "hotel" && active == true && category == "${category}" && slug.current == "${slug}"][0]`;
-    const data = await sanityClient.fetch(query);
+    const query =
+      '*[_type == "hotel" && active == true && category == $category && slug.current == $slug][0]';
+    const data = await sanityClient.fetch(query, { category, slug });
     return data || null;
   } catch (error) {
     console.error(`Error fetching hotel with slug ${slug}:`, error);
@@ -353,24 +436,253 @@ export async function fetchFeaturedHotels(limit = 6) {
 /**
  * Search hotels by keyword
  * @param {string} keyword - Search keyword
+ * @param {number} limit - Maximum results (default 25)
  * @returns {Promise<Array>} Array of matching hotel objects
  */
-export async function searchHotels(keyword) {
-  const query = `*[_type == "hotel" && active == true && (
-    name match "${keyword}*" ||
-    location match "${keyword}*" ||
-    city match "${keyword}*" ||
-    country match "${keyword}*" ||
-    category match "${keyword}*" ||
-    description match "${keyword}*"
-  )] | order(rating desc)`;
-  
+export async function searchHotels(keyword, limit = 25) {
   try {
-    const results = await sanityClient.fetch(query);
+    const query = `*[_type == "hotel" && active == true && (
+      name match $kw ||
+      location match $kw ||
+      city match $kw ||
+      country match $kw ||
+      category match $kw ||
+      description match $kw
+    )] | order(rating desc)[0...$limit]${proj(HOTEL_CARD)}`;
+    const results = await sanityClient.fetch(query, { kw: `${keyword}*`, limit });
     return results || [];
   } catch (error) {
     console.error('Error searching hotels:', error);
     return [];
+  }
+}
+
+/**
+ * Packages for the homepage carousel, featured first.
+ * Replaces the old "fetch featured, and if empty fetch again" two-request waterfall:
+ * ordering by featured desc puts featured packages first and still fills the carousel
+ * when nothing is flagged featured.
+ * @param {number} limit
+ * @returns {Promise<Array>}
+ */
+export async function fetchHomepagePackages(limit = 20) {
+  try {
+    const query = `*[_type == "package" && active == true]
+      | order(featured desc, publishedAt desc)[0...$limit]${proj(PACKAGE_CARD)}`;
+    const data = await sanityClient.fetch(query, { limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching homepage packages:', error);
+    return [];
+  }
+}
+
+/**
+ * Promo offers for the Live Offers strip. Returns [] when none are published so the
+ * caller can keep its own fallback copy.
+ * @param {number} limit
+ * @returns {Promise<Array>}
+ */
+export async function fetchOffers(limit = 4) {
+  try {
+    const query = `*[_type == "offer" && active == true]
+      | order(displayOrder asc)[0...$limit] {
+        _id, code, title, discount, destination, image
+      }`;
+    const data = await sanityClient.fetch(query, { limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching offers:', error);
+    return [];
+  }
+}
+
+/**
+ * Every active customer video in one request. The whole set is tiny, so VideoHero and
+ * VideoTestimonialBand select their role from a single shared cache entry rather than
+ * issuing a request each.
+ * @param {{ limit?: number }} options
+ * @returns {Promise<Array>}
+ */
+export async function fetchAllCustomerVideos({ limit = 20 } = {}) {
+  try {
+    const query = `*[_type == "customerVideo" && active == true]
+      | order(order asc)[0...$limit] {
+        _id,
+        "videoUrl": videoFile.asset->url,
+        poster,
+        title, customerName, destination, quote, role
+      }`;
+    const data = await sanityClient.fetch(query, { limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching customer videos:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetch customer trip photos for the CustomerGrid section.
+ * Returns photo as a full Sanity image reference object (pass to urlFor).
+ * @param {{ limit?: number }} options
+ * @returns {Promise<Array>}
+ */
+export async function fetchCustomerPhotos({ limit = 24 } = {}) {
+  try {
+    const query = `*[_type == "customerPhoto" && active == true]
+      | order(order asc, _createdAt desc)[0...$limit] {
+        _id, photo, altText, caption, customerName, destination
+      }`;
+    const data = await sanityClient.fetch(query, { limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching customer photos:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetch customer videos by role.
+ * Returns videoUrl as a plain CDN string; poster as a Sanity image ref (pass to urlFor).
+ * @param {{ role?: 'hero' | 'testimonial', limit?: number }} options
+ * @returns {Promise<Array>}
+ */
+export async function fetchCustomerVideos({ role = 'testimonial', limit = 10 } = {}) {
+  try {
+    const query = `*[_type == "customerVideo" && active == true && role == $role]
+      | order(order asc)[0...$limit] {
+        _id,
+        "videoUrl": videoFile.asset->url,
+        poster,
+        title, customerName, destination, quote, role
+      }`;
+    const data = await sanityClient.fetch(query, { role, limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching customer videos:', error);
+    return [];
+  }
+}
+
+/**
+ * Blog posts for /blog.
+ * Projected to the field names the page already uses (id, date) so the component
+ * shape is unchanged from the previous hardcoded data.
+ * @param {{ limit?: number }} options
+ * @returns {Promise<Array>}
+ */
+export async function fetchBlogPosts({ limit = 50 } = {}) {
+  try {
+    const query = `*[_type == "blogPost" && active == true]
+      | order(publishedAt desc)[0...$limit] {
+        "id": _id,
+        title,
+        "slug": slug.current,
+        author,
+        "date": publishedAt,
+        excerpt,
+        image,
+        category,
+        readTime,
+        url,
+        content
+      }`;
+    const data = await sanityClient.fetch(query, { limit });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return [];
+  }
+}
+
+/**
+ * Testimonials and platform ratings in a single round trip. Both feed one home-page
+ * section, so there is no reason to spend two requests on them.
+ * @returns {Promise<{ testimonials: Array, platforms: Array }>}
+ */
+export async function fetchHomeReviews({ limit = 60 } = {}) {
+  try {
+    const query = `{
+      "testimonials": *[_type == "testimonial" && active == true]
+        | order(order asc, _createdAt asc)[0...$limit] {
+          _id, name, location, destination, rating, text, avatar, featured,
+          "tripPhotos": coalesce(tripPhotos[].asset->url, photos[].asset->url, [])
+        },
+      "platforms": *[_type == "platformReview" && active == true]
+        | order(displayOrder asc) {
+          _id, platform, rating, totalReviews
+        }
+    }`;
+    const data = await sanityClient.fetch(query, { limit });
+    return { testimonials: data?.testimonials || [], platforms: data?.platforms || [] };
+  } catch (error) {
+    console.error('Error fetching home reviews:', error);
+    return { testimonials: [], platforms: [] };
+  }
+}
+
+/**
+ * Universal site search across every CMS document type a visitor can land on,
+ * in a single round trip.
+ *
+ * `match` is Sanity's tokenised text match, so the `*term*` form handles partial
+ * words. Local content (destinations, themes, activities, pages) is matched in
+ * src/lib/searchIndex.js instead — see hooks/useSiteSearch.js for how the two
+ * halves are merged.
+ *
+ * @param {string} keyword - raw query text
+ * @param {Object} limits - per-type result caps
+ * @returns {Promise<{packages:Array, hotels:Array, blogPosts:Array, destinations:Array}>}
+ */
+export async function searchContent(keyword, limits = {}) {
+  const empty = { packages: [], hotels: [], blogPosts: [], destinations: [] };
+  const term = String(keyword || '').trim();
+  if (term.length < 2) return empty;
+
+  const {
+    packages: pkgLimit = 12,
+    hotels: hotelLimit = 8,
+    blogPosts: blogLimit = 6,
+    destinations: destLimit = 6,
+  } = limits;
+
+  try {
+    const query = `{
+      "packages": *[_type == "package" && active == true && (
+          title match $q || destination match $q || category match $q ||
+          overview match $q || themes[] match $q
+        )] | order(featured desc, publishedAt desc)[0...$pkgLimit] { ${PACKAGE_CARD} },
+      "hotels": *[_type == "hotel" && (
+          name match $q || city match $q || country match $q ||
+          location match $q || category match $q
+        )] | order(featured desc)[0...$hotelLimit] { ${HOTEL_CARD} },
+      "blogPosts": *[_type == "blogPost" && (
+          title match $q || excerpt match $q || category match $q
+        )] | order(publishedAt desc)[0...$blogLimit] {
+          _id, title, slug, category, excerpt, image, publishedAt, readTime, url
+        },
+      "destinations": *[_type == "destination" && active == true && (
+          title match $q || description match $q || category match $q
+        )][0...$destLimit] { _id, title, slug, category, type, image, description }
+    }`;
+
+    const data = await sanityClient.fetch(query, {
+      q: `*${term}*`,
+      pkgLimit,
+      hotelLimit,
+      blogLimit,
+      destLimit,
+    });
+
+    return {
+      packages: data?.packages || [],
+      hotels: data?.hotels || [],
+      blogPosts: data?.blogPosts || [],
+      destinations: data?.destinations || [],
+    };
+  } catch (error) {
+    console.error('Error running site search:', error);
+    return empty;
   }
 }
 

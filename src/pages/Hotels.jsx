@@ -1,26 +1,27 @@
-import { useMemo, useState, useEffect } from 'react';
+import { BedDouble, Home, MapPin, Search, Star } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { hotelCategories } from '../data/siteData';
-import { fetchHotelsByCategory } from '../services/sanityClient';
+import { useHotels } from '../hooks/queries';
 import HeroSlider from '../components/HeroSlider';
 
 const HotelCategoryCard = ({ category }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-all duration-300 bg-white h-full">
+    <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group transition-[transform,box-shadow] duration-300 bg-surface h-full">
       <div className="relative overflow-hidden h-44 md:h-52">
         <img 
           src={category.image} 
           alt={category.title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
         />
-        <div className="absolute inset-0 bg-darkBlue/50 group-hover:bg-teal/50 transition-colors duration-300" />
+        <div className="absolute inset-0 bg-brand-scrim/50 group-hover:bg-teal/50 transition-colors duration-300" />
       </div>
-      <div className="p-3 bg-white">
+      <div className="p-3 bg-surface">
         <div className="flex items-center justify-between gap-2 mb-1.5">
           <h3 className="text-lg font-bold text-darkBlue font-season">{category.title}</h3>
           <Link 
             to={category.link} 
-            className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-all hover:shadow-lg whitespace-nowrap flex-shrink-0"
+            className="bg-orange text-white py-1.5 px-3 text-xs rounded-full font-semibold font-poppins hover:bg-teal transition-[background-color] hover:shadow-lg whitespace-nowrap flex-shrink-0"
           >
             Explore
           </Link>
@@ -40,7 +41,7 @@ const HotelCard = ({ hotel, category }) => {
   };
 
   return (
-    <div className="custom-card group bg-white h-full flex flex-col">
+    <div className="custom-card group bg-surface h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-2xl">
         <img
           src={hotel.image}
@@ -49,8 +50,8 @@ const HotelCard = ({ hotel, category }) => {
           decoding="async"
           className="w-full h-44 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute left-3 bottom-3 bg-darkBlue text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90 flex items-center gap-1">
-          <i className="fas fa-star text-orange"></i>
+        <div className="absolute left-3 bottom-3 bg-brand-scrim text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-poppins backdrop-blur-sm bg-opacity-90 flex items-center gap-1">
+          <Star className="w-4 h-4 text-orange" />
           {hotel.rating}
         </div>
       </div>
@@ -60,15 +61,15 @@ const HotelCard = ({ hotel, category }) => {
           <div className="flex-1">
             <h3 className="font-semibold text-darkBlue text-base md:text-lg font-poppins line-clamp-1">{hotel.name}</h3>
             <p className="text-xs text-darkBlue/60 font-canva-sans flex items-center gap-1 mt-1">
-              <i className="fas fa-map-marker-alt text-orange text-xs"></i>
+              <MapPin className="w-3 h-3 text-orange" />
               {hotel.location}
             </p>
           </div>
           <button 
             onClick={handleBookClick}
-            className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-all duration-200 whitespace-nowrap flex-shrink-0"
+            className="custom-btn text-xs px-3 py-1.5 font-medium bg-teal hover:bg-teal/90 hover:scale-[1.02] transition-[transform,background-color] duration-200 whitespace-nowrap flex-shrink-0"
           >
-            <i className="fas fa-bed mr-1 text-xs"></i>
+            <BedDouble className="w-3 h-3 mr-1" />
             Book Now
           </button>
         </div>
@@ -106,31 +107,11 @@ export default function Hotels() {
   const { category } = useParams();
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: hotels = [], isPending } = useHotels({ category });
+  const loading = Boolean(category) && isPending;
 
   const categoryData = useMemo(() => {
     return hotelCategories.find(cat => cat.slug === category);
-  }, [category]);
-
-  // Fetch hotels from Sanity
-  useEffect(() => {
-    async function loadHotels() {
-      if (!category) return;
-      
-      try {
-        setLoading(true);
-        const data = await fetchHotelsByCategory(category);
-        setHotels(data || []);
-      } catch (error) {
-        console.error('Error fetching hotels:', error);
-        setHotels([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    loadHotels();
   }, [category]);
 
   const filtered = useMemo(() => {
@@ -175,7 +156,7 @@ export default function Hotels() {
         <p className="text-white/90 mt-3">{categoryData.blurb}</p>
         <div className="max-w-3xl mx-auto mt-5">
           <form
-            className="flex overflow-hidden rounded-full shadow-xl bg-white"
+            className="flex overflow-hidden rounded-full shadow-xl bg-surface"
             onSubmit={(e) => {
               e.preventDefault();
               setSearchTerm(query);
@@ -189,10 +170,10 @@ export default function Hotels() {
             />
             <button
               type="submit"
-              className="bg-primary text-white px-6 hover:bg-secondary transition-colors"
+              className="bg-brand-scrim text-white px-6 hover:bg-secondary transition-colors"
               aria-label="Search"
             >
-              <i className="fa fa-search" />
+              <Search className="w-4 h-4" />
             </button>
           </form>
           {searchTerm && (
@@ -224,7 +205,7 @@ export default function Hotels() {
               ))}
             </div>
           ) : (
-            <div className="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl p-4">
+            <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 text-amber-900 dark:text-amber-200 rounded-2xl p-4">
               {searchTerm ? 'No hotels found matching your search. Try adjusting your search.' : 'No hotels available in this category.'}
             </div>
           )}
@@ -233,7 +214,7 @@ export default function Hotels() {
 
       {/* Similar Hotels Section - Other Categories */}
       {otherCategories.length > 0 && (
-        <section className="py-8 bg-lightGray">
+        <section className="py-8 bg-lightGray/60">
           <div className="container mx-auto px-4">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-darkBlue mb-2 font-poppins">
@@ -253,9 +234,9 @@ export default function Hotels() {
             <div className="mt-8 text-center">
               <Link 
                 to="/"
-                className="inline-block custom-btn px-6 py-3 text-sm font-semibold hover:scale-105 transition-all duration-200"
+                className="inline-block custom-btn px-6 py-3 text-sm font-semibold hover:scale-105 transition-[transform] duration-200"
               >
-                <i className="fas fa-home mr-2"></i>
+                <Home className="w-4 h-4 mr-2" />
                 Back to Home
               </Link>
             </div>

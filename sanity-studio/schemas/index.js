@@ -5,6 +5,10 @@ import testimonial from './testimonial'
 import banner from './banner'
 import destination from './destination'
 import hotel from './hotel'
+import offer from './offer'
+import customerPhoto from './customerPhoto'
+import customerVideo from './customerVideo'
+import platformReview from './platformReview'
 
 // Define inline object types for package schema to avoid GraphQL errors
 const itineraryDay = {
@@ -82,5 +86,9 @@ export const schemaTypes = [
   testimonial,
   banner,
   destination,
-  hotel
+  hotel,
+  offer,
+  customerPhoto,
+  customerVideo,
+  platformReview,
 ]

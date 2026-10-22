@@ -1,46 +1,22 @@
 // Custom Hook: useDestinations
-// Fetches packages for a specific destination category
+// Fetches packages and banners for a specific destination category.
+//
+// Backed by react-query, so the result is cached across navigation and the old
+// set-state-after-unmount race is gone. The return shape is unchanged.
 
-import { useState, useEffect } from 'react';
-import { getDestinationPackages, getDestinationBanners } from '../services/destinationService';
+import { usePackagesFullByCategory, useBanners } from './queries';
 
 export function useDestinations(categorySlug) {
-  const [packages, setPackages] = useState([]);
-  const [banners, setBanners] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const packagesQuery = usePackagesFullByCategory(categorySlug);
+  const bannersQuery = useBanners(categorySlug);
 
-  useEffect(() => {
-    if (!categorySlug) {
-      setIsLoading(false);
-      return;
-    }
+  const enabled = Boolean(categorySlug);
 
-    async function fetchData() {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        // Fetch packages and banners in parallel
-        const [packagesData, bannersData] = await Promise.all([
-          getDestinationPackages(categorySlug),
-          getDestinationBanners(categorySlug)
-        ]);
-
-        setPackages(packagesData);
-        setBanners(bannersData);
-      } catch (err) {
-        console.error('Error fetching destination data:', err);
-        setError(err.message);
-        setPackages([]);
-        setBanners([]);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [categorySlug]);
-
-  return { packages, banners, isLoading, error };
+  return {
+    packages: packagesQuery.data ?? [],
+    banners: bannersQuery.data ?? [],
+    // Disabled queries stay "pending" forever, so without a category there is nothing loading.
+    isLoading: enabled && (packagesQuery.isPending || bannersQuery.isPending),
+    error: packagesQuery.error?.message ?? bannersQuery.error?.message ?? null,
+  };
 }

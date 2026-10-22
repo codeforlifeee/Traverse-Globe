@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSlider({ images = [], interval = 4000, className = '', children }){
@@ -102,10 +103,10 @@ export default function HeroSlider({ images = [], interval = 4000, className = '
           {images.length > 1 && (
             <>
               <button aria-label="Previous" className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center" onClick={() => go('prev')}>
-                <i className="fa-solid fa-chevron-left"></i>
+                <ChevronLeft className="w-4 h-4" />
               </button>
               <button aria-label="Next" className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center" onClick={() => go('next')}>
-                <i className="fa-solid fa-chevron-right"></i>
+                <ChevronRight className="w-4 h-4" />
               </button>
             </>
           )}

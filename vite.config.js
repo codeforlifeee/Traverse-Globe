@@ -97,7 +97,9 @@ function localLeadWebhookApi() {
 // }
 
 // https://vite.dev/config/
-export default defineConfig({
+// `isSsrBuild` is the build-time pre-render bundle (scripts/prerender.mjs). It keeps
+// node_modules external, so the browser chunk split below does not apply to it.
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
     localLeadWebhookApi(),
     // injectCSPMetaTag(), // Disabled - CSP handled by .htaccess
@@ -138,153 +140,22 @@ export default defineConfig({
       filename: 'dist/stats.html'
     }),
     
-    // PWA for caching and offline support
-    VitePWA({
-      registerType: 'autoUpdate',
-      // Avoid injecting registerSW.js to reduce critical request chain; we register manually in main.jsx after load
-      injectRegister: null,
-      devOptions: {
-        enabled: false
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}'],
-        skipWaiting: true,
-        clientsClaim: true,
-        cleanupOutdatedCaches: true,
-        sourcemap: false,
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'unsplash-images-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-              fetchOptions: {
-                mode: 'cors',
-                credentials: 'omit'
-              },
-              plugins: [
-                {
-                  cacheWillUpdate: async ({ response }) => {
-                    // Only cache successful responses
-                    return response.status === 200 ? response : null;
-                  }
-                }
-              ]
-            }
-          },
-          {
-            urlPattern: /^https:\/\/images\.pexels\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'pexels-images-cache',
-              expiration: {
-                maxEntries: 150,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-              fetchOptions: {
-                mode: 'cors',
-                credentials: 'omit', // Block third-party cookies
-                referrerPolicy: 'no-referrer'
-              },
-              plugins: [
-                {
-                  requestWillFetch: async ({ request }) => {
-                    // Strip cookies from Pexels requests
-                    const headers = new Headers(request.headers);
-                    headers.delete('Cookie');
-                    return new Request(request, { 
-                      headers,
-                      credentials: 'omit'
-                    });
-                  },
-                  cacheWillUpdate: async ({ response }) => {
-                    // Only cache successful responses
-                    return response.status === 200 ? response : null;
-                  }
-                }
-              ]
-            }
-          },
-          {
-            urlPattern: /^https:\/\/cdnjs\.cloudflare\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'cdnjs-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          }
-        ]
-      },
-      manifest: {
-        name: 'Traverse Globe',
-        short_name: 'TraverseGlobe',
-        description: 'Your trusted travel partner for curated holiday packages',
-        theme_color: '#FF5B04',
-        background_color: '#ffffff',
-        display: 'standalone',
-        icons: [
-          {
-            src: '/logo.webp',
-            sizes: '192x192',
-            type: 'image/webp'
-          }
-        ]
-      }
-    })
+    // PWA plugin completely disabled to prevent aggressive caching issues
+    // VitePWA({...})
   ].filter(Boolean),
   
   build: {
     // Enable code splitting
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: isSsrBuild ? undefined : {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['framer-motion', 'swiper', 'lucide-react'],
-          'vendor-utils': ['axios', '@tanstack/react-query', 'clsx']
+          // framer-motion and lucide are needed by the eager Header, so they are
+          // critical. Swiper is not - leaving it unlisted lets it ride along with the
+          // lazy carousel sections instead of being modulepreloaded on every page.
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['lucide-react'],
+          'vendor-utils': ['@tanstack/react-query', 'clsx', 'tailwind-merge', 'class-variance-authority']
         },
         // Optimize chunk naming for better caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -304,7 +175,7 @@ export default defineConfig({
       }
     },
     // Optimize chunk size
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 400,
     // Use terser for better minification
     minify: 'terser',
     terserOptions: {
@@ -328,7 +199,7 @@ export default defineConfig({
     // Report compressed size
     reportCompressedSize: true,
     // Target modern browsers for smaller bundles
-    target: 'es2015'
+    target: 'es2020'
   },
   
   // Optimize dependencies
@@ -350,8 +221,10 @@ export default defineConfig({
 
   // Server configuration
   server: {
+    port: 5173,
+    strictPort: false, // If 5173 taken, Vite auto-bumps to 5174 — remember to whitelist that in Sanity CORS
     hmr: {
       overlay: false
     }
   }
-})
+}))

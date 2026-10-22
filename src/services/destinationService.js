@@ -62,7 +62,7 @@ export async function getPackageBySlug(categorySlug, packageSlug) {
     const { fetchPackageBySlug } = await import('./sanityClient');
     const packageData = await fetchPackageBySlug(packageSlug);
     
-    if (packageData && packageData.category === categorySlug) {
+    if (packageData) {
       return packageData;
     }
     

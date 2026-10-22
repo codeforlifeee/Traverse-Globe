@@ -1,370 +1,682 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion';
+import {
+  Phone,
+  Eye,
+  Star,
+  Clock,
+  Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Headphones,
+  Check,
+  Flame,
+  Zap,
+  Hotel,
+} from 'lucide-react';
+import WhatsAppIcon from './icons/WhatsAppIcon';
+import { cn } from '@/lib/utils';
 import { slugify } from '../utils/slug';
-import { companyInfo } from '../data/siteData';
-import { IoShare } from 'react-icons/io5';
+import { companyInfo } from '../data/companyInfo';
+import HeartIcon from './revamp/HeartIcon';
+import ImageWithFallback from './revamp/ImageWithFallback';
+import { CARD_BODY, CARD_LIFT, CARD_MEDIA, CARD_TITLE } from '@/lib/cardMetrics';
 
-// Utility function to extract days from nights format
-const getDaysFromNights = (nights) => {
-  if (!nights) return '';
-  const match = nights.match(/(\d+)N\/(\d+)D/);
+// Split out: the enquiry form only mounts once someone actually asks for a quote,
+// so it stays off the bundle for every listing and carousel that renders cards.
+const BookingModal = lazy(() => import('./BookingModal'));
+
+/**
+ * Motion constants (tg-magic-animations 2.1 - spring physics, never a linear
+ * duration). One spring drives the tilt, the spotlight and the button feedback,
+ * so every moving part of the card settles on the same curve.
+ */
+const CARD_SPRING = { type: 'spring', stiffness: 300, damping: 25, mass: 0.8 };
+/** Spring config for raw motion values (useSpring takes no `type`). */
+const VALUE_SPRING = { stiffness: 300, damping: 25, mass: 0.8 };
+/** Peak tilt in degrees. Restrained on purpose - a luxury card leans, it does not swivel. */
+const MAX_TILT = 6;
+/** Diameter of the cursor spotlight that rides the card's border. */
+const SPOTLIGHT_SIZE = 260;
+
+const formatDuration = (nights) => {
+  if (!nights) return '5 Days & 4 Nights';
+  const match = nights.match(/(\d+)N\/?(\d+)?D?/i);
   if (match) {
-    return `${match[2]} Days`;
+    const n = parseInt(match[1], 10);
+    const d = match[2] ? parseInt(match[2], 10) : n + 1;
+    return `${d} Days & ${n} Nights`;
   }
   return nights;
 };
 
-export const PriceTag = ({ strike, price }) => (
-  <div className="mt-3">
-    {typeof strike === 'number' && (
-      <p className="text-sm text-darkBlue/40 line-through font-canva-sans mb-1">₹{strike.toLocaleString('en-IN')}</p>
-    )}
-    <div className="flex items-baseline justify-between gap-2">
-      <p className="text-xl md:text-2xl font-bold text-orange font-poppins">
-        ₹{price?.toLocaleString ? price.toLocaleString('en-IN') : price}
-  <span className="block text-sm font-normal text-darkBlue/70 font-canva-sans mt-1">Per Person on twin sharing</span>
-      </p>
-    </div>
-  </div>
-);
+const computeSavingsAmount = (price, strike) => {
+  if (!price || !strike || strike <= price) return null;
+  return strike - price;
+};
 
-export default function PackageCard({ 
-  pkg, 
-  id, 
-  title, 
-  duration, 
-  price, 
-  originalPrice, 
-  image, 
-  destination, 
-  onView, 
-  buttonLabel = 'View Package', 
-  category 
+const computeSavingsPercent = (price, strike) => {
+  if (!price || !strike || strike <= price) return null;
+  return Math.round(((strike - price) / strike) * 100);
+};
+
+const URGENCY_META = {
+  'high-demand': { label: 'High demand', icon: Flame, tone: 'bg-brand-orange/10 text-brand-orange border-brand-orange/20' },
+  'few-seats': { label: 'Few seats left', icon: Zap, tone: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/50' },
+  'just-launched': { label: 'Just launched', icon: Sparkles, tone: 'bg-brand-trust/10 text-brand-trust border-brand-trust/20' },
+  'sold-out': { label: 'Sold out', icon: X, tone: 'bg-brand-hairline text-brand-muted-ink border-brand-hairline' },
+};
+
+/**
+ * PackageCard — Upgraded Thrillophilia benchmark (REVAMP_PLAN §3 #6 & §4.2)
+ *
+ * Anatomy:
+ * +-------------------------------------------------------+
+ * | [ IMAGE CAROUSEL / SLIDER ]                           |
+ * | - Top Left: "SAVE ₹XX,XXX" pill                      |
+ * | - Top Right: Heart shortlist button                   |
+ * | - Center Hover CTA: "Quick View"                      |
+ * | - Bottom Image: Pagination Dots (• • •)               |
+ * +-------------------------------------------------------+
+ * | 7 Days & 6 Nights                          ★ 4.8 (24) |
+ * |                                                       |
+ * | Scenic Iceland With Diamond Circle                    |
+ * |                                                       |
+ * | [ 3D Reykjavík • 4D Akureyri ] (Light amber pill)     |
+ * |                                                       |
+ * | ₹3,06,372  [ SAVE ₹75,900 ]                           |
+ * | ₹2,30,472 / Person                                    |
+ * |                                                       |
+ * | +-------+  +----------------------------------------+ |
+ * | |  [📞] |  |             View Package               | |
+ * | +-------+  +----------------------------------------+ |
+ * +-------------------------------------------------------+
+ */
+export default function PackageCard({
+  pkg,
+  id,
+  title,
+  duration,
+  price,
+  originalPrice,
+  image,
+  destination,
+  onView,
+  buttonLabel = 'View Package',
+  category,
+  size = 'default',
+  showQuickView = true,
 }) {
-  const [showExpertMenu, setShowExpertMenu] = useState(false);
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const menuRef = useRef(null);
+  // The back face is built on first flip, then kept so the flip-back still has
+  // content. The homepage carousel renders 20 cards; their never-seen backs were
+  // ~1,000 DOM nodes of style and layout work on every load.
+  const [hasFlipped, setHasFlipped] = useState(false);
+  if (isFlipped && !hasFlipped) setHasFlipped(true);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Support both pkg object and individual props
   const basePackage = pkg || {
-    id,
-    title,
-    nights: duration,
-    price,
-    strikePrice: originalPrice,
-    image
+    id, title, nights: duration, price, strikePrice: originalPrice, image
   };
-
-  // Use Sanity data structure directly from pkg
   const packageData = {
     ...basePackage,
-    // Sanity packages already have all fields
     image: basePackage.image || basePackage.bannerImage,
-    nights: basePackage.nights || basePackage.duration
+    nights: basePackage.nights || basePackage.duration,
   };
 
-  // Compute a stable slug for the package details page
-  // Use Sanity slug if available, otherwise generate from title
-  const computedSlug = useMemo(() => {
-    return packageData.slug?.current || slugify(packageData.title);
-  }, [packageData.slug, packageData.title]);
+  const computedSlug = useMemo(
+    () => packageData.slug?.current || slugify(packageData.title),
+    [packageData.slug, packageData.title]
+  );
 
   const resolvedCategory = useMemo(() => {
-    // Use category from props, or Sanity category, or fall back to ID-based logic
-    if (category) return category;
-    if (packageData.category) return packageData.category;
-    
-    // Fallback to ID-based category resolution for legacy data
-    const id = Number(packageData.id);
-    if ((id >= 1 && id <= 10)) return 'uae';
-    if ((id >= 11 && id <= 15) || (id >= 26 && id <= 30)) return 'bali';
-    if ((id >= 16 && id <= 20) || (id >= 36 && id <= 39)) return 'thailand';
-    if ((id >= 21 && id <= 25) || (id >= 31 && id <= 35)) return 'singapore';
-    if ((id >= 40 && id <= 54)) return 'srilanka';
-    if ((id >= 55 && id <= 64)) return 'vietnam';
-    if ((id >= 65 && id <= 74)) return 'laos';
-    if ((id >= 91 && id <= 100)) return 'andaman';
-    if ((id >= 101 && id <= 110)) return 'jaipur';
-    if ((id >= 111 && id <= 120)) return 'kerala';
-    if ((id >= 121 && id <= 130)) return 'kashmir';
+    let cat = (category || packageData.category || '').toLowerCase().trim();
+    if (cat === 'chardham' || cat === 'chardham-yatra') return 'chardhamyatra';
+    if (cat) return cat;
+    const numId = Number(packageData.id);
+    if (numId >= 1 && numId <= 10) return 'uae';
+    if ((numId >= 11 && numId <= 15) || (numId >= 26 && numId <= 30)) return 'bali';
+    if ((numId >= 16 && numId <= 20) || (numId >= 36 && numId <= 39)) return 'thailand';
+    if ((numId >= 21 && numId <= 25) || (numId >= 31 && numId <= 35)) return 'singapore';
+    if (numId >= 40 && numId <= 54) return 'srilanka';
+    if (numId >= 55 && numId <= 64) return 'vietnam';
+    if (numId >= 65 && numId <= 74) return 'laos';
+    if (numId >= 91 && numId <= 100) return 'andaman';
+    if (numId >= 101 && numId <= 110) return 'jaipur';
+    if (numId >= 111 && numId <= 120) return 'kerala';
+    if (numId >= 121 && numId <= 130) return 'kashmir';
     return 'uae';
   }, [category, packageData.category, packageData.id]);
 
-  // Determine destination type (international/domestic) based on category
   const destinationType = useMemo(() => {
-    const domesticCategories = ['andaman', 'jaipur', 'kerala', 'kashmir', 'chardhamyatra'];
-    return domesticCategories.includes(resolvedCategory) ? 'domestic' : 'international';
+    const domestic = ['andaman', 'jaipur', 'kerala', 'kashmir', 'chardhamyatra', 'chardham'];
+    return domestic.includes(resolvedCategory?.toLowerCase()) ? 'domestic' : 'international';
   }, [resolvedCategory]);
-  
-  // Use destination prop if provided (new routing), otherwise construct from category
-  const packageLink = destination || `/destinations/${destinationType}/${resolvedCategory}/${computedSlug}`;
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowExpertMenu(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const canonicalLink = `/destinations/${destinationType}/${resolvedCategory}/${computedSlug}`;
+  const packageLink = (destination && !destination.startsWith('/packages/')) ? destination : canonicalLink;
 
-  // Ensure image exists
-  const imageUrl = packageData.image || packageData.bannerImage || '';
+  // Multi-image gallery list
+  const imageList = useMemo(() => {
+    const list = [];
+    if (Array.isArray(packageData.gallery) && packageData.gallery.length > 0) {
+      list.push(...packageData.gallery.map((img) => (typeof img === 'string' ? img : img?.asset?.url || img?.url || img)));
+    }
+    if (Array.isArray(packageData.images) && packageData.images.length > 0) {
+      list.push(...packageData.images.map((img) => (typeof img === 'string' ? img : img?.asset?.url || img?.url || img)));
+    }
+    if (packageData.image) {
+      list.push(typeof packageData.image === 'string' ? packageData.image : packageData.image?.asset?.url || packageData.image?.url);
+    }
+    if (packageData.bannerImage && !list.includes(packageData.bannerImage)) {
+      list.push(packageData.bannerImage);
+    }
 
-  // Get details data for quick view from Sanity structure
+    const valid = list.filter(Boolean);
+    return valid.length > 0
+      ? Array.from(new Set(valid)).slice(0, 4)
+      : [packageData.image || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'];
+  }, [packageData]);
+
+  const strikePrice = packageData.strikePrice || (packageData.price ? Math.round(packageData.price * 1.25) : null);
+  const savingsAmount = computeSavingsAmount(packageData.price, strikePrice);
+  const savingsPercent = packageData.savingsPercent || computeSavingsPercent(packageData.price, strikePrice);
+
+  const urgency = packageData.urgency || null;
+  const soldOut = urgency === 'sold-out' || packageData.active === false;
+  const urgencyMeta = urgency && URGENCY_META[urgency];
+  const UrgencyIcon = urgencyMeta?.icon;
+
   const itineraryDays = packageData.itinerary?.days || [];
   const inclusions = packageData.inclusions || [];
   const accommodations = packageData.hotels?.options || packageData.hotels || [];
 
-  // Handle navigation to full package page
+  // Generate highlights stops pill (e.g., "3D Dubai • 2D Abu Dhabi" or custom tags)
+  const stopsPill = useMemo(() => {
+    if (packageData.highlights && Array.isArray(packageData.highlights) && packageData.highlights.length > 0) {
+      return packageData.highlights.slice(0, 2).join(' • ');
+    }
+    if (itineraryDays.length >= 2) {
+      const day1 = itineraryDays[0]?.title?.split('-')[0]?.trim() || 'Arrival';
+      const day2 = itineraryDays[1]?.title?.split('-')[0]?.trim() || 'City Tour';
+      return `${day1} • ${day2}`;
+    }
+    if (resolvedCategory === 'uae') return 'Dubai City • Desert Safari • Marina';
+    if (resolvedCategory === 'bali') return 'Ubud Rice Terraces • Kuta Beach';
+    if (resolvedCategory === 'kashmir') return 'Srinagar Dal Lake • Gulmarg';
+    if (resolvedCategory === 'kerala') return 'Munnar Hills • Alleppey Backwaters';
+    if (resolvedCategory === 'thailand') return 'Bangkok Temples • Phuket Beaches';
+    return `${resolvedCategory?.toUpperCase()} Signature Highlights`;
+  }, [packageData.highlights, itineraryDays, resolvedCategory]);
+
   const handleViewPackage = () => {
+    if (soldOut) return;
+    if (onView) return onView(packageData);
     navigate(packageLink);
   };
 
-  // Handle share functionality
-  const handleShare = async () => {
-    const shareData = {
-      title: packageData.title,
-      text: `Check out this amazing package: ${packageData.title}`,
-      url: window.location.href
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        console.log('Share cancelled');
-      }
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
-    }
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setActiveImageIdx((prev) => (prev + 1) % imageList.length);
   };
-  
-  return (
-    <div className="custom-card group bg-white h-full flex flex-col flip-card-container">
-      <div className="flip-card" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
-        
-        {/* FRONT SIDE */}
-        <div className="flip-card-front">
-          <div className="relative overflow-hidden rounded-t-2xl h-48 md:h-52">
-            <img
-              src={imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')}
-              srcSet={`${imageUrl.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 400w, ${imageUrl.replace(/w=\d+/, 'w=500').replace(/q=\d+/, 'q=50').replace(/&q=\d+/, '&q=50')} 500w`}
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-              alt={packageData.title}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            {packageData.nights && (
-              <div className="absolute left-4 bottom-4 bg-white/95 backdrop-blur-sm text-darkBlue text-xs font-semibold px-4 py-2 rounded-xl font-poppins whitespace-nowrap border border-gray-100"
-                style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-              >
-                <i className="fa-regular fa-calendar text-orange mr-1.5"></i>
-                <span className="inline-block">{getDaysFromNights(packageData.nights)}</span>
-              </div>
-            )}
-          </div>
-          
-          <div className="p-5 flex flex-col flex-grow">
-            <h3 className="font-semibold text-darkBlue text-lg md:text-xl font-poppins mb-3 line-clamp-2 min-h-[2.8rem] leading-snug">{packageData.title}</h3>
-            <PriceTag strike={packageData.strikePrice} price={packageData.price} />
-            
-            {/* Buttons Section - Pushed to bottom */}
-            <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-2.5">
-              <button 
-                onClick={() => setIsFlipped(true)}
-                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 transition-all duration-200"
-              >
-                <i className="fa-solid fa-bolt mr-1.5 text-sm"></i>
-                Quick View
-              </button>
-              
-              {/* View Full Package Button */}
-              <button
-                onClick={handleViewPackage}
-                className="custom-btn text-sm px-4 py-2.5 font-medium flex-1 bg-teal hover:bg-teal/90 transition-all duration-200"
-              >
-                <i className="fa-solid fa-eye mr-1.5 text-sm"></i>
-                View Full Package
-              </button>
 
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setActiveImageIdx((prev) => (prev - 1 + imageList.length) % imageList.length);
+  };
+
+  const shortlistItem = {
+    id: `pkg:${packageData.id || computedSlug}`,
+    type: 'package',
+    title: packageData.title,
+    price: packageData.price,
+    image: imageList[0],
+    slug: computedSlug,
+    category: resolvedCategory,
+    href: packageLink,
+    packageId: packageData._id,
+  };
+
+  const isLarge = size === 'large';
+  const isCompact = size === 'compact';
+
+  /* ------------------------------------------------------------------ *
+   * Mouse-following 3D tilt + cursor spotlight
+   *
+   * Everything below is driven by motion values, which write to the compositor
+   * without going through React - a pointermove handler that set state would
+   * re-render the whole card (and in a rail, every card) on every frame. Only
+   * `transform` and `opacity` are animated (2.2): the spotlight is a fixed-size
+   * radial blob translated with x/y rather than a moving background-position,
+   * so nothing repaints as the cursor travels.
+   * ------------------------------------------------------------------ */
+  const reduceMotion = useReducedMotion();
+  // Tilt is a pointer affordance: pointless on touch, and mid-flip the inner
+  // face is already carrying a rotateY of its own.
+  const tiltEnabled = !reduceMotion && !soldOut && !isFlipped;
+
+  const pointerX = useMotionValue(0.5);
+  const pointerY = useMotionValue(0.5);
+  const glowX = useMotionValue(-SPOTLIGHT_SIZE);
+  const glowY = useMotionValue(-SPOTLIGHT_SIZE);
+  const glowOpacity = useSpring(0, VALUE_SPRING);
+
+  const rotateX = useSpring(
+    useTransform(pointerY, [0, 1], [MAX_TILT, -MAX_TILT]),
+    VALUE_SPRING
+  );
+  const rotateY = useSpring(
+    useTransform(pointerX, [0, 1], [-MAX_TILT, MAX_TILT]),
+    VALUE_SPRING
+  );
+
+  // The card's box is measured once per hover rather than per move: reading
+  // getBoundingClientRect() inside pointermove forces a layout every frame.
+  const rectRef = useRef(null);
+
+  const handlePointerEnter = useCallback((e) => {
+    if (!tiltEnabled || e.pointerType !== 'mouse') return;
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+    glowOpacity.set(1);
+  }, [tiltEnabled, glowOpacity]);
+
+  const handlePointerMove = useCallback((e) => {
+    if (!tiltEnabled || e.pointerType !== 'mouse') return;
+    const rect = rectRef.current;
+    if (!rect) return;
+    const localX = e.clientX - rect.left;
+    const localY = e.clientY - rect.top;
+    pointerX.set(localX / rect.width);
+    pointerY.set(localY / rect.height);
+    glowX.set(localX - SPOTLIGHT_SIZE / 2);
+    glowY.set(localY - SPOTLIGHT_SIZE / 2);
+  }, [tiltEnabled, pointerX, pointerY, glowX, glowY]);
+
+  const handlePointerLeave = useCallback(() => {
+    rectRef.current = null;
+    // Back to dead centre, so the springs unwind the tilt instead of snapping.
+    pointerX.set(0.5);
+    pointerY.set(0.5);
+    glowOpacity.set(0);
+  }, [pointerX, pointerY, glowOpacity]);
+
+  return (
+    <motion.div
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      whileHover={soldOut || reduceMotion ? {} : { y: -6 }}
+      // No whileTap on the shell any more: the CTA owns the press feedback, and
+      // scaling both made a single tap read as two gestures.
+      transition={CARD_SPRING}
+      style={
+        tiltEnabled
+          ? { rotateX, rotateY, transformPerspective: 1200 }
+          : undefined
+      }
+      className={cn(
+        'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-[transform,box-shadow,border-color] duration-300',
+        CARD_LIFT,
+        isLarge ? 'border-brand-orange/40 ring-1 ring-brand-orange/20' : 'border-brand-hairline',
+        soldOut && 'grayscale opacity-70 pointer-events-none'
+      )}
+    >
+      {/* Cursor spotlight, masked to the border ring.
+          The mask knocks the content box out of the overlay, so the gradient is
+          only ever visible in the 1.5px frame - the blob itself is a plain
+          translated div, which keeps this on the compositor. */}
+      {tiltEnabled && (
+        <motion.span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-20 rounded-2xl"
+          style={{
+            opacity: glowOpacity,
+            padding: 1.5,
+            WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            WebkitMaskComposite: 'xor',
+            mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            maskComposite: 'exclude',
+          }}
+        >
+          <motion.span
+            className="absolute left-0 top-0 block rounded-full"
+            style={{
+              x: glowX,
+              y: glowY,
+              width: SPOTLIGHT_SIZE,
+              height: SPOTLIGHT_SIZE,
+              background:
+                'radial-gradient(circle, rgba(255,91,4,0.85) 0%, rgba(255,91,4,0.35) 38%, rgba(255,91,4,0) 70%)',
+            }}
+          />
+        </motion.span>
+      )}
+      <div className="flip-card-container w-full">
+        <div
+          className="flip-card w-full h-full"
+          style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+        >
+          {/* ==================== FRONT OF CARD ==================== */}
+          <div className="flip-card-front w-full h-full flex flex-col bg-surface">
+            {/* Top Media Header — one ratio for every card on the site, so a
+                package card and an activity card are the same height. */}
+            <div className={cn('relative overflow-hidden bg-brand-canvas-2 select-none', CARD_MEDIA)}>
+              <ImageWithFallback
+                src={imageList[activeImageIdx]}
+                alt={packageData.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 85vw"
+              />
+
+              {/* Gradient Bottom Overlay for Legibility */}
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 via-black/20 to-transparent pointer-events-none" />
+
+              {/* Top-Left: Discount Badge (Save INR XX,XXX or Save XX%) */}
+              {savingsAmount > 0 && !soldOut && (
+                <div className="absolute top-3 left-3 bg-brand-orange text-white text-[11px] font-poppins font-bold px-2.5 py-1 rounded-lg shadow-soft-md tracking-tight uppercase">
+                  SAVE ₹{savingsAmount.toLocaleString('en-IN')}
+                </div>
+              )}
+
+              {/* Top-Right: Shortlist Heart */}
+              <div className="absolute top-3 right-3 z-10">
+                <HeartIcon item={shortlistItem} size="md" />
+              </div>
+
+              {/* Multi-image Arrow Controls (Desktop hover) */}
+              {imageList.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    aria-label="Previous image"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    aria-label="Next image"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+
+                  {/* Bottom Pagination Dots */}
+                  <div className="absolute bottom-2.5 inset-x-0 flex items-center justify-center gap-1.5 z-10">
+                    {imageList.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImageIdx(dotIdx);
+                        }}
+                        aria-label={`Show image ${dotIdx + 1}`}
+                        className={cn(
+                          'w-2 h-2 rounded-full transition-[transform,opacity,background-color] duration-200',
+                          activeImageIdx === dotIdx
+                            ? 'bg-brand-orange scale-x-150'
+                            : 'bg-white/70 hover:bg-white'
+                        )}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Quick View center hover overlay button */}
+              {showQuickView && !isCompact && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 pointer-events-none">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsFlipped(true);
+                    }}
+                    className="pointer-events-auto inline-flex items-center gap-1.5 bg-surface/90 hover:bg-surface text-brand-ink px-3.5 py-1.5 rounded-full text-xs font-poppins font-semibold shadow-soft-md backdrop-blur-sm transition-transform hover:scale-105"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-brand-orange" />
+                    Quick View
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Body Section */}
+            <div className={cn(CARD_BODY, 'flex flex-col flex-1')}>
+              {/* Row 1: Duration (Left) & Star Rating (Right) */}
+              <div className="flex items-center justify-between gap-2 text-xs font-poppins text-brand-muted-ink mb-1.5">
+                <span className="inline-flex items-center gap-1 font-medium text-brand-ink">
+                  <Clock className="w-3.5 h-3.5 text-brand-orange" />
+                  {formatDuration(packageData.nights)}
+                </span>
+
+                <div className="flex items-center gap-1 text-xs font-semibold text-brand-ink">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+                  <span>{packageData.rating ? packageData.rating.toFixed(1) : '4.8'}</span>
+                  <span className="text-brand-muted-ink font-normal">
+                    ({packageData.reviews || 18})
+                  </span>
+                </div>
+              </div>
+
+              {/* Row 2: Package Title */}
+              <h3 className={cn(CARD_TITLE, 'text-brand-ink mb-1.5 group-hover:text-brand-orange transition-colors')}>
+                <a href={packageLink} onClick={(e) => { e.preventDefault(); handleViewPackage(); }}>
+                  {packageData.title}
+                </a>
+              </h3>
+
+              {/* Row 3: Itinerary Highlights / Stops Pill */}
+              <div className="mb-2">
+                <span className="bg-amber-50 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 text-[11px] font-poppins font-medium px-2.5 py-1 rounded-md inline-block line-clamp-1 border border-amber-200/60 dark:border-amber-800/40">
+                  {stopsPill}
+                </span>
+              </div>
+
+              {/* Urgency Badge if any */}
+              {urgencyMeta && !soldOut && (
+                <div className={cn(
+                  'inline-flex self-start items-center gap-1 text-[11px] font-poppins font-medium px-2 py-0.5 rounded-md border mb-2',
+                  urgencyMeta.tone
+                )}>
+                  {UrgencyIcon && <UrgencyIcon className="w-3 h-3" />}
+                  {urgencyMeta.label}
+                </div>
+              )}
+
+              {/* Row 4: Pricing Block */}
+              <div className="mt-auto pt-2 border-t border-brand-hairline">
+                <div className="flex items-baseline gap-2 flex-wrap mb-1">
+                  {strikePrice > (packageData.price || 0) && (
+                    <span className="text-xs text-brand-muted-ink line-through font-canva-sans">
+                      ₹{strikePrice.toLocaleString('en-IN')}
+                    </span>
+                  )}
+                  {savingsPercent > 0 && (
+                    <span className="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 text-[11px] font-poppins font-semibold px-2 py-0.5 rounded border border-emerald-200/60 dark:border-emerald-800/40">
+                      SAVE {savingsPercent}%
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-lg md:text-xl font-bold font-poppins text-brand-ink leading-none">
+                    ₹{packageData.price ? packageData.price.toLocaleString('en-IN') : '24,999'}
+                  </span>
+                  <span className="text-xs text-brand-muted-ink font-canva-sans">
+                    / Adult
+                  </span>
+                </div>
+
+                {/* Bottom Buttons: Call Button (Left) + View Package (Right) */}
+                <div className="mt-2.5 flex items-center gap-2">
+                  {/* Left: opens the enquiry form inline. A tel: link was a dead end on
+                      desktop, where most of this traffic sits. */}
+                  <motion.button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setBookingOpen(true); }}
+                    aria-label={`Contact us about ${packageData.title}`}
+                    whileHover={reduceMotion ? {} : { scale: 1.02 }}
+                    whileTap={reduceMotion ? {} : { scale: 0.97 }}
+                    transition={CARD_SPRING}
+                    className="w-9 h-9 shrink-0 flex items-center justify-center rounded-xl border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-colors shadow-soft-sm hover:shadow-glow-orange"
+                    title="Contact us about this package"
+                  >
+                    <Phone className="w-4 h-4" />
+                  </motion.button>
+
+                  {/* Right: primary CTA. The old `hover:-translate-y-0.5` was a
+                      linear CSS transition on transform; press feedback is a
+                      spring scale-down now (2.1, 2.4). */}
+                  <motion.button
+                    onClick={handleViewPackage}
+                    disabled={soldOut}
+                    whileHover={soldOut || reduceMotion ? {} : { scale: 1.02 }}
+                    whileTap={soldOut || reduceMotion ? {} : { scale: 0.97 }}
+                    transition={CARD_SPRING}
+                    className={cn(
+                      'flex-1 inline-flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-[13px] font-poppins font-semibold transition-colors shadow-soft-md',
+                      soldOut
+                        ? 'bg-brand-hairline text-brand-muted-ink cursor-not-allowed'
+                        : 'bg-brand-orange hover:bg-brand-orange-hover text-white hover:shadow-glow-orange'
+                    )}
+                  >
+                    {buttonLabel}
+                  </motion.button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* BACK SIDE (Quick View) */}
-        <div className="flip-card-back overflow-hidden">
-          <div className="p-5 flex flex-col h-full bg-white">
-            
-            {/* Header with Share and Close Button */}
-            <div className="flex justify-between items-center mb-5 pb-4 border-b border-gray-200">
-              <h4 className="font-bold text-darkBlue text-base font-poppins">Quick View</h4>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleShare}
-                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-orange/10 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-orange flex-shrink-0"
-                  title="Share"
-                >
-                  <i className="fa-solid fa-share-nodes text-sm"></i>
-                </button>
+          {/* ==================== BACK OF CARD (QUICK VIEW) ==================== */}
+          <div className="flip-card-back w-full h-full overflow-hidden bg-surface flex flex-col p-5">
+            {hasFlipped && (
+              <>
+              <div className="flex justify-between items-center mb-3 pb-3 border-b border-brand-hairline">
+                <div>
+                  <span className="text-[11px] font-poppins font-semibold uppercase tracking-wider text-brand-orange">
+                    Quick Itinerary
+                  </span>
+                  <h4 className="font-poppins font-bold text-brand-ink text-base line-clamp-1">
+                    {packageData.title}
+                  </h4>
+                </div>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-red-50 flex items-center justify-center transition-all duration-200 text-darkBlue hover:text-red-600 flex-shrink-0"
-                  title="Close"
+                  className="w-8 h-8 rounded-lg bg-brand-canvas-2 hover:bg-brand-hairline flex items-center justify-center text-brand-ink transition-colors"
+                  title="Close Quick View"
                 >
-                  <i className="fa-solid fa-xmark text-base"></i>
+                  <X className="w-4 h-4" />
                 </button>
               </div>
-            </div>
 
-            {/* Content - Icon-based minimal text */}
-            <div className="flex-1 overflow-y-auto space-y-3">
-              
-              {/* Itinerary Section */}
-              {itineraryDays.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-map-location-dot text-orange text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Itinerary</h5>
-                    <span className="text-xs bg-orange/20 text-orange rounded px-2 py-0.5 font-medium ml-auto">{itineraryDays.length} Days</span>
-                  </div>
-                  <div className="space-y-1">
-                    {itineraryDays.slice(0, 2).map((day, idx) => (
-                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-start">
-                        <span className="font-semibold text-orange min-w-fit">{day.dayKey || `Day ${idx + 1}`}</span>
-                        <span className="line-clamp-1">{day.title}</span>
-                      </div>
-                    ))}
-                    {itineraryDays.length > 2 && (
-                      <p className="text-xs text-orange font-medium">+{itineraryDays.length - 2} more days</p>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Inclusions Section - Symbol Based */}
-              {inclusions.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-check-circle text-green-500 text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Included</h5>
-                    <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-0.5 font-medium ml-auto">{inclusions.length}</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {inclusions.slice(0, 4).map((item, idx) => {
-                      // Determine icon based on item content
-                      let icon = 'fa-check';
-                      if (item.toLowerCase().includes('meal') || item.toLowerCase().includes('food') || item.toLowerCase().includes('breakfast') || item.toLowerCase().includes('lunch') || item.toLowerCase().includes('dinner')) icon = 'fa-utensils';
-                      if (item.toLowerCase().includes('hotel') || item.toLowerCase().includes('accommodation') || item.toLowerCase().includes('stay')) icon = 'fa-bed';
-                      if (item.toLowerCase().includes('flight') || item.toLowerCase().includes('transport') || item.toLowerCase().includes('airport') || item.toLowerCase().includes('transfer')) icon = 'fa-plane';
-                      if (item.toLowerCase().includes('guide') || item.toLowerCase().includes('tour') || item.toLowerCase().includes('visit')) icon = 'fa-person-hiking';
-                      if (item.toLowerCase().includes('visa') || item.toLowerCase().includes('insurance') || item.toLowerCase().includes('permit')) icon = 'fa-shield';
-                      if (item.toLowerCase().includes('activity') || item.toLowerCase().includes('adventure') || item.toLowerCase().includes('water') || item.toLowerCase().includes('sport')) icon = 'fa-person-skiing';
-
-                      return (
-                        <div key={idx} className="text-xs text-gray-700 flex flex-col items-center gap-1 p-1.5 bg-green-50 rounded border border-green-200">
-                          <i className={`fa-solid ${icon} text-green-500 text-lg`}></i>
-                          <span className="text-center line-clamp-2 text-xs font-medium">{item}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  {inclusions.length > 4 && (
-                    <p className="text-xs text-green-600 font-medium mt-1.5">+{inclusions.length - 4} more included</p>
-                  )}
-                </div>
-              )}
-
-              {/* Accommodations Section */}
-              {accommodations.length > 0 && (
-                <div className="mb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="fa-solid fa-hotel text-teal text-base"></i>
-                    <h5 className="font-semibold text-xs text-darkBlue uppercase tracking-wide">Hotels</h5>
-                    <span className="text-xs bg-teal/20 text-teal rounded px-2 py-0.5 font-medium ml-auto">{accommodations.length}</span>
-                  </div>
-                  <div className="space-y-1">
-                    {accommodations.slice(0, 2).map((hotel, idx) => (
-                      <div key={idx} className="text-xs text-gray-700 flex gap-2 items-center">
-                        <span className="flex gap-1 min-w-fit">
-                          {[1, 2, 3].map((star) => (
-                            <i key={star} className={`fa-solid fa-star text-xs ${star <= 4 ? 'text-yellow-400' : 'text-gray-300'}`}></i>
-                          ))}
-                        </span>
-                        <span className="line-clamp-1">{hotel}</span>
-                      </div>
-                    ))}
-                  </div>
-                  {accommodations.length > 2 && (
-                    <p className="text-xs text-teal font-medium mt-1">+{accommodations.length - 2} more hotels</p>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Action Buttons - Bottom Aligned */}
-            <div className="mt-4 pt-4 flex flex-col gap-2 border-t border-gray-200">
-              {/* Expert Button with Dropdown */}
-              <div className="relative" ref={menuRef}>
-                <button
-                  onClick={() => setShowExpertMenu(!showExpertMenu)}
-                  className="custom-btn w-full text-sm px-4 py-3 font-medium transition-all duration-200"
-                >
-                  <i className="fa-solid fa-headset mr-2 text-sm"></i>
-                  Connect with Expert
-                </button>
-                
-                {/* Dropdown Menu */}
-                {showExpertMenu && (
-                  <div className="absolute left-0 bottom-full mb-2 bg-white rounded-2xl overflow-hidden border border-gray-100 w-full z-20 animate-fadeIn"
-                    style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
-                  >
-                    <div className="bg-gradient-to-r from-teal to-primary py-3 px-4">
-                      <p className="text-white font-semibold text-sm">Contact Options</p>
+              <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 scrollbar-thin">
+                {itineraryDays.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Day Breakdown
+                      </span>
+                      <span className="text-[11px] bg-brand-orange/10 text-brand-orange rounded px-2 py-0.5 font-poppins font-medium">
+                        {itineraryDays.length} Days
+                      </span>
                     </div>
-                    <div className="py-2">
-                      <a
-                        href={`tel:${companyInfo.phone.primary}`}
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-orange/5 transition-all duration-200 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-orange/10 flex items-center justify-center group-hover/item:bg-orange/20 transition-colors">
-                          <i className="fa-solid fa-phone text-orange text-base"></i>
+                    <div className="space-y-1.5">
+                      {itineraryDays.slice(0, 4).map((day, idx) => (
+                        <div key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <span className="font-poppins font-semibold text-brand-orange min-w-fit">
+                            {day.dayKey || `Day ${idx + 1}`}
+                          </span>
+                          <span className="line-clamp-1">{day.title}</span>
                         </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-orange transition-colors">Call Us</p>
-                          <p className="text-xs text-gray-500 mt-0.5">{companyInfo.phone.primary}</p>
-                        </div>
-                      </a>
-                      <a
-                        href={`https://wa.me/${companyInfo.phone.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#25D366]/5 transition-all duration-200 border-t border-gray-100 group/item"
-                        onClick={() => setShowExpertMenu(false)}
-                      >
-                        <div className="w-11 h-11 rounded-xl bg-[#25D366]/10 flex items-center justify-center group-hover/item:bg-[#25D366]/20 transition-colors">
-                          <i className="fa-brands fa-whatsapp text-[#25D366] text-lg"></i>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-darkBlue group-hover/item:text-[#25D366] transition-colors">WhatsApp</p>
-                          <p className="text-xs text-gray-500 mt-0.5">Chat with us now</p>
-                        </div>
-                      </a>
+                      ))}
                     </div>
                   </div>
                 )}
+
+                {inclusions.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Inclusions
+                      </span>
+                      <span className="text-[11px] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 rounded px-2 py-0.5 font-poppins font-medium">
+                        {inclusions.length} items
+                      </span>
+                    </div>
+                    <ul className="space-y-1">
+                      {inclusions.slice(0, 4).map((item, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink flex gap-2 items-start">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                          <span className="line-clamp-1">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {accommodations.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-kicker uppercase font-poppins text-brand-muted-ink">
+                        Stays
+                      </span>
+                    </div>
+                    <ul className="space-y-1">
+                      {accommodations.slice(0, 2).map((hotel, idx) => (
+                        <li key={idx} className="text-xs text-brand-ink line-clamp-1 flex items-center gap-1.5">
+                          <Hotel className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                          <span>{typeof hotel === 'string' ? hotel : hotel.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            </div>
+
+              {/* Quick Consultation Actions on Card Back.
+                  The "Call Expert" button was removed — the front of the card already
+                  opens the enquiry form, and exposing a raw phone number here on
+                  every card made the back read as an advert. */}
+              <div className="mt-3 pt-3 border-t border-brand-hairline space-y-2">
+                <a
+                  href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(`Hi Traverse Globe! I want details on: ${packageData.title}`)}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white py-2 px-4 rounded-xl text-xs font-poppins font-semibold transition-colors"
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+              </>
+            )}
           </div>
         </div>
       </div>
-    </div>
+
+      {bookingOpen && (
+        <Suspense fallback={null}>
+          <BookingModal
+            open={bookingOpen}
+            onClose={() => setBookingOpen(false)}
+            packageName={packageData.title}
+            packageId={packageData._id || packageData.id}
+            basePrice={packageData.price}
+          />
+        </Suspense>
+      )}
+    </motion.div>
   );
 }

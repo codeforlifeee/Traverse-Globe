@@ -1,0 +1,189 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Trash2, ArrowRight, Heart, Compass } from 'lucide-react';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon';
+import { getShortlist, subscribeShortlist, removeFromShortlist, clearShortlist } from '@/lib/shortlist';
+import { companyInfo } from '../data/companyInfo';
+import ImageWithFallback from '../components/revamp/ImageWithFallback';
+import Kicker from '../components/revamp/Kicker';
+import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { CARD_MEDIA } from '@/lib/cardMetrics';
+
+// Where the empty-state CTA points. Dubai/UAE is the destination
+// we sell hardest, so it is the catalogue entry point rather than the overview page.
+const BROWSE_DESTINATIONS_HREF = '/destinations/international/uae';
+
+// Shown in the empty state. Dubai leads because it is the destination we sell hardest.
+const SUGGESTIONS = [
+  { label: 'Dubai & UAE packages', to: '/destinations/international/uae' },
+  { label: 'Honeymoon escapes', to: '/packages/theme/honeymoon' },
+  { label: 'Family trips with kids', to: '/packages/theme/family' },
+  { label: 'Chardham Yatra', to: '/chardham' },
+];
+
+export default function Wishlist() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(getShortlist());
+    return subscribeShortlist(setItems);
+  }, []);
+
+  const buildWhatsAppMessage = (list) => {
+    if (!list.length) return '';
+    return [
+      "Hi Traverse Globe, I'm shortlisting these:",
+      '',
+      ...list.map((it, i) =>
+        `${i + 1}. ${it.title}${it.price ? ` — ₹${it.price.toLocaleString('en-IN')}` : ''}${it.href ? `\n   ${window.location.origin}${it.href}` : ''}`
+      ),
+      '',
+      'Can you help me pick + share dates?',
+    ].join('\n');
+  };
+
+  const waLink = (list) =>
+    `https://wa.me/${String(companyInfo.phone.whatsapp).replace(/\D/g, '')}?text=${encodeURIComponent(buildWhatsAppMessage(list))}`;
+
+  return (
+    <div className="pt-24 md:pt-28 pb-20">
+      <div className="container-custom">
+        <BreadcrumbTrail items={[{ label: 'My wishlist' }]} />
+
+        <div className="mt-3">
+          <Kicker>Saved for later</Kicker>
+          <h1 className="text-h1 font-poppins font-bold text-brand-ink mt-2">
+            My wishlist <span className="text-brand-muted-ink text-h3 font-normal">({items.length})</span>
+          </h1>
+          <p className="mt-2 text-brand-muted-ink font-canva-sans max-w-lg">
+            Everything you've saved, in one place. Send the whole list to our team on WhatsApp for a curated quote.
+          </p>
+        </div>
+
+        {items.length === 0 ? (
+          <div className="mt-14 rounded-2xl border border-dashed border-brand-hairline p-12 text-center bg-surface">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-orange/10 mb-4">
+              <Heart className="w-7 h-7 text-brand-orange" />
+            </div>
+            <Kicker className="block">Nothing saved yet</Kicker>
+            <h3 className="text-h3 font-poppins font-semibold text-brand-ink mt-2">
+              Tap the heart on any card to save it here
+            </h3>
+            <p className="mt-2 text-sm text-brand-muted-ink font-canva-sans max-w-md mx-auto">
+              Your wishlist stays on this device — no login needed.
+            </p>
+
+            <div className="mt-6">
+              <Link to={BROWSE_DESTINATIONS_HREF}>
+                <Button className="shadow-glow-orange">
+                  <Compass className="w-4 h-4 mr-2" />
+                  Browse Destinations
+                </Button>
+              </Link>
+            </div>
+
+            {/* Give the empty state somewhere to go beyond the single CTA */}
+            <div className="mt-8 pt-6 border-t border-brand-hairline">
+              <Kicker className="mb-3 block">Popular right now</Kicker>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {SUGGESTIONS.map((s) => (
+                  <Link
+                    key={s.to}
+                    to={s.to}
+                    className="px-4 py-2 rounded-full border border-brand-hairline bg-surface text-sm font-poppins text-brand-ink hover:border-brand-orange hover:text-brand-orange transition-colors"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Action bar sits directly above the cards it acts on, rather than
+                floating away at the top-right of the page header. */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-brand-hairline bg-surface p-4">
+              <p className="text-sm font-canva-sans text-brand-muted-ink">
+                <span className="font-poppins font-semibold text-brand-ink">{items.length}</span>
+                {items.length === 1 ? ' trip saved' : ' trips saved'} — send them over and we'll quote the lot.
+              </p>
+              <div className="flex gap-2 shrink-0">
+                <a href={waLink(items)} target="_blank" rel="noopener noreferrer">
+                  <Button className="shadow-glow-orange">
+                    <WhatsAppIcon className="w-4 h-4 mr-2" />
+                    Send all to WhatsApp
+                  </Button>
+                </a>
+                <Button variant="outline" onClick={() => clearShortlist()}>
+                  <Trash2 className="w-4 h-4 mr-2" /> Clear all
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {items.map((item, i) => (
+                <motion.article
+                  key={item.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.04 }}
+                  className="flex flex-col rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-md transition-shadow"
+                >
+                  <div className={cn("relative", CARD_MEDIA)}>
+                    <ImageWithFallback src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => removeFromShortlist(item.id)}
+                      aria-label={`Remove ${item.title} from wishlist`}
+                      className="absolute top-3 right-3 w-9 h-9 rounded-full bg-surface/95 backdrop-blur border border-brand-hairline shadow-soft-md flex items-center justify-center text-brand-ink hover:text-rose-600 dark:hover:text-rose-400"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="p-4 flex flex-col flex-1">
+                    <span className="text-kicker uppercase text-brand-muted-ink font-poppins">
+                      {item.type === 'hotel' ? 'Hotel' : 'Package'} · {item.category || '—'}
+                    </span>
+                    <h3 className="mt-1 text-base font-poppins font-semibold text-brand-ink line-clamp-2 leading-snug">
+                      {item.title}
+                    </h3>
+                    {item.price > 0 && (
+                      <p className="mt-2 text-xl font-poppins font-bold text-brand-orange">
+                        ₹{item.price.toLocaleString('en-IN')}
+                      </p>
+                    )}
+
+                    {/* Per-card WhatsApp send, so a single saved trip does not
+                        require scrolling back up to the bulk action. */}
+                    <div className="mt-auto pt-4 flex items-center gap-2">
+                      <a
+                        href={waLink([item])}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white py-2.5 px-3 rounded-xl text-xs font-poppins font-semibold transition-colors"
+                      >
+                        <WhatsAppIcon className="w-3.5 h-3.5" />
+                        Send to WhatsApp
+                      </a>
+                      {item.href && (
+                        <Link
+                          to={item.href}
+                          className="shrink-0 inline-flex items-center gap-1 px-3 py-2.5 rounded-xl border border-brand-hairline text-xs font-poppins font-semibold text-brand-ink hover:border-brand-orange hover:text-brand-orange transition-colors"
+                        >
+                          Details <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

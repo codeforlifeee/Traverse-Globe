@@ -1,7 +1,7 @@
 name: Deploy to Hostinger via FTP
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/complete-frontend-revamp ]
   workflow_dispatch: {}
 
 jobs:
@@ -14,10 +14,18 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install deps
         run: npm ci
+
+      - name: Create .env file for production
+        run: |
+          echo "VITE_SANITY_PROJECT_ID=xe1685rk" >> .env
+          echo "VITE_SANITY_DATASET=production" >> .env
+          echo "VITE_SANITY_API_VERSION=2023-08-01" >> .env
+          echo "VITE_USE_SANITY=true" >> .env
+          echo "VITE_LEAD_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/26930498/uplr0kc/" >> .env
 
       - name: Build
         run: npm run build
@@ -28,17 +36,6 @@ jobs:
           echo "branch=${{ github.ref_name }}" >> dist/version.txt
           echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> dist/version.txt
 
-      - name: Add .htaccess for SPA
-        run: |
-          cat > dist/.htaccess << 'EOF'
-          RewriteEngine On
-          RewriteBase /
-          RewriteCond %{REQUEST_FILENAME} -f [OR]
-          RewriteCond %{REQUEST_FILENAME} -d
-          RewriteRule ^ - [L]
-          RewriteRule . /index.html [L]
-          EOF
-
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -47,11 +44,20 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT || 21 }}
           protocol: ftp
-          server-dir: /public_html/
-          local-dir: dist
+          server-dir: /
+          local-dir: ./dist/
           dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.github*
             **/node_modules/**
             **/README.md
+
+      - name: Bust CDN cache
+        run: |
+          echo "Waiting 10s for FTP sync to propagate..."
+          sleep 10
+          echo "Sending cache-bust requests to traverseglobe.com..."
+          curl -sI -H "Cache-Control: no-cache" -H "Pragma: no-cache" "https://traverseglobe.com/" -o /dev/null -w "HTTP Status: %{http_code}\n"
+          curl -sI -H "Cache-Control: no-cache" -H "Pragma: no-cache" "https://www.traverseglobe.com/" -o /dev/null -w "HTTP Status: %{http_code}\n"
+          echo "Cache-bust requests sent!"
