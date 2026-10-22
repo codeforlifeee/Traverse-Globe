@@ -8,7 +8,7 @@ export default function CustomerGrid() {
 
   if (isPending) {
     return (
-      <section className="section-padding bg-brand-canvas-2">
+      <section className="section-padding bg-brand-canvas-2/55 backdrop-blur-[2px]">
         <div className="container-custom">
           <SkeletonList count={4} columns={4} />
         </div>
@@ -25,8 +25,6 @@ export default function CustomerGrid() {
       title="Through Our Travelers' Eyes"
       subtitle="Real photos shared by families who traveled with us. No stock images, no filters."
       slidesPerViewDesktop={4}
-      autoplay={true}
-      loop={true}
     >
       {photos.map((photo, i) => (
         <div

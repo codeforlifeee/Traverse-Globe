@@ -5,6 +5,7 @@ import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { companyInfo } from '../../data/companyInfo';
 import { useOffers } from '../../hooks/queries';
 import ImageWithFallback from './ImageWithFallback';
+import ShimmerButton from '../magicui/ShimmerButton';
 
 /**
  * SalesBanner — CMS-driven promotional banner (REVAMP_PLAN §3 #9 & §4.3)
@@ -37,9 +38,11 @@ export default function SalesBanner() {
   };
 
   return (
-    <section className="relative overflow-hidden my-6 md:my-10">
-      <div className="container-custom">
-        <div className="relative rounded-3xl overflow-hidden shadow-soft-xl border border-white/20 bg-brand-ink">
+    // Full-bleed: this is the one promotional band that should read as a break in
+    // the page, so it runs edge to edge rather than sitting inside the container.
+    <section className="relative overflow-hidden">
+      <div>
+        <div className="relative overflow-hidden shadow-soft-xl bg-brand-scrim">
           {/* Background image + overlay */}
           <div className="absolute inset-0">
             <ImageWithFallback
@@ -53,7 +56,7 @@ export default function SalesBanner() {
           </div>
 
           {/* Banner content */}
-          <div className="relative z-10 px-6 py-10 md:px-12 md:py-14 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="relative z-10 container-custom section-y grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Headlines & Campaign Details */}
             <div className="lg:col-span-8">
               <div className="flex flex-wrap items-center gap-2.5 mb-4">
@@ -77,13 +80,15 @@ export default function SalesBanner() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                <a
+                <ShimmerButton
+                  as="a"
                   href={`tel:${companyInfo.phone.primary}`}
-                  className="inline-flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-3.5 rounded-xl font-poppins font-semibold text-sm shadow-glow-orange transition-all duration-200 hover:-translate-y-0.5"
+                  borderRadius="0.75rem"
+                  className="px-6 py-3.5 text-sm"
                 >
                   <PhoneCall className="w-4 h-4" />
                   Claim Deal via Call
-                </a>
+                </ShimmerButton>
 
                 <a
                   href={waUrl}

@@ -134,7 +134,7 @@ export default function HotelsListing() {
 
   return (
     <div className="pb-16">
-      <div className="bg-brand-canvas border-b border-brand-hairline pt-24 md:pt-28 pb-8">
+      <div className="page-band border-b border-brand-hairline pt-24 md:pt-28 pb-8">
         <div className="container-custom">
           <BreadcrumbTrail items={city ? [{ label: 'Hotels', to: '/hotels' }, { label: city }] : [{ label: 'Hotels' }]} />
           <div className="mt-3">

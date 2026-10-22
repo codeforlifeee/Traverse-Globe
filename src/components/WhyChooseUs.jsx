@@ -10,7 +10,7 @@ import SectionRule from './revamp/SectionRule';
  */
 export default function WhyChooseUs() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-brand-canvas">
+    <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Column: Dubai copy + Guarantees + Call CTA (7/12) */}
@@ -67,7 +67,7 @@ export default function WhyChooseUs() {
 
           {/* Right Column: Adventure & Scuba Diving Video Player (5/12) */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-brand-ink shadow-soft-xl border border-brand-hairline group">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-brand-scrim shadow-soft-xl border border-brand-hairline group">
               <video
                 autoPlay
                 muted

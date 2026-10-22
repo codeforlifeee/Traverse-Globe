@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { CARD_MEDIA } from "@/lib/cardMetrics";
 
 /**
  * Named skeleton primitives — DESIGN.md §2.2, REVAMP_PLAN §5.1.
@@ -9,7 +10,7 @@ import { cn } from "@/lib/utils";
 export function SkeletonCard({ className }) {
   return (
     <div className={cn("rounded-2xl overflow-hidden bg-surface shadow-soft-sm border border-brand-hairline", className)}>
-      <Skeleton className="aspect-[4/3] w-full rounded-none" />
+      <Skeleton className={cn(CARD_MEDIA, "w-full rounded-none")} />
       <div className="p-4 space-y-3">
         <Skeleton className="h-3 w-16" />
         <Skeleton className="h-5 w-4/5" />

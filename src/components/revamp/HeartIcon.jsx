@@ -33,7 +33,7 @@ export default function HeartIcon({ item, className, size = "md" }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      aria-label={active ? "Remove from shortlist" : "Save to shortlist"}
+      aria-label={active ? "Remove from wishlist" : "Save to wishlist"}
       className={cn(
         "relative flex items-center justify-center rounded-full bg-surface/95 backdrop-blur shadow-soft-md border border-brand-hairline transition-colors",
         "hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2",

@@ -17,7 +17,7 @@ export default function DomesticDestinations() {
   const { data: destinations = [], isPending } = useDestinationsByType('domestic');
 
   return (
-    <div className="min-h-screen bg-brand-canvas pt-20 pb-12">
+    <div className="min-h-screen bg-transparent pt-20 pb-12">
       {/* ------------- Asymmetric Hero ------------- */}
       <section className="relative overflow-hidden">
         <div className="container-custom py-10 md:py-16 lg:py-20">

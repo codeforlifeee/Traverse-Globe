@@ -1,26 +1,31 @@
 import { lazy, Suspense } from 'react';
 import HeroSection from '../components/HeroSection';
+import { DUBAI_COLLECTIONS, DUBAI_COLLECTION_TABS } from '../data/dubaiCollections';
 
 // Only the hero is eager — it holds the LCP. Everything below the fold is split out so
 // framer-motion, Swiper and the Radix accordion stay off the critical path.
-const TrendingDestinations = lazy(() => import('../components/TrendingDestinations'));
+const ExplorePrices       = lazy(() => import('../components/ExplorePrices'));
+const DubaiIntro          = lazy(() => import('../components/revamp/DubaiIntro'));
+const CollectionGallery   = lazy(() => import('../components/revamp/CollectionGallery'));
 const ActivitiesShowcase  = lazy(() => import('../components/ActivitiesShowcase'));
-const SalesBanner          = lazy(() => import('../components/revamp/SalesBanner'));
-const FeedbackSection      = lazy(() => import('../components/FeedbackSection'));
-const ExplorePrices        = lazy(() => import('../components/ExplorePrices'));
-const WhyChooseUs          = lazy(() => import('../components/WhyChooseUs'));
-const HomeBlogSection      = lazy(() => import('../components/HomeBlogSection'));
-const PopularSearchesGrid  = lazy(() => import('../components/revamp/PopularSearchesGrid'));
-const HomeFAQ              = lazy(() => import('../components/revamp/HomeFAQ'));
+const SalesBanner         = lazy(() => import('../components/revamp/SalesBanner'));
+const FeedbackSection     = lazy(() => import('../components/FeedbackSection'));
+const BrochureBanner      = lazy(() => import('../components/revamp/BrochureBanner'));
+const HomeBlogSection     = lazy(() => import('../components/HomeBlogSection'));
+const HomeFAQ             = lazy(() => import('../components/revamp/HomeFAQ'));
 
 /**
- * Defers both layout and JS for a below-fold section. `height` feeds
- * contain-intrinsic-size and the Suspense placeholder from one value, so the
- * reserved box always matches and lazy mounting cannot shift the page.
+ * Defers both layout and JS for a below-fold section. `height` is the reserved
+ * box as [phone, desktop] — sections differ by up to 2x between the two (the
+ * Dubai primer stacks its globe under the copy on phones), so one number either
+ * over- or under-reserved on one of them. It feeds both contain-intrinsic-size
+ * and the Suspense placeholder through the .lazy-section CSS variables, so the
+ * reserved box matches the real one and lazy mounting cannot shift the page.
+ * Values are measured rendered heights (390px and 1366px viewports).
  */
-const Section = ({ height, children }) => (
-  <div style={{ contentVisibility: 'auto', containIntrinsicSize: `${height}px` }}>
-    <Suspense fallback={<div style={{ minHeight: `${height}px` }} aria-hidden="true" />}>
+const Section = ({ height: [mobile, desktop], children }) => (
+  <div className="lazy-section" style={{ '--h-m': `${mobile}px`, '--h-d': `${desktop}px` }}>
+    <Suspense fallback={<div className="lazy-section-fallback" aria-hidden="true" />}>
       {children}
     </Suspense>
   </div>
@@ -29,35 +34,47 @@ const Section = ({ height, children }) => (
 const Home = () => {
   return (
     <div className="min-h-screen">
-      {/* ── Hero: Lead form + CTA buttons ── */}
+      {/* ── Hero: headline + CTAs + horizontal lead bar ── */}
       <HeroSection />
 
-      {/* ── 1. Single unified destinations carousel ── */}
-      <Section height={800}><TrendingDestinations /></Section>
+      {/* ── 1. Short Dubai primer, then the packages it sets up ── */}
+      <Section height={[1090, 590]}><DubaiIntro /></Section>
 
-      {/* ── 2. Activities showcase (Desert Safari, Scuba, etc.) ── */}
-      <Section height={650}><ActivitiesShowcase /></Section>
+      {/* ── 2. Packages (they replaced the destination tiles that used to sit
+             here — a tile only ever pointed at another listing). ── */}
+      <Section height={[760, 795]}><ExplorePrices /></Section>
 
-      {/* ── 4. CMS-driven promotional / sales banner ── */}
-      <Section height={420}><SalesBanner /></Section>
+      {/* ── 3. Ways to see Dubai — filterable scrolling gallery ── */}
+      <Section height={[750, 680]}>
+        <CollectionGallery
+          kicker="Over 40 ways to see it"
+          title="Ways to see Dubai"
+          subtitle="Pick the experiences you want and we build the itinerary around them."
+          tabs={DUBAI_COLLECTION_TABS}
+          items={DUBAI_COLLECTIONS}
+          viewAllHref="/destinations/international/uae"
+          viewAllLabel="All Dubai packages"
+          bg="canvas-2"
+        />
+      </Section>
 
-      {/* ── 5. Customer Reviews (photos embedded within) ── */}
-      <Section height={750}><FeedbackSection /></Section>
+      {/* ── 4. Activities showcase (Desert Safari, Scuba, etc.) ── */}
+      <Section height={[660, 715]}><ActivitiesShowcase /></Section>
 
-      {/* ── 6. Packages placed AFTER reviews (CRO: social proof first) ── */}
-      <Section height={950}><ExplorePrices /></Section>
+      {/* ── 5. Full-bleed CMS-driven promotional / sales banner ── */}
+      <Section height={[715, 330]}><SalesBanner /></Section>
 
-      {/* ── 8. Why Choose Traverse Globe (video + call CTA) ── */}
-      <Section height={700}><WhyChooseUs /></Section>
+      {/* ── 6. Customer reviews (photos embedded within) ── */}
+      <Section height={[805, 665]}><FeedbackSection /></Section>
 
-      {/* ── 9. Blog / Travel Guides (above FAQ) ── */}
-      <Section height={650}><HomeBlogSection /></Section>
+      {/* ── 7. Free Dubai guide — lead capture ── */}
+      <Section height={[440, 340]}><BrochureBanner /></Section>
 
-      {/* ── 10. Popular search tags ── */}
-      <Section height={500}><PopularSearchesGrid /></Section>
+      {/* ── 8. Blog / Travel Guides (above FAQ) ── */}
+      <Section height={[665, 680]}><HomeBlogSection /></Section>
 
-      {/* ── 11. FAQ ── */}
-      <Section height={700}><HomeFAQ /></Section>
+      {/* ── 9. FAQ ── */}
+      <Section height={[700, 680]}><HomeFAQ /></Section>
     </div>
   );
 };

@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 /**
  * Theme state shared by every toggle instance.
  *
- * Three modes: 'light', 'dark', 'system'. 'system' follows prefers-color-scheme and is
- * the default for a first-time visitor. The resolved theme is written to
+ * Two modes: 'light' and 'dark'. Dark is the default for a first-time visitor and
+ * for anyone whose stored choice is missing or unreadable. The resolved theme is written to
  * <html data-theme="...">, which is what both Tailwind's `dark:` variant and the CSS
  * variables in src/index.css key off.
  *
@@ -24,14 +24,14 @@ const prefersDark = () =>
 function readStored() {
   try {
     const v = window.localStorage.getItem(KEY);
-    return MODES.includes(v) ? v : 'light';
+    return MODES.includes(v) ? v : 'dark';
   } catch {
-    return 'light';
+    return 'dark';
   }
 }
 
 // Module-level so every mounted toggle reflects the same value.
-let mode = typeof window === 'undefined' ? 'light' : readStored();
+let mode = typeof window === 'undefined' ? 'dark' : readStored();
 const listeners = new Set();
 
 const resolve = (m) => m === 'dark';

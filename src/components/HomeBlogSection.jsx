@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { REVEAL_VIEWPORT, riseItem, staggerParent } from '@/lib/motionVariants';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Clock, Calendar, BookOpen } from 'lucide-react';
 import { useBlogPosts } from '../hooks/queries';
@@ -5,6 +8,9 @@ import { SkeletonList } from './revamp/Skeletons';
 import Kicker from './revamp/Kicker';
 import SectionRule from './revamp/SectionRule';
 import ImageWithFallback from './revamp/ImageWithFallback';
+import { useRail } from '../hooks/useRail';
+import { cn } from '@/lib/utils';
+import { CARD_BODY, CARD_MEDIA, CARD_SHELL, CARD_TITLE } from '@/lib/cardMetrics';
 
 const FALLBACK_POSTS = [
   {
@@ -37,28 +43,47 @@ const FALLBACK_POSTS = [
     excerpt: 'Whether you crave blooming tulip gardens in Spring, lush meadows in Summer, golden Chinar leaves in Autumn, or snowfall in Gulmarg.',
     image: 'https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=800&q=80',
   },
+  {
+    id: 'guide-uae-visa',
+    title: 'UAE Tourist Visa for Indians: Documents, Timelines and Costs',
+    slug: 'uae-visa-for-indians',
+    category: 'Visa',
+    readTime: '4 min read',
+    date: '2026-03-18',
+    excerpt: 'Exactly what to keep ready, how long approval takes, and the mistakes that get applications sent back.',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+  },
 ];
 
 export default function HomeBlogSection() {
-  const { data: postsData = [], isPending } = useBlogPosts(3);
+  const { data: postsData = [], isPending } = useBlogPosts(4);
+
+  // Four cards to a row from lg, on the same card geometry as the package row
+  // above (cardMetrics), so both bands read as one system. Below md they scroll
+  // as a snapping rail rather than stacking into a very tall column.
+  const scrollerRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const parent = staggerParent(reduceMotion);
+  const item = riseItem(reduceMotion);
+  const { trackRef, barRef } = useRail(scrollerRef);
 
   if (isPending) {
     return (
-      <section className="py-12 md:py-16 bg-brand-canvas">
+      <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
         <div className="container-custom">
-          <SkeletonList count={3} columns={3} />
+          <SkeletonList count={4} columns={4} />
         </div>
       </section>
     );
   }
 
-  const posts = postsData.length >= 3 ? postsData.slice(0, 3) : FALLBACK_POSTS;
+  const posts = postsData.length >= 3 ? postsData.slice(0, 4) : FALLBACK_POSTS;
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-brand-canvas">
+    <section className="section-y bg-brand-canvas/40 backdrop-blur-[2px]">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 md:mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 md:mb-8">
           <div className="max-w-2xl">
             <Kicker tone="orange" size="sm" className="mb-2">
               Insider Knowledge
@@ -81,17 +106,29 @@ export default function HomeBlogSection() {
           </Link>
         </div>
 
-        {/* 3-Column Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Rail on mobile, grid from md up */}
+        <div
+          ref={scrollerRef}
+          className="-mx-4 px-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 cursor-grab md:cursor-auto [&[data-dragging]]:cursor-grabbing md:mx-0 md:px-0 md:overflow-visible md:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+        <motion.div
+          ref={trackRef}
+          className="flex gap-4 will-change-transform md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-5"
+          variants={parent}
+          initial="hidden"
+          whileInView="show"
+          viewport={REVEAL_VIEWPORT}
+        >
           {posts.map((post) => {
             const articleHref = post.slug ? `/blog/${post.slug}` : '/blog';
             return (
-              <article
+              <motion.article
                 key={post.id || post.slug}
-                className="group flex flex-col bg-surface rounded-2xl overflow-hidden border border-brand-hairline shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1 transition-all duration-300"
+                variants={item}
+                className={cn(CARD_SHELL, "shrink-0 w-[78%] sm:w-[48%] snap-start md:w-auto md:shrink hover:-translate-y-1")}
               >
                 {/* Featured Image */}
-                <Link to={articleHref} className="relative aspect-[16/10] overflow-hidden bg-brand-canvas-2 block">
+                <Link to={articleHref} className={cn("relative overflow-hidden bg-brand-canvas-2 block", CARD_MEDIA)}>
                   <ImageWithFallback
                     src={post.image}
                     alt={post.title}
@@ -99,16 +136,16 @@ export default function HomeBlogSection() {
                     loading="lazy"
                   />
                   {post.category && (
-                    <span className="absolute top-3 left-3 bg-brand-ink/80 backdrop-blur-md text-white text-[11px] font-poppins font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    <span className="absolute top-3 left-3 bg-brand-scrim/80 backdrop-blur-md text-white text-[11px] font-poppins font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">
                       {post.category}
                     </span>
                   )}
                 </Link>
 
                 {/* Content */}
-                <div className="p-5 md:p-6 flex flex-col flex-1">
+                <div className={cn(CARD_BODY, "flex flex-col flex-1")}>
                   {/* Meta (Date + Read Time) */}
-                  <div className="flex items-center gap-3 text-xs text-brand-muted-ink font-canva-sans mb-2.5">
+                  <div className="flex items-center gap-3 text-xs text-brand-muted-ink font-canva-sans mb-2">
                     {post.date && (
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
@@ -128,7 +165,7 @@ export default function HomeBlogSection() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-poppins font-bold text-base md:text-lg text-brand-ink group-hover:text-brand-orange transition-colors line-clamp-2 leading-snug mb-2">
+                  <h3 className={cn(CARD_TITLE, "text-brand-ink group-hover:text-brand-orange transition-colors mb-1.5")}>
                     <Link to={articleHref}>
                       {post.title}
                     </Link>
@@ -136,7 +173,7 @@ export default function HomeBlogSection() {
 
                   {/* Excerpt */}
                   {post.excerpt && (
-                    <p className="text-xs md:text-sm text-brand-muted-ink font-canva-sans line-clamp-2 mb-4 leading-relaxed">
+                    <p className="text-xs md:text-sm text-brand-muted-ink font-canva-sans line-clamp-2 mb-3 leading-relaxed">
                       {post.excerpt}
                     </p>
                   )}
@@ -152,9 +189,15 @@ export default function HomeBlogSection() {
                     </Link>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
+        </motion.div>
+        </div>
+
+        {/* Mobile drag affordance — the grid needs none from md up */}
+        <div className="mt-5 h-1 rounded-full bg-brand-hairline overflow-hidden md:hidden" aria-hidden="true">
+          <div ref={barRef} className="h-full w-1/3 rounded-full bg-brand-orange" />
         </div>
       </div>
     </section>

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy, memo } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
+import SmoothScroll from './components/providers/SmoothScroll';
+import AestheticBackground from './components/magicui/AestheticBackground';
 
 // Critical components - loaded immediately
 import Header from './components/Header';
@@ -12,7 +14,6 @@ import Home from './pages/Home';
 const FloatingButtons = lazy(() => import('./components/FloatingButtons'));
 
 // Lazy load all page components
-const About = lazy(() => import(/* webpackChunkName: "about" */ './pages/About'));
 const Blog = lazy(() => import(/* webpackChunkName: "blog" */ './pages/Blog'));
 const Contact = lazy(() => import(/* webpackChunkName: "contact" */ './pages/Contact'));
 const Hotels = lazy(() => import(/* webpackChunkName: "hotels" */ './pages/Hotels'));
@@ -55,7 +56,7 @@ const LoadingFallback = memo(() => (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pt-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="rounded-2xl overflow-hidden border border-brand-hairline">
-            <div className="aspect-[4/3] bg-brand-canvas-2" />
+            <div className="aspect-[16/10] bg-brand-canvas-2" />
             <div className="p-4 space-y-2">
               <div className="h-4 w-3/4 rounded bg-brand-canvas-2" />
               <div className="h-3 w-1/2 rounded bg-brand-canvas-2" />
@@ -76,17 +77,20 @@ function App() {
   return (
     <Router>
       <ErrorBoundary>
+      <SmoothScroll>
       <ScrollToTop />
-      <div className="min-h-screen bg-surface overflow-x-hidden">
+      <div className="min-h-screen bg-transparent overflow-x-hidden relative">
+        <AestheticBackground />
         <Header />
         <main role="main">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               {/* Static Pages */}
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/services" element={<About />} />
+              {/* About was merged into Contact — keep the old URLs alive. */}
+              <Route path="/about" element={<Navigate to="/contact" replace />} />
+              <Route path="/services" element={<Navigate to="/contact" replace />} />
               <Route path="/blog" element={<Blog />} />
               
               {/* Hotel Routes */}
@@ -111,7 +115,9 @@ function App() {
               <Route path="/search" element={<SearchResults />} />
 
               {/* Revamp Phase 3 — new surfaces */}
-              <Route path="/shortlist" element={<Shortlist />} />
+              <Route path="/wishlist" element={<Shortlist />} />
+              {/* The feature is called "Wishlist" in the UI now; keep the old path working. */}
+              <Route path="/shortlist" element={<Navigate to="/wishlist" replace />} />
               <Route path="/trust" element={<Trust />} />
               <Route path="/chardham" element={<Chardham />} />
               <Route path="/hotels" element={<HotelsListing />} />
@@ -155,6 +161,7 @@ function App() {
           <FloatingButtons />
         </Suspense>
       </div>
+      </SmoothScroll>
       </ErrorBoundary>
       </Router>
   );

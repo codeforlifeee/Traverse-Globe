@@ -283,7 +283,7 @@ export default function DestinationDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-brand-canvas pt-20 pb-12">
+      <div className="min-h-screen bg-transparent pt-20 pb-12">
         <div className="container-custom"><SkeletonDetail /></div>
       </div>
     );
@@ -311,7 +311,7 @@ export default function DestinationDetail() {
   const whatsappLink = `https://wa.me/${companyInfo?.phone?.whatsapp || ''}?text=${encodeURIComponent(`Hi, I'd like details on *${detail?.title || ''}*`)}`;
 
   return (
-    <div className="min-h-screen bg-brand-canvas pt-16 md:pt-20 pb-24 lg:pb-10">
+    <div className="min-h-screen bg-transparent pt-16 md:pt-20 pb-24 lg:pb-10">
       {/* ---------- Hero with overlay title (compact) ---------- */}
       <section className="relative">
         <div className="relative h-[340px] md:h-[420px] lg:h-[460px] overflow-hidden bg-brand-canvas-2">
@@ -786,7 +786,7 @@ export default function DestinationDetail() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 bg-brand-ink hover:bg-brand-orange text-white font-poppins font-semibold text-xs py-2 rounded-full transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 bg-brand-scrim hover:bg-brand-orange text-white font-poppins font-semibold text-xs py-2 rounded-full transition-colors"
                 >
                   Chat on WhatsApp
                 </a>
@@ -1075,7 +1075,7 @@ export default function DestinationDetail() {
       {showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="hidden md:flex fixed bottom-8 right-8 z-40 w-10 h-10 bg-brand-ink hover:bg-brand-orange text-white rounded-full shadow-soft-xl items-center justify-center transition-colors"
+          className="hidden md:flex fixed bottom-8 right-8 z-40 w-10 h-10 bg-brand-scrim hover:bg-brand-orange text-white rounded-full shadow-soft-xl items-center justify-center transition-colors"
           aria-label="Back to top"
         >
           <ArrowUp className="w-4 h-4" />

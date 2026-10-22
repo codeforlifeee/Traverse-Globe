@@ -22,12 +22,12 @@ export default function Section({
   id,
 }) {
   const bgCls = {
-    canvas: "bg-brand-canvas",
-    "canvas-2": "bg-brand-canvas-2",
-    white: "bg-surface",
+    canvas: "bg-brand-canvas/40 backdrop-blur-[2px]",
+    "canvas-2": "bg-brand-canvas-2/55 backdrop-blur-[2px]",
+    white: "bg-surface/65 backdrop-blur-[2px]",
     ink: "bg-brand-scrim text-white",
     none: "",
-  }[bg] || "bg-brand-canvas";
+  }[bg] || "bg-brand-canvas/40 backdrop-blur-[2px]";
 
   const wrapCls = fullBleed
     ? "px-4 md:px-6 lg:px-8"
@@ -38,11 +38,11 @@ export default function Section({
   return (
     <section
       id={id}
-      className={cn("py-14 md:py-20 lg:py-24", bgCls, className)}
+      className={cn("section-y", bgCls, className)}
     >
       <div className={wrapCls}>
         {(kicker || title || action) && (
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 md:mb-8">
             <div className={cn("flex flex-col", alignCls)}>
               {kicker && <Kicker tone={bg === "ink" ? "orange" : "muted"}>{kicker}</Kicker>}
               {title && (

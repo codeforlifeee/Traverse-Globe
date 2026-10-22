@@ -1,4 +1,4 @@
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { SlidersHorizontal } from 'lucide-react';
 import FilterRail from './FilterRail';
@@ -27,9 +27,13 @@ export default function MobileFilterSheet({ facets, values, onChange, categories
         </SheetHeader>
         <FilterRail facets={facets} values={values} onChange={onChange} categories={categories} />
         <div className="mt-6 pt-4 border-t border-brand-hairline">
-          <Button size="lg" className="w-full">
-            Show {resultCount ?? ''} packages
-          </Button>
+          {/* Wrapped in SheetClose — previously this button rendered the count but
+              did not dismiss the sheet, so the results it promised stayed hidden. */}
+          <SheetClose asChild>
+            <Button size="lg" className="w-full">
+              Show {resultCount ?? ''} packages
+            </Button>
+          </SheetClose>
         </div>
       </SheetContent>
     </Sheet>

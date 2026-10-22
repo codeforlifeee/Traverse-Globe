@@ -214,7 +214,7 @@ export default function Hotels() {
 
       {/* Similar Hotels Section - Other Categories */}
       {otherCategories.length > 0 && (
-        <section className="py-8 bg-lightGray">
+        <section className="py-8 bg-lightGray/50 backdrop-blur-[2px]">
           <div className="container mx-auto px-4">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-darkBlue mb-2 font-poppins">

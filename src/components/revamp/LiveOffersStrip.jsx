@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Check, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { CARD_MEDIA } from '@/lib/cardMetrics';
 import Section from './Section';
 import ImageWithFallback from './ImageWithFallback';
 import { useOffers } from '../../hooks/queries';
@@ -44,7 +45,7 @@ export default function LiveOffersStrip() {
             transition={{ duration: 0.4, delay: i * 0.06 }}
             className="group relative rounded-2xl overflow-hidden bg-surface border border-brand-hairline shadow-soft-sm hover:shadow-soft-lg transition-shadow"
           >
-            <div className="relative aspect-[16/9]">
+            <div className={cn("relative", CARD_MEDIA)}>
               <ImageWithFallback src={o.image} alt={o.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-scrim/70 via-brand-scrim/20 to-transparent" />
               <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-brand-orange text-white text-[11px] font-poppins font-semibold">

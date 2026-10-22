@@ -14,7 +14,7 @@ const activities = [
     link: '/activities/desert-safari',
     blurb: 'Dune bashing, camel rides & BBQ under the stars',
     badge: 'Best Seller',
-    price: '₹2,499',
+    price: 2499,
   },
   {
     title: 'Scuba Diving & Snorkeling',
@@ -22,7 +22,7 @@ const activities = [
     link: '/activities/scuba-diving',
     blurb: 'Explore vibrant coral reefs & marine life',
     badge: 'Adventure',
-    price: '₹4,999',
+    price: 4999,
   },
   {
     title: 'Dhow Cruise & Marina Dinner',
@@ -30,7 +30,7 @@ const activities = [
     link: '/activities/dhow-cruise',
     blurb: 'Sunset views, live music & gourmet dining',
     badge: 'Romantic',
-    price: '₹1,899',
+    price: 1899,
   },
   {
     title: 'Theme Parks & Waterparks',
@@ -38,7 +38,7 @@ const activities = [
     link: '/activities/theme-parks',
     blurb: 'Burj Khalifa, Global Village & Aquaventure',
     badge: 'Family',
-    price: '₹3,299',
+    price: 3299,
   },
   {
     title: 'Luxury Yacht Rental',
@@ -46,7 +46,7 @@ const activities = [
     link: '/activities/yacht-rental',
     blurb: 'Private charters on the Arabian Gulf',
     badge: 'Luxury',
-    price: '₹8,500',
+    price: 8500,
   },
   {
     title: 'Houseboat & Backwater Cruise',
@@ -54,7 +54,7 @@ const activities = [
     link: '/activities/houseboat',
     blurb: "Kerala's serene backwaters & village life",
     badge: 'Trending',
-    price: '₹5,200',
+    price: 5200,
   },
 ];
 
@@ -66,7 +66,6 @@ export default function ActivitiesShowcase() {
       subtitle="Curated adventures — not just packages, but memories"
       bg="canvas"
       slidesPerViewDesktop={4}
-      autoplay
     >
       {activities.map((a, i) => (
         <UniversalCard

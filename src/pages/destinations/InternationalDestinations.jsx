@@ -18,7 +18,7 @@ export default function InternationalDestinations() {
   const { data: destinations = [], isPending } = useDestinationsByType('international');
 
   return (
-    <div className="min-h-screen bg-brand-canvas pt-20 pb-12">
+    <div className="min-h-screen bg-transparent pt-20 pb-12">
       {/* ------------- Asymmetric Hero -------------
           Headline + breadcrumb on the left, hero image on the right.
           A small highlight card breaks across the two sides at the bottom. */}

@@ -4,6 +4,7 @@ import { Star, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ImageWithFallback from './ImageWithFallback';
 import HeartIcon from './HeartIcon';
+import { CARD_BODY, CARD_LIFT, CARD_MEDIA, CARD_TITLE } from '@/lib/cardMetrics';
 
 /**
  * HotelCard — matches PackageCard visual language.
@@ -37,11 +38,11 @@ export default function HotelCard({ hotel, size = 'default' }) {
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         'group h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-shadow duration-300',
-        'shadow-soft-sm hover:shadow-soft-xl',
+        CARD_LIFT,
         isLarge ? 'border-brand-orange/30 ring-1 ring-brand-orange/10' : 'border-brand-hairline'
       )}
     >
-      <div className={cn('relative overflow-hidden', isLarge ? 'aspect-[16/10]' : 'aspect-[4/3]')}>
+      <div className={cn('relative overflow-hidden', CARD_MEDIA)}>
         <ImageWithFallback
           src={hotel.image}
           alt={hotel.name}
@@ -75,14 +76,11 @@ export default function HotelCard({ hotel, size = 'default' }) {
         )}
       </div>
 
-      <div className="flex flex-col flex-grow p-5">
+      <div className={cn('flex flex-col flex-grow', CARD_BODY)}>
         <span className="text-kicker uppercase text-brand-muted-ink font-poppins mb-2">
           {hotel.city ? `${hotel.city}${hotel.country ? ` · ${hotel.country}` : ''}` : hotel.category}
         </span>
-        <h3 className={cn(
-          'font-poppins font-semibold text-brand-ink mb-2 line-clamp-2 leading-snug',
-          isLarge ? 'text-lg md:text-xl' : 'text-base md:text-lg'
-        )}>
+        <h3 className={cn(CARD_TITLE, 'text-brand-ink mb-2')}>
           {hotel.name}
         </h3>
         {hotel.location && (

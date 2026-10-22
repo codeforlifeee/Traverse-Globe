@@ -1,17 +1,21 @@
-import { motion } from 'framer-motion';
-import { PhoneCall, MessageCircle } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { REVEAL_VIEWPORT, riseItem, staggerParent } from '@/lib/motionVariants';
+import { PhoneCall, Star } from 'lucide-react';
 import { useBanners } from '../hooks/queries';
 import { HERO_WIDTHS } from '@/lib/sanityImage';
 import ImageWithFallback from './revamp/ImageWithFallback';
 import Kicker from './revamp/Kicker';
-import HeroLeadForm from './HeroLeadForm';
+import HeroSearchBar from './HeroSearchBar';
 import WhatsAppIcon from './icons/WhatsAppIcon';
 import { companyInfo } from '../data/companyInfo';
+import ShimmerButton from './magicui/ShimmerButton';
+import NumberTicker from './magicui/NumberTicker';
 
 /**
  * Hero — REVAMP_PLAN §4.1 (CRO Update)
- * - Left: kicker + headline + subhead + dual CTA buttons (Call + WhatsApp)
- * - Right: Lead Capture Form connected to Google Sheets via /api/lead-webhook
+ * - Copy block: kicker + headline + subhead + dual CTA buttons (Call + WhatsApp) + stats
+ * - Below it: HeroSearchBar, a full-width horizontal lead bar (replaces the old
+ *   right-hand card, which was hidden below md and so missed most of the traffic)
  * - Background: Dubai skyline twilight image (brand-relevant)
  * - TrustStrip removed — relocated to Home.jsx below package cards
  */
@@ -21,6 +25,9 @@ const HERO_FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80';
 
 const HeroSection = () => {
+  const reduceMotion = useReducedMotion();
+  const parent = staggerParent(reduceMotion);
+  const item = riseItem(reduceMotion);
   const { data: banners = [] } = useBanners('general');
 
   // Render immediately — CMS banner swaps in when it arrives without blocking LCP.
@@ -54,32 +61,37 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative container-custom pt-24 pb-12 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="max-w-4xl">
+          {/* The hero reveals as one sequence rather than appearing all at once:
+              kicker, headline, promise, CTAs, then the proof. */}
+          <motion.div variants={parent} initial="hidden" animate="show">
+            <motion.div variants={item}>
+              <Kicker tone="orange" size="lg" className="text-white/90 mb-3 md:mb-4">
+                Curated family trips · India + UAE
+              </Kicker>
+            </motion.div>
 
-          {/* LEFT: copy + CTAs — 7/12 */}
-          <div className="lg:col-span-7">
-            <Kicker tone="orange" size="lg" className="text-white/90 mb-3 md:mb-4">
-              Curated family trips · India + UAE
-            </Kicker>
-
-            <h1 className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
+            <motion.h1 variants={item} className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
               Your genuine, affordable,{' '}
               <span className="text-brand-orange">first-to-go</span> travel partner.
-            </h1>
+            </motion.h1>
 
-            <p className="text-sm md:text-body-lg text-white/85 font-canva-sans max-w-xl mb-7 md:mb-9">
+            <motion.p variants={item} className="text-sm md:text-body-lg text-white/85 font-canva-sans max-w-xl mb-7 md:mb-9">
               Handpicked trips for real families. Fixed prices, no hidden fees, one WhatsApp away — from Karnal to Sharjah.
-            </p>
+            </motion.p>
 
             {/* Dual CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-3 md:gap-4">
-              <a
+            <motion.div variants={item} className="flex flex-wrap items-center gap-3 md:gap-4">
+              <ShimmerButton
+                as="a"
                 href={`tel:${companyInfo.phone.primary}`}
-                className="inline-flex items-center justify-center gap-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-2xl font-poppins font-semibold text-sm md:text-base shadow-glow-orange transition-all duration-200 transform hover:-translate-y-0.5"
+                shimmerColor="#ffffff"
+                shimmerDuration="2.2s"
+                className="px-7 py-4 rounded-2xl text-sm md:text-base"
               >
-                <PhoneCall className="w-5 h-5" />
+                <PhoneCall className="w-5 h-5 mr-1" />
                 Connect with an Expert
-              </a>
+              </ShimmerButton>
 
               <a
                 href={waUrl}
@@ -90,24 +102,73 @@ const HeroSection = () => {
                 <WhatsAppIcon className="w-5 h-5 text-emerald-400" />
                 Chat on WhatsApp
               </a>
-            </div>
+            </motion.div>
 
-            {/* Trust micro-copy */}
-            <p className="mt-5 text-white/60 text-xs font-canva-sans">
-              10,000+ families served since 2018 · 4.8★ across Google &amp; WhatsApp
-            </p>
-          </div>
+            {/* Trust proof — the numbers carry the claim.
+                Grouped into one glass strip with hairline dividers so the three
+                figures read as a single credential rather than three loose bits
+                of text floating on the photograph.
 
-          {/* RIGHT: Lead Capture Form — 5/12, hidden on mobile */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden md:block lg:col-span-5"
-          >
-            <HeroLeadForm />
+                The two quantities count up; the founding year does not. A year
+                is a number but not a quantity — animating it made the hero look
+                like a scoreboard, and thousands-separating it printed the
+                nonsense "Since 2,018". */}
+            <motion.dl
+              variants={item}
+              className="mt-8 inline-flex flex-wrap items-stretch gap-y-4 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur-md divide-x divide-white/20"
+            >
+              <div className="px-5 first:pl-0 last:pr-0">
+                <dt className="sr-only">families served</dt>
+                <dd>
+                  <span className="block font-poppins font-bold text-2xl md:text-3xl text-white leading-none">
+                    <NumberTicker value={10000} suffix="+" delay={0.5} />
+                  </span>
+                  <span className="mt-1.5 block text-[11px] font-poppins uppercase tracking-widest text-white/65">
+                    families served
+                  </span>
+                </dd>
+              </div>
+
+              <div className="px-5 first:pl-0 last:pr-0">
+                <dt className="sr-only">Google and WhatsApp rating</dt>
+                <dd>
+                  <span className="flex items-baseline gap-1 font-poppins font-bold text-2xl md:text-3xl text-white leading-none">
+                    <NumberTicker value={4.8} decimalPlaces={1} delay={0.65} />
+                    <Star className="w-4 h-4 md:w-5 md:h-5 shrink-0 translate-y-[-1px] fill-brand-orange text-brand-orange" />
+                  </span>
+                  <span className="mt-1.5 block text-[11px] font-poppins uppercase tracking-widest text-white/65">
+                    Google &amp; WhatsApp
+                  </span>
+                </dd>
+              </div>
+
+              <div className="px-5 first:pl-0 last:pr-0">
+                <dt className="sr-only">planning trips since</dt>
+                <dd>
+                  <span className="block font-poppins font-bold text-2xl md:text-3xl text-white leading-none tabular-nums">
+                    <span className="text-white/60 text-lg md:text-xl font-semibold">Since </span>2018
+                  </span>
+                  <span className="mt-1.5 block text-[11px] font-poppins uppercase tracking-widest text-white/65">
+                    planning trips
+                  </span>
+                </dd>
+              </div>
+            </motion.dl>
           </motion.div>
         </div>
+
+        {/* Horizontal lead bar — the hero's primary conversion surface, on every
+            breakpoint. Last in the same sequence, on the shared spring rather
+            than the linear tween it used to carry. */}
+        <motion.div
+          variants={item}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.45 }}
+          className="mt-10 md:mt-14"
+        >
+          <HeroSearchBar />
+        </motion.div>
       </div>
     </section>
   );

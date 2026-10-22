@@ -133,6 +133,7 @@ See `DESIGN.md` for the full UI/UX revamp specifications. Key constraints:
 - Primary CTA color: `#FF5B04` (orange) — reserved for primary actions only
 - Background: off-white (`#f8fafc` to `#f1f5f9`), never pure white for main bg
 - Cards: `rounded-2xl`, `shadow-md` resting / `shadow-xl` hover with `hover:-translate-y-1`
+- **Animation System (Magic UI + Lenis)**: Defined in `.claude/skills/tg-magic-animations/SKILL.md`. Uses `lenis` for inertial smooth scrolling, `framer-motion` spring physics, and Magic UI primitives in `src/components/magicui/` (`ShimmerButton`, `NumberTicker`, `Globe`, `Marquee`).
 - All data-fetching states must use skeleton loaders, never spinners or blank screens.
   **Partially met:** the route-level fallback and the homepage sections use skeletons, but
   `Hotels.jsx`, `HotelDetail.jsx`, `DestinationList.jsx`, `DestinationDetail.jsx` and

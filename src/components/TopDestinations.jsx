@@ -22,7 +22,6 @@ const TopDestinations = () => {
       subtitle="Discover the hottest travel spots around the country"
       bg="canvas"
       slidesPerViewDesktop={4}
-      autoplay
     >
       {destinations.map((d, i) => (
         <UniversalCard

@@ -34,12 +34,12 @@ export default function Trust() {
   return (
     <div className="pb-20">
       {/* Hero */}
-      <div className="bg-brand-scrim text-white pt-28 md:pt-32 pb-16">
+      <div className="page-band page-band--dark text-white pt-28 md:pt-32 pb-16">
         <div className="container-custom">
           <BreadcrumbTrail items={[{ label: 'Trust' }]} tone="light" />
           <div className="mt-4 max-w-3xl">
             <Kicker tone="orange">Why families trust us</Kicker>
-            <h1 className="text-display font-poppins font-bold mt-3">
+            <h1 className="text-display font-poppins font-bold text-white mt-3">
               The receipts, not the <span className="text-brand-orange">adjectives.</span>
             </h1>
             <p className="mt-4 text-body-lg text-white/80 font-canva-sans max-w-2xl">

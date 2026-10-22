@@ -112,8 +112,17 @@ export default {
         'bounce-slow': 'bounce 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
         'ken-burns': 'kenBurns 16s ease-in-out infinite alternate',
+        // Ambient background orbs (AestheticBackground). Long, offset periods so the
+        // orbs never visibly sync up; transform-only so it stays on the compositor.
+        'orb-drift': 'orbDrift 38s ease-in-out infinite alternate',
+        'orb-drift-slow': 'orbDrift 52s ease-in-out infinite alternate',
+        'orb-drift-reverse': 'orbDrift 44s ease-in-out infinite alternate-reverse',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "shimmer-slide": "shimmer-slide var(--speed) ease-in-out infinite alternate",
+        "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
       keyframes: {
         fadeInUp: {
@@ -123,6 +132,11 @@ export default {
         fadeIn: {
           'from': { opacity: '0' },
           'to': { opacity: '1' },
+        },
+        orbDrift: {
+          '0%': { transform: 'translate3d(0, 0, 0) scale(1)' },
+          '50%': { transform: 'translate3d(-6%, 4%, 0) scale(1.06)' },
+          '100%': { transform: 'translate3d(4%, -3%, 0) scale(0.96)' },
         },
         kenBurns: {
           '0%': { transform: 'scale(1) translate(0,0)' },
@@ -135,6 +149,33 @@ export default {
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
+        },
+        "shimmer-slide": {
+          to: {
+            transform: "translate(calc(100cqw - 100%), 0)",
+          },
+        },
+        "spin-around": {
+          "0%": {
+            transform: "translateZ(0) rotate(0)",
+          },
+          "15%, 35%": {
+            transform: "translateZ(0) rotate(90deg)",
+          },
+          "65%, 85%": {
+            transform: "translateZ(0) rotate(270deg)",
+          },
+          "100%": {
+            transform: "translateZ(0) rotate(360deg)",
+          },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
         },
       },
     },

@@ -1,6 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion';
 import {
   Phone,
   Eye,
@@ -22,6 +29,24 @@ import { slugify } from '../utils/slug';
 import { companyInfo } from '../data/companyInfo';
 import HeartIcon from './revamp/HeartIcon';
 import ImageWithFallback from './revamp/ImageWithFallback';
+import { CARD_BODY, CARD_LIFT, CARD_MEDIA, CARD_TITLE } from '@/lib/cardMetrics';
+
+// Split out: the enquiry form only mounts once someone actually asks for a quote,
+// so it stays off the bundle for every listing and carousel that renders cards.
+const BookingModal = lazy(() => import('./BookingModal'));
+
+/**
+ * Motion constants (tg-magic-animations 2.1 - spring physics, never a linear
+ * duration). One spring drives the tilt, the spotlight and the button feedback,
+ * so every moving part of the card settles on the same curve.
+ */
+const CARD_SPRING = { type: 'spring', stiffness: 300, damping: 25, mass: 0.8 };
+/** Spring config for raw motion values (useSpring takes no `type`). */
+const VALUE_SPRING = { stiffness: 300, damping: 25, mass: 0.8 };
+/** Peak tilt in degrees. Restrained on purpose - a luxury card leans, it does not swivel. */
+const MAX_TILT = 6;
+/** Diameter of the cursor spotlight that rides the card's border. */
+const SPOTLIGHT_SIZE = 260;
 
 const formatDuration = (nights) => {
   if (!nights) return '5 Days & 4 Nights';
@@ -93,7 +118,7 @@ export default function PackageCard({
 }) {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [showCallTooltip, setShowCallTooltip] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const navigate = useNavigate();
 
   const basePackage = pkg || {
@@ -221,26 +246,127 @@ export default function PackageCard({
   const isLarge = size === 'large';
   const isCompact = size === 'compact';
 
+  /* ------------------------------------------------------------------ *
+   * Mouse-following 3D tilt + cursor spotlight
+   *
+   * Everything below is driven by motion values, which write to the compositor
+   * without going through React - a pointermove handler that set state would
+   * re-render the whole card (and in a rail, every card) on every frame. Only
+   * `transform` and `opacity` are animated (2.2): the spotlight is a fixed-size
+   * radial blob translated with x/y rather than a moving background-position,
+   * so nothing repaints as the cursor travels.
+   * ------------------------------------------------------------------ */
+  const reduceMotion = useReducedMotion();
+  // Tilt is a pointer affordance: pointless on touch, and mid-flip the inner
+  // face is already carrying a rotateY of its own.
+  const tiltEnabled = !reduceMotion && !soldOut && !isFlipped;
+
+  const pointerX = useMotionValue(0.5);
+  const pointerY = useMotionValue(0.5);
+  const glowX = useMotionValue(-SPOTLIGHT_SIZE);
+  const glowY = useMotionValue(-SPOTLIGHT_SIZE);
+  const glowOpacity = useSpring(0, VALUE_SPRING);
+
+  const rotateX = useSpring(
+    useTransform(pointerY, [0, 1], [MAX_TILT, -MAX_TILT]),
+    VALUE_SPRING
+  );
+  const rotateY = useSpring(
+    useTransform(pointerX, [0, 1], [-MAX_TILT, MAX_TILT]),
+    VALUE_SPRING
+  );
+
+  // The card's box is measured once per hover rather than per move: reading
+  // getBoundingClientRect() inside pointermove forces a layout every frame.
+  const rectRef = useRef(null);
+
+  const handlePointerEnter = useCallback((e) => {
+    if (!tiltEnabled || e.pointerType !== 'mouse') return;
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+    glowOpacity.set(1);
+  }, [tiltEnabled, glowOpacity]);
+
+  const handlePointerMove = useCallback((e) => {
+    if (!tiltEnabled || e.pointerType !== 'mouse') return;
+    const rect = rectRef.current;
+    if (!rect) return;
+    const localX = e.clientX - rect.left;
+    const localY = e.clientY - rect.top;
+    pointerX.set(localX / rect.width);
+    pointerY.set(localY / rect.height);
+    glowX.set(localX - SPOTLIGHT_SIZE / 2);
+    glowY.set(localY - SPOTLIGHT_SIZE / 2);
+  }, [tiltEnabled, pointerX, pointerY, glowX, glowY]);
+
+  const handlePointerLeave = useCallback(() => {
+    rectRef.current = null;
+    // Back to dead centre, so the springs unwind the tilt instead of snapping.
+    pointerX.set(0.5);
+    pointerY.set(0.5);
+    glowOpacity.set(0);
+  }, [pointerX, pointerY, glowOpacity]);
+
   return (
     <motion.div
-      whileHover={soldOut ? {} : { y: -4 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      whileHover={soldOut || reduceMotion ? {} : { y: -6 }}
+      // No whileTap on the shell any more: the CTA owns the press feedback, and
+      // scaling both made a single tap read as two gestures.
+      transition={CARD_SPRING}
+      style={
+        tiltEnabled
+          ? { rotateX, rotateY, transformPerspective: 1200 }
+          : undefined
+      }
       className={cn(
         'group relative h-full flex flex-col rounded-2xl overflow-hidden bg-surface border transition-all duration-300',
-        'shadow-soft-sm hover:shadow-soft-xl',
+        CARD_LIFT,
         isLarge ? 'border-brand-orange/40 ring-1 ring-brand-orange/20' : 'border-brand-hairline',
         soldOut && 'grayscale opacity-70 pointer-events-none'
       )}
     >
-      <div className="flip-card-container w-full h-full" style={{ minHeight: isLarge ? 540 : 490 }}>
+      {/* Cursor spotlight, masked to the border ring.
+          The mask knocks the content box out of the overlay, so the gradient is
+          only ever visible in the 1.5px frame - the blob itself is a plain
+          translated div, which keeps this on the compositor. */}
+      {tiltEnabled && (
+        <motion.span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-20 rounded-2xl"
+          style={{
+            opacity: glowOpacity,
+            padding: 1.5,
+            WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            WebkitMaskComposite: 'xor',
+            mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            maskComposite: 'exclude',
+          }}
+        >
+          <motion.span
+            className="absolute left-0 top-0 block rounded-full"
+            style={{
+              x: glowX,
+              y: glowY,
+              width: SPOTLIGHT_SIZE,
+              height: SPOTLIGHT_SIZE,
+              background:
+                'radial-gradient(circle, rgba(255,91,4,0.85) 0%, rgba(255,91,4,0.35) 38%, rgba(255,91,4,0) 70%)',
+            }}
+          />
+        </motion.span>
+      )}
+      <div className="flip-card-container w-full">
         <div
           className="flip-card w-full h-full"
           style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
         >
           {/* ==================== FRONT OF CARD ==================== */}
           <div className="flip-card-front w-full h-full flex flex-col bg-surface">
-            {/* Top Media Header */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-brand-canvas-2 select-none">
+            {/* Top Media Header — one ratio for every card on the site, so a
+                package card and an activity card are the same height. */}
+            <div className={cn('relative overflow-hidden bg-brand-canvas-2 select-none', CARD_MEDIA)}>
               <ImageWithFallback
                 src={imageList[activeImageIdx]}
                 alt={packageData.title}
@@ -321,7 +447,7 @@ export default function PackageCard({
             </div>
 
             {/* Body Section */}
-            <div className="p-4 md:p-5 flex flex-col flex-1">
+            <div className={cn(CARD_BODY, 'flex flex-col flex-1')}>
               {/* Row 1: Duration (Left) & Star Rating (Right) */}
               <div className="flex items-center justify-between gap-2 text-xs font-poppins text-brand-muted-ink mb-1.5">
                 <span className="inline-flex items-center gap-1 font-medium text-brand-ink">
@@ -339,14 +465,14 @@ export default function PackageCard({
               </div>
 
               {/* Row 2: Package Title */}
-              <h3 className="font-poppins font-bold text-brand-ink text-base md:text-lg line-clamp-2 leading-snug mb-2 group-hover:text-brand-orange transition-colors">
+              <h3 className={cn(CARD_TITLE, 'text-brand-ink mb-1.5 group-hover:text-brand-orange transition-colors')}>
                 <a href={packageLink} onClick={(e) => { e.preventDefault(); handleViewPackage(); }}>
                   {packageData.title}
                 </a>
               </h3>
 
               {/* Row 3: Itinerary Highlights / Stops Pill */}
-              <div className="mb-3">
+              <div className="mb-2">
                 <span className="bg-amber-50 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 text-[11px] font-poppins font-medium px-2.5 py-1 rounded-md inline-block line-clamp-1 border border-amber-200/60 dark:border-amber-800/40">
                   {stopsPill}
                 </span>
@@ -379,7 +505,7 @@ export default function PackageCard({
                 </div>
 
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-xl md:text-2xl font-bold font-poppins text-brand-ink leading-none">
+                  <span className="text-lg md:text-xl font-bold font-poppins text-brand-ink leading-none">
                     ₹{packageData.price ? packageData.price.toLocaleString('en-IN') : '24,999'}
                   </span>
                   <span className="text-xs text-brand-muted-ink font-canva-sans">
@@ -388,30 +514,40 @@ export default function PackageCard({
                 </div>
 
                 {/* Bottom Buttons: Call Button (Left) + View Package (Right) */}
-                <div className="mt-4 flex items-center gap-2">
-                  {/* Left: Square Call Button */}
-                  <a
-                    href={`tel:${companyInfo.phone.primary}`}
-                    aria-label="Call an expert"
-                    className="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-all shadow-soft-sm hover:shadow-glow-orange"
-                    title={`Call expert: ${companyInfo.phone.primary}`}
+                <div className="mt-2.5 flex items-center gap-2">
+                  {/* Left: opens the enquiry form inline. A tel: link was a dead end on
+                      desktop, where most of this traffic sits. */}
+                  <motion.button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setBookingOpen(true); }}
+                    aria-label={`Contact us about ${packageData.title}`}
+                    whileHover={reduceMotion ? {} : { scale: 1.02 }}
+                    whileTap={reduceMotion ? {} : { scale: 0.97 }}
+                    transition={CARD_SPRING}
+                    className="w-9 h-9 shrink-0 flex items-center justify-center rounded-xl border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-colors shadow-soft-sm hover:shadow-glow-orange"
+                    title="Contact us about this package"
                   >
-                    <Phone className="w-5 h-5" />
-                  </a>
+                    <Phone className="w-4 h-4" />
+                  </motion.button>
 
-                  {/* Right: Primary View Package Button */}
-                  <button
+                  {/* Right: primary CTA. The old `hover:-translate-y-0.5` was a
+                      linear CSS transition on transform; press feedback is a
+                      spring scale-down now (2.1, 2.4). */}
+                  <motion.button
                     onClick={handleViewPackage}
                     disabled={soldOut}
+                    whileHover={soldOut || reduceMotion ? {} : { scale: 1.02 }}
+                    whileTap={soldOut || reduceMotion ? {} : { scale: 0.97 }}
+                    transition={CARD_SPRING}
                     className={cn(
-                      'flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-poppins font-semibold transition-all duration-200 shadow-soft-md',
+                      'flex-1 inline-flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-[13px] font-poppins font-semibold transition-colors shadow-soft-md',
                       soldOut
                         ? 'bg-brand-hairline text-brand-muted-ink cursor-not-allowed'
-                        : 'bg-brand-orange hover:bg-brand-orange-hover text-white hover:shadow-glow-orange hover:-translate-y-0.5'
+                        : 'bg-brand-orange hover:bg-brand-orange-hover text-white hover:shadow-glow-orange'
                     )}
                   >
                     {buttonLabel}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </div>
@@ -501,16 +637,11 @@ export default function PackageCard({
               )}
             </div>
 
-            {/* Quick Consultation Actions on Card Back */}
+            {/* Quick Consultation Actions on Card Back.
+                The "Call Expert" button was removed — the front of the card already
+                opens the enquiry form, and exposing a raw phone number here on
+                every card made the back read as an advert. */}
             <div className="mt-3 pt-3 border-t border-brand-hairline space-y-2">
-              <a
-                href={`tel:${companyInfo.phone.primary}`}
-                className="w-full inline-flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white py-2.5 px-4 rounded-xl text-xs font-poppins font-semibold transition-colors shadow-soft-sm"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                Call Expert ({companyInfo.phone.primary})
-              </a>
-
               <a
                 href={`https://wa.me/${companyInfo.phone.whatsapp}?text=${encodeURIComponent(`Hi Traverse Globe! I want details on: ${packageData.title}`)}`}
                 target="_blank"
@@ -524,6 +655,18 @@ export default function PackageCard({
           </div>
         </div>
       </div>
+
+      {bookingOpen && (
+        <Suspense fallback={null}>
+          <BookingModal
+            open={bookingOpen}
+            onClose={() => setBookingOpen(false)}
+            packageName={packageData.title}
+            packageId={packageData._id || packageData.id}
+            basePrice={packageData.price}
+          />
+        </Suspense>
+      )}
     </motion.div>
   );
 }

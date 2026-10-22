@@ -15,8 +15,8 @@ import Kicker from '../../components/revamp/Kicker';
 import FilterRail from '../../components/revamp/FilterRail';
 import MobileFilterSheet from '../../components/revamp/MobileFilterSheet';
 import { SkeletonList } from '../../components/revamp/Skeletons';
+import NoMatchCTA from '../../components/revamp/NoMatchCTA';
 import ImageWithFallback from '../../components/revamp/ImageWithFallback';
-import { Button } from '@/components/ui/button';
 
 /* ---- shared helpers (duplicated from PackagesListing to keep this file self-contained) ---- */
 
@@ -54,7 +54,6 @@ export default function DestinationList() {
     themes: [],
     stars: [],
     categories: [],
-    freeCancellation: false,
   });
 
   // Compute the min/max from the actual data so the slider feels right for *this* destination
@@ -82,7 +81,6 @@ export default function DestinationList() {
         const has = Array.isArray(p.themes) && p.themes.some((t) => filters.themes.includes(t));
         if (!has) return false;
       }
-      if (filters.freeCancellation && !(p.freeCancellationDays > 0)) return false;
       return true;
     });
   }, [packages, filters]);
@@ -97,9 +95,13 @@ export default function DestinationList() {
     }
   }, [filtered, sortBy]);
 
+  const resetFilters = () => setFilters({
+    priceRange: [facets.priceMin, facets.priceMax],
+    durations: [], themes: [], stars: [], categories: [],
+  });
+
   const activeCount = filters.durations.length + filters.themes.length + filters.stars.length
     + filters.categories.length
-    + (filters.freeCancellation ? 1 : 0)
     + ((filters.priceRange[0] > facets.priceMin || filters.priceRange[1] < facets.priceMax) ? 1 : 0);
 
   if (!config) return <Navigate to="/destinations" replace />;
@@ -109,7 +111,7 @@ export default function DestinationList() {
   const hero = banners?.[0] || null;
 
   return (
-    <div className="pb-16 bg-brand-canvas min-h-screen">
+    <div className="pb-16 bg-transparent min-h-screen">
       {/* ---------- Compact hero (no on-image search) ---------- */}
       <section className="relative">
         <div className="relative h-[280px] md:h-[360px] lg:h-[420px] overflow-hidden bg-brand-canvas-2">
@@ -141,12 +143,6 @@ export default function DestinationList() {
                       {config.description}
                     </p>
                   )}
-                </div>
-                <div className="hidden md:block text-right">
-                  <p className="text-kicker uppercase text-white/70">Available packages</p>
-                  <p className="font-season text-3xl font-bold">
-                    {isLoading ? '…' : sorted.length}
-                  </p>
                 </div>
               </div>
             </div>
@@ -199,38 +195,23 @@ export default function DestinationList() {
             {isLoading ? (
               <SkeletonList count={9} columns={3} />
             ) : sorted.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-brand-hairline bg-surface p-10 text-center">
-                <Kicker>Nothing matched</Kicker>
-                <h3 className="text-h3 font-poppins font-semibold text-brand-ink mt-2">
-                  Try widening your filters
-                </h3>
-                <p className="mt-2 text-sm text-brand-muted-ink font-canva-sans max-w-sm mx-auto">
-                  Reset filters, or widen the price range, to see every {config.name} package.
-                </p>
-                <Button
-                  variant="outline"
-                  className="mt-4"
-                  onClick={() => setFilters({
-                    priceRange: [facets.priceMin, facets.priceMax],
-                    durations: [], themes: [], stars: [], categories: [], freeCancellation: false,
-                  })}
-                >
-                  Reset filters
-                </Button>
-              </div>
+              <NoMatchCTA variant="empty" scopeLabel={config.name} onReset={resetFilters} />
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {sorted.map((p, idx) => (
-                  <PackageCard
-                    key={p._id || p.id}
-                    pkg={p}
-                    category={category}
-                    destination={`/destinations/${type}/${category}/${p.slug?.current || slugify(p.title)}`}
-                    // Elevate the middle card in each row of three — "pick the winner" per DESIGN.md
-                    size={idx % 3 === 1 ? 'large' : 'default'}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {sorted.map((p, idx) => (
+                    <PackageCard
+                      key={p._id || p.id}
+                      pkg={p}
+                      category={category}
+                      destination={`/destinations/${type}/${category}/${p.slug?.current || slugify(p.title)}`}
+                      // Elevate the middle card in each row of three — "pick the winner" per DESIGN.md
+                      size={idx % 3 === 1 ? 'large' : 'default'}
+                    />
+                  ))}
+                </div>
+                <NoMatchCTA onReset={resetFilters} />
+              </>
             )}
           </section>
         </div>

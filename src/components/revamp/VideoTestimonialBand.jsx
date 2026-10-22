@@ -113,7 +113,7 @@ export default function VideoTestimonialBand() {
 
   if (isPending) {
     return (
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-surface/65 backdrop-blur-[2px]">
         <div className="container-custom">
           <SkeletonList count={3} columns={3} />
         </div>
@@ -124,7 +124,7 @@ export default function VideoTestimonialBand() {
   if (!videos.length) return null;
 
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-padding bg-surface/65 backdrop-blur-[2px]">
       <div className="container-custom">
         {/* Section header */}
         <div className="mb-6 md:mb-8 flex items-end justify-between gap-6">

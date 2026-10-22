@@ -3,6 +3,8 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { companyInfo } from '../data/companyInfo';
 import { useBlogPosts } from '../hooks/queries';
+import { cn } from '@/lib/utils';
+import { CARD_MEDIA } from '@/lib/cardMetrics';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -16,7 +18,6 @@ const heroImages = [
 
 export default function Blog() {
   const { slug } = useParams();
-  const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
   const { data: postsData = [], isPending } = useBlogPosts();
 
@@ -25,15 +26,10 @@ export default function Blog() {
     [postsData]
   );
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return postsData.filter((p) => {
-      const matchesCat = category === 'All' || p.category === category;
-      if (!q) return matchesCat;
-      const hay = `${p.title} ${p.excerpt} ${p.category}`.toLowerCase();
-      return matchesCat && hay.includes(q);
-    });
-  }, [query, category, postsData]);
+  const filtered = useMemo(
+    () => postsData.filter((p) => category === 'All' || p.category === category),
+    [category, postsData]
+  );
 
   const featured = filtered[0] || postsData[0];
   const others = featured ? filtered.filter((p) => p.id !== featured.id) : [];
@@ -49,7 +45,7 @@ export default function Blog() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="rounded-2xl overflow-hidden border border-brand-hairline">
-                <div className="aspect-[4/3] bg-brand-canvas-2" />
+                <div className={cn(CARD_MEDIA, "bg-brand-canvas-2")} />
                 <div className="p-4 space-y-2">
                   <div className="h-4 w-3/4 rounded bg-brand-canvas-2" />
                   <div className="h-3 w-1/2 rounded bg-brand-canvas-2" />
@@ -68,7 +64,7 @@ export default function Blog() {
     if (!post) return <Navigate to="/blog" replace />;
 
     return (
-      <div className="min-h-screen pt-28 pb-16 bg-surface">
+      <div className="min-h-screen pt-28 pb-16 bg-transparent">
         <div className="container-custom max-w-3xl">
           <Link to="/blog" className="inline-flex items-center text-brand-teal hover:text-brand-orange font-semibold transition-colors mb-8">
             <span className="mr-2">←</span> Back to Travel Guides
@@ -213,25 +209,8 @@ export default function Blog() {
           ))}
         </Swiper>
 
-        {/* Overlay heading + search */}
-        <div className="absolute inset-x-0 bottom-6 md:bottom-10 flex justify-center z-10">
-          <div className="w-11/12 max-w-3xl bg-surface/95 backdrop-blur-md rounded-full shadow-soft-xl flex overflow-hidden border border-brand-hairline">
-            <div className="px-5 py-3 text-brand-ink font-poppins font-medium whitespace-nowrap hidden md:block border-r border-brand-hairline">Search</div>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search articles, destinations, tips..."
-              className="flex-1 px-4 py-3 bg-transparent outline-none text-brand-ink placeholder:text-brand-muted-ink"
-            />
-            <button className="bg-brand-orange hover:bg-brand-orange-hover text-white px-5 md:px-7 transition-colors" aria-label="Search">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-                <circle cx="11" cy="11" r="7" strokeWidth="2" />
-                <path d="M20 20l-3.5-3.5" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        {/* The on-hero search bar was removed — the category chips below do the
+            filtering, and sitewide search lives in the header. */}
       </section>
 
       {/* Filters */}
@@ -242,7 +221,7 @@ export default function Blog() {
               key={c}
               onClick={() => setCategory(c)}
               className={`px-4 py-1.5 rounded-full text-sm font-poppins font-medium border transition-colors ${
-                category === c ? 'bg-brand-ink text-white border-brand-ink' : 'bg-surface text-brand-ink border-brand-hairline hover:border-brand-orange hover:text-brand-orange'
+                category === c ? 'bg-brand-orange text-white border-brand-orange shadow-glow-orange' : 'bg-surface text-brand-ink border-brand-hairline hover:border-brand-orange hover:text-brand-orange'
               }`}
             >
               {c}
@@ -288,7 +267,7 @@ export default function Blog() {
                   {featured.excerpt}
                 </p>
                 <div className="mt-8">
-                  <span className="inline-flex items-center justify-center font-poppins font-semibold text-sm transition-all h-11 px-6 rounded-full bg-brand-ink text-white group-hover:bg-brand-orange">
+                  <span className="inline-flex items-center justify-center font-poppins font-semibold text-sm transition-all h-11 px-6 rounded-full bg-brand-orange text-white group-hover:bg-brand-orange-hover">
                     Read Article
                   </span>
                 </div>
@@ -309,7 +288,7 @@ export default function Blog() {
             {others.map((p) => (
               <Link to={p.url || `/guides/${p.slug}`} key={p.id} className="group flex flex-col bg-surface rounded-2xl shadow-soft-sm hover:shadow-soft-xl border border-brand-hairline overflow-hidden transition-all hover:-translate-y-1">
                 {p.image && (
-                  <div className="relative aspect-[16/10] overflow-hidden bg-brand-canvas-2">
+                  <div className={cn("relative overflow-hidden bg-brand-canvas-2", CARD_MEDIA)}>
                     <img 
                       src={(p.image.includes('images.unsplash.com') ? p.image.replace(/q=\d+/, 'q=50') + (p.image.includes('fm=') ? '' : '&fm=webp') : p.image)} 
                       srcSet={`${p.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=50')} 400w, ${p.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=50')} 600w, ${p.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=50')} 800w`}

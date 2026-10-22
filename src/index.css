@@ -120,6 +120,16 @@
     @apply font-canva-sans bg-brand-canvas text-brand-ink m-0 overflow-x-hidden;
     font-size: 16px;
     line-height: 1.6;
+
+    /* Ambient page gradient. Two very low-opacity brand washes over the canvas
+       token, so it still tracks light/dark and sections that set their own
+       bg-surface / bg-brand-canvas-2 continue to read as distinct bands.
+       `fixed` keeps the wash still while the page scrolls. */
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, rgb(var(--c-orange) / 0.07), transparent 60%),
+      radial-gradient(55rem 38rem at 0% 15%, rgb(var(--c-teal) / 0.06), transparent 60%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
   
   h1 {
@@ -191,8 +201,102 @@
     @apply py-6 md:py-8 lg:py-10;
   }
 
+  /* Vertical rhythm for full-width content sections — one place to tune the
+     gap between bands. 36 / 48 / 56px per side (was 48 / 64 / 80, and 56 / 80 / 96
+     in revamp/Section.jsx), so two adjacent sections sit 72 / 96 / 112px apart. */
+  .section-y {
+    @apply py-9 md:py-12 lg:py-14;
+  }
+
+  /* Home page lazy sections (pages/Home.jsx). `auto` lets the browser keep the
+     real size once a section has rendered; the variable is only the first guess. */
+  .lazy-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--h-m);
+  }
+  .lazy-section-fallback { min-height: var(--h-m); }
+  @media (min-width: 1024px) {
+    .lazy-section { contain-intrinsic-size: auto var(--h-d); }
+    .lazy-section-fallback { min-height: var(--h-d); }
+  }
+
   .container-custom {
     @apply container mx-auto px-4 md:px-6 lg:px-8 max-w-[1400px];
+  }
+
+  /* Full-bleed horizontal rails (UniversalCarousel, CollectionGallery, reviews).
+     The scroller spans the full section width and pads its start by exactly the
+     container-custom gutter, so the first card lines up with the heading while
+     later cards run off the right edge of the screen.
+
+     The gutter mirrors container-custom at every breakpoint (px-4 / md:px-6 /
+     lg:px-8 + centring inside 1400px). It uses % rather than 100vw: % resolves
+     against the section, which excludes a classic Windows scrollbar, whereas
+     100vw includes it and drifts ~8px. scroll-padding must equal the padding or
+     snap-start pulls the first card flush to the screen edge. */
+  .rail-bleed {
+    --rail-gutter: 1rem;
+    padding-inline: var(--rail-gutter);
+    scroll-padding-inline: var(--rail-gutter);
+  }
+  @media (min-width: 768px) {
+    .rail-bleed { --rail-gutter: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .rail-bleed { --rail-gutter: max(2rem, calc((100% - 1400px) / 2 + 2rem)); }
+  }
+
+  /* Page title bands (breadcrumb + kicker + heading on listing pages).
+     These sit at the very top of the page, where AestheticBackground's dot grid
+     fades out under its mask and the header covers the orbs, so on their own
+     they read as a blank slab. The band carries its own pattern instead: a dot
+     grid, corner washes in the two brand hues, and a faint dashed flight arc —
+     all token-driven, so it follows light/dark like the rest of the theme.
+     The arc is an SVG mask filled with the orange token (a data-URI SVG cannot
+     read CSS variables directly). `isolation` keeps the ::after layer behind
+     the band's content without needing a z-index on every child. */
+  .page-band {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: rgb(var(--c-canvas) / 0.55);
+    background-image:
+      radial-gradient(rgb(var(--c-ink) / 0.13) 1.15px, transparent 1.4px),
+      radial-gradient(42rem 20rem at 88% -10%, rgb(var(--c-orange) / 0.16), transparent 70%),
+      radial-gradient(38rem 20rem at -5% 110%, rgb(var(--c-teal) / 0.14), transparent 70%);
+    background-size: 22px 22px, auto, auto;
+    background-position: 0 0, 0 0, 0 0;
+  }
+  .page-band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: rgb(var(--c-orange) / 0.45);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 240' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-dasharray='2 9'%3E%3Cpath d='M20 210 C 180 60, 380 30, 620 70'/%3E%3Cpath d='M160 240 C 300 150, 470 140, 640 170'/%3E%3Ccircle cx='620' cy='70' r='3.5' fill='black' stroke='none'/%3E%3Ccircle cx='20' cy='210' r='3.5' fill='black' stroke='none'/%3E%3C/svg%3E") right center / min(44rem, 55%) auto no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 240' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-dasharray='2 9'%3E%3Cpath d='M20 210 C 180 60, 380 30, 620 70'/%3E%3Cpath d='M160 240 C 300 150, 470 140, 640 170'/%3E%3Ccircle cx='620' cy='70' r='3.5' fill='black' stroke='none'/%3E%3Ccircle cx='20' cy='210' r='3.5' fill='black' stroke='none'/%3E%3C/svg%3E") right center / min(44rem, 55%) auto no-repeat;
+  }
+  /* Variant for bands that are dark in both themes (bg-brand-scrim): light dots. */
+  .page-band.page-band--dark {
+    background-color: rgb(var(--c-scrim));
+    background-image:
+      radial-gradient(rgb(255 255 255 / 0.09) 1.15px, transparent 1.4px),
+      radial-gradient(42rem 20rem at 88% -10%, rgb(var(--c-orange) / 0.22), transparent 70%),
+      radial-gradient(38rem 20rem at -5% 110%, rgb(var(--c-teal) / 0.25), transparent 70%);
+  }
+
+  /* Same gutter for the copy half of a lg:grid-cols-2 full-width band
+     (BrochureBanner): there % resolves against the half-width column, so the
+     section width is 200%. Below lg the band is single-column. */
+  .bleed-start-half {
+    padding-inline-start: 1rem;
+  }
+  @media (min-width: 768px) {
+    .bleed-start-half { padding-inline-start: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .bleed-start-half { padding-inline-start: max(2rem, calc((200% - 1400px) / 2 + 2rem)); }
   }
 }
 
@@ -319,28 +423,36 @@
 }
 
 /* 3D Flip Card Styles */
+/* The FRONT stays in normal flow and defines the card's height; only the back is
+   taken out of flow and stretched to match it. Both faces used to be absolute,
+   and an absolute box contributes no height at all, so a card's size came
+   entirely from `min-height: 500px` here - a floor that silently overrode every
+   height the component asked for and left a dead band under the content.
+   Sizing from the front means a card is as tall as what it holds, and the shared
+   geometry in src/lib/cardMetrics.js is what actually decides that. */
 .flip-card-container {
   perspective: 1000px;
-  height: 100%;
   width: 100%;
+  /* Grow into whatever height the row gives us, but never demand one. In a rail
+     or grid the cards stretch to the tallest sibling and the front's own
+     `flex-1` body fills the extra space, so the price row stays pinned to the
+     bottom; standalone, everything is content-sized. */
+  flex: 1 1 auto;
+  display: flex;
 }
 
 .flip-card {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 500px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transform-style: preserve-3d;
 }
 
 .flip-card-front,
 .flip-card-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   display: flex;
@@ -348,6 +460,9 @@
 }
 
 .flip-card-front {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
   background-color: rgb(var(--c-surface));
   color: rgb(var(--c-ink));
   transform: rotateY(0deg);
@@ -355,11 +470,14 @@
 }
 
 .flip-card-back {
+  position: absolute;
+  inset: 0;
   background-color: rgb(var(--c-surface));
   color: rgb(var(--c-ink));
   transform: rotateY(180deg);
   z-index: 1;
 }
+
 
 /* ============================================
    CUSTOM SCROLLBAR
@@ -405,4 +523,33 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ============================================
+   NATIVE SELECT POPUPS
+   A `bg-transparent` <select> makes Chrome fall back to a white dropdown, so in
+   dark mode near-white option text landed on a white list (and in light mode the
+   highlighted row went blue-on-grey). Options carry explicit surface and ink
+   colours instead; `color-scheme` on :root covers the scroll track and tick mark.
+   Applies to every native select on the site — listing sorts, filters, the
+   contact form. The hero bar uses its own styled listbox.
+   ============================================ */
+select {
+  color-scheme: inherit;
+}
+
+select option,
+select optgroup {
+  background-color: rgb(var(--c-surface));
+  color: rgb(var(--c-ink));
+}
+
+select option:disabled {
+  color: rgb(var(--c-muted-ink));
+}
+
+select option:checked {
+  background-color: rgb(var(--c-orange) / 0.18);
+  color: rgb(var(--c-ink));
+  font-weight: 600;
 }

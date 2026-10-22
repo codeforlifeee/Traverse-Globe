@@ -582,5 +582,70 @@ export async function fetchHomeReviews({ limit = 60 } = {}) {
   }
 }
 
+/**
+ * Universal site search across every CMS document type a visitor can land on,
+ * in a single round trip.
+ *
+ * `match` is Sanity's tokenised text match, so the `*term*` form handles partial
+ * words. Local content (destinations, themes, activities, pages) is matched in
+ * src/lib/searchIndex.js instead — see hooks/useSiteSearch.js for how the two
+ * halves are merged.
+ *
+ * @param {string} keyword - raw query text
+ * @param {Object} limits - per-type result caps
+ * @returns {Promise<{packages:Array, hotels:Array, blogPosts:Array, destinations:Array}>}
+ */
+export async function searchContent(keyword, limits = {}) {
+  const empty = { packages: [], hotels: [], blogPosts: [], destinations: [] };
+  const term = String(keyword || '').trim();
+  if (term.length < 2) return empty;
+
+  const {
+    packages: pkgLimit = 12,
+    hotels: hotelLimit = 8,
+    blogPosts: blogLimit = 6,
+    destinations: destLimit = 6,
+  } = limits;
+
+  try {
+    const query = `{
+      "packages": *[_type == "package" && active == true && (
+          title match $q || destination match $q || category match $q ||
+          overview match $q || themes[] match $q
+        )] | order(featured desc, publishedAt desc)[0...$pkgLimit] { ${PACKAGE_CARD} },
+      "hotels": *[_type == "hotel" && (
+          name match $q || city match $q || country match $q ||
+          location match $q || category match $q
+        )] | order(featured desc)[0...$hotelLimit] { ${HOTEL_CARD} },
+      "blogPosts": *[_type == "blogPost" && (
+          title match $q || excerpt match $q || category match $q
+        )] | order(publishedAt desc)[0...$blogLimit] {
+          _id, title, slug, category, excerpt, image, publishedAt, readTime, url
+        },
+      "destinations": *[_type == "destination" && active == true && (
+          title match $q || description match $q || category match $q
+        )][0...$destLimit] { _id, title, slug, category, type, image, description }
+    }`;
+
+    const data = await sanityClient.fetch(query, {
+      q: `*${term}*`,
+      pkgLimit,
+      hotelLimit,
+      blogLimit,
+      destLimit,
+    });
+
+    return {
+      packages: data?.packages || [],
+      hotels: data?.hotels || [],
+      blogPosts: data?.blogPosts || [],
+      destinations: data?.destinations || [],
+    };
+  } catch (error) {
+    console.error('Error running site search:', error);
+    return empty;
+  }
+}
+
 // Export default client for custom queries
 export default sanityClient;

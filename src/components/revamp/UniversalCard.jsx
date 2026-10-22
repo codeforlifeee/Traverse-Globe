@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { buildSrcSet } from '@/lib/sanityImage';
+import { CARD_BODY, CARD_LIFT, CARD_MEDIA, CARD_TITLE } from '@/lib/cardMetrics';
 
 /**
  * UniversalCard — one card design for every carousel/grid on the site.
@@ -11,7 +12,7 @@ import { buildSrcSet } from '@/lib/sanityImage';
  *
  * Anatomy:
  *   ┌─────────────────────────┐
- *   │ [BADGE]           [★]   │  image, aspect-[4/5], badges float top
+ *   │ [BADGE]           [★]   │  image, CARD_MEDIA ratio, badges float top
  *   │                         │
  *   ├──── hairline ───────────┤
  *   │ KICKER                  │  optional uppercase micro-label
@@ -47,14 +48,17 @@ export default function UniversalCard({
       className={cn(
         'group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-all duration-300',
         'border border-brand-hairline',
-        'shadow-soft-sm hover:shadow-soft-xl hover:-translate-y-1',
+        CARD_LIFT,
+        'hover:-translate-y-1',
         isElevated && 'ring-2 ring-brand-orange/20 shadow-soft-md',
         'h-full',
         className
       )}
     >
       {/* Image */}
-      <div className="relative overflow-hidden aspect-[4/5] bg-brand-canvas-2">
+      {/* Was a 4/5 portrait, which made these cards roughly 200px taller than
+          every other card on the page. Shares the site ratio now. */}
+      <div className={cn('relative overflow-hidden bg-brand-canvas-2', CARD_MEDIA)}>
         {image ? (
           <img
             src={src}
@@ -101,14 +105,14 @@ export default function UniversalCard({
       <div className="h-px bg-brand-hairline" />
 
       {/* Content */}
-      <div className="flex flex-1 flex-col gap-2 p-4 md:p-5">
+      <div className={cn('flex flex-1 flex-col gap-2', CARD_BODY)}>
         {kicker && (
           <span className="text-kicker uppercase text-brand-muted-ink">
             {kicker}
           </span>
         )}
 
-        <h3 className="font-season text-lg md:text-xl leading-tight text-brand-ink">
+        <h3 className={cn(CARD_TITLE, 'text-brand-ink')}>
           {title}
         </h3>
 

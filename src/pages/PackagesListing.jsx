@@ -7,7 +7,7 @@ import MobileFilterSheet from '../components/revamp/MobileFilterSheet';
 import BreadcrumbTrail from '../components/revamp/BreadcrumbTrail';
 import Kicker from '../components/revamp/Kicker';
 import { SkeletonList } from '../components/revamp/Skeletons';
-import { Button } from '@/components/ui/button';
+import NoMatchCTA from '../components/revamp/NoMatchCTA';
 import { ChevronDown } from 'lucide-react';
 
 function parseDurationDays(pkg) {
@@ -41,7 +41,6 @@ export default function PackagesListing() {
     themes: [],
     stars: [],
     categories: [],
-    freeCancellation: false,
   });
 
   const facets = useMemo(() => {
@@ -69,7 +68,6 @@ export default function PackagesListing() {
         if (!has) return false;
       }
       if (filters.categories.length && !filters.categories.includes(p.category)) return false;
-      if (filters.freeCancellation && !(p.freeCancellationDays > 0)) return false;
       return true;
     });
   }, [rawPackages, filters]);
@@ -84,8 +82,12 @@ export default function PackagesListing() {
     }
   }, [filtered, sortBy]);
 
+  const resetFilters = () => setFilters({
+    priceRange: [facets.priceMin, facets.priceMax],
+    durations: [], themes: [], stars: [], categories: [],
+  });
+
   const activeCount = filters.durations.length + filters.themes.length + filters.stars.length + filters.categories.length
-    + (filters.freeCancellation ? 1 : 0)
     + ((filters.priceRange[0] > facets.priceMin || filters.priceRange[1] < facets.priceMax) ? 1 : 0);
 
   const allCategories = getAllCategories();
@@ -93,7 +95,7 @@ export default function PackagesListing() {
   return (
     <div className="pb-16">
       {/* Page header */}
-      <div className="bg-brand-canvas border-b border-brand-hairline pt-24 md:pt-28 pb-8">
+      <div className="page-band border-b border-brand-hairline pt-24 md:pt-28 pb-8">
         <div className="container-custom">
           <BreadcrumbTrail items={[{ label: 'All packages' }]} />
           <div className="mt-3 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
@@ -145,35 +147,22 @@ export default function PackagesListing() {
             {loading ? (
               <SkeletonList count={9} columns={3} />
             ) : sorted.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-brand-hairline p-10 text-center">
-                <Kicker>Nothing matched</Kicker>
-                <h3 className="text-h3 font-poppins font-semibold text-brand-ink mt-2">Try widening your filters</h3>
-                <p className="mt-2 text-sm text-brand-muted-ink font-canva-sans">
-                  Reset filters or expand your price range to see more packages.
-                </p>
-                <Button
-                  variant="outline"
-                  className="mt-4"
-                  onClick={() => setFilters({
-                    priceRange: [facets.priceMin, facets.priceMax],
-                    durations: [], themes: [], stars: [], categories: [], freeCancellation: false,
-                  })}
-                >
-                  Reset filters
-                </Button>
-              </div>
+              <NoMatchCTA variant="empty" onReset={resetFilters} />
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {sorted.map((p, idx) => (
-                  <PackageCard
-                    key={p._id || p.id}
-                    pkg={p}
-                    category={p.category}
-                    // Elevate the middle card in every row of 3 — "Pick the Winner"
-                    size={idx % 3 === 1 ? 'large' : 'default'}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {sorted.map((p, idx) => (
+                    <PackageCard
+                      key={p._id || p.id}
+                      pkg={p}
+                      category={p.category}
+                      // Elevate the middle card in every row of 3 — "Pick the Winner"
+                      size={idx % 3 === 1 ? 'large' : 'default'}
+                    />
+                  ))}
+                </div>
+                <NoMatchCTA onReset={resetFilters} />
+              </>
             )}
           </section>
         </div>

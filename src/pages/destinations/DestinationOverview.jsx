@@ -20,7 +20,7 @@ export default function DestinationOverview() {
   const isPending = intlPending || domPending;
 
   return (
-    <div className="min-h-screen bg-brand-canvas pt-20 pb-12">
+    <div className="min-h-screen bg-transparent pt-20 pb-12">
       {/* ---------- Asymmetric hero ---------- */}
       <section className="relative overflow-hidden">
         <div className="container-custom py-10 md:py-16 lg:py-20">
@@ -48,7 +48,7 @@ export default function DestinationOverview() {
                   </Link>
                   <Link
                     to="/destinations/domestic"
-                    className="inline-flex items-center gap-2 border border-brand-ink text-brand-ink hover:bg-brand-ink hover:text-white font-poppins font-semibold text-sm px-5 py-2.5 rounded-full transition-colors"
+                    className="inline-flex items-center gap-2 border border-brand-hairline text-brand-ink hover:bg-brand-orange hover:border-brand-orange hover:text-white font-poppins font-semibold text-sm px-5 py-2.5 rounded-full transition-colors"
                   >
                     <Mountain className="w-4 h-4" /> Within India
                   </Link>

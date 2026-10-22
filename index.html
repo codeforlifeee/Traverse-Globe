@@ -16,14 +16,14 @@
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem('tg_theme') || 'system';
-          var dark = stored === 'dark' || (stored !== 'light' &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches);
+          // Dark is the site default: anything other than an explicit 'light' is dark.
+          var stored = localStorage.getItem('tg_theme');
+          var dark = stored !== 'light';
           document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
           var meta = document.querySelector('meta[name="theme-color"]');
           if (meta) meta.setAttribute('content', dark ? '#0c1119' : '#FF5B04');
         } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       })();
     </script>
