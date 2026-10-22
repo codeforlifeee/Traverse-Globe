@@ -86,7 +86,7 @@ const HeroSection = () => {
             {/* Not animated: the headline is the mobile LCP element, and a fade-in
                 from opacity 0 delays LCP until the animation starts. The lines
                 around it still rise in, so the sequence reads the same. */}
-            <h1 className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl">
+            <h1 className="text-display font-poppins text-white mb-4 md:mb-5 max-w-3xl min-h-[96px] sm:min-h-[72px] md:min-h-0">
               Your genuine, affordable,{' '}
               <span className="text-brand-orange">first-to-go</span> travel partner.
             </h1>
